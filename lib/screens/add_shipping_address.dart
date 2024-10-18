@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/shipping_address_model.dart';
-import 'package:nfc_app/provider/order_provider.dart';
+import 'package:nfc_app/provider/shipping_address_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
@@ -44,7 +44,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
 
       if (shippingAddress != null) {
         _loadShippingAddress(shippingAddress); // Load the address
-      } else if (Provider.of<OrderProvider>(context, listen: false)
+      } else if (Provider.of<ShippingAddressProvider>(context, listen: false)
           .shippingAddress
           .isEmpty) {
         _loadUserData();
@@ -214,7 +214,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
 
     try {
       final shippingAddressProvider =
-          Provider.of<OrderProvider>(context, listen: false);
+          Provider.of<ShippingAddressProvider>(context, listen: false);
       await shippingAddressProvider.saveShippingAddress(shippingAddress);
     } catch (e) {
       // Optionally, handle save errors here.

@@ -3,21 +3,22 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/card_details_model.dart';
-import 'package:nfc_app/provider/order_provider.dart';
+import 'package:nfc_app/models/shipping_address_model.dart';
+import 'package:nfc_app/provider/shipping_address_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/confirm_order.dart';
 import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/widgets/custom_loader_widget.dart';
 import 'package:provider/provider.dart';
 
-class OrderScreen extends StatefulWidget {
-  const OrderScreen({super.key});
+class PlaceOrderScreen extends StatefulWidget {
+  const PlaceOrderScreen({super.key});
 
   @override
-  State<OrderScreen> createState() => _OrderScreenState();
+  State<PlaceOrderScreen> createState() => _PlaceOrderScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> {
+class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
   bool _showDetails = false;
 
   @override
@@ -25,7 +26,8 @@ class _OrderScreenState extends State<OrderScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final orderProvider = Provider.of<OrderProvider>(context, listen: false);
+      final orderProvider =
+          Provider.of<ShippingAddressProvider>(context, listen: false);
       orderProvider.loadShippingAddress();
     });
   }
@@ -44,7 +46,8 @@ class _OrderScreenState extends State<OrderScreen> {
         backgroundColor: AppColors.screenBackground,
         appBar: const CustomAppBar(title: "Order"),
         body: SingleChildScrollView(
-          child: Consumer<OrderProvider>(builder: (context, provider, child) {
+          child: Consumer<ShippingAddressProvider>(
+              builder: (context, provider, child) {
             return Center(
               child: Column(
                 children: [
@@ -310,7 +313,23 @@ class _OrderScreenState extends State<OrderScreen> {
                           ? null
                           : () {
                               ConfirmOrder confirmOrder = const ConfirmOrder();
-                              confirmOrder.showConfirmOrderDialog(context);
+                              ShippingAddressModel? shippingDetails;
+                              if (provider.selectedMethod ==
+                                  'Deliver to shipping address') {
+                                shippingDetails =
+                                    provider.selectedShippingAddress;
+                              } else if (provider.selectedMethod ==
+                                  'Pick from nearby machine') {
+                                shippingDetails = shippingDetails =
+                                    provider.selectedShippingAddress;
+                              }
+                              confirmOrder.showConfirmOrderDialog(
+                                  context,
+                                  selectedCard,
+                                  selectedColorOption,
+                                  colorIndex,
+                                  provider.selectedMethod,
+                                  shippingDetails!);
                             },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.black,
@@ -411,7 +430,7 @@ class _OrderScreenState extends State<OrderScreen> {
   }
 
   Widget deliveryMethod(
-      BuildContext context, String location, OrderProvider provider) {
+      BuildContext context, String location, ShippingAddressProvider provider) {
     bool isSelected = provider.isMethodSelected(location);
 
     return Container(
@@ -473,7 +492,7 @@ class _OrderScreenState extends State<OrderScreen> {
   }
 
   deliveryAddressContainer(BuildContext context) {
-    return Consumer<OrderProvider>(
+    return Consumer<ShippingAddressProvider>(
       builder: (context, orderProvider, child) {
         if (orderProvider.isLoading) {
           Container(

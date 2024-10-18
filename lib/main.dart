@@ -6,6 +6,7 @@ import 'package:nfc_app/provider/card_details_provider.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/order_provider.dart';
+import 'package:nfc_app/provider/shipping_address_provider.dart';
 import 'package:nfc_app/provider/forget_password_email_provider.dart';
 import 'package:nfc_app/provider/internet_checker_provider.dart';
 import 'package:nfc_app/provider/loading_state_provider.dart';
@@ -37,7 +38,7 @@ import 'package:nfc_app/screens/internet_error_screen.dart';
 import 'package:nfc_app/screens/mainScreen.dart';
 import 'package:nfc_app/screens/new_splash_screen.dart';
 import 'package:nfc_app/screens/order_details.dart';
-import 'package:nfc_app/screens/order_screen.dart';
+import 'package:nfc_app/screens/place_order_screen.dart';
 import 'package:nfc_app/screens/pricing_plan_screen.dart';
 import 'package:nfc_app/screens/privacy_policy_screen.dart';
 import 'package:nfc_app/screens/privacy_settings_screen.dart';
@@ -112,6 +113,9 @@ void main() async {
         create: (_) => CardDetailsProvider(),
       ),
       ChangeNotifierProvider(
+        create: (_) => ShippingAddressProvider(),
+      ),
+      ChangeNotifierProvider(
         create: (_) => OrderProvider(),
       )
     ],
@@ -173,7 +177,7 @@ class MyApp extends StatelessWidget {
         '/how-to-use': (context) => const HowToUseScreen(),
         '/faq-screen': (context) => const FaqScreen(),
         '/full-screen-graph': (context) => const FullScreenGraph(),
-        '/order-screen': (context) => const OrderScreen(),
+        '/order-screen': (context) => const PlaceOrderScreen(),
         '/choose-shipping-address': (context) => const ChooseShippingAddress(),
         '/add-shipping-address': (context) => const AddShippingAddress(),
         '/google-maps-screen': (context) => GoogleMapsScreen(),
