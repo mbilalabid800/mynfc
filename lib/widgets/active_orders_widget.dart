@@ -16,152 +16,81 @@ class _ActiveOrdersWidgetState extends State<ActiveOrdersWidget> {
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Colors.pink,
+        color: Colors.white,
       ),
       child: Column(
         children: [
-          Container(
-            color: Colors.amber,
-            child: Row(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: const Color(0xFFD9D9D9),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 6.0, right: 6, top: 6),
-                    child: SizedBox(
-                      height: 70,
-                      width: 80,
-                      child: SvgPicture.asset('assets/icons/order_card.svg',
-                          height: 20),
-                    ),
-                  ),
-                ),
-                SizedBox(width: DeviceDimensions.screenWidth(context) * 0.030),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.51,
-                      child: Text(
-                        "FURSA NFC Black Classic Card - Custom Embossed",
-                        style: TextStyle(
-                          fontFamily: 'Barlow-Bold',
-                          fontWeight: FontWeight.w500,
-                          fontSize:
-                              DeviceDimensions.responsiveSize(context) * 0.038,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
-                    ),
-                    SizedBox(
-                        height: DeviceDimensions.screenHeight(context) * 0.020),
-                    Row(
-                      children: [
-                        Text(
-                          "Price:",
-                          style: TextStyle(
-                            fontFamily: 'Barlow-Regular',
-                            fontWeight: FontWeight.w600,
-                            fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.042,
-                          ),
-                        ),
-                        Spacer(),
-                        SizedBox(
-                            width:
-                                DeviceDimensions.screenWidth(context) * 0.085),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFD9D9D9),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                  height: DeviceDimensions.screenHeight(context) * 0.14,
+                  width: DeviceDimensions.screenWidth(context) * 0.85,
+                  //decoration: BoxDecoration(),
+                  //color: Colors.yellow,
+                  child: Row(
+                    children: [
+                      Container(
+                          color: Colors.grey,
+                          height: DeviceDimensions.screenHeight(context) * 0.1,
+                          width: DeviceDimensions.screenWidth(context) * 0.3),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: DeviceDimensions.screenWidth(context) * 0.55,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Text(
+                                'FURSA NFC Black Classic Card -Custom Embossed names',
+                                maxLines: 3,
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                            child: Text('xxx'),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Divider(),
-          Container(
-            child: Row(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: const Color(0xFFD9D9D9),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 6.0, right: 6, top: 6),
-                    child: SizedBox(
-                      height: 70,
-                      width: 80,
-                      child: SvgPicture.asset('assets/icons/order_card.svg',
-                          height: 20),
-                    ),
-                  ),
-                ),
-                SizedBox(width: DeviceDimensions.screenWidth(context) * 0.030),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.51,
-                      child: Text(
-                        "FURSA NFC Black Classic Card - Custom Embossed",
-                        style: TextStyle(
-                          fontFamily: 'Barlow-Bold',
-                          fontWeight: FontWeight.w500,
-                          fontSize:
-                              DeviceDimensions.responsiveSize(context) * 0.038,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
+                          Row(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 6.0),
+                                child: Text('OMR 57.00'),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 6),
+                                child: Container(
+                                    height:
+                                        DeviceDimensions.screenHeight(context) *
+                                            0.032,
+                                    width:
+                                        DeviceDimensions.screenWidth(context) *
+                                            0.25,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        color: Colors.green),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: Center(
+                                        child: Text('Track Order',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: DeviceDimensions
+                                                        .responsiveSize(
+                                                            context) *
+                                                    0.030)),
+                                      ),
+                                    )),
+                              )
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(
-                        height: DeviceDimensions.screenHeight(context) * 0.020),
-                    Row(
-                      children: [
-                        Text(
-                          "Price:",
-                          style: TextStyle(
-                            fontFamily: 'Barlow-Regular',
-                            fontWeight: FontWeight.w600,
-                            fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.042,
-                          ),
-                        ),
-                        SizedBox(
-                            width:
-                                DeviceDimensions.screenWidth(context) * 0.085),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFD9D9D9),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            child: Text('xxx'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                    ],
+                  ))
+            ],
           ),
           Divider(),
         ],

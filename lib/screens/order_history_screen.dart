@@ -33,68 +33,67 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
-      appBar: CustomAppBar(
-        title: 'Order History',
+      appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Text('Order History'),
+        ),
+        centerTitle: true,
+        backgroundColor: AppColors.screenBackground,
+        bottom: PreferredSize(
+          preferredSize:
+              Size.fromHeight(DeviceDimensions.responsiveSize(context) * 0.15),
+          child: TabBar(
+            controller: _tabController,
+            indicatorSize: TabBarIndicatorSize.tab,
+            indicatorColor: Colors.black,
+            labelColor: const Color(0xFF202020),
+            labelStyle: TextStyle(
+              fontSize: DeviceDimensions.responsiveSize(context) * 0.038,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1,
+            ),
+            unselectedLabelColor: const Color(0xFF727272),
+            unselectedLabelStyle: TextStyle(
+              fontSize: DeviceDimensions.responsiveSize(context) * 0.038,
+              fontWeight: FontWeight.normal,
+            ),
+            tabs: const [
+              Tab(text: 'Active'),
+              Tab(text: 'Completed'),
+              Tab(text: 'Cancelled'),
+            ],
+          ),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12)),
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  //width: DeviceDimensions.screenWidth(context) * 0.95,
-
-                  child: TabBar(
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    indicatorColor: Colors.black,
-                    labelColor: const Color(0xFF202020),
-                    controller: _tabController,
-                    labelStyle: TextStyle(
-                        fontSize:
-                            DeviceDimensions.responsiveSize(context) * 0.038,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1),
-                    unselectedLabelColor: const Color(0xFF727272),
-                    unselectedLabelStyle: TextStyle(
-                      fontSize:
-                          DeviceDimensions.responsiveSize(context) * 0.038,
-                      fontWeight: FontWeight.normal,
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: DeviceDimensions.screenHeight(context),
+                    width: DeviceDimensions.screenWidth(context) * 0.95,
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: ActiveOrdersWidget(),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: CompletedOrdersWidget(),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: CancelledOrdersWidget(),
+                        ),
+                      ],
                     ),
-                    dividerColor: Colors.transparent,
-                    tabs: [
-                      Tab(text: 'Active'),
-                      Tab(text: 'Completed'),
-                      Tab(text: 'Cancelled'),
-                    ],
                   ),
-                ),
-              ),
-              Container(
-                height: DeviceDimensions.screenHeight(context),
-                width: DeviceDimensions.screenWidth(context) * 0.95,
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: ActiveOrdersWidget(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: CompletedOrdersWidget(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: CancelledOrdersWidget(),
-                    ),
-                  ],
                 ),
               ),
               SizedBox(
