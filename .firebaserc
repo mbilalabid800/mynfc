@@ -1,7 +1,8 @@
 {
   "projects": {
     "nfc_app": "nfc-project-21b56",
-    "nfcapp": "nfc-project-21b56"
+    "nfcapp": "nfc-project-21b56",
+    "default": "nfc-project-21b56"
   },
   "targets": {},
   "etags": {},

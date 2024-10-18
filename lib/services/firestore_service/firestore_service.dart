@@ -30,4 +30,20 @@ class FirestoreService {
   //     return null;
   //   }
   // }
+
+  Future<int> getTapCount(String userId) async {
+    DocumentSnapshot snapshot =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+
+    if (snapshot.exists) {
+      // Cast the snapshot data to a Map<String, dynamic>
+      Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+
+      if (data != null && data.containsKey('tapCount')) {
+        return data['tapCount'];
+      }
+    }
+
+    return 0; // Default tap count if not found
+  }
 }

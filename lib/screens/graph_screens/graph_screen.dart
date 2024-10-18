@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
+import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 import 'package:nfc_app/widgets/charts_widget.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/time_frame_list_widget.dart';
@@ -17,6 +18,23 @@ class GraphScreen extends StatefulWidget {
 }
 
 class _GraphScreenState extends State<GraphScreen> {
+  int tapCount = 0; // State variable to store the tap count
+
+  @override
+  void initState() {
+    super.initState();
+    fetchTapCount(); // Call the method to fetch tap count from Firestore
+  }
+
+  Future<void> fetchTapCount() async {
+    String userId =
+        'yourUserId'; // Replace with actual user ID or fetch dynamically
+    int count = await FirestoreService().getTapCount(userId);
+    setState(() {
+      tapCount = count; // Update the state with fetched tap count
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -1053,7 +1071,7 @@ class _GraphScreenState extends State<GraphScreen> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  '53.2 K',
+                                  '$tapCount Taps',
                                   style: TextStyle(
                                       overflow: TextOverflow.ellipsis,
                                       fontSize: DeviceDimensions.responsiveSize(

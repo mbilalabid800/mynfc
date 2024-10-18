@@ -113,9 +113,6 @@ class NfcService {
     );
   }
 
-  // void _showSuccess(BuildContext context, String message) {
-  //   Lottie.asset('assets/animations/done_animation.json');
-  // }
   void _showSuccess(BuildContext context, String message) {
     // Find the dialog and update its content dynamically
     showDialog(
