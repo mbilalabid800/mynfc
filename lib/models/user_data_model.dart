@@ -14,6 +14,7 @@ class UserDataModel {
   String website;
   String profileImage;
   String bio;
+  int profileViews;
   // String connectionType;
 
   UserDataModel({
@@ -30,6 +31,7 @@ class UserDataModel {
     required this.website,
     required this.profileImage,
     required this.bio,
+    this.profileViews = 0,
     // required this.connectionType,
   });
 
@@ -49,6 +51,7 @@ class UserDataModel {
       website: data['website_link'] ?? '',
       profileImage: data['image_url'] ?? '',
       bio: data['bio'] ?? '',
+      profileViews: data['profileViews'] ?? 0,
       // connectionType: data['connection_type'],
     );
   }
@@ -67,6 +70,7 @@ class UserDataModel {
       'website_link': website,
       'image_url': profileImage,
       'bio': bio,
+      'profileViews': profileViews,
       // 'connection_type': connectionType,
     };
   }

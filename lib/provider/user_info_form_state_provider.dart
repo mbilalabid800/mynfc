@@ -21,6 +21,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String _websiteLink = '';
   String? _imageUrl;
   String _bio = '';
+  int _profileViews = 0;
   String _currentEditingField = '';
 
   int _connectionType = 0;
@@ -41,6 +42,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String get websiteLink => _websiteLink;
   String? get imageUrl => _imageUrl;
   String get bio => _bio;
+  int get profileViews => _profileViews;
   String get currentEditingField => _currentEditingField;
 
   bool get isNameFormValid =>
@@ -127,6 +129,11 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateProfileViews(int views) {
+    _profileViews = views;
+    notifyListeners();
+  }
+
   void setEditingField(String fieldKey) {
     _currentEditingField = fieldKey;
     notifyListeners();
@@ -165,6 +172,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'image_url': _imageUrl,
           'profile_type': _selectedItem,
           'bio': _bio,
+          'profileViews': _profileViews,
           'connection_type': _connectionType,
         });
 
@@ -247,6 +255,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           _selectedItem = userData.businessType;
           _countryName = userData.countryName;
           _bio = userData.bio;
+          _profileViews = userData.profileViews;
 
           notifyListeners();
         }

@@ -39,7 +39,7 @@ import 'package:nfc_app/screens/mainScreen.dart';
 import 'package:nfc_app/screens/new_splash_screen.dart';
 import 'package:nfc_app/screens/order_details.dart';
 import 'package:nfc_app/screens/order_history_screen.dart';
-import 'package:nfc_app/screens/order_screen.dart';
+import 'package:nfc_app/screens/place_order_screen.dart';
 import 'package:nfc_app/screens/pricing_plan_screen.dart';
 import 'package:nfc_app/screens/privacy_policy_screen.dart';
 import 'package:nfc_app/screens/privacy_settings_screen.dart';

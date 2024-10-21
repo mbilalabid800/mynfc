@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/models/connection_details_model.dart';
@@ -14,7 +16,7 @@ class ConnectionDetailsProvider extends ChangeNotifier {
     try {
       _isLoading = true;
       notifyListeners();
-
+      await incrementProfileViews(uid);
       DocumentSnapshot<Map<String, dynamic>> docSnapshot =
           await FirebaseFirestore.instance
               .collection("users")
@@ -49,6 +51,19 @@ class ConnectionDetailsProvider extends ChangeNotifier {
     } finally {
       _isLoading = false;
       notifyListeners();
+    }
+  }
+
+  Future<void> incrementProfileViews(String uid) async {
+    try {
+      final userDocRef = FirebaseFirestore.instance
+          .collection("users")
+          .doc(uid)
+          .collection("userProfile")
+          .doc("details");
+      await userDocRef.update({'profileViews': FieldValue.increment(1)});
+    } catch (e) {
+      print("Error incrementing profile views for $uid: $e");
     }
   }
 
