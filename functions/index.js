@@ -12,12 +12,20 @@ exports.recordTapAndRedirect = functions.https.onRequest(async (req, res) => {
   }
 
   try {
-    // Increment the tap count in Firestore
+    // Reference the user's document in Firestore
     const userRef = admin.firestore().collection('users').doc(uid);
-    await userRef.update({
-      tapCount: admin.firestore.FieldValue.increment(1),
-      // Optionally, you can record other data such as the timestamp
-    });
+
+    // Check if the document exists, create it if not
+    const userDoc = await userRef.get();
+    if (!userDoc.exists) {
+      // If the document does not exist, initialize it with tapCount
+      await userRef.set({ tapCount: 1 }, { merge: true });
+    } else {
+      // Increment the tap count if the document already exists
+      await userRef.update({
+        tapCount: admin.firestore.FieldValue.increment(1),
+      });
+    }
 
     // Redirect to the actual profile page (replace with your profile URL)
     res.redirect(`https://nfcapp.com/connection-profile-preview/${uid}`);

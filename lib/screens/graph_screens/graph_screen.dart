@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
@@ -27,12 +28,19 @@ class _GraphScreenState extends State<GraphScreen> {
   }
 
   Future<void> fetchTapCount() async {
-    String userId =
-        'yourUserId'; // Replace with actual user ID or fetch dynamically
-    int count = await FirestoreService().getTapCount(userId);
-    setState(() {
-      tapCount = count; // Update the state with fetched tap count
-    });
+    // Get the current user's UID from Firebase Authentication
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      String userId = user.uid; // Get the current user's UID dynamically
+      int count = await FirestoreService().getTapCount(userId);
+      setState(() {
+        tapCount = count; // Update the state with fetched tap count
+      });
+    } else {
+      print(
+          'User not logged in'); // Handle the case where the user is not logged in
+    }
   }
 
   @override

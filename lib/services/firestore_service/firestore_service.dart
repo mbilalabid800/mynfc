@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -45,5 +46,31 @@ class FirestoreService {
     }
 
     return 0; // Default tap count if not found
+  }
+
+  Future<void> incrementTapCount() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      String userId = user.uid;
+      DocumentReference userRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot snapshot = await transaction.get(userRef);
+
+        if (!snapshot.exists) {
+          // If the document doesn't exist, create it with an initial tapCount of 1
+          transaction.set(userRef, {'tapCount': 1});
+        } else {
+          // If it exists, increment the tapCount
+          int newTapCount =
+              (snapshot.data() as Map<String, dynamic>)['tapCount'] + 1;
+          transaction.update(userRef, {'tapCount': newTapCount});
+        }
+      });
+    } else {
+      print("User not authenticated");
+    }
   }
 }
