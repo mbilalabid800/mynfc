@@ -1,0 +1,358 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
+import 'package:nfc_app/provider/connection_provider.dart';
+import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
+import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
+import 'package:provider/provider.dart';
+import '../responsive/device_dimensions.dart';
+
+class RecentConnected extends StatefulWidget {
+  const RecentConnected({super.key});
+
+  @override
+  State<RecentConnected> createState() => _RecentConnectedState();
+}
+
+class _RecentConnectedState extends State<RecentConnected> {
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      searchController.clear();
+      Provider.of<ConnectionProvider>(context, listen: false).resetSearch();
+    });
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.screenBackground,
+        appBar: const CustomAppBar(title: 'Recent Connected'),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                Container(
+                  width: DeviceDimensions.screenWidth(context) * 0.92,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 40,
+                            child: TextField(
+                              controller: searchController,
+                              onChanged: (query) {
+                                Provider.of<ConnectionProvider>(context,
+                                        listen: false)
+                                    .searchConnections(query);
+                              },
+                              decoration: InputDecoration(
+                                prefixIcon: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, right: 10),
+                                  child: SvgPicture.asset(
+                                      "assets/icons/search.svg"),
+                                ),
+                                hintText: "Search links",
+                                filled: true,
+                                fillColor: const Color(0xFFF0F3F5),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 2),
+                                suffixIcon: IconButton(
+                                  icon: const Icon(Icons.clear),
+                                  onPressed: () {
+                                    searchController
+                                        .clear(); // Clear search bar
+                                    Provider.of<ConnectionProvider>(context,
+                                            listen: false)
+                                        .resetSearch(); // Reset search results
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        SvgPicture.asset(
+                          "assets/icons/filter.svg",
+                          height: 42,
+                          width: 42,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                    height: DeviceDimensions.screenHeight(context) * 0.020),
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                      width: DeviceDimensions.screenWidth(context) * 0.92,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          Consumer<ConnectionProvider>(
+                            builder: (context, connectionProvider, child) {
+                              final addedConnections = connectionProvider
+                                      .searchAddedConnections.isNotEmpty
+                                  ? connectionProvider.searchAddedConnections
+                                  : connectionProvider.addedConnections;
+                              if (addedConnections.isEmpty) {
+                                return const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 20),
+                                  child: Center(
+                                    child: Text(
+                                      'No Connections are added',
+                                      style: TextStyle(
+                                          fontFamily: 'Barlow-Regular'),
+                                    ),
+                                  ),
+                                );
+                              }
+
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: addedConnections.length < 4
+                                    ? addedConnections.length
+                                    : 4,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final reversedConnections =
+                                      addedConnections.reversed.toList();
+                                  final addedConnection =
+                                      reversedConnections[index];
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushNamed(context,
+                                            '/connection-profile-preview',
+                                            arguments: addedConnection.uid);
+                                      },
+                                      child: ListTile(
+                                        visualDensity:
+                                            const VisualDensity(vertical: -1),
+                                        leading: Container(
+                                          width: 41,
+                                          height: 41,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(35),
+                                            color: Colors.black54,
+                                            image: DecorationImage(
+                                              image: CachedNetworkImageProvider(
+                                                  addedConnection.profileImage
+                                                          .isNotEmpty
+                                                      ? addedConnection
+                                                          .profileImage
+                                                      : 'https://firebasestorage.googleapis.com/v0/b/nfc-project-21b56.appspot.com/o/default_profile.jpg?alt=media&token=dec3b09a-d6fd-47a2-ae5b-cb0e248ae21c'),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        title: Text(
+                                          "${addedConnection.firstName} ${addedConnection.lastName}",
+                                          style: TextStyle(
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.040,
+                                              fontFamily: 'Barlow-Regular',
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        subtitle: Text(
+                                          addedConnection.designation,
+                                          style: TextStyle(
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.032,
+                                              fontFamily: 'Barlow-Regular',
+                                              color: const Color(0xFF909091)),
+                                        ),
+                                        trailing: SvgPicture.asset(
+                                            "assets/icons/more.svg",
+                                            height: 17),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                          SizedBox(
+                              height: DeviceDimensions.screenHeight(context) *
+                                  0.014),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      left: DeviceDimensions.screenWidth(context) / 2 - 45,
+                      bottom: -35,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, '/recent-connected-list');
+                        },
+                        child: SvgPicture.asset("assets/icons/more2.svg"),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 50),
+                Container(
+                  width: DeviceDimensions.screenWidth(context) * 0.92,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(left: 15, top: 12, bottom: 5),
+                        child: Text(
+                          "Recommended for you",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const Divider(),
+                      Consumer<ConnectionProvider>(
+                        builder: (context, connectionProvider, child) {
+                          final recommendedConnections = connectionProvider
+                                  .searchRecommendedConnections.isNotEmpty
+                              ? connectionProvider.searchRecommendedConnections
+                              : connectionProvider.recommendedConnections;
+                          if (recommendedConnections.isEmpty) {
+                            return const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 20),
+                              child: Center(
+                                child: Text(
+                                  'No more Connections are available',
+                                  style:
+                                      TextStyle(fontFamily: 'Barlow-Regular'),
+                                ),
+                              ),
+                            );
+                          }
+
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: recommendedConnections.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final reversedConnections =
+                                  recommendedConnections.reversed.toList();
+
+                              final recommendedConnection =
+                                  reversedConnections[index];
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, '/connection-profile-preview',
+                                        arguments: recommendedConnection.uid);
+                                  },
+                                  child: ListTile(
+                                    visualDensity:
+                                        const VisualDensity(vertical: -3),
+                                    leading: Container(
+                                      width: 41,
+                                      height: 41,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(35),
+                                        color: Colors.black54,
+                                        image: DecorationImage(
+                                          image: CachedNetworkImageProvider(
+                                              recommendedConnection
+                                                  .profileImage),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    title: Text(
+                                      "${recommendedConnection.firstName} ${recommendedConnection.lastName}",
+                                      style: TextStyle(
+                                          fontSize:
+                                              DeviceDimensions.responsiveSize(
+                                                      context) *
+                                                  0.040,
+                                          fontFamily: 'Barlow-Regular',
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    subtitle: Text(
+                                      recommendedConnection.designation,
+                                      style: TextStyle(
+                                          fontSize:
+                                              DeviceDimensions.responsiveSize(
+                                                      context) *
+                                                  0.032,
+                                          fontFamily: 'Barlow-Regular',
+                                          color: const Color(0xFF909091)),
+                                    ),
+                                    trailing: IconButton(
+                                      onPressed: () async {
+                                        connectionProvider.addConnection(
+                                            recommendedConnection);
+                                        CustomSnackbar().snakBarMessage(context,
+                                            '${recommendedConnection.firstName} added successfully!');
+                                      },
+                                      icon: SvgPicture.asset(
+                                          "assets/icons/addconnections.svg",
+                                          height: 28),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                      SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.010),
+                    ],
+                  ),
+                ),
+                SizedBox(height: DeviceDimensions.screenHeight(context) * 0.05),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

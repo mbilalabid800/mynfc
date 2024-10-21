@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "165128879718",
+    "firebase_url": "https://nfc-project-21b56-default-rtdb.firebaseio.com",
+    "project_id": "nfc-project-21b56",
+    "storage_bucket": "nfc-project-21b56.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:165128879718:android:0cb76396c952406399f7a7",
+        "android_client_info": {
+          "package_name": "com.example.nfc_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC200DWPWRT2XiiHXnVhtyrTLt-17y5bcY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

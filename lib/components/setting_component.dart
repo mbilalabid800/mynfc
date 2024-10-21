@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nfc_app/responsive/device_dimensions.dart';
+
+class SettingListComponent extends StatelessWidget {
+  final String icons;
+  final String title;
+  final String icons2;
+  final bool showDivider;
+  final VoidCallback callBack;
+
+  const SettingListComponent({
+    super.key,
+    required this.icons,
+    required this.title,
+    this.icons2 = "assets/icons/more4.svg",
+    this.showDivider = false,
+    required this.callBack,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6),
+          child: InkWell(
+            onTap: callBack,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: SvgPicture.asset(
+                    icons,
+                    height: 20,
+                  ),
+                ),
+                Text(
+                  title,
+                  style: TextStyle(
+                      fontSize:
+                          DeviceDimensions.responsiveSize(context) * 0.040,
+                      fontFamily: 'Barlow-Regular',
+                      fontWeight: FontWeight.w600),
+                ),
+                const Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 12),
+                  child: SvgPicture.asset(
+                    icons2,
+                    height: 15,
+                    color: const Color(0xFF95989A),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        if (showDivider) const Divider(color: Color(0xFFE0E0E0)),
+      ],
+    );
+  }
+}
