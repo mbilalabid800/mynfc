@@ -39,7 +39,7 @@ class _CompletedOrdersWidgetState extends State<CompletedOrdersWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            width: DeviceDimensions.screenWidth(context) * 0.55,
+                            width: DeviceDimensions.screenWidth(context) * 0.53,
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8.0),
@@ -60,7 +60,7 @@ class _CompletedOrdersWidgetState extends State<CompletedOrdersWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 6),
+                                    horizontal: 10, vertical: 6),
                                 child: Container(
                                     height:
                                         DeviceDimensions.screenHeight(context) *

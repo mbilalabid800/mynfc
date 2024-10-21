@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 
 class ActiveOrdersWidget extends StatefulWidget {
@@ -39,7 +38,7 @@ class _ActiveOrdersWidgetState extends State<ActiveOrdersWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            width: DeviceDimensions.screenWidth(context) * 0.55,
+                            width: DeviceDimensions.screenWidth(context) * 0.53,
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8.0),
@@ -60,29 +59,28 @@ class _ActiveOrdersWidgetState extends State<ActiveOrdersWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 6),
+                                    horizontal: 10, vertical: 6),
                                 child: Container(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.032,
-                                    width:
-                                        DeviceDimensions.screenWidth(context) *
-                                            0.25,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: Colors.green),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(6.0),
-                                      child: Center(
-                                        child: Text('Track Order',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: DeviceDimensions
-                                                        .responsiveSize(
-                                                            context) *
-                                                    0.030)),
-                                      ),
-                                    )),
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.032,
+                                  width: DeviceDimensions.screenWidth(context) *
+                                      0.25,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      color: Colors.green),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(6.0),
+                                    child: Center(
+                                      child: Text('Track Order',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.030)),
+                                    ),
+                                  ),
+                                ),
                               )
                             ],
                           ),
