@@ -82,9 +82,18 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    ActiveOrdersWidget(),
-                    CompletedOrdersWidget(),
-                    CancelledOrdersWidget(),
+                    Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: ActiveOrdersWidget(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: CompletedOrdersWidget(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: CancelledOrdersWidget(),
+                    ),
                   ],
                 ),
               ),

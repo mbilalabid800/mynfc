@@ -376,16 +376,16 @@ class _SettingsState extends State<Settings> {
                                 showDivider: true,
                                 callBack: () {
                                   //dummy link
-                                  Navigator.pushNamed(
-                                      context, '/privacy-policy');
+                                  Navigator.pushNamed(context, '/card-details');
                                 },
                               ),
                               SettingListComponent(
                                 icons: "assets/icons/settingicon4.svg",
-                                title: "Orders",
+                                title: "Order History",
                                 showDivider: true,
                                 callBack: () {
-                                  Navigator.pushNamed(context, '/card-details');
+                                  Navigator.pushNamed(
+                                      context, '/order-history-screen');
                                 },
                               ),
                               SettingListComponent(

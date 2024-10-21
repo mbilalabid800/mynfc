@@ -38,7 +38,8 @@ import 'package:nfc_app/screens/internet_error_screen.dart';
 import 'package:nfc_app/screens/mainScreen.dart';
 import 'package:nfc_app/screens/new_splash_screen.dart';
 import 'package:nfc_app/screens/order_details.dart';
-import 'package:nfc_app/screens/place_order_screen.dart';
+import 'package:nfc_app/screens/order_history_screen.dart';
+import 'package:nfc_app/screens/order_screen.dart';
 import 'package:nfc_app/screens/pricing_plan_screen.dart';
 import 'package:nfc_app/screens/privacy_policy_screen.dart';
 import 'package:nfc_app/screens/privacy_settings_screen.dart';
@@ -183,6 +184,7 @@ class MyApp extends StatelessWidget {
         '/google-maps-screen': (context) => GoogleMapsScreen(),
         '/choose-machine': (context) => const ChooseMachine(),
         '/order-details': (context) => const OrderDetails(),
+        '/order-history-screen': (context) => const OrderHistoryScreen(),
       },
     );
   }
