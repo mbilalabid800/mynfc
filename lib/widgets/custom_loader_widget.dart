@@ -60,3 +60,18 @@ class ScreenLoader extends StatelessWidget {
     );
   }
 }
+
+class OrderLoader extends StatelessWidget {
+  const OrderLoader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: SpinKitFoldingCube(
+        color: Color.fromARGB(255, 0, 0, 0), // Set your preferred color
+        size: 50.0, // Adjust the size as needed
+        duration: Duration(milliseconds: 1200), // Customize the animation speed
+      ),
+    );
+  }
+}

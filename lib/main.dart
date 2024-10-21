@@ -29,7 +29,6 @@ import 'package:nfc_app/screens/google_maps_screen.dart';
 import 'package:nfc_app/screens/graph_screens/full_screen_graph.dart';
 import 'package:nfc_app/screens/graph_screens/graph_screen.dart';
 import 'package:nfc_app/screens/home_screen.dart';
-//test
 import 'package:nfc_app/provider/image_picker_provider.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';

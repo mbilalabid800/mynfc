@@ -1,8 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:io';
 import 'dart:math';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:nfc_app/models/card_details_model.dart';
@@ -11,6 +14,8 @@ import 'package:nfc_app/models/shipping_address_model.dart';
 import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/services/firestore_service/card_pictures_links.dart';
+import 'package:nfc_app/widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
 import 'package:nfc_app/widgets/payment_successful.dart';
 import 'package:provider/provider.dart';
@@ -167,6 +172,12 @@ class ConfirmOrder {
     String deliveryDate =
         DateFormat('yyyy-MM-dd').format(DateTime.now().add(Duration(days: 7)));
 
+    CardPicturesLinks cardLink = CardPicturesLinks();
+    String makeCardLink =
+        "${selectedCard.cardName}_${selectedColorOption.colorName}"
+            .toLowerCase();
+    String cardImageUrl = cardLink.getCardUrl(makeCardLink);
+
     OrderModel newOrder = OrderModel(
         orderId: orderId,
         orderPrice: selectedCard.cardPrice,
@@ -178,12 +189,20 @@ class ConfirmOrder {
         orderDateTime: orderDate,
         cardName: selectedCard.cardName,
         cardColor: selectedColorOption.colorName,
-        cardImage: selectedCard.cardImages[colorIndex],
+        cardImage: cardImageUrl,
         userEmail: userProvider.email,
         userUid: userProvider.uid);
 
     final orderProvider = Provider.of<OrderProvider>(context, listen: false);
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Center(
+            child: OrderLoader(),
+          );
+        });
 
+    await Future.delayed(Duration(seconds: 3));
     try {
       await orderProvider.placeOrder(newOrder);
       PaymentSuccessful().showPaymentSuccessfulDialog(context, orderId);

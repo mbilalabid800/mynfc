@@ -5,12 +5,14 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget> actions;
+  final Function? onBackPressed;
   //final Widget leading;
 
   const CustomAppBar({
     super.key,
     required this.title,
     this.actions = const [],
+    this.onBackPressed,
     //this.leading = const Icon(Icons.menu),
   });
 
@@ -55,7 +57,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            if (onBackPressed != null) {
+              onBackPressed!();
+            } else {
+              Navigator.of(context).pop(); // Default pop behavior
+            }
           },
           icon: Container(
               padding: const EdgeInsets.all(8),
