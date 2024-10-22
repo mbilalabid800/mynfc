@@ -72,34 +72,19 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(right: 35.0),
-                              child: Text(""),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                "Profile",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.037,
-                                    fontFamily: 'Barlow-Regular'),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 20.0, top: 15),
-                              child: SvgPicture.asset("assets/icons/share.svg",
-                                  height:
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 12.0),
+                            child: Text(
+                              "Profile",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize:
                                       DeviceDimensions.responsiveSize(context) *
-                                          0.08),
+                                          0.041,
+                                  fontFamily: 'Barlow-Regular'),
                             ),
-                          ],
+                          ),
                         ),
                         SizedBox(
                             height:

@@ -46,6 +46,7 @@ import 'package:nfc_app/screens/privacy_settings_screen.dart';
 import 'package:nfc_app/screens/profile_preview_screen.dart';
 import 'package:nfc_app/screens/recent_connected_screen.dart';
 import 'package:nfc_app/screens/settings_screen.dart';
+import 'package:nfc_app/screens/share_profile_screen.dart';
 import 'package:nfc_app/screens/splash_screen.dart';
 import 'package:nfc_app/screens/subscription_screen.dart';
 import 'package:nfc_app/screens/terms_conditions.dart';
@@ -185,6 +186,7 @@ class MyApp extends StatelessWidget {
         '/choose-machine': (context) => const ChooseMachine(),
         '/order-details': (context) => const OrderDetails(),
         '/order-history-screen': (context) => const OrderHistoryScreen(),
+        '/share-profile': (context) => ShareProfileScreen(),
       },
     );
   }

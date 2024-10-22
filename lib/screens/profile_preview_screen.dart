@@ -54,9 +54,14 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                       Positioned(
                         right: 30,
                         top: 60,
-                        child: SvgPicture.asset("assets/icons/share.svg",
-                            height: DeviceDimensions.responsiveSize(context) *
-                                0.08),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/share-profile');
+                          },
+                          child: SvgPicture.asset("assets/icons/share.svg",
+                              height: DeviceDimensions.responsiveSize(context) *
+                                  0.08),
+                        ),
                       ),
                       Positioned(
                         bottom: 15,

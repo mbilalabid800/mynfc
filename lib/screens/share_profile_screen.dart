@@ -1,0 +1,165 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
+import 'package:nfc_app/provider/user_info_form_state_provider.dart';
+import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
+import 'package:nfc_app/widgets/custom_loader_widget.dart';
+import 'package:nfc_app/widgets/share_profile_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+
+class ShareProfileScreen extends StatefulWidget {
+  const ShareProfileScreen({super.key});
+
+  @override
+  State<ShareProfileScreen> createState() => _ShareProfileScreenState();
+}
+
+class _ShareProfileScreenState extends State<ShareProfileScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.screenBackground,
+      appBar: CustomAppBar(title: "Share Profile"),
+      body: Center(
+        child: Consumer<UserInfoFormStateProvider>(
+          builder: (context, userProvider, child) {
+            return Column(
+              children: [
+                Container(
+                  width: DeviceDimensions.screenWidth(context) * 0.92,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.010),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            CircleAvatar(
+                              radius: 35,
+                              backgroundColor: Colors.black54,
+                              child: CachedNetworkImage(
+                                imageUrl: userProvider.imageUrl!,
+                                imageBuilder: (context, imageProvider) =>
+                                    CircleAvatar(
+                                  radius: 35,
+                                  backgroundImage: imageProvider,
+                                ),
+                                placeholder: (context, url) => Center(
+                                  child: SmallThreeBounceLoader(),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                        'assets/images/default_profile.jpg'),
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${userProvider.firstName} ${userProvider.lastName}",
+                                  style: TextStyle(
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.055,
+                                    fontFamily: 'Barlow-Bold',
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Text(
+                                  userProvider.email,
+                                  style: TextStyle(
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.042,
+                                    fontFamily: 'Barlow-Regular',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SvgPicture.asset(
+                              "assets/icons/more5.svg",
+                              height: 25,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Divider(),
+                      SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.030),
+                      Center(
+                        child: QrImageView(
+                          data:
+                              'https://nfcapp.com/connection-profile-preview/${userProvider.uid}',
+                          version: QrVersions.auto,
+                          size: 210,
+                        ),
+                      ),
+                      SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.035),
+                      SizedBox(
+                        height: DeviceDimensions.screenHeight(context) * 0.060,
+                        width: DeviceDimensions.screenWidth(context) * 0.80,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            ShareProfile().shareProfile(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Share",
+                                style: TextStyle(
+                                  fontSize:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.045,
+                                  fontFamily: 'Barlow-Regular',
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 1,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              SizedBox(
+                                  width: DeviceDimensions.screenWidth(context) *
+                                      0.02),
+                              SvgPicture.asset(
+                                "assets/icons/arrow_farward.svg",
+                                height: 12,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.030),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
