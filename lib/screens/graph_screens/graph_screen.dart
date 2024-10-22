@@ -5,6 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
+import 'package:nfc_app/provider/user_info_form_state_provider.dart';
+import 'package:nfc_app/provider/user_info_progress_provider.dart';
 import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 import 'package:nfc_app/widgets/charts_widget.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
@@ -203,13 +205,23 @@ class _GraphScreenState extends State<GraphScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
                                       children: [
-                                        Text('53.2 K',
+                                        Consumer<UserInfoFormStateProvider>(
+                                            builder:
+                                                (context, userProvider, child) {
+                                          return Text(
+                                            userProvider.profileViews
+                                                .toString(),
                                             style: TextStyle(
+                                                overflow: TextOverflow.ellipsis,
                                                 fontSize: DeviceDimensions
                                                         .responsiveSize(
                                                             context) *
-                                                    0.05,
-                                                fontWeight: FontWeight.w600)),
+                                                    0.06,
+                                                fontWeight: FontWeight.w500),
+                                            softWrap: true,
+                                            maxLines: 2,
+                                          );
+                                        }),
                                       ],
                                     ),
                                   ),
@@ -250,7 +262,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                               _showPopupMenu(
                                                   context,
                                                   details.globalPosition,
-                                                  'The number of times your profile was  through your link, QR code or through tapping your products.');
+                                                  'The number of times your profile was  viewed through tapping your profile.');
                                             },
                                             child: SvgPicture.asset(
                                                 'assets/icons/info.svg'),
@@ -396,7 +408,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                     width:
                                         DeviceDimensions.screenWidth(context) *
                                             0.3,
-                                    child: const RateChart(),
+                                    child: CardTapsChart(),
                                   ),
                                   Expanded(
                                     child: Padding(
@@ -413,7 +425,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 8.0),
                                             child: Text(
-                                              'Tap Through Rate',
+                                              'Card Taps',
                                               overflow: TextOverflow.ellipsis,
                                               softWrap: true,
                                               maxLines: 3,
@@ -432,7 +444,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                               _showPopupMenu(
                                                   context,
                                                   details.globalPosition,
-                                                  'The ratio between your views and you taps, it determines how many people tapped your links out of your total views.');
+                                                  'The number of times you tapped your card on NFC enabled devices');
                                             },
                                             child: SvgPicture.asset(
                                                 'assets/icons/info.svg'),
@@ -520,7 +532,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                               _showPopupMenu(
                                                   context,
                                                   details.globalPosition,
-                                                  'The all new connections that connect and contact with you and with your profile.');
+                                                  'The count of total connections that you are connected with');
                                             },
                                             child: SvgPicture.asset(
                                                 'assets/icons/info.svg'),
@@ -561,9 +573,6 @@ class _GraphScreenState extends State<GraphScreen> {
   }
 
   Widget _buildGraph1() {
-    final socialApps = Provider.of<SocialAppProvider>(context, listen: false)
-        .filteredSocialApps;
-
     return SingleChildScrollView(
       child: Container(
         color: AppColors.screenBackground,
@@ -628,21 +637,24 @@ class _GraphScreenState extends State<GraphScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12.0),
+                              padding: EdgeInsets.symmetric(horizontal: 12.0),
                               child: Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text(
-                                  '53.2 K',
-                                  style: TextStyle(
-                                      overflow: TextOverflow.ellipsis,
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.098,
-                                      fontWeight: FontWeight.w500),
-                                  softWrap: true,
-                                  maxLines: 2,
-                                ),
+                                child: Consumer<UserInfoFormStateProvider>(
+                                    builder: (context, userProvider, child) {
+                                  return Text(
+                                    userProvider.profileViews.toString(),
+                                    style: TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.098,
+                                        fontWeight: FontWeight.w500),
+                                    softWrap: true,
+                                    maxLines: 2,
+                                  );
+                                }),
                               ),
                             ),
                             Padding(
@@ -655,29 +667,10 @@ class _GraphScreenState extends State<GraphScreen> {
                                   'Total Views',
                                   style: TextStyle(
                                     overflow: TextOverflow.ellipsis,
-                                    color: AppColors.greyText,
+                                    color: Colors.black,
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
-                                        0.022,
-                                  ),
-                                  softWrap: true,
-                                  maxLines: 2,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12.0, vertical: 6),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Last Updated Yesterday',
-                                  style: TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.035,
-                                    color: AppColors.greyText,
+                                        0.025,
                                   ),
                                   softWrap: true,
                                   maxLines: 2,
@@ -722,54 +715,6 @@ class _GraphScreenState extends State<GraphScreen> {
                       ],
                     ),
                     const Divider(),
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'App Overview',
-                          style: TextStyle(
-                              overflow: TextOverflow.ellipsis,
-                              fontSize:
-                                  DeviceDimensions.responsiveSize(context) *
-                                      0.055,
-                              fontWeight: FontWeight.w500),
-                          softWrap: true,
-                          maxLines: 2,
-                        ),
-                      ),
-                    ),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: socialApps.length,
-                        itemBuilder: (context, index) {
-                          final appItem = socialApps[index];
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0, right: 10),
-                            child: ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: Container(
-                                width: 35,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(35),
-                                  color: Colors.black54,
-                                  image: DecorationImage(
-                                      image: CachedNetworkImageProvider(
-                                          appItem.icon),
-                                      fit: BoxFit.cover),
-                                ),
-                              ),
-                              title: Text(appItem.name),
-                              trailing: Text('0 Taps',
-                                  style: TextStyle(
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.03)),
-                            ),
-                          );
-                        }),
                     SizedBox(
                       height: DeviceDimensions.screenHeight(context) * 0.02,
                     )
@@ -1007,6 +952,11 @@ class _GraphScreenState extends State<GraphScreen> {
   }
 
   Widget _buildGraph3() {
+    final List<double> tapsPerDay = [15, 14, 12, 18, 10, 5, 8];
+
+    // Calculate the total taps
+    double totalTaps = tapsPerDay.reduce((a, b) => a + b);
+
     final socialApps = Provider.of<SocialAppProvider>(context, listen: false)
         .filteredSocialApps;
 
@@ -1045,7 +995,9 @@ class _GraphScreenState extends State<GraphScreen> {
                             height:
                                 DeviceDimensions.screenHeight(context) * 0.25,
                             width: DeviceDimensions.screenWidth(context) * 0.7,
-                            child: const FullViewsChart(),
+                            child: FullCardTapsChart(
+                              tapsPerDay: tapsPerDay,
+                            ),
                           ),
                         ),
                       ),
@@ -1056,7 +1008,7 @@ class _GraphScreenState extends State<GraphScreen> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Total views till your profile has been created',
+                          'Total number of taps with your NFC Card',
                           style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               fontSize:
@@ -1079,7 +1031,7 @@ class _GraphScreenState extends State<GraphScreen> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  '$tapCount Taps',
+                                  '${totalTaps.toInt()} Taps',
                                   style: TextStyle(
                                       overflow: TextOverflow.ellipsis,
                                       fontSize: DeviceDimensions.responsiveSize(
@@ -1098,7 +1050,7 @@ class _GraphScreenState extends State<GraphScreen> {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  'Total Views',
+                                  'Total Taps',
                                   style: TextStyle(
                                     overflow: TextOverflow.ellipsis,
                                     color: AppColors.greyText,
@@ -1150,7 +1102,7 @@ class _GraphScreenState extends State<GraphScreen> {
                             ),
                             Row(
                               children: [
-                                Text('Views: 53 %',
+                                Text('Taps: 53 %',
                                     style: TextStyle(
                                         color: Colors.lightGreen,
                                         fontSize:
@@ -1173,7 +1125,7 @@ class _GraphScreenState extends State<GraphScreen> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'App Overview',
+                          'Card Taps Overview',
                           style: TextStyle(
                               overflow: TextOverflow.ellipsis,
                               fontSize:
@@ -1270,105 +1222,6 @@ class _GraphScreenState extends State<GraphScreen> {
                       ),
                     ),
                   ),
-
-                  // Row(
-                  //   children: [
-                  //     Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         Padding(
-                  //           padding:
-                  //               const EdgeInsets.symmetric(horizontal: 12.0),
-                  //           child: Align(
-                  //             alignment: Alignment.centerLeft,
-                  //             child: Text(
-                  //               '53.2 K',
-                  //               style: TextStyle(
-                  //                   overflow: TextOverflow.ellipsis,
-                  //                   fontSize: DeviceDimensions.responsiveSize(
-                  //                           context) *
-                  //                       0.098,
-                  //                   fontWeight: FontWeight.w500),
-                  //               softWrap: true,
-                  //               maxLines: 2,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //         Padding(
-                  //           padding: const EdgeInsets.symmetric(
-                  //             horizontal: 12.0,
-                  //           ),
-                  //           child: Align(
-                  //             alignment: Alignment.centerLeft,
-                  //             child: Text(
-                  //               'Total Views',
-                  //               style: TextStyle(
-                  //                 overflow: TextOverflow.ellipsis,
-                  //                 color: AppColors.greyText,
-                  //                 fontSize:
-                  //                     DeviceDimensions.responsiveSize(context) *
-                  //                         0.022,
-                  //               ),
-                  //               softWrap: true,
-                  //               maxLines: 2,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //         Padding(
-                  //           padding: const EdgeInsets.symmetric(
-                  //               horizontal: 12.0, vertical: 6),
-                  //           child: Align(
-                  //             alignment: Alignment.centerLeft,
-                  //             child: Text(
-                  //               'Last Updated Yesterday',
-                  //               style: TextStyle(
-                  //                 overflow: TextOverflow.ellipsis,
-                  //                 fontSize:
-                  //                     DeviceDimensions.responsiveSize(context) *
-                  //                         0.035,
-                  //                 color: AppColors.greyText,
-                  //               ),
-                  //               softWrap: true,
-                  //               maxLines: 2,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //     Spacer(),
-                  //     Column(
-                  //       children: [
-                  //         Container(
-                  //           padding: EdgeInsets.only(right: 12),
-                  //           width: DeviceDimensions.screenWidth(context) * 0.4,
-                  //           height:
-                  //               DeviceDimensions.screenHeight(context) * 0.12,
-                  //           //color: Colors.red,
-                  //           child: SvgPicture.asset(
-                  //             'assets/icons/barchart_black.svg',
-                  //             height:
-                  //                 DeviceDimensions.screenHeight(context) * 0.15,
-                  //           ),
-                  //         ),
-                  //         Row(
-                  //           children: [
-                  //             Text('Views: 53 %',
-                  //                 style: TextStyle(
-                  //                     color: Colors.lightGreen,
-                  //                     fontSize: DeviceDimensions.responsiveSize(
-                  //                             context) *
-                  //                         0.03)),
-                  //             Icon(
-                  //               Icons.trending_up,
-                  //               color: Colors.lightGreen,
-                  //             ),
-                  //           ],
-                  //         )
-                  //       ],
-                  //     )
-                  //   ],
-                  // ),
-                  // const Divider(),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12.0,
@@ -1427,44 +1280,45 @@ class _GraphScreenState extends State<GraphScreen> {
                         return Padding(
                           padding: EdgeInsets.only(left: 20.0, right: 10),
                           child: ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: Container(
-                                width: 35,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(35),
-                                  color: Colors.black54,
-                                  image: DecorationImage(
-                                      image: CachedNetworkImageProvider(
-                                          addedConnection.profileImage),
-                                      fit: BoxFit.cover),
-                                ),
+                            contentPadding: EdgeInsets.zero,
+                            leading: Container(
+                              width: 35,
+                              height: 35,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(35),
+                                color: Colors.black54,
+                                image: DecorationImage(
+                                    image: CachedNetworkImageProvider(
+                                        addedConnection.profileImage),
+                                    fit: BoxFit.cover),
                               ),
-                              title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                      "${addedConnection.firstName} ${addedConnection.lastName}"),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        addedConnection.designation,
-                                        style: TextStyle(
-                                          fontSize:
-                                              DeviceDimensions.responsiveSize(
-                                                      context) *
-                                                  0.040,
-                                          fontFamily: 'Barlow-Regular',
-                                          color: const Color(0xFF909091),
-                                        ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
+                            ),
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    "${addedConnection.firstName} ${addedConnection.lastName}"),
+                                Row(
+                                  children: [
+                                    Text(
+                                      addedConnection.designation,
+                                      style: TextStyle(
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.040,
+                                        fontFamily: 'Barlow-Regular',
+                                        color: const Color(0xFF909091),
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              trailing: Icon(Icons.arrow_right)),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            //trailing: Icon(Icons.arrow_right)
+                          ),
                         );
                       }),
                   SizedBox(

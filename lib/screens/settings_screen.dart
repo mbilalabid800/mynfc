@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, unused_field, avoid_print, use_build_context_synchronously
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -58,8 +59,33 @@ class _SettingsState extends State<Settings> {
       String uid = user.uid;
       // Generate the deep link
       String userProfileLink =
-          'https://nfcapp.com/connection-profile-preview/$uid';
+          'https://nfcapp.com/connection-profile-preview/$uid?source=nfc';
       return userProfileLink;
+    } else {
+      throw Exception('User not logged in');
+    }
+  }
+
+  // Function to increment the NFC tap counter in Firestore
+  Future<void> incrementTapCounter() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      String uid = user.uid;
+
+      DocumentReference tapCounterRef =
+          FirebaseFirestore.instance.collection('users').doc(uid);
+
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot snapshot = await transaction.get(tapCounterRef);
+
+        if (!snapshot.exists) {
+          // Create the document with initial tap count if it doesn't exist
+          transaction.set(tapCounterRef, {'tapCount': 1});
+        } else {
+          int newTapCount = (snapshot['tapCount'] ?? 0) + 1;
+          transaction.update(tapCounterRef, {'tapCount': newTapCount});
+        }
+      });
     } else {
       throw Exception('User not logged in');
     }
