@@ -41,6 +41,8 @@ class OrderProvider with ChangeNotifier {
         return OrderModel.fromFirestore(doc.data() as Map<String, dynamic>);
       }).toList();
 
+      print("$orders is this ");
+
       //notifyListeners();
     } catch (e) {
       print('Failed to fetch orders: $e');

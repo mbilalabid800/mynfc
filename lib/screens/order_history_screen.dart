@@ -7,7 +7,7 @@ import 'package:nfc_app/widgets/active_orders_widget.dart';
 import 'package:nfc_app/widgets/cancelled_orders_widget.dart';
 import 'package:nfc_app/widgets/completed_orders_widget.dart';
 import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
-import 'package:provider/provider.dart'; //test
+import 'package:provider/provider.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
   const OrderHistoryScreen({super.key});
@@ -42,59 +42,43 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
         tabController: _tabController,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: DeviceDimensions.screenHeight(context),
-                    width: DeviceDimensions.screenWidth(context) * 0.95,
-                    child: Consumer<OrderProvider>(
-                        builder: (context, orderProvider, _) {
-                      if (orderProvider.isLoading) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      if (orderProvider.orders.isEmpty) {
-                        return const Center(child: Text('No orders found.'));
-                      }
-                      return TabBarView(
-                        controller: _tabController,
-                        children: [
-                          _buildOrderList(orderProvider.orders, 'active'),
-                          _buildOrderList(orderProvider.orders, 'completed'),
-                          _buildOrderList(orderProvider.orders, 'cancelled')
-                          // Padding(
-                          //   padding: const EdgeInsets.all(6.0),
-                          //   child: ActiveOrdersWidget(),
-                          // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(6.0),
-                          //   child: CompletedOrdersWidget(),
-                          // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(6.0),
-                          //   child: CancelledOrdersWidget(),
-                          //),
-                        ],
-                      );
-                    }),
-                  ),
-                ),
+        child: Column(
+          children: [
+            Expanded(
+              child: Consumer<OrderProvider>(
+                builder: (context, orderProvider, _) {
+                  if (orderProvider.isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (orderProvider.orders.isEmpty) {
+                    return const Center(child: Text('No orders found.'));
+                  }
+                  return TabBarView(
+                    controller: _tabController,
+                    children: [
+                      _buildOrderList(orderProvider.orders, 'active'),
+                      _buildOrderList(orderProvider.orders, 'completed'),
+                      _buildOrderList(orderProvider.orders, 'cancelled'),
+                    ],
+                  );
+                },
               ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.02)
-            ],
-          ),
+            ),
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.02,
+            ),
+          ],
         ),
       ),
     );
   }
 
-// Helper function to build the list of orders based on status
+  // Helper function to build the list of orders based on status
   Widget _buildOrderList(List<OrderModel> orders, String orderHistory) {
     final filteredOrders = orders.where((order) {
-      return order.orderHistory == 'active';
+      return order.orderHistory != null &&
+          order.orderHistory ==
+              orderHistory; // Compare with the passed orderHistory
     }).toList();
 
     if (filteredOrders.isEmpty) {
@@ -105,10 +89,23 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
       itemCount: filteredOrders.length,
       itemBuilder: (context, index) {
         final order = filteredOrders[index];
-        return ListTile(
-          title: Text('Order ID: ${order.orderId}'),
-          subtitle: Text('Total Amount: \$${order.orderPrice}'),
-          trailing: Text('Status: ${order.orderHistory}'),
+        return SizedBox(
+          child: Card(
+            color: Colors.white,
+            child: ListTile(
+              title: Text(
+                  'Order ID: ${order.cardName ?? "Unknown"}'), // Handle null case for orderId
+              subtitle: Text(
+                  'Total Amount: \$${order.orderPrice?.toString() ?? "0.00"}'), // Handle null case for orderPrice
+              trailing: Column(
+                children: [
+                  Text(
+                      'Total Amount ${order.orderPrice?.toString() ?? "0.00"}'),
+                  Text('Status: ${order.orderHistory ?? "Unknown"}'),
+                ],
+              ), // Handle null case for orderHistory
+            ),
+          ),
         );
       },
     );
