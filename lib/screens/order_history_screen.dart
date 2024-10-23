@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
+import 'package:nfc_app/models/order_model.dart';
+import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/active_orders_widget.dart';
 import 'package:nfc_app/widgets/cancelled_orders_widget.dart';
 import 'package:nfc_app/widgets/completed_orders_widget.dart';
+import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
+import 'package:provider/provider.dart'; //test
 
 class OrderHistoryScreen extends StatefulWidget {
   const OrderHistoryScreen({super.key});
@@ -20,6 +24,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    Provider.of<OrderProvider>(context, listen: false).fetchOrders();
   }
 
   @override
@@ -32,38 +37,9 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
-      appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: Text('Order History'),
-        ),
-        centerTitle: true,
-        backgroundColor: AppColors.screenBackground,
-        bottom: PreferredSize(
-          preferredSize:
-              Size.fromHeight(DeviceDimensions.responsiveSize(context) * 0.15),
-          child: TabBar(
-            controller: _tabController,
-            indicatorSize: TabBarIndicatorSize.tab,
-            indicatorColor: Colors.black,
-            labelColor: const Color(0xFF202020),
-            labelStyle: TextStyle(
-              fontSize: DeviceDimensions.responsiveSize(context) * 0.038,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 1,
-            ),
-            unselectedLabelColor: const Color(0xFF727272),
-            unselectedLabelStyle: TextStyle(
-              fontSize: DeviceDimensions.responsiveSize(context) * 0.038,
-              fontWeight: FontWeight.normal,
-            ),
-            tabs: const [
-              Tab(text: 'Active'),
-              Tab(text: 'Completed'),
-              Tab(text: 'Cancelled'),
-            ],
-          ),
-        ),
+      appBar: CustomAppBarTwo(
+        title: 'Order History',
+        tabController: _tabController,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -75,23 +51,35 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                   child: SizedBox(
                     height: DeviceDimensions.screenHeight(context),
                     width: DeviceDimensions.screenWidth(context) * 0.95,
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: ActiveOrdersWidget(),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: CompletedOrdersWidget(),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: CancelledOrdersWidget(),
-                        ),
-                      ],
-                    ),
+                    child: Consumer<OrderProvider>(
+                        builder: (context, orderProvider, _) {
+                      if (orderProvider.isLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (orderProvider.orders.isEmpty) {
+                        return const Center(child: Text('No orders found.'));
+                      }
+                      return TabBarView(
+                        controller: _tabController,
+                        children: [
+                          _buildOrderList(orderProvider.orders, 'active'),
+                          _buildOrderList(orderProvider.orders, 'completed'),
+                          _buildOrderList(orderProvider.orders, 'cancelled')
+                          // Padding(
+                          //   padding: const EdgeInsets.all(6.0),
+                          //   child: ActiveOrdersWidget(),
+                          // ),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(6.0),
+                          //   child: CompletedOrdersWidget(),
+                          // ),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(6.0),
+                          //   child: CancelledOrdersWidget(),
+                          //),
+                        ],
+                      );
+                    }),
                   ),
                 ),
               ),
@@ -100,6 +88,29 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
           ),
         ),
       ),
+    );
+  }
+
+// Helper function to build the list of orders based on status
+  Widget _buildOrderList(List<OrderModel> orders, String orderHistory) {
+    final filteredOrders = orders.where((order) {
+      return order.orderHistory == 'active';
+    }).toList();
+
+    if (filteredOrders.isEmpty) {
+      return Center(child: Text('No $orderHistory orders found.'));
+    }
+
+    return ListView.builder(
+      itemCount: filteredOrders.length,
+      itemBuilder: (context, index) {
+        final order = filteredOrders[index];
+        return ListTile(
+          title: Text('Order ID: ${order.orderId}'),
+          subtitle: Text('Total Amount: \$${order.orderPrice}'),
+          trailing: Text('Status: ${order.orderHistory}'),
+        );
+      },
     );
   }
 }

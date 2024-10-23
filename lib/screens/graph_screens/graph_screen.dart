@@ -391,7 +391,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
                                       children: [
-                                        Text('0',
+                                        Text('82',
                                             style: TextStyle(
                                                 fontSize: DeviceDimensions
                                                         .responsiveSize(
