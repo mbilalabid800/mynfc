@@ -183,6 +183,7 @@ class ConfirmOrder {
         orderPrice: selectedCard.cardPrice,
         orderStatus: "Pending",
         shippingMethod: shippingMethod,
+        orderHistory: "active",
         address:
             "${shippingDetails.streetAddress} ${shippingDetails.city} ${shippingDetails.state} ${shippingDetails.country}",
         deliveryDate: deliveryDate,

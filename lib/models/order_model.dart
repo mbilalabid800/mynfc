@@ -2,6 +2,7 @@ class OrderModel {
   final String orderId;
   final String orderPrice;
   final String orderStatus;
+  final String orderHistory;
   final String shippingMethod;
   final String address;
   final String deliveryDate;
@@ -16,6 +17,7 @@ class OrderModel {
     required this.orderId,
     required this.orderPrice,
     required this.orderStatus,
+    required this.orderHistory,
     required this.shippingMethod,
     required this.address,
     required this.deliveryDate,
@@ -31,6 +33,7 @@ class OrderModel {
     return {
       'orderId': orderId,
       'orderPrice': orderPrice,
+      'orderHistory': orderHistory,
       'orderStatus': orderStatus,
       'shippingMethod': shippingMethod,
       'address': address,
@@ -51,6 +54,7 @@ class OrderModel {
         orderStatus: data['orderStatus'],
         shippingMethod: data['shippingMethod'],
         address: data['address'],
+        orderHistory: data['orderHistory'],
         deliveryDate: data['deliveryDate'],
         orderDateTime: data['orderDateTime'],
         cardName: data['cardName'],

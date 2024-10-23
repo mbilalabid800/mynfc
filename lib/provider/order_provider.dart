@@ -8,6 +8,9 @@ class OrderProvider with ChangeNotifier {
   OrderModel? _currentOrder;
   OrderModel? get currentOrder => _currentOrder;
   bool isLoading = false;
+  // List to store fetched orders
+  List<OrderModel> _orders = [];
+  List<OrderModel> get orders => _orders;
 
   Future<void> placeOrder(OrderModel order) async {
     isLoading = true;
@@ -21,6 +24,26 @@ class OrderProvider with ChangeNotifier {
       notifyListeners();
     } catch (e) {
       print('Failed to place order: $e');
+    }
+    isLoading = false;
+    notifyListeners();
+  }
+
+  // Fetch all orders from Firestore
+  Future<void> fetchOrders() async {
+    isLoading = true;
+    //notifyListeners();
+    try {
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('orders').get();
+
+      _orders = querySnapshot.docs.map((doc) {
+        return OrderModel.fromFirestore(doc.data() as Map<String, dynamic>);
+      }).toList();
+
+      //notifyListeners();
+    } catch (e) {
+      print('Failed to fetch orders: $e');
     }
     isLoading = false;
     notifyListeners();
