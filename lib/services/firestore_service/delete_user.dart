@@ -18,38 +18,55 @@ class DeleteUser {
   }
 
   Future<void> deleteUserFromFirestore(String uid) async {
+    WriteBatch batch = FirebaseFirestore.instance.batch();
     try {
-      await FirebaseFirestore.instance
+      // Delete socialLinks subcollection
+      QuerySnapshot socialLinksSnapshot = await FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
           .collection('socialLinks')
-          .get()
-          .then((snapshot) {
-        for (DocumentSnapshot doc in snapshot.docs) {
-          doc.reference.delete();
-        }
-      });
-      await FirebaseFirestore.instance
+          .get();
+      for (DocumentSnapshot doc in socialLinksSnapshot.docs) {
+        batch.delete(doc.reference);
+      }
+
+      // Delete connections subcollection
+      QuerySnapshot connectionsSnapshot = await FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
           .collection('connections')
-          .get()
-          .then((snapshot) {
-        for (DocumentSnapshot doc in snapshot.docs) {
-          doc.reference.delete();
-        }
-      });
-      await FirebaseFirestore.instance
+          .get();
+      for (DocumentSnapshot doc in connectionsSnapshot.docs) {
+        batch.delete(doc.reference);
+      }
+
+      // Delete userProfile subcollection
+      QuerySnapshot userProfileSnapshot = await FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
           .collection('userProfile')
-          .get()
-          .then((snapshot) {
-        for (DocumentSnapshot doc in snapshot.docs) {
-          doc.reference.delete();
-        }
-      });
-      await FirebaseFirestore.instance.collection('users').doc(uid).delete();
+          .get();
+      for (DocumentSnapshot doc in userProfileSnapshot.docs) {
+        batch.delete(doc.reference);
+      }
+
+      //Delete the shipping address
+      QuerySnapshot shippingAddressSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('shippingAddress')
+          .get();
+      for (DocumentSnapshot doc in shippingAddressSnapshot.docs) {
+        batch.delete(doc.reference);
+      }
+
+      // Delete the user document itself
+      DocumentReference userDoc =
+          FirebaseFirestore.instance.collection('users').doc(uid);
+      batch.delete(userDoc);
+
+      // Commit the batch
+      await batch.commit();
       print('User document and subcollections deleted from Firestore.');
     } catch (e) {
       print('Error deleting user data from Firestore: $e');
@@ -58,22 +75,32 @@ class DeleteUser {
 
   Future<void> deleteUserFromConnections(String uid) async {
     try {
-      QuerySnapshot snapshot = await FirebaseFirestore.instance
-          .collection('connections')
-          .where('users', arrayContains: uid)
-          .get();
+      // Fetch all users from the 'users' collection
+      QuerySnapshot usersSnapshot =
+          await FirebaseFirestore.instance.collection('users').get();
 
-      for (var doc in snapshot.docs) {
-        await FirebaseFirestore.instance
+      // Iterate over all users to check their 'connections' subcollection
+      for (var userDoc in usersSnapshot.docs) {
+        String userId = userDoc.id;
+
+        // Fetch connections for each user
+        QuerySnapshot connectionSnapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
             .collection('connections')
-            .doc(doc.id)
-            .update({
-          'users': FieldValue.arrayRemove([uid]),
-        });
+            .where('uid',
+                isEqualTo: uid) // Assuming 'uid' field holds connections
+            .get();
+
+        // Remove the user from each 'connections' document where they are listed
+        for (var connectionDoc in connectionSnapshot.docs) {
+          await connectionDoc.reference.delete(); // Deleting the connection
+        }
       }
-      print('User removed from all connections.');
+
+      print('User removed from all connections subcollections.');
     } catch (e) {
-      print('Error removing user from connections: $e');
+      print('Error removing user from all connections: $e');
     }
   }
 

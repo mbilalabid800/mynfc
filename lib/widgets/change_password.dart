@@ -126,6 +126,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
+      backgroundColor: Colors.white,
       onClosing: () {},
       builder: (BuildContext context) {
         return Stack(

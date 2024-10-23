@@ -4,7 +4,6 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/active_orders_widget.dart';
 import 'package:nfc_app/widgets/cancelled_orders_widget.dart';
 import 'package:nfc_app/widgets/completed_orders_widget.dart';
-import 'package:nfc_app/widgets/custom_app_bar_widget.dart'; //test
 
 class OrderHistoryScreen extends StatefulWidget {
   const OrderHistoryScreen({super.key});
@@ -96,9 +95,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                   ),
                 ),
               ),
-              SizedBox(
-                height: DeviceDimensions.screenHeight(context) * 0.02,
-              )
+              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.02)
             ],
           ),
         ),

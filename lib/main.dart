@@ -81,9 +81,9 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
-      // ChangeNotifierProvider(
-      //   create: (_) => InternetCheckerProvider(),
-      // ),
+      ChangeNotifierProvider(
+        create: (_) => InternetCheckerProvider(),
+      ),
       ChangeNotifierProvider(
         create: (_) => UserInfoProgressProvider(),
       ),
@@ -121,7 +121,9 @@ void main() async {
         create: (_) => OrderProvider(),
       )
     ],
-    child: const MyApp(),
+    child: InternetStatusHandler(
+      child: const MyApp(),
+    ),
   ));
 }
 
@@ -175,7 +177,7 @@ class MyApp extends StatelessWidget {
         '/graph-screen': (context) => const GraphScreen(),
         '/pricing-plan': (context) => const PricingPlan(),
         '/contact-us-screen': (context) => const ContactUsScreen(),
-        // '/internet-error': (context) => const InternetError(),
+        '/internet-error': (context) => const InternetError(),
         '/how-to-use': (context) => const HowToUseScreen(),
         '/faq-screen': (context) => const FaqScreen(),
         '/full-screen-graph': (context) => const FullScreenGraph(),

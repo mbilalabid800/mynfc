@@ -26,6 +26,8 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
       body: Center(
         child: Consumer<UserInfoFormStateProvider>(
           builder: (context, userProvider, child) {
+            String profileLink =
+                'https://nfcapp.com/connection-profile-preview/${userProvider.uid}';
             return Column(
               children: [
                 Container(
@@ -100,8 +102,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                               DeviceDimensions.screenHeight(context) * 0.030),
                       Center(
                         child: QrImageView(
-                          data:
-                              'https://nfcapp.com/connection-profile-preview/${userProvider.uid}',
+                          data: profileLink,
                           version: QrVersions.auto,
                           size: 210,
                         ),
@@ -114,7 +115,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                         width: DeviceDimensions.screenWidth(context) * 0.80,
                         child: ElevatedButton(
                           onPressed: () {
-                            ShareProfile().shareProfile(context);
+                            ShareProfile().shareProfile(context, profileLink);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
@@ -153,6 +154,36 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                           height:
                               DeviceDimensions.screenHeight(context) * 0.030),
                     ],
+                  ),
+                ),
+                SizedBox(
+                    height: DeviceDimensions.screenHeight(context) * 0.020),
+                Container(
+                  width: DeviceDimensions.screenWidth(context) * 0.92,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 18, vertical: 20),
+                    child: Row(
+                      children: [
+                        Image.asset("assets/icons/wallet.png", height: 26),
+                        SizedBox(
+                            width:
+                                DeviceDimensions.screenWidth(context) * 0.030),
+                        Text(
+                          "Add to Google Wallet",
+                          style: TextStyle(
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.052,
+                            fontFamily: 'Barlow-Regular',
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],
