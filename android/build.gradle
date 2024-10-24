@@ -2,7 +2,7 @@ buildscript {
     ext.kotlin_version = '1.9.0'
     repositories {
         google()
-        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.1.0'
@@ -20,15 +20,12 @@ allprojects {
 }
 
 rootProject.buildDir = "../build"
-
 subprojects {
-    // Configure build directories for both subprojects
     project.buildDir = "${rootProject.buildDir}/${project.name}"
-    
-    // Apply common configuration to both subprojects if necessary
-    evaluationDependsOn(":app")
 }
-
+subprojects {
+    project.evaluationDependsOn(":app")
+}
 
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
