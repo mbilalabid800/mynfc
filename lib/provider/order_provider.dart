@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/models/order_model.dart';
 
@@ -34,8 +35,21 @@ class OrderProvider with ChangeNotifier {
     isLoading = true;
     //notifyListeners();
     try {
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('orders').get();
+// Get the current user's UID
+      String? userUid = FirebaseAuth.instance.currentUser?.uid;
+
+      // Ensure user is logged in
+      if (userUid == null) {
+        print('User is not logged in');
+        isLoading = false;
+        notifyListeners();
+        return;
+      }
+
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('orders')
+          .where('userUid', isEqualTo: userUid)
+          .get();
 
       _orders = querySnapshot.docs.map((doc) {
         return OrderModel.fromFirestore(doc.data() as Map<String, dynamic>);
