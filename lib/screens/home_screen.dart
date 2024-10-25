@@ -12,8 +12,10 @@ import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 import 'package:nfc_app/utils/ui_mode_helper.dart';
 import 'package:nfc_app/widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/horizontal_scroll_app_list_widget.dart';
+import 'package:nfc_app/widgets/newsletter_popup_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -46,18 +48,19 @@ class _HomeScreenState extends State<HomeScreen> {
       Provider.of<UserInfoFormStateProvider>(context, listen: false)
           .loadUserData();
     });
-    //_checkNewsletterPopup();
+
+    Future.delayed(Duration(seconds: 2), _checkNewsletterPopup);
   }
 
-  // Future<void> _checkNewsletterPopup() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool isPopupShown = prefs.getBool('isNewsletterPopupShown') ?? false;
+  Future<void> _checkNewsletterPopup() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isPopupShown = prefs.getBool('isNewsletterPopupShown') ?? false;
 
-  //   if (!isPopupShown) {
-  //     NewsletterPopup.show(context);
-  //     await prefs.setBool('isNewsletterPopupShown', true);
-  //   }
-  // }
+    if (!isPopupShown) {
+      NewsletterPopup.show(context);
+      await prefs.setBool('isNewsletterPopupShown', true);
+    }
+  }
 
   Future<void> _fetchData(LoadingStateProvider loadingState) async {
     // Simulate a data fetch with Firestore

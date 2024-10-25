@@ -75,4 +75,17 @@ class FirestoreService {
       print("User not authenticated");
     }
   }
+
+  Future<void> subscribeUser(String email) async {
+    try {
+      await _db.collection('email_subscribers').add({
+        'email': email,
+        'subscribed_at': Timestamp.now(), // Optional: Add timestamp
+      });
+      print("Subscription successful");
+    } catch (e) {
+      print("Error subscribing: $e");
+      throw Exception("Failed to subscribe user");
+    }
+  }
 }
