@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -121,9 +123,7 @@ void main() async {
         create: (_) => OrderProvider(),
       )
     ],
-    child: InternetStatusHandler(
-      child: const MyApp(),
-    ),
+    child: InternetStatusHandler(child: const MyApp()),
   ));
 }
 

@@ -4,7 +4,7 @@ class BottomSheetExample extends StatefulWidget {
   const BottomSheetExample({super.key});
 
   @override
-  _BottomSheetExampleState createState() => _BottomSheetExampleState();
+  State<BottomSheetExample> createState() => _BottomSheetExampleState();
 }
 
 class _BottomSheetExampleState extends State<BottomSheetExample> {

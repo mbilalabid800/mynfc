@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,6 @@ import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
-import 'package:nfc_app/provider/user_info_progress_provider.dart';
 import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 import 'package:nfc_app/widgets/charts_widget.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';

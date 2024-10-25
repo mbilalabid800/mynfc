@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
-import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/widgets/charts_widget.dart';
+
 import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
 
 class FullScreenGraph extends StatelessWidget {

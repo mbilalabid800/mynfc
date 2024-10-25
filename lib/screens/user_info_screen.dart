@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, use_build_context_synchronously
 
 import 'dart:io';
 import 'package:country_code_picker/country_code_picker.dart';
@@ -24,42 +24,39 @@ class UserScreen extends StatelessWidget {
     return Scaffold(
         //backgroundColor: Colors.white,
         backgroundColor: AppColors.screenBackground,
-        body: Container(
-          // height: DeviceDimensions.screenHeight(context),
-          child: Column(children: [
-            const SizedBox(height: 50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        body: Column(children: [
+          const SizedBox(height: 50),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ProgressRectangle(index: 1),
+              SizedBox(width: DeviceDimensions.screenWidth(context) * 0.015),
+              ProgressRectangle(index: 2),
+              SizedBox(width: DeviceDimensions.screenWidth(context) * 0.015),
+              ProgressRectangle(index: 3),
+            ],
+          ),
+          SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text('Lastly, tell us more about yourself ',
+                style: TextStyle(fontFamily: 'Barlow-Bold', fontSize: 30)),
+          ),
+          Expanded(
+            child: PageView(
+              controller: pageController,
+              physics: NeverScrollableScrollPhysics(),
               children: [
-                ProgressRectangle(index: 1),
-                SizedBox(width: DeviceDimensions.screenWidth(context) * 0.015),
-                ProgressRectangle(index: 2),
-                SizedBox(width: DeviceDimensions.screenWidth(context) * 0.015),
-                ProgressRectangle(index: 3),
+                NameStep(pageController: pageController),
+                CompanyInfoStep(pageController: pageController),
+                ImageStep(),
               ],
             ),
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text('Lastly, tell us more about yourself ',
-                  style: TextStyle(fontFamily: 'Barlow-Bold', fontSize: 30)),
-            ),
-            Expanded(
-              child: PageView(
-                controller: pageController,
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  NameStep(pageController: pageController),
-                  CompanyInfoStep(pageController: pageController),
-                  ImageStep(),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: DeviceDimensions.screenHeight(context) * 0.02,
-            )
-          ]),
-        ));
+          ),
+          SizedBox(
+            height: DeviceDimensions.screenHeight(context) * 0.02,
+          )
+        ]));
   }
 }
 

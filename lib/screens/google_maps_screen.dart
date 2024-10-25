@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nfc_app/constants/appColors.dart';
@@ -29,8 +31,7 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
                 Text('Select Your Pickup Point'),
                 Text(
                     'Set your exact pickup point  on map with machine name for order delivery as per your ease and conveniently nearby your location.'),
-                Container(
-                    child: GoogleMap(
+                GoogleMap(
                   initialCameraPosition: CameraPosition(
                     target: _initialPosition,
                     zoom: 10.0,
@@ -40,7 +41,7 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
                   },
                   markers: _markers,
                   onTap: _handleTap,
-                ))
+                )
               ],
             ),
           ),

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/order_model.dart';
 import 'package:nfc_app/provider/order_provider.dart';
+import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/widgets/active_orders_widget.dart';
-import 'package:nfc_app/widgets/cancelled_orders_widget.dart';
-import 'package:nfc_app/widgets/completed_orders_widget.dart';
 import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
 import 'package:provider/provider.dart'; //test
 
@@ -24,7 +22,14 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    Provider.of<OrderProvider>(context, listen: false).fetchOrders();
+
+    // Fetch orders when the screen initializes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final userProvider =
+          Provider.of<UserInfoFormStateProvider>(context, listen: false);
+      final orderProvider = Provider.of<OrderProvider>(context, listen: false);
+      orderProvider.fetchOrders(userProvider.uid); // Fetch orders by user UID
+    });
   }
 
   @override
@@ -56,27 +61,17 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                       if (orderProvider.isLoading) {
                         return const Center(child: CircularProgressIndicator());
                       }
-                      if (orderProvider.orders.isEmpty) {
+                      if (orderProvider.userOrders.isEmpty) {
                         return const Center(child: Text('No orders found.'));
                       }
                       return TabBarView(
                         controller: _tabController,
                         children: [
-                          _buildOrderList(orderProvider.orders, 'active'),
-                          _buildOrderList(orderProvider.orders, 'completed'),
-                          _buildOrderList(orderProvider.orders, 'cancelled')
-                          // Padding(
-                          //   padding: const EdgeInsets.all(6.0),
-                          //   child: ActiveOrdersWidget(),
-                          // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(6.0),
-                          //   child: CompletedOrdersWidget(),
-                          // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(6.0),
-                          //   child: CancelledOrdersWidget(),
-                          //),
+                          _buildOrderList(orderProvider.userOrders, 'active'),
+                          _buildOrderList(
+                              orderProvider.userOrders, 'completed'),
+                          _buildOrderList(
+                              orderProvider.userOrders, 'cancelled'),
                         ],
                       );
                     }),
@@ -91,14 +86,14 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
     );
   }
 
-// Helper function to build the list of orders based on status
-  Widget _buildOrderList(List<OrderModel> orders, String orderHistory) {
+  // Helper function to build the list of orders based on status
+  Widget _buildOrderList(List<OrderModel> orders, String orderStatus) {
     final filteredOrders = orders.where((order) {
-      return order.orderHistory == 'active';
+      return order.orderHistory == orderStatus;
     }).toList();
 
     if (filteredOrders.isEmpty) {
-      return Center(child: Text('No $orderHistory orders found.'));
+      return Center(child: Text('No $orderStatus orders found.'));
     }
 
     return ListView.builder(
@@ -107,7 +102,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
         final order = filteredOrders[index];
         return ListTile(
           title: Text('Order ID: ${order.orderId}'),
-          subtitle: Text('Total Amount: \$${order.orderPrice}'),
+          subtitle: Text('Total Amount: ${order.orderPrice}'),
           trailing: Text('Status: ${order.orderHistory}'),
         );
       },

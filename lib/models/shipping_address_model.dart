@@ -65,8 +65,9 @@ class ShippingAddressModel {
   }
   @override
   bool operator ==(Object other) {
-    if (identical(this, other))
+    if (identical(this, other)) {
       return true; // Check if the objects are the same
+    }
     if (runtimeType != other.runtimeType) return false;
     final ShippingAddressModel otherAddress = other as ShippingAddressModel;
     return locationName ==

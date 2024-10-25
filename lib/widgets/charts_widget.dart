@@ -340,9 +340,9 @@ class FullCardTapsChart extends StatelessWidget {
   // Tap counts for each day (Monday to Sunday)
   final List<double> tapsPerDay;
   const FullCardTapsChart({
-    Key? key,
+    super.key,
     required this.tapsPerDay,
-  }) : super(key: key);
+  });
 
 // Tap counts for each day (Monday to Sunday)
   //final List<double> tapsPerDay ;

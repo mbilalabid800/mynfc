@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages, unrelated_type_equality_checks, avoid_print
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

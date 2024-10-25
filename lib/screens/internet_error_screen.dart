@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/internet_checker_provider.dart';

@@ -9,7 +9,7 @@ class TimeFrameList extends StatefulWidget {
   const TimeFrameList({super.key, required this.onSelected});
 
   @override
-  _TimeFrameListState createState() => _TimeFrameListState();
+  State<TimeFrameList> createState() => _TimeFrameListState();
 }
 
 class _TimeFrameListState extends State<TimeFrameList> {

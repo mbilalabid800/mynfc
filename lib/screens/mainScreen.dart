@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:nfc_app/screens/active_product_screen.dart';
 import 'package:nfc_app/screens/card_details_screen.dart';

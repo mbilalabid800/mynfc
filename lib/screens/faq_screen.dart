@@ -9,7 +9,7 @@ class FaqScreen extends StatefulWidget {
   const FaqScreen({super.key});
 
   @override
-  _FaqScreenState createState() => _FaqScreenState();
+  State<FaqScreen> createState() => _FaqScreenState();
 }
 
 class _FaqScreenState extends State<FaqScreen> {

@@ -1,4 +1,5 @@
-import 'package:flutter/widgets.dart';
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:lottie/lottie.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';

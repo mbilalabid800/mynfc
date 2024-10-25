@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:path_provider/path_provider.dart';
@@ -12,8 +11,6 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ShareProfile {
-  final GlobalKey _globalKey = GlobalKey();
-
   void shareProfile(BuildContext context, String profileLink) {
     showModalBottomSheet(
       backgroundColor: AppColors.screenBackground,

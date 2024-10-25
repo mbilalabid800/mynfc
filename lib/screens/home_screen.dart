@@ -12,10 +12,8 @@ import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 import 'package:nfc_app/utils/ui_mode_helper.dart';
 import 'package:nfc_app/widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/horizontal_scroll_app_list_widget.dart';
-import 'package:nfc_app/widgets/newsletter_popup_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
