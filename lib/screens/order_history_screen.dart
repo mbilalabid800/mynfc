@@ -5,7 +5,7 @@ import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
-import 'package:provider/provider.dart'; //test
+import 'package:provider/provider.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
   const OrderHistoryScreen({super.key});
@@ -61,17 +61,27 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                       if (orderProvider.isLoading) {
                         return const Center(child: CircularProgressIndicator());
                       }
-                      if (orderProvider.userOrders.isEmpty) {
+                      if (orderProvider.orders.isEmpty) {
                         return const Center(child: Text('No orders found.'));
                       }
                       return TabBarView(
                         controller: _tabController,
                         children: [
-                          _buildOrderList(orderProvider.userOrders, 'active'),
-                          _buildOrderList(
-                              orderProvider.userOrders, 'completed'),
-                          _buildOrderList(
-                              orderProvider.userOrders, 'cancelled'),
+                          _buildOrderList(orderProvider.orders, 'active'),
+                          _buildOrderList(orderProvider.orders, 'completed'),
+                          _buildOrderList(orderProvider.orders, 'cancelled')
+                          // Padding(
+                          //   padding: const EdgeInsets.all(6.0),
+                          //   child: ActiveOrdersWidget(),
+                          // ),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(6.0),
+                          //   child: CompletedOrdersWidget(),
+                          // ),
+                          // Padding(
+                          //   padding: const EdgeInsets.all(6.0),
+                          //   child: CancelledOrdersWidget(),
+                          //),
                         ],
                       );
                     }),
@@ -86,10 +96,10 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
     );
   }
 
-  // Helper function to build the list of orders based on status
-  Widget _buildOrderList(List<OrderModel> orders, String orderStatus) {
+// Helper function to build the list of orders based on status
+  Widget _buildOrderList(List<OrderModel> orders, String orderHistory) {
     final filteredOrders = orders.where((order) {
-      return order.orderHistory == orderStatus;
+      return order.orderHistory == 'active';
     }).toList();
 
     if (filteredOrders.isEmpty) {
@@ -102,7 +112,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
         final order = filteredOrders[index];
         return ListTile(
           title: Text('Order ID: ${order.orderId}'),
-          subtitle: Text('Total Amount: ${order.orderPrice}'),
+          subtitle: Text('Total Amount: \$${order.orderPrice}'),
           trailing: Text('Status: ${order.orderHistory}'),
         );
       },

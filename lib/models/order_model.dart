@@ -49,18 +49,18 @@ class OrderModel {
 
   factory OrderModel.fromFirestore(Map<String, dynamic> data) {
     return OrderModel(
-        orderId: data['orderId'],
-        orderPrice: data['orderPrice'],
-        orderStatus: data['orderStatus'],
-        shippingMethod: data['shippingMethod'],
-        address: data['address'],
-        orderHistory: data['orderHistory'],
-        deliveryDate: data['deliveryDate'],
-        orderDateTime: data['orderDateTime'],
-        cardName: data['cardName'],
-        cardColor: data['cardColor'],
-        cardImage: data['cardImage'],
-        userEmail: data['userEmail'],
-        userUid: data['userUid']);
+        orderId: data['orderId'] ?? 'Unknown',
+        orderPrice: data['orderPrice'] ?? '0.00',
+        orderStatus: data['orderStatus'] ?? 'Unknown',
+        shippingMethod: data['shippingMethod'] ?? 'Unknown',
+        address: data['address'] ?? 'Unknown',
+        orderHistory: data['orderHistory'] ?? 'Unknown',
+        deliveryDate: data['deliveryDate'] ?? 'Unknown',
+        orderDateTime: data['orderDateTime'] ?? 'Unknown',
+        cardName: data['cardName'] ?? 'Unknown',
+        cardColor: data['cardColor'] ?? 'Unknown',
+        cardImage: data['cardImage'] ?? 'Unknown',
+        userEmail: data['userEmail'] ?? 'Unknown',
+        userUid: data['userUid'] ?? 'Unknown');
   }
 }

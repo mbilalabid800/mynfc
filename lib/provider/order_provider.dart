@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/models/order_model.dart';
 
@@ -33,45 +34,29 @@ class OrderProvider with ChangeNotifier {
     isLoading = true;
     notifyListeners();
     try {
-      print("Fetching orders from Firestore for UID: $uid");
+// Get the current user's UID
+      String? userUid = FirebaseAuth.instance.currentUser?.uid;
+
+      // Ensure user is logged in
+      if (userUid == null) {
+        print('User is not logged in');
+        isLoading = false;
+        notifyListeners();
+        return;
+      }
 
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('orders')
-          .get(); // Get all orders
+          .where('userUid', isEqualTo: userUid)
+          .get();
 
-      if (querySnapshot.docs.isEmpty) {
-        print("No orders found.");
-        _userOrders = []; // Set to empty if no orders
-      } else {
-        print("${querySnapshot.docs.length} orders found.");
+      _orders = querySnapshot.docs.map((doc) {
+        return OrderModel.fromFirestore(doc.data() as Map<String, dynamic>);
+      }).toList();
 
-        // Filter orders by matching uid
-        _userOrders = querySnapshot.docs
-            .map((doc) {
-              final data = doc.data() as Map<String, dynamic>; // Cast to Map
-              print("Order ID: ${doc.id}, Data: $data");
+      print("$orders is this ");
 
-              // Match the uid
-              if (data['userUid'] == uid) {
-                print("Match found for order ID: ${doc.id}");
-                return OrderModel.fromFirestore(
-                    data); // Only add matching orders
-              } else {
-                print("Mismatch for order ID: ${doc.id}");
-                return null; // Return null for mismatches
-              }
-            })
-            .whereType<OrderModel>()
-            .toList(); // Filter out nulls
-
-        if (_userOrders.isEmpty) {
-          print("No matching orders found for UID: $uid");
-        } else {
-          print("${_userOrders.length} matching orders found for UID: $uid");
-        }
-      }
-
-      notifyListeners();
+      //notifyListeners();
     } catch (e) {
       print('Failed to fetch orders: $e');
     }
