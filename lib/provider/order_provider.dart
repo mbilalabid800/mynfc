@@ -9,10 +9,10 @@ class OrderProvider with ChangeNotifier {
   OrderModel? _currentOrder;
   OrderModel? get currentOrder => _currentOrder;
   bool isLoading = false;
-  List<OrderModel> _userOrders = [];
-  List<OrderModel> get userOrders => _userOrders;
+  // List to store fetched orders
+  List<OrderModel> _orders = [];
+  List<OrderModel> get orders => _orders;
 
-  // Place an order in Firestore
   Future<void> placeOrder(OrderModel order) async {
     isLoading = true;
     notifyListeners();
@@ -30,9 +30,10 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchOrders(String uid) async {
+  // Fetch all orders from Firestore
+  Future<void> fetchOrders() async {
     isLoading = true;
-    notifyListeners();
+    //notifyListeners();
     try {
 // Get the current user's UID
       String? userUid = FirebaseAuth.instance.currentUser?.uid;
@@ -60,7 +61,6 @@ class OrderProvider with ChangeNotifier {
     } catch (e) {
       print('Failed to fetch orders: $e');
     }
-
     isLoading = false;
     notifyListeners();
   }
