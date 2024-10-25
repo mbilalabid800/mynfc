@@ -48,18 +48,19 @@ class _HomeScreenState extends State<HomeScreen> {
       Provider.of<UserInfoFormStateProvider>(context, listen: false)
           .loadUserData();
     });
-    //_checkNewsletterPopup();
+
+    Future.delayed(Duration(seconds: 2), _checkNewsletterPopup);
   }
 
-  // Future<void> _checkNewsletterPopup() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool isPopupShown = prefs.getBool('isNewsletterPopupShown') ?? false;
+  Future<void> _checkNewsletterPopup() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isPopupShown = prefs.getBool('isNewsletterPopupShown') ?? false;
 
-  //   if (!isPopupShown) {
-  //     NewsletterPopup.show(context);
-  //     await prefs.setBool('isNewsletterPopupShown', true);
-  //   }
-  // }
+    if (!isPopupShown) {
+      NewsletterPopup.show(context);
+      await prefs.setBool('isNewsletterPopupShown', true);
+    }
+  }
 
   Future<void> _fetchData(LoadingStateProvider loadingState) async {
     // Simulate a data fetch with Firestore

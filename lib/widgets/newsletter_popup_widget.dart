@@ -1,46 +1,81 @@
-// import 'package:flutter/material.dart';
-// import 'package:lottie/lottie.dart';
+import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:nfc_app/constants/appColors.dart';
+import 'package:nfc_app/responsive/device_dimensions.dart';
 
-// class NewsletterPopup {
-//   static void show(BuildContext context) {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           backgroundColor: Colors.white,
-//           title: Text('Subscribe to our Newsletter'),
-//           content: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               Lottie.asset(
-//                 'assets/animations/newsletter.json',
-//                 height: 10,
-//               ),
-//               Text('Enter your email to stay updated:'),
-//               TextField(
-//                 decoration: InputDecoration(
-//                   hintText: 'Email',
-//                 ),
-//               ),
-//             ],
-//           ),
-//           actions: <Widget>[
-//             TextButton(
-//               child: Text('Cancel'),
-//               onPressed: () {
-//                 Navigator.of(context).pop();
-//               },
-//             ),
-//             ElevatedButton(
-//               child: Text('Subscribe'),
-//               onPressed: () {
-//                 // Handle subscription logic here
-//                 Navigator.of(context).pop();
-//               },
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
-// }
+class NewsletterPopup {
+  static void show(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text(
+            'New product announcement: Be the first to know',
+            style: TextStyle(
+                fontSize: DeviceDimensions.responsiveSize(context) * 0.04,
+                fontWeight: FontWeight.w600),
+            textAlign: TextAlign.center,
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Lottie.asset(
+                'assets/animations/newsletter.json',
+                height: 80,
+              ),
+              //ext('Enter your email to stay updated:'),
+              TextField(
+                decoration: InputDecoration(
+                    hintText: 'Email',
+                    hintStyle: TextStyle(
+                        fontSize:
+                            DeviceDimensions.responsiveSize(context) * 0.035)),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    // Handle subscription logic here
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: AppColors.greyText,
+                        borderRadius: BorderRadius.circular(20)),
+                    width: DeviceDimensions.screenWidth(context) * 0.3,
+                    height: DeviceDimensions.screenHeight(context) * 0.05,
+                    child: Center(
+                        child: Text('Cancel',
+                            style: TextStyle(color: Colors.white))),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    // Handle subscription logic here
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: AppColors.buttonColor,
+                        borderRadius: BorderRadius.circular(20)),
+                    width: DeviceDimensions.screenWidth(context) * 0.3,
+                    height: DeviceDimensions.screenHeight(context) * 0.05,
+                    child: Center(
+                      child: Text('Subscribe',
+                          style: TextStyle(color: Colors.white)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+}

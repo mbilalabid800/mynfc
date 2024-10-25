@@ -17,6 +17,7 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _containerAnimationController;
   late Animation<double> _scaleAnimation;
   late Animation<Offset> _containerAnimation;
+  late Timer _pageChangeTimer;
   int _currentDot = 0;
   final PageController _pageController = PageController(initialPage: 0);
   final List<String> splashTexts = [
@@ -63,10 +64,15 @@ class _SplashScreenState extends State<SplashScreen>
         parent: _containerAnimationController, curve: Curves.easeOut));
 
     _containerAnimationController.forward().then((_) {
-      Timer.periodic(const Duration(seconds: 3), (timer) {
+      _pageChangeTimer = Timer.periodic(const Duration(seconds: 3), (timer) {
+        if (!mounted) return;
         int nextPage = (_currentDot + 1) % splashImages.length;
 
-        _pageController.jumpToPage(nextPage);
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (mounted && _pageController.hasClients) {
+            _pageController.jumpToPage(nextPage);
+          }
+        });
 
         setState(() {
           _currentDot = nextPage;
@@ -84,6 +90,10 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
+    // Cancel the timer to avoid calling setState on a disposed widget
+    if (_pageChangeTimer.isActive) {
+      _pageChangeTimer.cancel();
+    }
     _imageAnimationController.dispose();
     _containerAnimationController.dispose();
     _pageController.dispose();
@@ -101,9 +111,11 @@ class _SplashScreenState extends State<SplashScreen>
             itemCount: splashImages.length,
             //physics: NeverScrollableScrollPhysics(),
             onPageChanged: (index) {
-              setState(() {
-                _currentDot = index;
-              });
+              setState(
+                () {
+                  _currentDot = index;
+                },
+              );
 
               _imageAnimationController.reset();
               _imageAnimationController.forward();
