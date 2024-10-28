@@ -11,6 +11,7 @@ import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:nfc_app/widgets/custom_loader_widget.dart';
+import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,17 +53,7 @@ class _SigninDataState extends State<SigninData> {
 
           if (user.emailVerified) {
             // Fetch new user data and update providers
-            final newUserId = user.uid;
-            if (newUserId != null) {
-              await Provider.of<UserInfoFormStateProvider>(context,
-                      listen: false)
-                  .loadUserData();
-              await Provider.of<ConnectionProvider>(context, listen: false)
-                  .loadConnections();
-              await Provider.of<SocialAppProvider>(context, listen: false)
-                  .loadSocialApps();
-              // Add more providers as needed
-            }
+            await loadData(user);
 
             // Save user data to local storage (if needed)
             _saveUserData();
@@ -112,6 +103,19 @@ class _SigninDataState extends State<SigninData> {
           isLoading = false;
         });
       }
+    }
+  }
+
+  Future<void> loadData(User user) async {
+    final newUserId = user.uid;
+    if (newUserId != null) {
+      await Provider.of<UserInfoFormStateProvider>(context, listen: false)
+          .loadUserData();
+      await Provider.of<ConnectionProvider>(context, listen: false)
+          .loadConnections();
+      await Provider.of<SocialAppProvider>(context, listen: false)
+          .loadSocialApps();
+      // Add more providers as needed
     }
   }
 
@@ -415,24 +419,44 @@ class _SigninDataState extends State<SigninData> {
                     ),
                     SizedBox(
                         height: DeviceDimensions.screenHeight(context) * 0.050),
-                    // SizedBox(
-                    //     height: DeviceDimensions.screenHeight(context) * 0.025),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
                           onTap: () async {
-                            User? user = await AuthService().signInWithGoogle();
-                            if (user != null) {
-                              // Navigator.pushNamed(context, '/home-screen');
-                              Navigator.pushNamed(context, '/mainNav-screen');
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content:
-                                      Text("No Google account is signed in"),
-                                ),
-                              );
+                            setState(() {
+                              isLoading = true;
+                            });
+                            try {
+                              final result =
+                                  await AuthService().signInWithGoogle();
+                              if (result != null) {
+                                User? user = result['user'];
+                                bool isNew = result['isNew'];
+
+                                if (isNew) {
+                                  // New user, save email and navigate to the User Info page
+                                  Provider.of<UserInfoFormStateProvider>(
+                                          context,
+                                          listen: false)
+                                      .setEmail(user!.email ?? '');
+                                  Navigator.pushNamed(context, '/user-info');
+                                } else {
+                                  // Returning user, navigate directly to the main screen
+                                  loadData(user!);
+                                  Navigator.pushNamed(
+                                      context, '/mainNav-screen');
+                                }
+                              }
+                            } catch (error) {
+                              CustomSnackbar().snakBarError(context,
+                                  'Error signing in with Google: ${error.toString()}');
+                            } finally {
+                              setState(() {
+                                isLoading =
+                                    false; // Hide loader after navigation or error
+                              });
                             }
                           },
                           child: Container(
@@ -441,9 +465,6 @@ class _SigninDataState extends State<SigninData> {
                                 DeviceDimensions.screenHeight(context) * 0.060,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25),
-                              // border: Border.all(
-                              //   color: const Color(0xFFA9A9A9),
-                              // ),
                               boxShadow: [
                                 BoxShadow(
                                   color: const Color.fromARGB(26, 0, 0, 0)

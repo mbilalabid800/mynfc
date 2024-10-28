@@ -1,8 +1,10 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously, unused_element
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:nfc_app/provider/loading_state_provider.dart';
 import 'package:nfc_app/screens/auth/login_screen.dart';
 import 'package:nfc_app/provider/clear_app_data_provider.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -58,40 +60,45 @@ class AuthService {
     }
   }
 
-  // Sign in with google
-  Future<User?> signInWithGoogle() async {
+  Future<Map<String, dynamic>?> signInWithGoogle() async {
     try {
-      // Trigger the Google Authentication process
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
       if (googleUser == null) {
-        print("Google Sign-In canceled.");
-        return null; // The user canceled the sign-in
+        return null; // User canceled the sign-in
       }
-
-      print("Google account selected: ${googleUser.email}");
-
-      // Retrieve the authentication details
+      LoadingStateProvider().setLoading(true);
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
-
-      // Create a new credential
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
-      // Sign in to Firebase with the Google credentials
       final UserCredential userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
+      final User? user = userCredential.user;
 
-      // Return the Firebase user
-      return userCredential.user;
+      if (user != null) {
+        bool isNew = await isNewUser(user);
+        return {'user': user, 'isNew': isNew};
+      }
+      return null;
     } catch (e) {
       print("Google Sign-In failed: $e");
       return null;
+    } finally {
+      LoadingStateProvider().setLoading(false);
     }
+  }
+
+  Future<bool> isNewUser(User user) async {
+    final DocumentSnapshot userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+    return !userDoc.exists;
   }
 
   //Sign in with Apple
@@ -127,10 +134,11 @@ class AuthService {
           SnackBar(content: Text('Verification email sent to ${user.email}')),
         );
         Navigator.pushNamed(context, '/email-verify');
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('User is already verified')),
-        );
+
+        // } else {
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     const SnackBar(content: Text('User is already verified')),
+        //   );
       }
     } catch (e) {
       print("Error during email verification: $e");

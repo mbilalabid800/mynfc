@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/services/shared_preferences_service/shared_preferences_services.dart';
 import 'package:nfc_app/utils/password_strength_helper.dart';
 import 'package:nfc_app/widgets/custom_loader_widget.dart';
+import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
 
 class RegisterData extends StatefulWidget {
@@ -457,22 +458,37 @@ class _RegisterFormState extends State<RegisterData> {
                         children: [
                           GestureDetector(
                             onTap: () async {
-                              User? user =
-                                  await AuthService().signInWithGoogle();
+                              setState(() {
+                                isLoading = true;
+                              });
                               try {
-                                if (user != null) {
-                                  //
-                                  Navigator.pushNamed(context, '/user-info');
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      backgroundColor: AppColors.errorColor,
-                                      content: Text("Try again"),
-                                    ),
-                                  );
+                                final result =
+                                    await AuthService().signInWithGoogle();
+                                if (result != null) {
+                                  User? user = result['user'];
+                                  bool isNew = result['isNew'];
+
+                                  if (isNew) {
+                                    // New user, save email and navigate to the User Info page
+                                    Provider.of<UserInfoFormStateProvider>(
+                                            context,
+                                            listen: false)
+                                        .setEmail(user!.email ?? '');
+                                    Navigator.pushNamed(context, '/user-info');
+                                  } else {
+                                    // Returning user, navigate directly to the main screen
+                                    Navigator.pushNamed(
+                                        context, '/mainNav-screen');
+                                  }
                                 }
-                              } catch (e) {
-                                print("Error $e");
+                              } catch (error) {
+                                CustomSnackbar().snakBarError(context,
+                                    'Error signing up with Google: ${error.toString()}');
+                              } finally {
+                                setState(() {
+                                  isLoading =
+                                      false; // Hide loader after navigation or error
+                                });
                               }
                             },
                             child: Container(

@@ -73,20 +73,10 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void updateEmail(String emailNew) {
-  //   _email = emailNew;
-  //   notifyListeners();
-  // }
-
   void setEmail(String email) {
     _email = email;
     notifyListeners(); // Notify listeners to rebuild widgets that use this email
   }
-
-  // void updateuid(String uid) {
-  //   _uid = uid;
-  //   notifyListeners();
-  // }
 
   void updateContact(String contact, String countryCode) {
     _contact = '$countryCode $contact';

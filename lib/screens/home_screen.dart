@@ -27,12 +27,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final FirestoreService _firestoreService = FirestoreService();
   final AuthService _authService = AuthService();
-  // bool _isLoading = true;
-
   bool direct = true;
-  // bool privateprofile = false;
-  // bool _dataFetched = false;
-  // bool _firstLoadComplete = false;
 
   @override
   void initState() {
@@ -49,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
           .loadUserData();
     });
 
-    Future.delayed(Duration(seconds: 2), _checkNewsletterPopup);
+    Future.delayed(Duration(seconds: 7), _checkNewsletterPopup);
   }
 
   Future<void> _checkNewsletterPopup() async {
@@ -65,27 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _fetchData(LoadingStateProvider loadingState) async {
     // Simulate a data fetch with Firestore
     await Future.delayed(const Duration(seconds: 3)); // Simulate network delay
-    // Pre-fetch user profile image
-    // final userImageUrl =
-    //     Provider.of<UserInfoFormStateProvider>(context, listen: false).imageUrl;
-    // if (userImageUrl != null) {
-    //   await precacheImage(CachedNetworkImageProvider(userImageUrl), context);
-    // }
-
-    // // Pre-fetch social app icons
-    // final socialApps = Provider.of<SocialAppProvider>(context, listen: false)
-    //     .filteredSocialApps;
-    // for (var app in socialApps) {
-    //   await precacheImage(CachedNetworkImageProvider(app.icon), context);
-    // }
-
-    // // Pre-fetch connection profile images
-    // final connections = Provider.of<ConnectionProvider>(context, listen: false)
-    //     .addedConnections;
-    // for (var connection in connections) {
-    //   await precacheImage(
-    //       CachedNetworkImageProvider(connection.profileImage), context);
-    // }
     loadingState.setLoading(false);
     loadingState.setDataFetched(true);
   }
@@ -93,8 +67,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final loadingState = Provider.of<LoadingStateProvider>(context);
-
-    final size = MediaQuery.of(context).size;
     return Consumer3<SocialAppProvider, UserInfoFormStateProvider,
             ConnectionProvider>(
         builder:
@@ -212,8 +184,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               horizontal: 15,
                             ),
                             child: Container(
-                              height: size.height / 3.5,
-                              width: size.width,
+                              height:
+                                  DeviceDimensions.screenHeight(context) / 3.5,
+                              width: DeviceDimensions.screenWidth(context),
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30)),
@@ -234,7 +207,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  "${userProvider.selectedItem}",
+                                                  userProvider.selectedItem ??
+                                                      '',
                                                   style: const TextStyle(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.w600,
@@ -435,7 +409,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             )
                                             //Image.asset("assets/images/group17.png"),
                                             ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -478,8 +452,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 15),
                                     child: Container(
-                                      height: size.height / 16,
-                                      width: size.width / 2.2,
+                                      height: DeviceDimensions.screenHeight(
+                                              context) /
+                                          16,
+                                      width: DeviceDimensions.screenWidth(
+                                              context) /
+                                          2.2,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(30),
@@ -523,7 +501,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                     height:
                                         DeviceDimensions.screenHeight(context) *
                                             0.244,
-                                    width: size.width / 2.5,
+                                    width:
+                                        DeviceDimensions.screenWidth(context) /
+                                            2.5,
                                     decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius:
