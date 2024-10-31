@@ -10,6 +10,7 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 import 'package:nfc_app/utils/ui_mode_helper.dart';
+import 'package:nfc_app/widgets/blocked_widget.dart';
 import 'package:nfc_app/widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/horizontal_scroll_app_list_widget.dart';
 import 'package:nfc_app/widgets/newsletter_popup_widget.dart';
@@ -43,8 +44,17 @@ class _HomeScreenState extends State<HomeScreen> {
       Provider.of<UserInfoFormStateProvider>(context, listen: false)
           .loadUserData();
     });
-
+    Future.delayed(Duration(seconds: 5), _isBlocked);
     Future.delayed(Duration(seconds: 7), _checkNewsletterPopup);
+  }
+
+  Future<void> _isBlocked() async {
+    final userProvider =
+        Provider.of<UserInfoFormStateProvider>(context, listen: false);
+    bool isBlocked = userProvider.isBlocked;
+    if (isBlocked) {
+      Blocked().show(context);
+    }
   }
 
   Future<void> _checkNewsletterPopup() async {

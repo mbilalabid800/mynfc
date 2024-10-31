@@ -10,6 +10,7 @@ class ConnectionProvider with ChangeNotifier {
   List<ConnectionsModel> _addedConnections = [];
   List<ConnectionsModel> _searchAddedConnections = [];
   List<ConnectionsModel> _searchRecommendedConnections = [];
+  bool _showCompanyConnections = false;
   bool _isLoading = false;
 
   List<ConnectionsModel> get recommendedConnections => _recommendedConnections;
@@ -17,16 +18,54 @@ class ConnectionProvider with ChangeNotifier {
   List<ConnectionsModel> get searchAddedConnections => _searchAddedConnections;
   List<ConnectionsModel> get searchRecommendedConnections =>
       _searchRecommendedConnections;
+  bool get showCompanyConnections => _showCompanyConnections;
   bool get isLoading => _isLoading;
+
+  Future<void> toggleConnections(bool value) async {
+    _isLoading = true;
+    _showCompanyConnections = value;
+    notifyListeners();
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(uid)
+          .collection("userProfile")
+          .doc("details")
+          .update({
+        'connection_type': value ? 1 : 2,
+      });
+    }
+
+    await loadConnections();
+  }
 
   Future<void> loadConnections() async {
     try {
       _isLoading = true;
       _recommendedConnections.clear();
       notifyListeners();
+
       final currentUser = FirebaseAuth.instance.currentUser;
       if (currentUser != null) {
         final uid = currentUser.uid;
+
+        // Fetch the current user's company
+        final userSnapshot = await FirebaseFirestore.instance
+            .collection("users")
+            .doc(uid)
+            .collection("userProfile")
+            .doc("details")
+            .get();
+
+        if (!userSnapshot.exists) return;
+
+        final userData = userSnapshot.data();
+        final String? userCompany = userData?['company_name'];
+        final int? connectionType = userData?['connection_type'];
+
+        _showCompanyConnections = connectionType == 1;
+
         final querySnapshot =
             await FirebaseFirestore.instance.collection("users").get();
 
@@ -45,8 +84,14 @@ class ConnectionProvider with ChangeNotifier {
             if (profileSnapshot.exists) {
               final connection =
                   ConnectionsModel.fromFirestore(profileSnapshot);
-
-              _recommendedConnections.add(connection);
+              if (_showCompanyConnections) {
+                if (connection.companyName.trim().toLowerCase() ==
+                    userCompany?.trim().toLowerCase()) {
+                  _recommendedConnections.add(connection);
+                }
+              } else {
+                _recommendedConnections.add(connection);
+              }
             }
           }
         }

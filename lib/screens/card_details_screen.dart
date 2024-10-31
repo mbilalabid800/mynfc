@@ -77,7 +77,7 @@ class _CardDetailsState extends State<CardDetails> {
                   SizedBox(
                       height: DeviceDimensions.screenHeight(context) * 0.020),
                   Padding(
-                    padding: const EdgeInsets.only(left: 30.0),
+                    padding: const EdgeInsets.only(left: 33.0),
                     child: InkWell(
                       onTap: cardDetailsProvider.isMoreUpEnabled
                           ? () {
@@ -198,7 +198,7 @@ class _CardDetailsState extends State<CardDetails> {
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 29.0),
+                    padding: const EdgeInsets.only(left: 32.0),
                     child: InkWell(
                       onTap: cardDetailsProvider.isMoreDownEnabled
                           ? () {

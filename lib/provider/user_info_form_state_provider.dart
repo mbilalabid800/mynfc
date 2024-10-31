@@ -25,6 +25,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String _currentEditingField = '';
 
   int _connectionType = 0;
+  bool _isBlocked = false;
 
   // Getters
   String get firstName => _firstName;
@@ -43,6 +44,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? get imageUrl => _imageUrl;
   String get bio => _bio;
   int get profileViews => _profileViews;
+  bool get isBlocked => _isBlocked;
   String get currentEditingField => _currentEditingField;
 
   bool get isNameFormValid =>
@@ -164,6 +166,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'bio': _bio,
           'profileViews': _profileViews,
           'connection_type': _connectionType,
+          'isBlocked': _isBlocked,
         });
 
         // Second action: Save user's email in the main 'users' collection
@@ -246,6 +249,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           _countryName = userData.countryName;
           _bio = userData.bio;
           _profileViews = userData.profileViews;
+          _isBlocked = userData.isBlocked;
 
           notifyListeners();
         }

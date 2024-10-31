@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
+import 'package:nfc_app/widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
 import '../responsive/device_dimensions.dart';
@@ -237,17 +238,60 @@ class _RecentConnectedState extends State<RecentConnected> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 15, top: 12, bottom: 5),
-                        child: Text(
-                          "Recommended for you",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
+                      Row(
+                        children: [
+                          const Padding(
+                            padding:
+                                EdgeInsets.only(left: 17, top: 15, bottom: 5),
+                            child: Text(
+                              "Recommended for you",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0, right: 25),
+                            child: SizedBox(
+                              height: 33,
+                              width: 45,
+                              child: FittedBox(
+                                fit: BoxFit.fill,
+                                child: Consumer<ConnectionProvider>(
+                                  builder:
+                                      (context, connectionProvider, child) {
+                                    return Switch(
+                                      activeColor: Colors.white,
+                                      activeTrackColor: const Color(0xFFCEFD4B),
+                                      inactiveTrackColor:
+                                          const Color(0xFFEFEFEF),
+                                      inactiveThumbColor: Colors.black,
+                                      value: connectionProvider
+                                          .showCompanyConnections,
+                                      onChanged: (value) async {
+                                        await connectionProvider
+                                            .toggleConnections(value);
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const Divider(),
                       Consumer<ConnectionProvider>(
                         builder: (context, connectionProvider, child) {
+                          if (connectionProvider.isLoading) {
+                            return SizedBox(
+                              height:
+                                  DeviceDimensions.screenHeight(context) * 0.25,
+                              width:
+                                  DeviceDimensions.screenWidth(context) * 0.92,
+                              child: ConnectionLoader(),
+                            );
+                          }
                           final recommendedConnections = connectionProvider
                                   .searchRecommendedConnections.isNotEmpty
                               ? connectionProvider.searchRecommendedConnections
