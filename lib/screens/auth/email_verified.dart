@@ -1,11 +1,7 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:nfc_app/provider/connection_provider.dart';
-import 'package:nfc_app/provider/social_app_provider.dart';
-import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:provider/provider.dart';
 
 class EmailVerified extends StatefulWidget {
   const EmailVerified({super.key});
@@ -57,14 +53,6 @@ class _EmailVerifyState extends State<EmailVerified> {
                       (Route<dynamic> route) =>
                           false, // Remove all previous routes
                     );
-                    await Provider.of<UserInfoFormStateProvider>(context,
-                            listen: false)
-                        .loadUserData();
-                    await Provider.of<ConnectionProvider>(context,
-                            listen: false)
-                        .loadConnections();
-                    await Provider.of<SocialAppProvider>(context, listen: false)
-                        .loadSocialApps();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,

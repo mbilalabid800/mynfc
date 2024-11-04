@@ -382,12 +382,13 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                             child: Consumer<ConnectionProvider>(
                               builder: (context, provider, child) {
                                 final connection = ConnectionsModel(
-                                  uid: widget.userId,
-                                  firstName: connectionDetails.firstName,
-                                  lastName: connectionDetails.lastName,
-                                  profileImage: connectionDetails.profileImage,
-                                  designation: connectionDetails.designation,
-                                );
+                                    uid: widget.userId,
+                                    firstName: connectionDetails.firstName,
+                                    lastName: connectionDetails.lastName,
+                                    profileImage:
+                                        connectionDetails.profileImage,
+                                    designation: connectionDetails.designation,
+                                    companyName: connectionDetails.companyName);
                                 final isAdded =
                                     provider.isInAddedConnections(connection);
                                 return ElevatedButton(

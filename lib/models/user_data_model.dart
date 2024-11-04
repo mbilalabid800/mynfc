@@ -15,6 +15,7 @@ class UserDataModel {
   String profileImage;
   String bio;
   int profileViews;
+  bool isBlocked;
   // String connectionType;
 
   UserDataModel({
@@ -32,6 +33,7 @@ class UserDataModel {
     required this.profileImage,
     required this.bio,
     this.profileViews = 0,
+    this.isBlocked = false,
     // required this.connectionType,
   });
 
@@ -52,6 +54,7 @@ class UserDataModel {
       profileImage: data['image_url'] ?? '',
       bio: data['bio'] ?? '',
       profileViews: data['profileViews'] ?? 0,
+      isBlocked: data['isBlocked'] ?? false,
       // connectionType: data['connection_type'],
     );
   }
@@ -71,6 +74,7 @@ class UserDataModel {
       'image_url': profileImage,
       'bio': bio,
       'profileViews': profileViews,
+      'isBlocked': isBlocked,
       // 'connection_type': connectionType,
     };
   }

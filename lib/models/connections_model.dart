@@ -6,6 +6,7 @@ class ConnectionsModel {
   String firstName;
   String lastName;
   String designation;
+  String companyName;
 
   ConnectionsModel({
     required this.uid,
@@ -13,6 +14,7 @@ class ConnectionsModel {
     required this.firstName,
     required this.lastName,
     required this.designation,
+    required this.companyName,
   });
 
   factory ConnectionsModel.fromFirestore(DocumentSnapshot doc) {
@@ -23,6 +25,7 @@ class ConnectionsModel {
       firstName: data['first_name'] ?? '',
       lastName: data['last_name'] ?? '',
       designation: data['designation'] ?? '',
+      companyName: data['company_name'] ?? '',
     );
   }
 
@@ -33,6 +36,7 @@ class ConnectionsModel {
       'first_name': firstName,
       'last_name': lastName,
       'designation': designation,
+      'company_name': companyName,
     };
   }
 }

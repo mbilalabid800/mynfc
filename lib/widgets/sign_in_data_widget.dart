@@ -4,9 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
-import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/forget_password_email_provider.dart';
-import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
@@ -53,7 +51,6 @@ class _SigninDataState extends State<SigninData> {
 
           if (user.emailVerified) {
             // Fetch new user data and update providers
-            await loadData(user);
 
             // Save user data to local storage (if needed)
             _saveUserData();
@@ -103,19 +100,6 @@ class _SigninDataState extends State<SigninData> {
           isLoading = false;
         });
       }
-    }
-  }
-
-  Future<void> loadData(User user) async {
-    final newUserId = user.uid;
-    if (newUserId != null) {
-      await Provider.of<UserInfoFormStateProvider>(context, listen: false)
-          .loadUserData();
-      await Provider.of<ConnectionProvider>(context, listen: false)
-          .loadConnections();
-      await Provider.of<SocialAppProvider>(context, listen: false)
-          .loadSocialApps();
-      // Add more providers as needed
     }
   }
 
@@ -444,7 +428,6 @@ class _SigninDataState extends State<SigninData> {
                                   Navigator.pushNamed(context, '/user-info');
                                 } else {
                                   // Returning user, navigate directly to the main screen
-                                  loadData(user!);
                                   Navigator.pushNamed(
                                       context, '/mainNav-screen');
                                 }
