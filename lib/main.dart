@@ -96,7 +96,7 @@ void main() async {
         create: (_) => ImagePickerProvider(),
       ),
       ChangeNotifierProvider(
-        create: (_) => SocialAppProvider()..loadSocialApps(),
+        create: (_) => SocialAppProvider(),
       ),
       ChangeNotifierProvider(
         create: (_) => ForgetPasswordEmailProvider(),
@@ -105,7 +105,7 @@ void main() async {
         create: (_) => ResentButtonProvider(),
       ),
       ChangeNotifierProvider(
-        create: (_) => ConnectionProvider()..loadConnections(),
+        create: (_) => ConnectionProvider(),
       ),
       ChangeNotifierProvider(
         create: (_) => ConnectionDetailsProvider(),

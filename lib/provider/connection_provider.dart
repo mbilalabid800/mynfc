@@ -10,6 +10,7 @@ class ConnectionProvider with ChangeNotifier {
   List<ConnectionsModel> _addedConnections = [];
   List<ConnectionsModel> _searchAddedConnections = [];
   List<ConnectionsModel> _searchRecommendedConnections = [];
+  bool _isRefreshingConnections = false;
   bool _showCompanyConnections = false;
   bool _isLoading = false;
 
@@ -18,13 +19,16 @@ class ConnectionProvider with ChangeNotifier {
   List<ConnectionsModel> get searchAddedConnections => _searchAddedConnections;
   List<ConnectionsModel> get searchRecommendedConnections =>
       _searchRecommendedConnections;
+  bool get isRefreshingConnections => _isRefreshingConnections;
   bool get showCompanyConnections => _showCompanyConnections;
   bool get isLoading => _isLoading;
 
   Future<void> toggleConnections(bool value) async {
     _isLoading = true;
+    _isRefreshingConnections = _recommendedConnections.isNotEmpty;
     _showCompanyConnections = value;
     notifyListeners();
+
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid != null) {
       await FirebaseFirestore.instance
@@ -37,20 +41,18 @@ class ConnectionProvider with ChangeNotifier {
       });
     }
 
-    await loadConnections();
+    await loadRecommendedConnections();
   }
 
-  Future<void> loadConnections() async {
+  Future<void> loadRecommendedConnections() async {
     try {
       _isLoading = true;
-      _recommendedConnections.clear();
       notifyListeners();
 
       final currentUser = FirebaseAuth.instance.currentUser;
       if (currentUser != null) {
         final uid = currentUser.uid;
 
-        // Fetch the current user's company
         final userSnapshot = await FirebaseFirestore.instance
             .collection("users")
             .doc(uid)
@@ -69,6 +71,7 @@ class ConnectionProvider with ChangeNotifier {
         final querySnapshot =
             await FirebaseFirestore.instance.collection("users").get();
 
+        List<ConnectionsModel> newConnections = [];
         for (var doc in querySnapshot.docs) {
           if (doc.id != uid) {
             DocumentReference<Map<String, dynamic>> profileRef =
@@ -84,17 +87,41 @@ class ConnectionProvider with ChangeNotifier {
             if (profileSnapshot.exists) {
               final connection =
                   ConnectionsModel.fromFirestore(profileSnapshot);
-              if (_showCompanyConnections) {
-                if (connection.companyName.trim().toLowerCase() ==
-                    userCompany?.trim().toLowerCase()) {
-                  _recommendedConnections.add(connection);
+              bool isAlreadyAdded = _addedConnections.any(
+                  (addedConnections) => addedConnections.uid == connection.uid);
+              if (!isAlreadyAdded) {
+                if (_showCompanyConnections) {
+                  if (connection.companyName.trim().toLowerCase() ==
+                      userCompany?.trim().toLowerCase()) {
+                    newConnections.add(connection);
+                  }
+                } else {
+                  newConnections.add(connection);
                 }
-              } else {
-                _recommendedConnections.add(connection);
               }
             }
           }
         }
+        _recommendedConnections = newConnections;
+      }
+    } catch (e) {
+      print("Error loading recommended connections: $e");
+    } finally {
+      _isLoading = false;
+      _isRefreshingConnections = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> loadAddedConnections() async {
+    try {
+      _isLoading = true;
+      _addedConnections.clear();
+      notifyListeners();
+
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        final uid = currentUser.uid;
 
         // Load user's added connections
         final addedSnapshot = await FirebaseFirestore.instance
@@ -103,19 +130,13 @@ class ConnectionProvider with ChangeNotifier {
             .collection("connections")
             .get();
 
-        _addedConnections.clear();
-
         for (var doc in addedSnapshot.docs) {
           final addedConnection = ConnectionsModel.fromFirestore(doc);
           _addedConnections.add(addedConnection);
         }
-
-        _recommendedConnections = _recommendedConnections.where((connection) {
-          return !_addedConnections.any((added) => added.uid == connection.uid);
-        }).toList();
       }
     } catch (e) {
-      print("Error loading connections: $e");
+      print("Error loading added connections: $e");
     } finally {
       _isLoading = false;
       notifyListeners();

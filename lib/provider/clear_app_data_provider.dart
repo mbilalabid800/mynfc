@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
+import 'package:nfc_app/provider/loading_state_provider.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,8 @@ class ClearAppData {
     Provider.of<ConnectionDetailsProvider>(context, listen: false).clear();
     Provider.of<ConnectionProvider>(context, listen: false).clear();
     Provider.of<SocialAppProvider>(context, listen: false).clear();
+    Provider.of<LoadingStateProvider>(context, listen: false)
+        .setDataFetched(false);
     // Add more providers here as needed
   }
 

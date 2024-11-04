@@ -92,7 +92,7 @@ class ConnectionLoader extends StatelessWidget {
             MainAxisAlignment.center, // Center the content vertically
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SpinKitChasingDots(
+          SpinKitDualRing(
             color: Color.fromARGB(255, 0, 0, 0), // Set your preferred color
             size: 40.0, // Adjust the size as needed
             duration:
@@ -103,8 +103,9 @@ class ConnectionLoader extends StatelessWidget {
             showCompanyConnections
                 ? 'Loading Company Connections...'
                 : 'Loading All Connections...',
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
+              fontWeight: FontWeight.w600,
               fontFamily: 'Barlow-Regular',
               color: Colors.black,
             ), // Adjust text style as needed

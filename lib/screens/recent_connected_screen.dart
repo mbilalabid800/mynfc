@@ -25,6 +25,8 @@ class _RecentConnectedState extends State<RecentConnected> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       searchController.clear();
       Provider.of<ConnectionProvider>(context, listen: false).resetSearch();
+      Provider.of<ConnectionProvider>(context, listen: false)
+          .loadRecommendedConnections();
     });
   }
 
@@ -283,105 +285,120 @@ class _RecentConnectedState extends State<RecentConnected> {
                       const Divider(),
                       Consumer<ConnectionProvider>(
                         builder: (context, connectionProvider, child) {
-                          if (connectionProvider.isLoading) {
-                            return SizedBox(
-                              height:
-                                  DeviceDimensions.screenHeight(context) * 0.25,
-                              width:
-                                  DeviceDimensions.screenWidth(context) * 0.92,
-                              child: ConnectionLoader(),
-                            );
-                          }
                           final recommendedConnections = connectionProvider
                                   .searchRecommendedConnections.isNotEmpty
                               ? connectionProvider.searchRecommendedConnections
                               : connectionProvider.recommendedConnections;
-                          if (recommendedConnections.isEmpty) {
-                            return const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 20),
-                              child: Center(
-                                child: Text(
-                                  'No more Connections are available',
-                                  style:
-                                      TextStyle(fontFamily: 'Barlow-Regular'),
-                                ),
-                              ),
-                            );
-                          }
 
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: recommendedConnections.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              final reversedConnections =
-                                  recommendedConnections.reversed.toList();
-
-                              final recommendedConnection =
-                                  reversedConnections[index];
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, '/connection-profile-preview',
-                                        arguments: recommendedConnection.uid);
-                                  },
-                                  child: ListTile(
-                                    visualDensity:
-                                        const VisualDensity(vertical: -3),
-                                    leading: Container(
-                                      width: 41,
-                                      height: 41,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(35),
-                                        color: Colors.black54,
-                                        image: DecorationImage(
-                                          image: CachedNetworkImageProvider(
-                                              recommendedConnection
-                                                  .profileImage),
-                                          fit: BoxFit.cover,
-                                        ),
+                          return Stack(
+                            children: [
+                              if (recommendedConnections.isEmpty &&
+                                  !connectionProvider.isLoading)
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 30),
+                                  child: Center(
+                                    child: Text(
+                                      'No more Connections are available',
+                                      style: TextStyle(
+                                        fontFamily: 'Barlow-Regular',
                                       ),
-                                    ),
-                                    title: Text(
-                                      "${recommendedConnection.firstName} ${recommendedConnection.lastName}",
-                                      style: TextStyle(
-                                          fontSize:
-                                              DeviceDimensions.responsiveSize(
-                                                      context) *
-                                                  0.040,
-                                          fontFamily: 'Barlow-Regular',
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    subtitle: Text(
-                                      recommendedConnection.designation,
-                                      style: TextStyle(
-                                          fontSize:
-                                              DeviceDimensions.responsiveSize(
-                                                      context) *
-                                                  0.032,
-                                          fontFamily: 'Barlow-Regular',
-                                          color: const Color(0xFF909091)),
-                                    ),
-                                    trailing: IconButton(
-                                      onPressed: () async {
-                                        connectionProvider.addConnection(
-                                            recommendedConnection);
-                                        CustomSnackbar().snakBarMessage(context,
-                                            '${recommendedConnection.firstName} added successfully!');
-                                      },
-                                      icon: SvgPicture.asset(
-                                          "assets/icons/addconnections.svg",
-                                          height: 28),
                                     ),
                                   ),
                                 ),
-                              );
-                            },
+                              if (recommendedConnections.isNotEmpty ||
+                                  connectionProvider.isLoading)
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: recommendedConnections.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final reversedConnections =
+                                        recommendedConnections.reversed
+                                            .toList();
+                                    final recommendedConnection =
+                                        reversedConnections[index];
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(30),
+                                      ),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                            context,
+                                            '/connection-profile-preview',
+                                            arguments:
+                                                recommendedConnection.uid,
+                                          );
+                                        },
+                                        child: ListTile(
+                                          visualDensity:
+                                              const VisualDensity(vertical: -3),
+                                          leading: Container(
+                                            width: 41,
+                                            height: 41,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(35),
+                                              color: Colors.black54,
+                                              image: DecorationImage(
+                                                image:
+                                                    CachedNetworkImageProvider(
+                                                        recommendedConnection
+                                                            .profileImage),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          title: Text(
+                                            "${recommendedConnection.firstName} ${recommendedConnection.lastName}",
+                                            style: TextStyle(
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.040,
+                                              fontFamily: 'Barlow-Regular',
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          subtitle: Text(
+                                            recommendedConnection.designation,
+                                            style: TextStyle(
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.032,
+                                              fontFamily: 'Barlow-Regular',
+                                              color: const Color(0xFF909091),
+                                            ),
+                                          ),
+                                          trailing: IconButton(
+                                            onPressed: () async {
+                                              connectionProvider.addConnection(
+                                                  recommendedConnection);
+                                              CustomSnackbar().snakBarMessage(
+                                                context,
+                                                '${recommendedConnection.firstName} added successfully!',
+                                              );
+                                            },
+                                            icon: SvgPicture.asset(
+                                                "assets/icons/addconnections.svg",
+                                                height: 28),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              if (connectionProvider.isLoading)
+                                Positioned.fill(
+                                  child: Container(
+                                    color: Colors.white.withOpacity(0.8),
+                                    child: const Center(
+                                      child: ConnectionLoader(),
+                                    ),
+                                  ),
+                                ),
+                            ],
                           );
                         },
                       ),
