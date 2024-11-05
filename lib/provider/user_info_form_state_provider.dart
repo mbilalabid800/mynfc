@@ -26,6 +26,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? _firstNameError;
   String? _lastNameError;
   String? _contactError;
+  String? _websiteLinkError;
 
   int _connectionType = 0;
   bool _isBlocked = false;
@@ -52,6 +53,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? get firstNameError => _firstNameError;
   String? get lastNameError => _lastNameError;
   String? get contactError => _contactError;
+  String? get websiteLinkError => _websiteLinkError;
 
   bool get isNameFormValid =>
       _firstName.isNotEmpty &&
@@ -64,7 +66,8 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _selectedItem != null &&
       _companyName.isNotEmpty &&
       _designation.isNotEmpty &&
-      _websiteLink.isNotEmpty;
+      _websiteLink.isNotEmpty &&
+      _websiteLinkError == null;
 
   void updateSelectedItem(String? selectedItem) {
     _selectedItem = selectedItem;
@@ -157,7 +160,16 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   }
 
   void updateWebsiteLink(String websiteLink) {
-    _websiteLink = websiteLink;
+    final regex = RegExp(r'^(www\.)' // Require www at the start
+        r'([a-zA-Z0-9\-]+\.)+[a-zA-Z]{2,10}' // Domain name
+        r'(\/[a-zA-Z0-9\-_\/]*)?$'); // Optional path (note the ? at the end)
+
+    if (!regex.hasMatch(websiteLink)) {
+      _websiteLinkError = 'Please enter a valid website URL';
+    } else {
+      _websiteLinkError = null; // Clear error if input is valid
+      _websiteLink = websiteLink;
+    }
     notifyListeners();
   }
 
