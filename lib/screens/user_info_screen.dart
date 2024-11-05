@@ -113,7 +113,6 @@ class _NameStepState extends State<NameStep> {
                 width: DeviceDimensions.screenWidth(context) * 0.95,
                 child: TextField(
                   onChanged: (value) => formState.updateFirstName(value),
-                  // controller: firstNameController,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -130,6 +129,7 @@ class _NameStepState extends State<NameStep> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorText: formState.firstNameError,
                     //labelText: 'First Name',
                     hintText: 'First Name',
                     hintStyle: TextStyle(
@@ -164,6 +164,7 @@ class _NameStepState extends State<NameStep> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorText: formState.lastNameError,
                     //labelText: 'Enter Last Name',
                     hintText: 'Last Name',
                     hintStyle: TextStyle(

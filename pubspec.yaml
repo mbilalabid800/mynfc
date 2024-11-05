@@ -72,6 +72,7 @@ dependencies:
   share_plus: ^10.1.0
   path_provider: ^2.1.4
   connectivity_plus: ^6.1.0
+  
 
 
 dev_dependencies:
@@ -81,7 +82,7 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 flutter_launcher_icons:
-    android: true
+    android: "launcher_icon"
     ios: true
     remove_alpha_ios: true
     image_path: 'assets/icons/nfc-2.png'

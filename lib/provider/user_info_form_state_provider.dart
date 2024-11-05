@@ -23,6 +23,9 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String _bio = '';
   int _profileViews = 0;
   String _currentEditingField = '';
+  String? _firstNameError;
+  String? _lastNameError;
+  String? _contactError;
 
   int _connectionType = 0;
   bool _isBlocked = false;
@@ -46,9 +49,17 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   int get profileViews => _profileViews;
   bool get isBlocked => _isBlocked;
   String get currentEditingField => _currentEditingField;
+  String? get firstNameError => _firstNameError;
+  String? get lastNameError => _lastNameError;
+  String? get contactError => _contactError;
 
   bool get isNameFormValid =>
-      _firstName.isNotEmpty && _lastName.isNotEmpty && _contact.isNotEmpty;
+      _firstName.isNotEmpty &&
+      _lastName.isNotEmpty &&
+      _contact.isNotEmpty &&
+      _firstNameError == null &&
+      _lastNameError == null &&
+      _contactError == null;
   bool get isCompanyInfoFormValid =>
       _selectedItem != null &&
       _companyName.isNotEmpty &&
@@ -61,12 +72,47 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   }
 
   void updateFirstName(String firstName) {
-    _firstName = firstName;
+    final trimmedFirstName = firstName.trim();
+    //Validation: Ensure the first name is between 2-20 chars and only contains letters
+    final regex = RegExp(r'^[a-zA-Z]+$');
+    if (trimmedFirstName.startsWith(' ')) {
+      _firstNameError = 'First name cannot start with a space';
+    } else if (trimmedFirstName.isEmpty) {
+      _firstNameError = 'First name cannot be empty';
+    } else if (trimmedFirstName.length < 2) {
+      _firstNameError = 'First name must be at least 2 characters';
+    } else if (trimmedFirstName.length > 20) {
+      _firstNameError = 'First name must not exceed 20 characters';
+    } else if (!regex.hasMatch(trimmedFirstName)) {
+      _firstNameError = 'Only letters are allowed';
+    } else {
+      // Input is valid
+      _firstNameError = null;
+      _firstName = trimmedFirstName;
+      notifyListeners();
+      return; // Exit if update successful
+    }
+    //_firstName = firstName;
     notifyListeners();
   }
 
   void updateLastName(String lastName) {
-    _lastName = lastName;
+    final trimmedLastName = lastName.trim();
+    final regex = RegExp(r'^[a-zA-Z]+$');
+    if (lastName.startsWith(' ')) {
+      _lastNameError = 'Last name cannot start with a space';
+    } else if (trimmedLastName.isEmpty) {
+      _lastNameError = 'Last name cannot be empty';
+    } else if (trimmedLastName.length < 2) {
+      _lastNameError = 'Last name must be at least 2 characters';
+    } else if (trimmedLastName.length > 20) {
+      _lastNameError = 'Last name must not exceed 20 characters';
+    } else if (!regex.hasMatch(trimmedLastName)) {
+      _lastNameError = 'Only letters are allowed';
+    } else {
+      _lastNameError = null;
+      _lastName = trimmedLastName;
+    }
     notifyListeners();
   }
 
@@ -81,8 +127,17 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   }
 
   void updateContact(String contact, String countryCode) {
-    _contact = '$countryCode $contact';
-
+    final regex = RegExp(r'^[0-9]+$');
+    if (contact.startsWith(' ')) {
+      _contactError = 'Contact cannot start with a space';
+    } else if (contact.isEmpty) {
+      _contactError = 'Contact cannot be empty';
+    } else if (!regex.hasMatch(contact)) {
+      _contactError = 'Contact must be numbers only';
+    } else {
+      _contactError = null;
+      _contact = '$countryCode $contact';
+    }
     notifyListeners();
   }
 
