@@ -218,10 +218,8 @@ class _CardDetailsState extends State<CardDetails> {
                       height: DeviceDimensions.screenHeight(context) * 0.020),
                   Center(
                     child: Container(
-                      height: _showDetails
-                          ? DeviceDimensions.screenHeight(context) * 0.61
-                          : DeviceDimensions.screenHeight(context) * 0.27,
                       width: DeviceDimensions.screenWidth(context) * 0.95,
+                      height: _showDetails ? 510 : 230,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(30),

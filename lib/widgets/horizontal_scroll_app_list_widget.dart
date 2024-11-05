@@ -18,7 +18,7 @@ class HorizontalScrollAppIcons extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(25),
                 ),
                 height: DeviceDimensions.screenHeight(context) * 0.15,
                 child: const Padding(
@@ -35,17 +35,19 @@ class HorizontalScrollAppIcons extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(25),
               ),
               width: DeviceDimensions.screenWidth(context) * 0.48,
-              height: DeviceDimensions.screenHeight(context) * 0.15,
               padding: const EdgeInsets.all(10),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
+                    ConstrainedBox(
+                      constraints: BoxConstraints(
+                          maxHeight:
+                              DeviceDimensions.screenHeight(context) * 0.05),
                       child: Stack(
                         children: socialAppProvider.filteredSocialApps
                             .asMap()

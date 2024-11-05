@@ -89,49 +89,14 @@ class _ShowLinkDialogState extends State<ShowLinkDialog> {
               ),
             ),
             SizedBox(height: DeviceDimensions.screenHeight(context) * 0.01),
-            Text(widget.appItem.name,
-                style: TextStyle(
-                    fontFamily: 'Barlow-Bold',
-                    fontSize: DeviceDimensions.responsiveSize(context) * 0.072,
-                    fontWeight: FontWeight.w600)),
-            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.04),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 20),
-            //   child: Container(
-            //       height: DeviceDimensions.screenHeight(context) * 0.06,
-            //       width: DeviceDimensions.screenWidth(context),
-            //       decoration: BoxDecoration(
-            //         color: Colors.grey.shade300,
-            //         borderRadius: BorderRadius.circular(15),
-            //       ),
-            //       child: Padding(
-            //         padding: const EdgeInsets.symmetric(horizontal: 12),
-            //         child: Column(
-            //           crossAxisAlignment: CrossAxisAlignment.start,
-            //           children: [
-            //             Text(
-            //               "Platform name",
-            //               style: TextStyle(
-            //                 fontFamily: 'Barlow-Regular',
-            //                 fontWeight: FontWeight.w500,
-            //                 fontSize: DeviceDimensions.responsiveSize(context) *
-            //                     0.030,
-            //               ),
-            //             ),
-            //             Text(
-            //               widget.appItem.name,
-            //               style: TextStyle(
-            //                 fontFamily: 'Barlow-Regular',
-            //                 fontWeight: FontWeight.w600,
-            //                 fontSize: DeviceDimensions.responsiveSize(context) *
-            //                     0.050,
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       )),
-            // ),
-            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.02),
+            Text(
+              widget.appItem.name,
+              style: TextStyle(
+                  fontFamily: 'Barlow-Bold',
+                  fontSize: DeviceDimensions.responsiveSize(context) * 0.072,
+                  fontWeight: FontWeight.w600),
+            ),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.06),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
@@ -145,7 +110,7 @@ class _ShowLinkDialogState extends State<ShowLinkDialog> {
                   child: TextField(
                     controller: _userNameController,
                     decoration: InputDecoration(
-                      hintText: 'Enter ${widget.appItem.name} Username',
+                      hintText: widget.appItem.gethint(),
                       hintStyle: TextStyle(
                           fontFamily: 'Barlow-Regular',
                           fontSize:
@@ -156,7 +121,22 @@ class _ShowLinkDialogState extends State<ShowLinkDialog> {
                 ),
               ),
             ),
-            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.05),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.02),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 25),
+                child: Text(
+                  widget.appItem.getMessgae(),
+                  style: TextStyle(
+                      fontFamily: 'Barlow-Regular',
+                      fontSize:
+                          DeviceDimensions.responsiveSize(context) * 0.040,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+            ),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.04),
             if (hasUserName) ...[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

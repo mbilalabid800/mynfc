@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Container(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 9.0, vertical: 4.5),
+                                        horizontal: 10.0, vertical: 4.5),
                                     decoration: BoxDecoration(
                                       color: const Color(0xFFFFFFFF),
                                       borderRadius: BorderRadius.circular(15.0),
@@ -141,6 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: const Text(
                                       "Home",
                                       style: TextStyle(
+                                        fontFamily: 'Barlow-Bold',
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.black,
@@ -163,11 +164,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                           position.dy,
                                         ),
                                         items: [
-                                          const PopupMenuItem(
+                                          PopupMenuItem(
                                             child: Text(
                                               'Coming Soon',
                                               style: TextStyle(
-                                                  color: Colors.black),
+                                                fontFamily: 'Barlow-Regular',
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -189,297 +193,297 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 24),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 15,
-                              ),
-                              child: Container(
-                                height: DeviceDimensions.screenHeight(context) /
-                                    3.5,
-                                width: DeviceDimensions.screenWidth(context),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      alignment: Alignment.center,
-                                      clipBehavior: Clip.none,
+                            SizedBox(
+                                height: DeviceDimensions.screenHeight(context) *
+                                    0.028),
+                            Container(
+                              width:
+                                  DeviceDimensions.screenWidth(context) * 0.92,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 22, right: 36, top: 20),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  userProvider.selectedItem ??
+                                                      '',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Barlow-Bold',
+                                                    fontSize: DeviceDimensions
+                                                            .responsiveSize(
+                                                                context) *
+                                                        0.049,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                connectionProvider.isLoading
+                                                    ? const Text(
+                                                        "--",
+                                                        style: TextStyle(
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      )
+                                                    : Text(
+                                                        Provider.of<ConnectionProvider>(
+                                                                        context)
+                                                                    .addedConnections
+                                                                    .length <
+                                                                10
+                                                            ? "0${Provider.of<ConnectionProvider>(context).addedConnections.length}+"
+                                                            : "${Provider.of<ConnectionProvider>(context).addedConnections.length}+",
+                                                        style: const TextStyle(
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                              ],
+                                            ),
+                                          ),
+                                          const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 22),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Profile",
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontFamily:
+                                                        'Barlow-Regular',
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "Connected",
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontFamily:
+                                                        'Barlow-Regular',
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Positioned(
+                                        top: 25,
+                                        child: CircleAvatar(
+                                          radius: 37,
+                                          backgroundColor: Colors.black54,
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                userProvider.imageUrl ?? '',
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    CircleAvatar(
+                                              radius: 37,
+                                              backgroundImage: imageProvider,
+                                            ),
+                                            placeholder: (context, url) =>
+                                                const Center(
+                                              child: SmallThreeBounceLoader(),
+                                            ),
+                                            errorWidget: (context, url,
+                                                    error) =>
+                                                Image.asset(
+                                                    'assets/images/default_profile.jpg'),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 30),
+                                  Text(
+                                    "${userProvider.firstName} ${userProvider.lastName}",
+                                    style: const TextStyle(
+                                      fontSize: 21,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Barlow-Bold',
+                                    ),
+                                  ),
+                                  Text(
+                                    "${userProvider.designation} at ${userProvider.companyName}",
+                                    style: const TextStyle(
+                                        fontFamily: 'Barlow-Regular',
+                                        fontSize: 14,
+                                        letterSpacing: 1.5),
+                                  ),
+                                  const SizedBox(height: 15),
+                                  const Divider(),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 22, right: 22, bottom: 15),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Column(
+                                        Text(
+                                          "Your Links",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontFamily: 'Barlow-Regular',
+                                          ),
+                                        ),
+                                        Row(
                                           children: [
+                                            SvgPicture.asset(
+                                                "assets/icons/info-circle.svg"),
+                                            const SizedBox(width: 7),
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  left: 22, right: 36, top: 20),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    userProvider.selectedItem ??
-                                                        '',
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
-                                                  ),
-                                                  connectionProvider.isLoading
-                                                      ? const Text(
-                                                          "--",
-                                                          style: TextStyle(
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        )
-                                                      : Text(
-                                                          Provider.of<ConnectionProvider>(
-                                                                          context)
-                                                                      .addedConnections
-                                                                      .length <
-                                                                  10
-                                                              ? "0${Provider.of<ConnectionProvider>(context).addedConnections.length}+"
-                                                              : "${Provider.of<ConnectionProvider>(context).addedConnections.length}+",
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                ],
+                                                  bottom: 2.0),
+                                              child: const Text(
+                                                "Direct",
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontFamily: 'Barlow-Regular',
+                                                ),
                                               ),
                                             ),
-                                            const Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 22),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    "Profile",
-                                                    style:
-                                                        TextStyle(fontSize: 14),
-                                                  ),
-                                                  Text(
-                                                    "Connected",
-                                                    style:
-                                                        TextStyle(fontSize: 14),
-                                                  ),
-                                                ],
+                                            const SizedBox(width: 10),
+                                            SizedBox(
+                                              height: 30,
+                                              width: 45,
+                                              child: FittedBox(
+                                                fit: BoxFit.fill,
+                                                child: Switch(
+                                                  activeTrackColor:
+                                                      Colors.black,
+                                                  value: direct,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      direct = value;
+                                                    });
+                                                  },
+                                                ),
                                               ),
                                             ),
                                           ],
                                         ),
-                                        Positioned(
-                                          top: 25,
-                                          child: CircleAvatar(
-                                            radius: 35,
-                                            backgroundColor: Colors.black54,
-                                            child: CachedNetworkImage(
-                                              imageUrl:
-                                                  userProvider.imageUrl ?? '',
-                                              imageBuilder:
-                                                  (context, imageProvider) =>
-                                                      CircleAvatar(
-                                                radius: 35,
-                                                backgroundImage: imageProvider,
-                                              ),
-                                              placeholder: (context, url) =>
-                                                  const Center(
-                                                child: SmallThreeBounceLoader(),
-                                              ),
-                                              errorWidget: (context, url,
-                                                      error) =>
-                                                  Image.asset(
-                                                      'assets/images/default_profile.jpg'),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 25),
-                                    Text(
-                                      "${userProvider.firstName} ${userProvider.lastName}",
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    Text(
-                                      "${userProvider.designation} at ${userProvider.companyName}",
-                                      style: const TextStyle(
-                                          fontSize: 13, letterSpacing: 1.5),
-                                    ),
-                                    const Spacer(),
-                                    const Divider(),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 22, right: 22, bottom: 15),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            "Your Links",
-                                            style: TextStyle(fontSize: 14),
-                                          ),
-                                          Row(
-                                            children: [
-                                              SvgPicture.asset(
-                                                  "assets/icons/info-circle.svg"),
-                                              const SizedBox(width: 10),
-                                              const Text(
-                                                "Direct",
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                              const SizedBox(width: 15),
-                                              SizedBox(
-                                                height: 33,
-                                                width: 45,
-                                                child: FittedBox(
-                                                  fit: BoxFit.fill,
-                                                  child: Switch(
-                                                    activeTrackColor:
-                                                        Colors.black,
-                                                    value: direct,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        direct = value;
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 25),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15),
-                                  child: Container(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.15,
-                                    width:
-                                        DeviceDimensions.screenWidth(context) *
-                                            0.9,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white.withOpacity(0.2),
-                                        borderRadius:
-                                            BorderRadius.circular(30)),
-                                    child: Row(
-                                      children: [
-                                        const Padding(
-                                          padding: EdgeInsets.all(25),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Add New",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 17),
-                                              ),
-                                              Text(
-                                                "Add new link as business\nor personal branding",
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.white),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.pushNamed(context,
-                                                '/active-link'); // Replace with your route name
-                                          },
-                                          child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 25),
-                                              child: SvgPicture.asset(
-                                                "assets/icons/addsvg.svg",
-                                                width: 80,
-                                                height: 80,
-                                              )
-                                              //Image.asset("assets/images/group17.png"),
-                                              ),
-                                        ),
                                       ],
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                             SizedBox(
                                 height: DeviceDimensions.screenHeight(context) *
-                                    0.020),
-                            Row(
-                              children: [
-                                Column(
-                                  children: [
-                                    SizedBox(
-                                      height: DeviceDimensions.screenHeight(
-                                              context) *
-                                          0.015,
+                                    0.032),
+                            Container(
+                              width:
+                                  DeviceDimensions.screenWidth(context) * 0.92,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              child: Row(
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 25, vertical: 18),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Add New",
+                                          style: TextStyle(
+                                              fontFamily: 'Barlow-Bold',
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18),
+                                        ),
+                                        SizedBox(height: 5),
+                                        Text(
+                                          "Add new link as business\nor personal branding",
+                                          style: TextStyle(
+                                              fontFamily: 'Barlow-Regular',
+                                              fontSize: 15,
+                                              color: Colors.white),
+                                        )
+                                      ],
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                            context, "/active-link");
-                                      },
-                                      child: Padding(
+                                  ),
+                                  const Spacer(),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, '/active-link');
+                                    },
+                                    child: Padding(
                                         padding:
-                                            const EdgeInsets.only(left: 15),
+                                            const EdgeInsets.only(right: 25),
+                                        child: SvgPicture.asset(
+                                          "assets/icons/addsvg.svg",
+                                          width: 80,
+                                          height: 80,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                                height: DeviceDimensions.screenHeight(context) *
+                                    0.039),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 12),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, "/active-link");
+                                        },
                                         child: SizedBox(
-                                          height: DeviceDimensions.screenHeight(
-                                                  context) *
-                                              0.18,
                                           width: DeviceDimensions.screenWidth(
                                                   context) *
                                               0.5,
                                           child:
                                               const HorizontalScrollAppIcons(),
-                                          // child: HorizontalScrollAppIcons(
-                                          //     appItemsWithLinks: appItemsWithLinks),
                                         ),
                                       ),
-                                    ),
-                                    //upgrade now
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 15),
-                                      child: Container(
+                                      SizedBox(
+                                          height: DeviceDimensions.screenHeight(
+                                                  context) *
+                                              0.020),
+                                      //upgrade now
+                                      Container(
                                         height: DeviceDimensions.screenHeight(
-                                                context) /
-                                            16,
+                                                context) *
+                                            0.06,
                                         width: DeviceDimensions.screenWidth(
-                                                context) /
-                                            2.2,
+                                                context) *
+                                            0.48,
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
-                                              BorderRadius.circular(30),
+                                              BorderRadius.circular(22),
                                         ),
                                         child: Row(
                                           mainAxisAlignment:
@@ -488,7 +492,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             SvgPicture.asset(
                                                 "assets/icons/diamond.svg"),
                                             // Image.asset("assets/images/upgrade.png"),
-                                            const SizedBox(width: 5),
+                                            const SizedBox(width: 10),
                                             GestureDetector(
                                               onTap: () {
                                                 Navigator.pushNamed(
@@ -497,43 +501,37 @@ class _HomeScreenState extends State<HomeScreen> {
                                               child: const Text(
                                                 "Upgrade Now",
                                                 style: TextStyle(
+                                                    fontFamily: 'Barlow-Bold',
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
+                                                    fontSize: 17),
                                               ),
                                             ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, '/recent-connected');
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        right: 15, top: 17),
+                                    ],
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, '/recent-connected');
+                                    },
                                     child: Container(
-                                      height: DeviceDimensions.screenHeight(
-                                              context) *
-                                          0.244,
+                                      height: 195,
                                       width: DeviceDimensions.screenWidth(
-                                              context) /
-                                          2.5,
+                                              context) *
+                                          0.41,
                                       decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:
-                                              BorderRadius.circular(30)),
+                                              BorderRadius.circular(20)),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                top: 10.0, left: 17, bottom: 4),
+                                                left: 10, top: 07, bottom: 4),
                                             child: Text(
                                               "Recent Connections",
                                               style: TextStyle(
@@ -699,9 +697,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            )
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                                height: DeviceDimensions.screenHeight(context) *
+                                    0.029),
                           ],
                         ),
                       ),

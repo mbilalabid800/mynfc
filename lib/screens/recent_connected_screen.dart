@@ -23,10 +23,13 @@ class _RecentConnectedState extends State<RecentConnected> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      final connectionProvider =
+          Provider.of<ConnectionProvider>(context, listen: false);
+
       searchController.clear();
-      Provider.of<ConnectionProvider>(context, listen: false).resetSearch();
-      Provider.of<ConnectionProvider>(context, listen: false)
-          .loadRecommendedConnections();
+      connectionProvider.resetSearch();
+      connectionProvider.loadRecommendedConnections(forceLoad: true);
+      connectionProvider.realTimeListener();
     });
   }
 
@@ -231,66 +234,69 @@ class _RecentConnectedState extends State<RecentConnected> {
                   ],
                 ),
                 const SizedBox(height: 50),
-                Container(
-                  width: DeviceDimensions.screenWidth(context) * 0.92,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+                Consumer<ConnectionProvider>(
+                  builder: (context, connectionProvider, child) {
+                    final recommendedConnections = connectionProvider
+                            .searchRecommendedConnections.isNotEmpty
+                        ? connectionProvider.searchRecommendedConnections
+                        : connectionProvider.recommendedConnections;
+
+                    return Container(
+                      width: DeviceDimensions.screenWidth(context) * 0.92,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Padding(
-                            padding:
-                                EdgeInsets.only(left: 17, top: 15, bottom: 5),
-                            child: Text(
-                              "Recommended for you",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0, right: 25),
-                            child: SizedBox(
-                              height: 33,
-                              width: 45,
-                              child: FittedBox(
-                                fit: BoxFit.fill,
-                                child: Consumer<ConnectionProvider>(
-                                  builder:
-                                      (context, connectionProvider, child) {
-                                    return Switch(
-                                      activeColor: Colors.white,
-                                      activeTrackColor: const Color(0xFFCEFD4B),
-                                      inactiveTrackColor:
-                                          const Color(0xFFEFEFEF),
-                                      inactiveThumbColor: Colors.black,
-                                      value: connectionProvider
-                                          .showCompanyConnections,
-                                      onChanged: (value) async {
-                                        await connectionProvider
-                                            .toggleConnections(value);
-                                      },
-                                    );
-                                  },
+                          Row(
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.only(
+                                    left: 17, top: 15, bottom: 5),
+                                child: Text(
+                                  "Recommended for you",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
-                            ),
+                              Spacer(),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 8.0, right: 25),
+                                child: SizedBox(
+                                  height: 33,
+                                  width: 45,
+                                  child: FittedBox(
+                                    fit: BoxFit.fill,
+                                    child: Consumer<ConnectionProvider>(
+                                      builder:
+                                          (context, connectionProvider, child) {
+                                        return Switch(
+                                          activeColor: Colors.white,
+                                          activeTrackColor:
+                                              const Color(0xFFCEFD4B),
+                                          inactiveTrackColor:
+                                              const Color(0xFFEFEFEF),
+                                          inactiveThumbColor: Colors.black,
+                                          value: connectionProvider
+                                              .showCompanyConnections,
+                                          onChanged: (value) async {
+                                            await connectionProvider
+                                                .toggleConnections(value);
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      const Divider(),
-                      Consumer<ConnectionProvider>(
-                        builder: (context, connectionProvider, child) {
-                          final recommendedConnections = connectionProvider
-                                  .searchRecommendedConnections.isNotEmpty
-                              ? connectionProvider.searchRecommendedConnections
-                              : connectionProvider.recommendedConnections;
-
-                          return Stack(
+                          const Divider(),
+                          Stack(
                             children: [
                               if (recommendedConnections.isEmpty &&
                                   !connectionProvider.isLoading)
@@ -399,16 +405,14 @@ class _RecentConnectedState extends State<RecentConnected> {
                                   ),
                                 ),
                             ],
-                          );
-                        },
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                          height:
-                              DeviceDimensions.screenHeight(context) * 0.010),
-                    ],
-                  ),
+                    );
+                  },
                 ),
-                SizedBox(height: DeviceDimensions.screenHeight(context) * 0.05),
+                SizedBox(
+                    height: DeviceDimensions.screenHeight(context) * 0.030),
               ],
             ),
           ),

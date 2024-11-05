@@ -41,14 +41,14 @@ class ConnectionProvider with ChangeNotifier {
       });
     }
 
-    await loadRecommendedConnections();
+    await loadRecommendedConnections(forceLoad: true);
   }
 
-  Future<void> loadRecommendedConnections() async {
-    try {
-      _isLoading = true;
-      notifyListeners();
+  Future<void> loadRecommendedConnections({bool forceLoad = false}) async {
+    _isLoading = true;
+    notifyListeners();
 
+    try {
       final currentUser = FirebaseAuth.instance.currentUser;
       if (currentUser != null) {
         final uid = currentUser.uid;
@@ -111,6 +111,22 @@ class ConnectionProvider with ChangeNotifier {
       _isRefreshingConnections = false;
       notifyListeners();
     }
+  }
+
+  void realTimeListener() {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) return;
+    FirebaseFirestore.instance
+        .collection("users")
+        .snapshots()
+        .listen((snapshot) {
+      for (var change in snapshot.docChanges) {
+        if (change.type == DocumentChangeType.added && change.doc.id != uid) {
+          // Trigger reload to show new connections
+          loadRecommendedConnections(forceLoad: true);
+        }
+      }
+    });
   }
 
   Future<void> loadAddedConnections() async {

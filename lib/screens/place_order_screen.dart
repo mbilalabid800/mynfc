@@ -441,7 +441,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
           border: Border.all(color: const Color(0xFFD7D9DD))),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-        child: GestureDetector(
+        child: InkWell(
           onTap: () async {
             provider.selectMethod(location);
             await provider.loadShippingAddress();

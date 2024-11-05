@@ -288,6 +288,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                           ),
                           value: selectedSubject,
                           items: [
+                            customdropdown("No subject", 'No subject', context),
                             customdropdown(
                                 "Book a demo", 'Book a demo', context),
                             customdropdown(
@@ -517,7 +518,6 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       child: Text(
         subject,
         style: TextStyle(
-          // color: const Color(0xFFA9A9A9),
           fontSize: DeviceDimensions.responsiveSize(context) * 0.043,
           fontFamily: 'Barlow-Regular',
           fontWeight: FontWeight.w500,

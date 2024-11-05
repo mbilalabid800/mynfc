@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:nfc_app/models/user_data_model.dart';
 import 'package:nfc_app/services/shared_preferences_service/shared_preferences_services.dart';
 
@@ -164,6 +165,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'image_url': _imageUrl,
           'profile_type': _selectedItem,
           'bio': _bio,
+          'timeStamp': DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
           'profileViews': _profileViews,
           'connection_type': _connectionType,
           'isBlocked': _isBlocked,

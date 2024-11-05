@@ -47,4 +47,24 @@ class SocialAppModel {
       index: index ?? this.index,
     );
   }
+
+  String getMessgae() {
+    switch (name.toLowerCase()) {
+      case 'whatsapp':
+        return 'Enter your number with country code e.g +92';
+
+      default:
+        return 'Please enter your $name username.';
+    }
+  }
+
+  String gethint() {
+    switch (name.toLowerCase()) {
+      case 'whatsapp':
+        return 'e.g +9254789351';
+
+      default:
+        return 'e.g. johnsonsmith547';
+    }
+  }
 }
