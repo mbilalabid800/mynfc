@@ -27,7 +27,8 @@ class _RegisterFormState extends State<RegisterData> {
   final AuthService _authService = AuthService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isLoading = false;
-  bool _isObscure = true;
+  bool _isObscurePassword = true;
+  bool _isObscureConfirmPassword = true;
   String _passwordStrength = '';
   String _unmetCriterionMessage = '';
   // String password = '';
@@ -72,13 +73,7 @@ class _RegisterFormState extends State<RegisterData> {
         if (user != null) {
           Provider.of<UserInfoFormStateProvider>(context, listen: false)
               .setEmail(email);
-          // Provider.of<UserInfoFormStateProvider>(context, listen: false)
-          //     .updatePhone(phone);
-          // Provider.of<UserInfoFormStateProvider>(context, listen: false)
-          //     .updateAddress(address);
 
-          //await AuthService().sendVerificationEmail(context: context);
-          // Navigator.pushNamed(context, '');
           SharedPreferencesServices prefsService = SharedPreferencesServices();
           await prefsService.saveEmail(email);
 
@@ -213,7 +208,7 @@ class _RegisterFormState extends State<RegisterData> {
                                         DeviceDimensions.screenHeight(context) *
                                             0.0026),
                                 controller: passwordController,
-                                obscureText: _isObscure,
+                                obscureText: _isObscurePassword,
                                 onChanged: (password) {
                                   _checkPasswordStrength();
                                 },
@@ -236,7 +231,7 @@ class _RegisterFormState extends State<RegisterData> {
                                       padding:
                                           const EdgeInsets.only(right: 10.0),
                                       child: Icon(
-                                        _isObscure
+                                        _isObscurePassword
                                             ? Icons.visibility_off
                                             : Icons.visibility,
                                         color: const Color(0xFFA9A9A9),
@@ -244,7 +239,8 @@ class _RegisterFormState extends State<RegisterData> {
                                     ),
                                     onPressed: () {
                                       setState(() {
-                                        _isObscure = !_isObscure;
+                                        _isObscurePassword =
+                                            !_isObscurePassword;
                                       });
                                     },
                                   ),
@@ -315,7 +311,7 @@ class _RegisterFormState extends State<RegisterData> {
                                         DeviceDimensions.screenHeight(context) *
                                             0.0026),
                                 controller: confirmPasswordController,
-                                obscureText: _isObscure,
+                                obscureText: _isObscureConfirmPassword,
                                 onChanged: (password) {
                                   // Update _passwordStrength based on your logic
                                   setState(() {
@@ -339,7 +335,7 @@ class _RegisterFormState extends State<RegisterData> {
                                       padding:
                                           const EdgeInsets.only(right: 10.0),
                                       child: Icon(
-                                        _isObscure
+                                        _isObscureConfirmPassword
                                             ? Icons.visibility_off
                                             : Icons.visibility,
                                         color: const Color(0xFFA9A9A9),
@@ -347,7 +343,8 @@ class _RegisterFormState extends State<RegisterData> {
                                     ),
                                     onPressed: () {
                                       setState(() {
-                                        _isObscure = !_isObscure;
+                                        _isObscureConfirmPassword =
+                                            !_isObscureConfirmPassword;
                                       });
                                     },
                                   ),

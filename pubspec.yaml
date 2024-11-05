@@ -71,8 +71,7 @@ dependencies:
   qr_flutter: ^4.1.0
   share_plus: ^10.1.0
   path_provider: ^2.1.4
-  connectivity_plus: ^6.1.0
-  dropdown_button2: ^2.3.9
+  connectivity_plus: ^6.1.0  
 
 
 dev_dependencies:
@@ -81,11 +80,14 @@ dev_dependencies:
     
   flutter_lints: ^5.0.0
 
-flutter_icons:
-    android: true
+flutter_launcher_icons:
+    android: "launcher_icon"
     ios: true
+    remove_alpha_ios: true
     image_path: 'assets/icons/nfc-2.png'
-    min_sdk_android: 21
+    min_sdk_android: 23
+    adaptivie_icon_background: '#ffffff'
+    adaptive_icon_foreground: 'assets/icons/nfc-2.png'
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

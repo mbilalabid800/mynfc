@@ -49,19 +49,7 @@ class HowToUseBottomSheetWidget {
                                   fontWeight: FontWeight.w500)),
                         ),
                       ),
-                      // Padding(
-                      //   padding: const EdgeInsets.only(left: 8.0),
-                      //   child: Align(
-                      //     alignment: Alignment.centerLeft,
-                      //     child: Text('Must have NFC enabled',
-                      //         maxLines: 3,
-                      //         style: TextStyle(
-                      //           fontSize:
-                      //               DeviceDimensions.responsiveSize(context) *
-                      //                   0.03,
-                      //         )),
-                      //   ),
-                      // ),
+
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Align(
@@ -81,56 +69,23 @@ class HowToUseBottomSheetWidget {
                       Image.asset(
                         'assets/icons/iphone.png',
                       ),
-                      // Container(
-                      //   width: DeviceDimensions.screenWidth(context) * 0.8,
-                      //   //height: DeviceDimensions.screenHeight(context) * 0.1,
-                      //   decoration: BoxDecoration(
-                      //       color: Color.fromARGB(255, 251, 243, 205),
-                      //       borderRadius: BorderRadius.circular(25)),
-                      //   child: Center(
-                      //     child: Column(
-                      //       children: [
-                      //         Padding(
-                      //           padding: EdgeInsets.only(left: 8, top: 8.0),
-                      //           child: Row(children: [
-                      //             Icon(
-                      //               Icons.info_outline_rounded,
-                      //               color: Colors.amberAccent,
-                      //             ),
-                      //             Padding(
-                      //               padding: EdgeInsets.only(left: 8.0),
-                      //               child: Text('Note',
-                      //                   style: TextStyle(color: Colors.black)),
-                      //             )
-                      //           ]),
-                      //         ),
-                      //         Padding(
-                      //           padding: EdgeInsets.all(8.0),
-                      //           child: Text(
-                      //             'Unlike iPhones, Android devices allow you to turn off NFC in the settings. Therefore, before sharing your product with an Android phone, it’s essential to ensure that NFC is turned on by checking te device settings.',
-                      //             style: TextStyle(
-                      //                 color: Color.fromARGB(255, 114, 114, 114),
-                      //                 fontSize: DeviceDimensions.responsiveSize(
-                      //                         context) *
-                      //                     0.03),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
 
                       const Spacer(),
-                      Container(
-                        width: DeviceDimensions.screenWidth(context) * 0.8,
-                        height: DeviceDimensions.screenHeight(context) * 0.06,
-                        decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(25)),
-                        child: const Center(
-                          child: Text(
-                            'Done',
-                            style: TextStyle(color: Colors.white),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: DeviceDimensions.screenWidth(context) * 0.8,
+                          height: DeviceDimensions.screenHeight(context) * 0.06,
+                          decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: const Center(
+                            child: Text(
+                              'Done',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
@@ -262,16 +217,21 @@ class HowToUseBottomSheetWidget {
                         ),
                       ),
                       const Spacer(),
-                      Container(
-                        width: DeviceDimensions.screenWidth(context) * 0.8,
-                        height: DeviceDimensions.screenHeight(context) * 0.06,
-                        decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(25)),
-                        child: const Center(
-                          child: Text(
-                            'Done',
-                            style: TextStyle(color: Colors.white),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: DeviceDimensions.screenWidth(context) * 0.8,
+                          height: DeviceDimensions.screenHeight(context) * 0.06,
+                          decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: const Center(
+                            child: Text(
+                              'Done',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
@@ -403,16 +363,21 @@ class HowToUseBottomSheetWidget {
                         ),
                       ),
                       const Spacer(),
-                      Container(
-                        width: DeviceDimensions.screenWidth(context) * 0.8,
-                        height: DeviceDimensions.screenHeight(context) * 0.06,
-                        decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(25)),
-                        child: const Center(
-                          child: Text(
-                            'Done',
-                            style: TextStyle(color: Colors.white),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: DeviceDimensions.screenWidth(context) * 0.8,
+                          height: DeviceDimensions.screenHeight(context) * 0.06,
+                          decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: const Center(
+                            child: Text(
+                              'Done',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
@@ -502,56 +467,23 @@ class HowToUseBottomSheetWidget {
                       Image.asset(
                         'assets/icons/qrcodescan.png',
                       ),
-                      // Container(
-                      //   width: DeviceDimensions.screenWidth(context) * 0.8,
-                      //   //height: DeviceDimensions.screenHeight(context) * 0.1,
-                      //   decoration: BoxDecoration(
-                      //       color: Color.fromARGB(255, 251, 243, 205),
-                      //       borderRadius: BorderRadius.circular(25)),
-                      //   child: Center(
-                      //     child: Column(
-                      //       children: [
-                      //         Padding(
-                      //           padding: EdgeInsets.only(left: 8, top: 8.0),
-                      //           child: Row(children: [
-                      //             Icon(
-                      //               Icons.info_outline_rounded,
-                      //               color: Colors.amberAccent,
-                      //             ),
-                      //             Padding(
-                      //               padding: EdgeInsets.only(left: 8.0),
-                      //               child: Text('Note',
-                      //                   style: TextStyle(color: Colors.black)),
-                      //             )
-                      //           ]),
-                      //         ),
-                      //         Padding(
-                      //           padding: EdgeInsets.all(8.0),
-                      //           child: Text(
-                      //             'Unlike iPhones, Android devices allow you to turn off NFC in the settings. Therefore, before sharing your product with an Android phone, it’s essential to ensure that NFC is turned on by checking te device settings.',
-                      //             style: TextStyle(
-                      //                 color: Color.fromARGB(255, 114, 114, 114),
-                      //                 fontSize: DeviceDimensions.responsiveSize(
-                      //                         context) *
-                      //                     0.03),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
 
                       const Spacer(),
-                      Container(
-                        width: DeviceDimensions.screenWidth(context) * 0.8,
-                        height: DeviceDimensions.screenHeight(context) * 0.06,
-                        decoration: BoxDecoration(
-                            color: Colors.black,
-                            borderRadius: BorderRadius.circular(25)),
-                        child: const Center(
-                          child: Text(
-                            'Done',
-                            style: TextStyle(color: Colors.white),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: DeviceDimensions.screenWidth(context) * 0.8,
+                          height: DeviceDimensions.screenHeight(context) * 0.06,
+                          decoration: BoxDecoration(
+                              color: Colors.black,
+                              borderRadius: BorderRadius.circular(25)),
+                          child: const Center(
+                            child: Text(
+                              'Done',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),

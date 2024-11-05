@@ -113,7 +113,6 @@ class _NameStepState extends State<NameStep> {
                 width: DeviceDimensions.screenWidth(context) * 0.95,
                 child: TextField(
                   onChanged: (value) => formState.updateFirstName(value),
-                  // controller: firstNameController,
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
@@ -130,6 +129,7 @@ class _NameStepState extends State<NameStep> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorText: formState.firstNameError,
                     //labelText: 'First Name',
                     hintText: 'First Name',
                     hintStyle: TextStyle(
@@ -164,6 +164,7 @@ class _NameStepState extends State<NameStep> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorText: formState.lastNameError,
                     //labelText: 'Enter Last Name',
                     hintText: 'Last Name',
                     hintStyle: TextStyle(
@@ -329,6 +330,7 @@ class _NameStepState extends State<NameStep> {
                           //labelText: 'First Name',
                           hintText: 'Contact No.',
                           counterText: "",
+                          errorText: formState.contactError,
                           hintStyle: TextStyle(
                               color: AppColors.greyText,
                               fontFamily: 'Barlow-Regular',
@@ -417,7 +419,8 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
                   child: DropdownButton<String>(
                     underline: SizedBox(),
                     elevation: 16,
@@ -530,7 +533,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                 width: DeviceDimensions.screenWidth(context) * 0.9,
-                child: TextField(
+                child: TextFormField(
                   //controller: websiteController,
                   onChanged: (value) => formState.updateWebsiteLink(value),
                   decoration: InputDecoration(
@@ -549,6 +552,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorText: formState.websiteLinkError,
                     //labelText: 'Enter Last Name',
                     hintText: 'Company Link',
                     hintStyle: TextStyle(

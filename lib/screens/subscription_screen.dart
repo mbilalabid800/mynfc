@@ -36,7 +36,7 @@ class PricingPlansScreen extends StatelessWidget {
                 itemWidth: DeviceDimensions.screenWidth(context) *
                     0.8, // Define width for cards
                 itemHeight: DeviceDimensions.screenHeight(context) *
-                    0.8, // Define height for cards
+                    0.85, // Define height for cards
                 scale: 0.8,
                 loop: false,
                 layout: SwiperLayout.STACK,
