@@ -423,8 +423,8 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
                   child: DropdownButton<String>(
                     underline: SizedBox(),
-                    elevation: 16,
-                    dropdownColor: Colors.white,
+                    elevation: 1,
+                    dropdownColor: AppColors.screenBackground,
                     borderRadius: BorderRadius.circular(12),
                     isExpanded: true,
                     icon: Icon(Icons.arrow_drop_down,
