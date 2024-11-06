@@ -439,9 +439,6 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     value: formState.selectedItem,
                     onChanged: (String? newValue) {
                       formState.updateSelectedItem(newValue);
-                      // setState(() {
-                      //   _selectedItem = newValue;
-                      // });
                     },
                     items: _items.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
@@ -484,6 +481,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorText: formState.companyNameError,
                     //labelText: 'Enter Last Name',
                     hintText: 'Company Name',
                     hintStyle: TextStyle(

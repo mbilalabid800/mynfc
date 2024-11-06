@@ -28,6 +28,8 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? _lastNameError;
   String? _contactError;
   String? _websiteLinkError;
+  String? _companyNameError;
+  String? _designationError;
 
   int _connectionType = 0;
   bool _isBlocked = false;
@@ -55,6 +57,8 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? get lastNameError => _lastNameError;
   String? get contactError => _contactError;
   String? get websiteLinkError => _websiteLinkError;
+  String? get companyNameError => _companyNameError;
+  String? get designationError => _designationError;
 
   bool get isNameFormValid =>
       _firstName.isNotEmpty &&
@@ -151,12 +155,56 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   }
 
   void updateCompanyName(String companyName) {
-    _companyName = companyName;
+    final trimmedCompanyName = companyName.trim();
+    //Validation: Ensure the first name is between 2-20 chars and only contains letters
+    //final regex = RegExp(r'^[a-zA-Z]+$');
+    if (trimmedCompanyName.startsWith(' ')) {
+      _companyNameError = 'First name cannot start with a space';
+    } else if (trimmedCompanyName.isEmpty) {
+      _companyNameError = 'First name cannot be empty';
+    } else if (trimmedCompanyName.length < 2) {
+      _companyNameError = 'First name must be at least 2 characters';
+    } else if (trimmedCompanyName.length > 20) {
+      _companyNameError = 'First name must not exceed 20 characters';
+    }
+    // else if (!regex.hasMatch(trimmedCompanyName)) {
+    //   _firstNameError = 'Only letters are allowed';
+    // }
+    else {
+      // Input is valid
+      _companyNameError = null;
+      _companyName = trimmedCompanyName;
+      notifyListeners();
+      return; // Exit if update successful
+    }
+    //_firstName = firstName;
     notifyListeners();
   }
 
   void updateDesignation(String designation) {
-    _designation = designation;
+    final trimmedDesignation = designation.trim();
+    //Validation: Ensure the first name is between 2-20 chars and only contains letters
+    //final regex = RegExp(r'^[a-zA-Z]+$');
+    if (trimmedDesignation.startsWith(' ')) {
+      _designationError = 'First name cannot start with a space';
+    } else if (trimmedDesignation.isEmpty) {
+      _designationError = 'First name cannot be empty';
+    } else if (trimmedDesignation.length < 2) {
+      _designationError = 'First name must be at least 2 characters';
+    } else if (trimmedDesignation.length > 20) {
+      _designationError = 'First name must not exceed 20 characters';
+    }
+    // else if (!regex.hasMatch(trimmedCompanyName)) {
+    //   _firstNameError = 'Only letters are allowed';
+    // }
+    else {
+      // Input is valid
+      _designationError = null;
+      _designation = trimmedDesignation;
+      notifyListeners();
+      return; // Exit if update successful
+    }
+    //_firstName = firstName;
     notifyListeners();
   }
 
