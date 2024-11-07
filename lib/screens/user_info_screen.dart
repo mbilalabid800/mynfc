@@ -423,8 +423,8 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
                   child: DropdownButton<String>(
                     underline: SizedBox(),
-                    elevation: 16,
-                    dropdownColor: Colors.white,
+                    elevation: 1,
+                    dropdownColor: AppColors.screenBackground,
                     borderRadius: BorderRadius.circular(12),
                     isExpanded: true,
                     icon: Icon(Icons.arrow_drop_down,
@@ -439,9 +439,6 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     value: formState.selectedItem,
                     onChanged: (String? newValue) {
                       formState.updateSelectedItem(newValue);
-                      // setState(() {
-                      //   _selectedItem = newValue;
-                      // });
                     },
                     items: _items.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
@@ -484,6 +481,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorText: formState.companyNameError,
                     //labelText: 'Enter Last Name',
                     hintText: 'Company Name',
                     hintStyle: TextStyle(
