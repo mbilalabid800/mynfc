@@ -4,13 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/models/connections_model.dart';
+import 'package:nfc_app/provider/user_info_form_state_provider.dart';
+import 'package:provider/provider.dart';
 
 class ConnectionProvider with ChangeNotifier {
   List<ConnectionsModel> _recommendedConnections = [];
   List<ConnectionsModel> _addedConnections = [];
   List<ConnectionsModel> _searchAddedConnections = [];
   List<ConnectionsModel> _searchRecommendedConnections = [];
-  bool _isRefreshingConnections = false;
   bool _showCompanyConnections = false;
   bool _isLoading = false;
 
@@ -19,17 +20,16 @@ class ConnectionProvider with ChangeNotifier {
   List<ConnectionsModel> get searchAddedConnections => _searchAddedConnections;
   List<ConnectionsModel> get searchRecommendedConnections =>
       _searchRecommendedConnections;
-  bool get isRefreshingConnections => _isRefreshingConnections;
   bool get showCompanyConnections => _showCompanyConnections;
   bool get isLoading => _isLoading;
 
-  Future<void> toggleConnections(bool value) async {
+  Future<void> toggleConnections(BuildContext context, bool value) async {
     _isLoading = true;
-    _isRefreshingConnections = _recommendedConnections.isNotEmpty;
     _showCompanyConnections = value;
     notifyListeners();
-
     final uid = FirebaseAuth.instance.currentUser?.uid;
+    final userProvider =
+        Provider.of<UserInfoFormStateProvider>(context, listen: false);
     if (uid != null) {
       await FirebaseFirestore.instance
           .collection("users")
@@ -37,22 +37,24 @@ class ConnectionProvider with ChangeNotifier {
           .collection("userProfile")
           .doc("details")
           .update({
-        'connection_type': value ? 1 : 2,
+        'connectionTypeAll': value ? true : false,
       });
+      userProvider.updateConnectionType(value);
     }
-
-    await loadRecommendedConnections(forceLoad: true);
+    await loadRecommendedConnections();
   }
 
-  Future<void> loadRecommendedConnections({bool forceLoad = false}) async {
-    _isLoading = true;
-    notifyListeners();
-
+  Future<void> loadRecommendedConnections() async {
     try {
+      _isLoading = true;
+      _recommendedConnections.clear();
+      notifyListeners();
+
       final currentUser = FirebaseAuth.instance.currentUser;
       if (currentUser != null) {
         final uid = currentUser.uid;
 
+        // Fetch the current user's company and connection preferences
         final userSnapshot = await FirebaseFirestore.instance
             .collection("users")
             .doc(uid)
@@ -64,14 +66,13 @@ class ConnectionProvider with ChangeNotifier {
 
         final userData = userSnapshot.data();
         final String? userCompany = userData?['company_name'];
-        final int? connectionType = userData?['connection_type'];
+        final bool connectionType = userData?['connectionTypeAll'];
 
-        _showCompanyConnections = connectionType == 1;
+        _showCompanyConnections = connectionType;
 
         final querySnapshot =
             await FirebaseFirestore.instance.collection("users").get();
 
-        List<ConnectionsModel> newConnections = [];
         for (var doc in querySnapshot.docs) {
           if (doc.id != uid) {
             DocumentReference<Map<String, dynamic>> profileRef =
@@ -88,45 +89,27 @@ class ConnectionProvider with ChangeNotifier {
               final connection =
                   ConnectionsModel.fromFirestore(profileSnapshot);
               bool isAlreadyAdded = _addedConnections.any(
-                  (addedConnections) => addedConnections.uid == connection.uid);
+                  (addedConnection) => addedConnection.uid == connection.uid);
               if (!isAlreadyAdded) {
                 if (_showCompanyConnections) {
                   if (connection.companyName.trim().toLowerCase() ==
                       userCompany?.trim().toLowerCase()) {
-                    newConnections.add(connection);
+                    _recommendedConnections.add(connection);
                   }
                 } else {
-                  newConnections.add(connection);
+                  _recommendedConnections.add(connection);
                 }
               }
             }
           }
         }
-        _recommendedConnections = newConnections;
       }
     } catch (e) {
       print("Error loading recommended connections: $e");
     } finally {
       _isLoading = false;
-      _isRefreshingConnections = false;
       notifyListeners();
     }
-  }
-
-  void realTimeListener() {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (uid == null) return;
-    FirebaseFirestore.instance
-        .collection("users")
-        .snapshots()
-        .listen((snapshot) {
-      for (var change in snapshot.docChanges) {
-        if (change.type == DocumentChangeType.added && change.doc.id != uid) {
-          // Trigger reload to show new connections
-          loadRecommendedConnections(forceLoad: true);
-        }
-      }
-    });
   }
 
   Future<void> loadAddedConnections() async {
@@ -139,7 +122,6 @@ class ConnectionProvider with ChangeNotifier {
       if (currentUser != null) {
         final uid = currentUser.uid;
 
-        // Load user's added connections
         final addedSnapshot = await FirebaseFirestore.instance
             .collection("users")
             .doc(uid)
@@ -254,8 +236,6 @@ class ConnectionProvider with ChangeNotifier {
   void resetSearch() {
     _searchAddedConnections.clear();
     _searchRecommendedConnections.clear();
-    // _searchAddedConnections = List.from(_addedConnections);
-    // _searchRecommendedConnections = List.from(_recommendedConnections);
     notifyListeners();
   }
 

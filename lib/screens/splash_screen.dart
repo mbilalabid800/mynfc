@@ -40,10 +40,6 @@ class _SplashScreenState extends State<SplashScreen>
       duration: const Duration(seconds: 1),
       vsync: this,
     );
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   Provider.of<UserInfoFormStateProvider>(context, listen: false)
-    //       .loadUserData();
-    // });
 
     _containerAnimationController = AnimationController(
       duration: const Duration(seconds: 1),
@@ -90,7 +86,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
-    // Cancel the timer to avoid calling setState on a disposed widget
     if (_pageChangeTimer.isActive) {
       _pageChangeTimer.cancel();
     }
@@ -109,7 +104,7 @@ class _SplashScreenState extends State<SplashScreen>
           PageView.builder(
             controller: _pageController,
             itemCount: splashImages.length,
-            //physics: NeverScrollableScrollPhysics(),
+            // physics: NeverScrollableScrollPhysics(),
             onPageChanged: (index) {
               setState(
                 () {
