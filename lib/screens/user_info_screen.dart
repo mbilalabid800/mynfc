@@ -180,7 +180,7 @@ class _NameStepState extends State<NameStep> {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 width: DeviceDimensions.screenWidth(context) * 0.95,
-                height: DeviceDimensions.screenHeight(context) * 0.062,
+                //height: DeviceDimensions.screenHeight(context) * 0.062,
                 decoration: BoxDecoration(
                     border: Border.all(
                       //test
