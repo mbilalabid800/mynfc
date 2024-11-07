@@ -516,6 +516,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorText: formState.designationError,
                     //labelText: 'Enter First Name',
                     hintText: 'Designation',
                     hintStyle: TextStyle(
@@ -585,6 +586,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorText: formState.cityNameError,
                     //labelText: 'Enter Last Name',
                     hintText: 'City',
                     hintStyle: TextStyle(
