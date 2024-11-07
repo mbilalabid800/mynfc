@@ -29,7 +29,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? _contactError;
   String? _websiteLinkError;
 
-  int _connectionType = 0;
+  bool _connectionTypeAll = true;
   bool _isBlocked = false;
 
   // Getters
@@ -37,7 +37,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String get lastName => _lastName;
   String get contact => _contact;
   String get countryCode => _countryCode;
-  int get connectionType => _connectionType;
+  bool get connectionTypeAll => _connectionTypeAll;
   String get countryName => _countryName;
   String get email => _email;
   String get uid => _uid;
@@ -174,8 +174,8 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateConnectionType(int connectionType) {
-    _connectionType = connectionType;
+  void updateConnectionType(bool connectionTypeAll) {
+    _connectionTypeAll = connectionTypeAll;
     notifyListeners();
   }
 
@@ -234,7 +234,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'bio': _bio,
           'timeStamp': DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
           'profileViews': _profileViews,
-          'connection_type': _connectionType,
+          'connectionTypeAll': _connectionTypeAll,
           'isBlocked': _isBlocked,
         });
 
@@ -311,6 +311,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           _city = userData.city;
           _companyName = userData.companyName;
           _designation = userData.designation;
+          _connectionTypeAll = userData.connectionTypeAll;
           _websiteLink = userData.website;
           _imageUrl = userData.profileImage;
           _contact = userData.contactNumber;

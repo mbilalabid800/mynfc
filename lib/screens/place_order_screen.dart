@@ -469,21 +469,21 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                 ),
               ),
               const Spacer(),
-              isSelected
-                  ? Padding(
-                      padding: const EdgeInsets.only(),
-                      child: SvgPicture.asset(
-                        "assets/icons/more5.svg",
-                        height: 23,
-                      ),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: SvgPicture.asset(
-                        "assets/icons/more.svg",
-                        height: 15,
-                      ),
-                    ),
+              // isSelected
+              //     ? Padding(
+              //         padding: const EdgeInsets.only(),
+              //         child: SvgPicture.asset(
+              //           "assets/icons/more5.svg",
+              //           height: 23,
+              //         ),
+              //       )
+              //     : Padding(
+              //         padding: const EdgeInsets.only(right: 5.0),
+              //         child: SvgPicture.asset(
+              //           "assets/icons/more.svg",
+              //           height: 15,
+              //         ),
+              //       ),
             ],
           ),
         ),

@@ -620,7 +620,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                 onChanged: (int? value) {
                   setState(() {
                     _connectionType = value!;
-                    formState.updateConnectionType(1);
+                    formState.updateConnectionType(false);
                   });
                 },
               ),
@@ -637,7 +637,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                 onChanged: (int? value) {
                   setState(() {
                     _connectionType = value!;
-                    formState.updateConnectionType(2);
+                    formState.updateConnectionType(true);
                   });
                 },
               ),

@@ -15,9 +15,9 @@ class UserDataModel {
   String profileImage;
   String bio;
   final String timeStamp;
+  bool connectionTypeAll;
   int profileViews;
   bool isBlocked;
-  // String connectionType;
 
   UserDataModel({
     required this.countryName,
@@ -34,9 +34,9 @@ class UserDataModel {
     required this.profileImage,
     required this.bio,
     required this.timeStamp,
+    required this.connectionTypeAll,
     this.profileViews = 0,
     this.isBlocked = false,
-    // required this.connectionType,
   });
 
   factory UserDataModel.fromFirestore(DocumentSnapshot doc) {
@@ -56,9 +56,9 @@ class UserDataModel {
       profileImage: data['image_url'] ?? '',
       bio: data['bio'] ?? '',
       timeStamp: data['timeStamp'] ?? '',
+      connectionTypeAll: data['connectionTypeAll'],
       profileViews: data['profileViews'] ?? 0,
       isBlocked: data['isBlocked'] ?? false,
-      // connectionType: data['connection_type'],
     );
   }
   Map<String, dynamic> toMap() {
@@ -77,9 +77,9 @@ class UserDataModel {
       'image_url': profileImage,
       'bio': bio,
       'timeStamp': timeStamp,
+      'connectionTypeAll': connectionTypeAll,
       'profileViews': profileViews,
       'isBlocked': isBlocked,
-      // 'connection_type': connectionType,
     };
   }
 }
