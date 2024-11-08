@@ -14,7 +14,8 @@ class FaqScreen extends StatefulWidget {
 
 class _FaqScreenState extends State<FaqScreen> {
   List<FaqModel> faqs = [];
-  List<bool> _isExpandedList = [];
+  //List<bool> _isExpandedList = [];
+  int _expandedIndex = -1;
 
   @override
   void didChangeDependencies() {
@@ -22,7 +23,8 @@ class _FaqScreenState extends State<FaqScreen> {
     faqs = ModalRoute.of(context)!.settings.arguments as List<FaqModel>;
     // final List<FaqModel> faqs =
     //     ModalRoute.of(context)!.settings.arguments as List<FaqModel>;
-    _isExpandedList = List.generate(faqs.length, (index) => false);
+    // _isExpandedList = List.generate(faqs.length, (index) => false);
+    faqs = ModalRoute.of(context)!.settings.arguments as List<FaqModel>;
   }
 
   @override
@@ -42,13 +44,6 @@ class _FaqScreenState extends State<FaqScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: Text('FAQs',
-                  //       style: TextStyle(
-                  //           fontSize:
-                  //               DeviceDimensions.responsiveSize(context) * 0.08)),
-                  // ),
                   Flexible(child: Image.asset('assets/icons/faqimage.png'))
                 ],
               ),
@@ -88,18 +83,21 @@ class _FaqScreenState extends State<FaqScreen> {
             ),
             trailing: IconButton(
               icon: Icon(
-                _isExpandedList[index]
+                _expandedIndex == index
                     ? Icons.keyboard_arrow_up
                     : Icons.keyboard_arrow_down,
+                // _isExpandedList[index]
+                //     ? Icons.keyboard_arrow_up
+                //     : Icons.keyboard_arrow_down,
               ),
               onPressed: () {
                 setState(() {
-                  _isExpandedList[index] = !_isExpandedList[index];
+                  _expandedIndex = _expandedIndex == index ? -1 : index;
                 });
               },
             ),
           ),
-          if (_isExpandedList[index])
+          if (_expandedIndex == index)
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

@@ -88,4 +88,17 @@ class FirestoreService {
       throw Exception("Failed to subscribe user");
     }
   }
+
+  Future<void> saveNewsletterSubscriber(String email) async {
+    if (email.isNotEmpty && _isValidEmail(email)) {
+      await _db.collection('subscribers').add({'email': email});
+    } else {
+      throw Exception('Invalid email');
+    }
+  }
+
+  bool _isValidEmail(String email) {
+    final RegExp emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    return emailRegex.hasMatch(email);
+  }
 }

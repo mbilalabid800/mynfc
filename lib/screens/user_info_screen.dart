@@ -180,7 +180,7 @@ class _NameStepState extends State<NameStep> {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 width: DeviceDimensions.screenWidth(context) * 0.95,
-                //height: DeviceDimensions.screenHeight(context) * 0.062,
+                height: DeviceDimensions.screenHeight(context) * 0.065,
                 decoration: BoxDecoration(
                     border: Border.all(
                       //test
@@ -553,7 +553,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     ),
                     errorText: formState.websiteLinkError,
                     //labelText: 'Enter Last Name',
-                    hintText: 'Company Link',
+                    hintText: 'Website Link',
                     hintStyle: TextStyle(
                         color: AppColors.greyText,
                         fontFamily: 'Barlow-Regular',
