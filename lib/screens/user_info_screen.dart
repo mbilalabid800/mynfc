@@ -180,7 +180,7 @@ class _NameStepState extends State<NameStep> {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 width: DeviceDimensions.screenWidth(context) * 0.95,
-                height: DeviceDimensions.screenHeight(context) * 0.062,
+                //height: DeviceDimensions.screenHeight(context) * 0.062,
                 decoration: BoxDecoration(
                     border: Border.all(
                       //test
@@ -516,6 +516,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorText: formState.designationError,
                     //labelText: 'Enter First Name',
                     hintText: 'Designation',
                     hintStyle: TextStyle(
@@ -585,6 +586,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorText: formState.cityNameError,
                     //labelText: 'Enter Last Name',
                     hintText: 'City',
                     hintStyle: TextStyle(

@@ -30,6 +30,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? _websiteLinkError;
   String? _companyNameError;
   String? _designationError;
+  String? _cityNameError;
 
   bool _connectionTypeAll = true;
   bool _isBlocked = false;
@@ -59,6 +60,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? get websiteLinkError => _websiteLinkError;
   String? get companyNameError => _companyNameError;
   String? get designationError => _designationError;
+  String? get cityNameError => _cityNameError;
 
   bool get isNameFormValid =>
       _firstName.isNotEmpty &&
@@ -72,7 +74,10 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _companyName.isNotEmpty &&
       _designation.isNotEmpty &&
       _websiteLink.isNotEmpty &&
-      _websiteLinkError == null;
+      _websiteLinkError == null &&
+      _cityNameError == null &&
+      _companyNameError == null &&
+      _designationError == null;
 
   void updateSelectedItem(String? selectedItem) {
     _selectedItem = selectedItem;
@@ -150,7 +155,29 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   }
 
   void updateCity(String city) {
-    _city = city;
+    final trimmedCityName = city.trim();
+    //Validation: Ensure the first name is between 2-20 chars and only contains letters
+    //final regex = RegExp(r'^[a-zA-Z]+$');
+    if (trimmedCityName.startsWith(' ')) {
+      _cityNameError = 'City name cannot start with a space';
+    } else if (trimmedCityName.isEmpty) {
+      _cityNameError = 'City name cannot be empty';
+    } else if (trimmedCityName.length < 2) {
+      _cityNameError = 'City name must be at least 2 characters';
+    } else if (trimmedCityName.length > 20) {
+      _cityNameError = 'City name must not exceed 20 characters';
+    }
+    // else if (!regex.hasMatch(trimmedCompanyName)) {
+    //   _firstNameError = 'Only letters are allowed';
+    // }
+    else {
+      // Input is valid
+      _cityNameError = null;
+      _city = trimmedCityName;
+      notifyListeners();
+      return; // Exit if update successful
+    }
+    //_firstName = firstName;
     notifyListeners();
   }
 
@@ -159,13 +186,13 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
     //final regex = RegExp(r'^[a-zA-Z]+$');
     if (trimmedCompanyName.startsWith(' ')) {
-      _companyNameError = 'First name cannot start with a space';
+      _companyNameError = 'Company name cannot start with a space';
     } else if (trimmedCompanyName.isEmpty) {
-      _companyNameError = 'First name cannot be empty';
+      _companyNameError = 'Company name cannot be empty';
     } else if (trimmedCompanyName.length < 2) {
-      _companyNameError = 'First name must be at least 2 characters';
+      _companyNameError = 'Company name must be at least 2 characters';
     } else if (trimmedCompanyName.length > 20) {
-      _companyNameError = 'First name must not exceed 20 characters';
+      _companyNameError = 'Company name must not exceed 20 characters';
     }
     // else if (!regex.hasMatch(trimmedCompanyName)) {
     //   _firstNameError = 'Only letters are allowed';
@@ -186,13 +213,13 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
     //final regex = RegExp(r'^[a-zA-Z]+$');
     if (trimmedDesignation.startsWith(' ')) {
-      _designationError = 'First name cannot start with a space';
+      _designationError = 'Designation cannot start with a space';
     } else if (trimmedDesignation.isEmpty) {
-      _designationError = 'First name cannot be empty';
+      _designationError = 'Designation cannot be empty';
     } else if (trimmedDesignation.length < 2) {
-      _designationError = 'First name must be at least 2 characters';
+      _designationError = 'Designation must be at least 2 characters';
     } else if (trimmedDesignation.length > 20) {
-      _designationError = 'First name must not exceed 20 characters';
+      _designationError = 'Designation must not exceed 20 characters';
     }
     // else if (!regex.hasMatch(trimmedCompanyName)) {
     //   _firstNameError = 'Only letters are allowed';
