@@ -4,6 +4,7 @@ import 'package:nfc_app/models/order_model.dart';
 import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
+import 'package:nfc_app/widgets/custom_loader_widget.dart';
 import 'package:provider/provider.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
@@ -85,18 +86,69 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
       itemCount: filteredOrders.length,
       itemBuilder: (context, index) {
         final order = filteredOrders[index];
-        return SizedBox(
-          child: Card(
-            color: Colors.white,
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6),
+          child: Container(
+            width: DeviceDimensions.screenWidth(context) * 0.7,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.white,
+            ),
             child: ListTile(
-              title: Text(
-                  'Order ID: ${order.cardName}'), // Handle null case for orderId
-              subtitle: Text(
-                  'Total Amount: \$${order.orderPrice.toString()}'), // Handle null case for orderPrice
-              trailing: Column(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Total Amount ${order.orderPrice.toString()}'),
-                  Text('Status: ${order.orderHistory}'),
+                  SizedBox(
+                      width: DeviceDimensions.responsiveSize(context) * 0.15,
+                      height: DeviceDimensions.responsiveSize(context) * 0.16,
+                      child: order.cardImage != null
+                          ? Image.network(
+                              order.cardImage!,
+                              width: DeviceDimensions.responsiveSize(context) *
+                                  0.1,
+                              height: DeviceDimensions.responsiveSize(context) *
+                                  0.1,
+                              fit: BoxFit.fitWidth,
+                            )
+                          : SmallThreeBounceLoader()),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text('Name: ${order.cardName}',
+                            style: TextStyle(
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.035)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text('Order ID: ${order.orderId}',
+                            style: TextStyle(
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.022)),
+                      ),
+                    ],
+                  ),
+                ],
+              ), // Handle null case for orderId
+
+              trailing: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(' Amount ${order.orderPrice.toString()}',
+                      style: TextStyle(
+                          fontSize: DeviceDimensions.responsiveSize(context) *
+                              0.026)),
+                  Text('Status: ${order.orderHistory}',
+                      style: TextStyle(
+                          fontSize: DeviceDimensions.responsiveSize(context) *
+                              0.026)),
                 ],
               ), // Handle null case for orderHistory
             ),
