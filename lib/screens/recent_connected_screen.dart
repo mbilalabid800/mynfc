@@ -214,19 +214,25 @@ class _RecentConnectedState extends State<RecentConnected> {
                           ),
                           SizedBox(
                               height: DeviceDimensions.screenHeight(context) *
-                                  0.014),
+                                  0.030),
                         ],
                       ),
                     ),
                     Positioned(
-                      left: DeviceDimensions.screenWidth(context) / 2 - 45,
-                      bottom: -35,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                              context, '/recent-connected-list');
-                        },
-                        child: SvgPicture.asset("assets/icons/more2.svg"),
+                      left: DeviceDimensions.screenWidth(context) / 2 - 48,
+                      bottom: 0, // Set bottom to 0 to keep it within bounds
+                      child: Transform.translate(
+                        offset: Offset(0, 20), // Adjust offset as needed
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, '/recent-connected-list');
+                          },
+                          child: SvgPicture.asset(
+                            "assets/icons/more2.svg",
+                            height: 70,
+                          ),
+                        ),
                       ),
                     ),
                   ],

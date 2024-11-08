@@ -59,20 +59,21 @@ class DeleteConfirmationSheetPre {
               ElevatedButton(
                 onPressed: () {
                   showModalBottomSheet(
-                      isScrollControlled: true,
-                      context: context,
-                      builder: (context) {
-                        return Padding(
-                          padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom,
-                          ),
-                          child: const Wrap(
-                            children: [
-                              DeleteConfirmationSheet(),
-                            ],
-                          ),
-                        );
-                      });
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) {
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).viewInsets.bottom,
+                        ),
+                        child: const Wrap(
+                          children: [
+                            DeleteConfirmationSheet(),
+                          ],
+                        ),
+                      );
+                    },
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(

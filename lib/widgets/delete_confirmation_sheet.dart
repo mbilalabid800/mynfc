@@ -1,4 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -50,28 +50,57 @@ class _DeleteConfirmationSheetState extends State<DeleteConfirmationSheet> {
       final password = passwordController.text.trim();
       try {
         // Authenticate the user
-        User? user = await authService.signInWithEmailPassword(email, password);
-
+        final user = await authService.signInWithEmailPassword(email, password);
         if (user != null) {
           await DeleteUser().deleteUser();
 
-          // Sign out and redirect to the sign-in page
+          // Sign out and show success message on main screen
           await FirebaseAuth.instance.signOut();
-          CustomSnackbar()
-              .snakBarMessage(context, "Account deleted. Best of Luck!");
-          Navigator.pushReplacementNamed(context, '/login-screen');
+          if (mounted) {
+            CustomSnackbar().snakBarMessage(
+                context, "Success, Account deleted. Best of Luck!");
+            Navigator.pushReplacementNamed(context, '/login-screen');
+          }
         } else {
-          CustomSnackbar()
-              .snakBarError(context, 'Login failed: Invalid email or password');
+          _showAlertDialog("Failed", "Invalid email or password.");
         }
-      } on FirebaseAuthException catch (e) {
-        CustomSnackbar().snakBarError(context, 'An error occurred $e');
+      } catch (e) {
+        if (mounted) {
+          _showAlertDialog("Error", "An error occurred: $e");
+        }
       } finally {
-        setState(() {
-          isLoading = false;
-        });
+        if (mounted) {
+          setState(() {
+            isLoading = false;
+          });
+        }
       }
     }
+  }
+
+// Function to display an alert dialog
+  void _showAlertDialog(String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                "OK",
+                style: TextStyle(
+                    fontFamily: 'Barlow_regular', color: Colors.black),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
