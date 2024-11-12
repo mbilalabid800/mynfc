@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 
 class NewsletterPopup {
+  final FirestoreService _firestoreService = FirestoreService();
+  //static final FirebaseService firebaseService = FirebaseService();
+  static final TextEditingController emailController = TextEditingController();
+
   static void show(BuildContext context) {
     showDialog(
       context: context,
@@ -24,8 +29,9 @@ class NewsletterPopup {
                 'assets/animations/newsletter.json',
                 height: 80,
               ),
-              //ext('Enter your email to stay updated:'),
+              //text('Enter your email to stay updated:'),
               TextField(
+                controller: emailController,
                 decoration: InputDecoration(
                     hintText: 'Email',
                     hintStyle: TextStyle(
@@ -55,8 +61,18 @@ class NewsletterPopup {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
                     // Handle subscription logic here
+                    // try {
+                    //   await _firestoreService.saveNewsletterSubscriber(emailController.text);
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     SnackBar(content: Text('Subscribed successfully!')),
+                    //   );
+                    // } catch (e) {
+                    //   ScaffoldMessenger.of(context).showSnackBar(
+                    //     SnackBar(content: Text('Error: ${e.toString()}')),
+                    //   );
+                    // }
                     Navigator.of(context).pop();
                   },
                   child: Container(

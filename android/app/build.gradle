@@ -64,7 +64,7 @@ android {
 
     signingConfigs {
         release {
-        storeFile file('C:/Users/Bilal/OneDrive/Desktop/Flutter Projects/NFC-FlutterAPP/android/app/your_keystore.jks')
+        storeFile file('/Users/apple/Documents/flutter_work/NFC-FlutterAPP/android/app/your_keystore.jks')
         storePassword '123456'
         keyAlias 'your-key-alias'
         keyPassword '123456'
