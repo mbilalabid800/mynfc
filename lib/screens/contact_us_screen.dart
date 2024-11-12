@@ -46,6 +46,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             'Subject': selectedSubject,
             'Message': massageController.text,
             'Time': timestamp,
+            'isReplied': false,
           },
         );
         // SetOptions(merge: true));

@@ -95,11 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                loadingState.isLoading
-                    ? const Center(
-                        child: ScreenLoader(),
-                      )
-                    : SingleChildScrollView(
+                Stack(
+                  children: [
+                    if (!loadingState.isLoading)
+                      SingleChildScrollView(
                         child: Column(
                           children: [
                             SizedBox(
@@ -364,7 +363,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             const SizedBox(width: 10),
                                             SizedBox(
-                                              height: 30,
+                                              height: 33,
                                               width: 45,
                                               child: FittedBox(
                                                 fit: BoxFit.fill,
@@ -706,6 +705,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                       ),
+                    if (loadingState.isLoading)
+                      const Center(
+                        child: ScreenLoader(),
+                      ),
+                  ],
+                ),
               ],
             ),
           ),

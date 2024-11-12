@@ -5,7 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nfc_app/models/user_data_model.dart';
-import 'package:nfc_app/services/shared_preferences_service/shared_preferences_services.dart';
+
+import '../services/shared_preferences_service/shared_preferences_services.dart';
 
 class UserInfoFormStateProvider extends ChangeNotifier {
   String _firstName = '';
@@ -299,7 +300,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'last_name': _lastName,
           'contact': _contact,
           'countryName': _countryName,
-          'email': email,
+          'email': (_email.isNotEmpty) ? _email : email,
           'city': _city,
           'company_name': _companyName,
           'designation': _designation,
@@ -316,7 +317,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
         // Second action: Save user's email in the main 'users' collection
         await FirebaseFirestore.instance.collection('users').doc(uid).set(
           {
-            'email': email,
+            'email': (_email.isNotEmpty) ? _email : email,
           },
           SetOptions(merge: true),
         ); // Use merge to avoid overwriting the entire document

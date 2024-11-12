@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -48,23 +49,47 @@ class _SigninDataState extends State<SigninData> {
 
         if (user != null) {
           await user.reload(); // Ensure user data is up-to-date
+          final userDoc = await FirebaseFirestore.instance
+              .collection("users")
+              .doc(user.uid)
+              .collection('userProfile')
+              .doc('details')
+              .get();
 
           if (user.emailVerified) {
-            // Fetch new user data and update providers
-
-            // Save user data to local storage (if needed)
-            _saveUserData();
-
-            // Navigate to main screen
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              '/mainNav-screen', // Your route name
-              (Route<dynamic> route) => false, // Remove all previous routes
-            );
-          } else {
-            // Handle unverified email
-            Provider.of<UserInfoFormStateProvider>(context, listen: false)
-                .setEmail(email);
-            Navigator.pushNamed(context, '/email-verify');
+            if (userDoc.exists) {
+              // User email is verified and has a user document; go to main screen
+              _saveUserData(); // Save user data if needed
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/mainNav-screen', // Main screen route
+                (Route<dynamic> route) => false, // Remove all previous routes
+              );
+            } else {
+              // User email is verified but no user document exists; go to user info screen
+              Provider.of<UserInfoFormStateProvider>(context, listen: false)
+                  .setEmail(user.email ?? '');
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/user-info', // User info screen route
+                (Route<dynamic> route) => false, // Remove all previous routes
+              );
+            }
+          } else if (!user.emailVerified) {
+            if (!userDoc.exists) {
+              Provider.of<UserInfoFormStateProvider>(context, listen: false)
+                  .setEmail(user.email ?? '');
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/user-info', // Email verification route
+                (Route<dynamic> route) => false, // Remove all previous routes
+              );
+            } else if (userDoc.exists) {
+              // Email is not verified, but user document exists; go to email verify screen
+              Provider.of<UserInfoFormStateProvider>(context, listen: false)
+                  .setEmail(user.email ?? '');
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/email-verify', // Email verification route
+                (Route<dynamic> route) => false, // Remove all previous routes
+              );
+            }
           }
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
