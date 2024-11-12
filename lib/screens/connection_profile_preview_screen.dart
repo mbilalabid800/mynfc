@@ -242,16 +242,19 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                     child: Row(
                       children: [
                         GestureDetector(
-                          onTap: () async {
-                            final phoneNumer = connectionDetails.contactNumber;
-                            final Uri url =
-                                Uri(scheme: 'tel', path: phoneNumer);
-                            if (await canLaunchUrl(url)) {
-                              await launchUrl(url);
-                            } else {
-                              throw 'Could not launch $url';
-                            }
-                          },
+                          onTap: connectionDetails.isPrivate
+                              ? null
+                              : () async {
+                                  final phoneNumer =
+                                      connectionDetails.contactNumber;
+                                  final Uri url =
+                                      Uri(scheme: 'tel', path: phoneNumer);
+                                  if (await canLaunchUrl(url)) {
+                                    await launchUrl(url);
+                                  } else {
+                                    throw 'Could not launch $url';
+                                  }
+                                },
                           child: Container(
                             width: DeviceDimensions.screenWidth(context) * 0.11,
                             decoration: BoxDecoration(
@@ -275,21 +278,23 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                             width:
                                 DeviceDimensions.screenWidth(context) * 0.020),
                         GestureDetector(
-                          onTap: () async {
-                            final email = connectionDetails.email;
-                            final Uri emailUri = Uri(
-                              scheme: 'mailto',
-                              path: email,
-                              query:
-                                  'subject=Business Query&body=Hello ${connectionDetails.firstName}, How are you?',
-                            );
+                          onTap: connectionDetails.isPrivate
+                              ? null
+                              : () async {
+                                  final email = connectionDetails.email;
+                                  final Uri emailUri = Uri(
+                                    scheme: 'mailto',
+                                    path: email,
+                                    query:
+                                        'subject=Business Query&body=Hello ${connectionDetails.firstName}, How are you?',
+                                  );
 
-                            if (await canLaunchUrl(emailUri)) {
-                              await launchUrl(emailUri);
-                            } else {
-                              throw 'Could not launch $emailUri';
-                            }
-                          },
+                                  if (await canLaunchUrl(emailUri)) {
+                                    await launchUrl(emailUri);
+                                  } else {
+                                    throw 'Could not launch $emailUri';
+                                  }
+                                },
                           child: Container(
                             width: DeviceDimensions.screenWidth(context) * 0.11,
                             decoration: BoxDecoration(
@@ -315,41 +320,44 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                               DeviceDimensions.screenHeight(context) * 0.040,
                           width: DeviceDimensions.screenWidth(context) * 0.25,
                           child: ElevatedButton(
-                            onPressed: () async {
-                              bool permissionGranted = await PermissionHandler()
-                                  .requestContactsPermission();
-                              if (permissionGranted) {
-                                try {
-                                  final Contact newContact = Contact(
-                                    name: Name(
-                                      first: connectionDetails.firstName,
-                                      last: connectionDetails.lastName,
-                                    ),
-                                    phones: [
-                                      Phone(
-                                        connectionDetails.contactNumber,
-                                      ),
-                                    ],
-                                    emails: [
-                                      Email(
-                                        connectionDetails.email,
-                                      ),
-                                    ],
-                                  );
-                                  await FlutterContacts.insertContact(
-                                      newContact);
+                            onPressed: connectionDetails.isPrivate
+                                ? null
+                                : () async {
+                                    bool permissionGranted =
+                                        await PermissionHandler()
+                                            .requestContactsPermission();
+                                    if (permissionGranted) {
+                                      try {
+                                        final Contact newContact = Contact(
+                                          name: Name(
+                                            first: connectionDetails.firstName,
+                                            last: connectionDetails.lastName,
+                                          ),
+                                          phones: [
+                                            Phone(
+                                              connectionDetails.contactNumber,
+                                            ),
+                                          ],
+                                          emails: [
+                                            Email(
+                                              connectionDetails.email,
+                                            ),
+                                          ],
+                                        );
+                                        await FlutterContacts.insertContact(
+                                            newContact);
 
-                                  CustomSnackbar().snakBarMessage(context,
-                                      'Contact saved successfully!\nPlease Check your Contacts');
-                                } catch (e) {
-                                  CustomSnackbar().snakBarError(
-                                      context, 'Failed to save contact: $e');
-                                }
-                              } else {
-                                CustomSnackbar().snakBarError(
-                                    context, 'Permission denied!');
-                              }
-                            },
+                                        CustomSnackbar().snakBarMessage(context,
+                                            'Contact saved successfully!\nPlease Check your Contacts');
+                                      } catch (e) {
+                                        CustomSnackbar().snakBarError(context,
+                                            'Failed to save contact: $e');
+                                      }
+                                    } else {
+                                      CustomSnackbar().snakBarError(
+                                          context, 'Permission denied!');
+                                    }
+                                  },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.black,
                               shape: RoundedRectangleBorder(
@@ -438,128 +446,165 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                   ),
                   SizedBox(
                       height: DeviceDimensions.screenHeight(context) * 0.030),
-                  Container(
-                    width: DeviceDimensions.screenWidth(context) * 0.90,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.030),
-                        const Text(
-                          "All Links",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                  connectionDetails.isPrivate
+                      ? Container(
+                          width: DeviceDimensions.screenWidth(context) * 0.90,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 50),
+                            child: Center(
+                                child: Column(
+                              children: [
+                                SvgPicture.asset("assets/icons/lock2.svg"),
+                                SizedBox(height: 10),
+                                Text(
+                                  'Profile is Private',
+                                  style: TextStyle(
+                                      fontFamily: 'Barlow-Regular',
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ],
+                            )),
+                          ),
+                        )
+                      : Container(
+                          width: DeviceDimensions.screenWidth(context) * 0.90,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.030),
+                              const Text(
+                                "All Links",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.020),
+                              if (connectionDetails.socialApps!.isEmpty)
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 20),
+                                  child: Center(
+                                    child: Text(
+                                      'No Social app added',
+                                      style: TextStyle(
+                                          fontFamily: 'Barlow-Regular'),
+                                    ),
+                                  ),
+                                )
+                              else
+                                GridView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount:
+                                      connectionDetails.socialApps?.length,
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 20,
+                                    childAspectRatio: 2.1,
+                                  ),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final platform = connectionDetails
+                                        .socialApps?[connectiondetailsprovider
+                                            .connectionDetails!
+                                            .socialApps!
+                                            .length -
+                                        1 -
+                                        index];
+
+                                    return Row(
+                                      children: [
+                                        SizedBox(
+                                            width: DeviceDimensions.screenWidth(
+                                                    context) *
+                                                0.050),
+                                        GestureDetector(
+                                          onTap: () async {
+                                            {
+                                              final Uri socialAppUrl =
+                                                  Uri.parse(
+                                                      platform.profileLink +
+                                                          platform.userName);
+
+                                              if (await canLaunchUrl(
+                                                  socialAppUrl)) {
+                                                await launchUrl(socialAppUrl);
+                                              } else {
+                                                throw 'Could not launch $socialAppUrl';
+                                              }
+                                            }
+                                          },
+                                          child: Container(
+                                            width: 54,
+                                            height: 54,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(35),
+                                              color: Colors.black54,
+                                              image: DecorationImage(
+                                                image:
+                                                    CachedNetworkImageProvider(
+                                                        platform!.icon),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                            width: DeviceDimensions.screenWidth(
+                                                    context) *
+                                                0.020),
+                                        GestureDetector(
+                                          onTap: () async {
+                                            {
+                                              final Uri socialAppUrl =
+                                                  Uri.parse(
+                                                      platform.profileLink +
+                                                          platform.userName);
+                                              if (await canLaunchUrl(
+                                                  socialAppUrl)) {
+                                                await launchUrl(socialAppUrl);
+                                              } else {
+                                                throw 'Could not launch $socialAppUrl';
+                                              }
+                                            }
+                                          },
+                                          child: Text(
+                                            platform.name,
+                                            style: TextStyle(
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.035,
+                                              fontFamily: 'Barlow-Regular',
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.025),
+                            ],
                           ),
                         ),
-                        SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.020),
-                        if (connectionDetails.socialApps!.isEmpty)
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 20),
-                            child: Center(
-                              child: Text(
-                                'No Social app added',
-                                style: TextStyle(fontFamily: 'Barlow-Regular'),
-                              ),
-                            ),
-                          )
-                        else
-                          GridView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: connectionDetails.socialApps?.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 20,
-                              childAspectRatio: 2.1,
-                            ),
-                            itemBuilder: (BuildContext context, int index) {
-                              final platform = connectionDetails.socialApps?[
-                                  connectiondetailsprovider.connectionDetails!
-                                          .socialApps!.length -
-                                      1 -
-                                      index];
-
-                              return Row(
-                                children: [
-                                  SizedBox(
-                                      width: DeviceDimensions.screenWidth(
-                                              context) *
-                                          0.050),
-                                  GestureDetector(
-                                    onTap: () async {
-                                      {
-                                        final Uri socialAppUrl = Uri.parse(
-                                            platform.profileLink +
-                                                platform.userName);
-
-                                        if (await canLaunchUrl(socialAppUrl)) {
-                                          await launchUrl(socialAppUrl);
-                                        } else {
-                                          throw 'Could not launch $socialAppUrl';
-                                        }
-                                      }
-                                    },
-                                    child: Container(
-                                      width: 54,
-                                      height: 54,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(35),
-                                        color: Colors.black54,
-                                        image: DecorationImage(
-                                          image: CachedNetworkImageProvider(
-                                              platform!.icon),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      width: DeviceDimensions.screenWidth(
-                                              context) *
-                                          0.020),
-                                  GestureDetector(
-                                    onTap: () async {
-                                      {
-                                        final Uri socialAppUrl = Uri.parse(
-                                            platform.profileLink +
-                                                platform.userName);
-                                        if (await canLaunchUrl(socialAppUrl)) {
-                                          await launchUrl(socialAppUrl);
-                                        } else {
-                                          throw 'Could not launch $socialAppUrl';
-                                        }
-                                      }
-                                    },
-                                    child: Text(
-                                      platform.name,
-                                      style: TextStyle(
-                                        fontSize:
-                                            DeviceDimensions.responsiveSize(
-                                                    context) *
-                                                0.035,
-                                        fontFamily: 'Barlow-Regular',
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.025),
-                      ],
-                    ),
-                  ),
                   SizedBox(
                       height: DeviceDimensions.screenHeight(context) * 0.030),
                 ],

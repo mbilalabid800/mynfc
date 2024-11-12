@@ -27,7 +27,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final FirestoreService _firestoreService = FirestoreService();
   final AuthService _authService = AuthService();
-  bool direct = true;
+  // bool direct = true;
 
   @override
   void initState() {
@@ -83,10 +83,14 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, appProvider, userProvider, connectionProvider, child) {
         return SafeArea(
           child: Scaffold(
-            backgroundColor: const Color(0xFFEFEFEF),
+            // backgroundColor: const Color(0xFFEFEFEF),
             extendBody: true,
             body: Stack(
               children: [
+                // Container(
+                //   color: Color.fromARGB(255, 41, 41,
+                //       41), // Use same background color as `Scaffold`
+                // ),
                 SizedBox(
                   height: DeviceDimensions.screenHeight(context),
                   width: DeviceDimensions.screenWidth(context),
@@ -353,7 +357,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               padding: const EdgeInsets.only(
                                                   bottom: 2.0),
                                               child: const Text(
-                                                "Direct",
+                                                "Private",
                                                 style: TextStyle(
                                                   fontSize: 17,
                                                   fontWeight: FontWeight.w600,
@@ -370,11 +374,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 child: Switch(
                                                   activeTrackColor:
                                                       Colors.black,
-                                                  value: direct,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      direct = value;
-                                                    });
+                                                  value: userProvider.isPrivate,
+                                                  onChanged: (isPrivate) {
+                                                    userProvider
+                                                        .updateIsPrivate(
+                                                            isPrivate);
                                                   },
                                                 ),
                                               ),

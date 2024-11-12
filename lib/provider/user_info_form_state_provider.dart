@@ -33,6 +33,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? _designationError;
   String? _cityNameError;
 
+  bool _isPrivate = false;
   bool _connectionTypeAll = true;
   bool _isBlocked = false;
 
@@ -52,6 +53,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String get websiteLink => _websiteLink;
   String? get imageUrl => _imageUrl;
   String get bio => _bio;
+  bool get isPrivate => _isPrivate;
   int get profileViews => _profileViews;
   bool get isBlocked => _isBlocked;
   String get currentEditingField => _currentEditingField;
@@ -265,6 +267,23 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateIsPrivate(bool isPrivate) async {
+    notifyListeners();
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(uid)
+          .collection("userProfile")
+          .doc("details")
+          .update({
+        'isPrivate': isPrivate ? true : false,
+      });
+    }
+    _isPrivate = isPrivate;
+    notifyListeners();
+  }
+
   void updateProfileViews(int views) {
     _profileViews = views;
     notifyListeners();
@@ -308,6 +327,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'image_url': _imageUrl,
           'profile_type': _selectedItem,
           'bio': _bio,
+          'isPrivate': _isPrivate,
           'timeStamp': DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
           'profileViews': _profileViews,
           'connectionTypeAll': _connectionTypeAll,
@@ -394,6 +414,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           _selectedItem = userData.businessType;
           _countryName = userData.countryName;
           _bio = userData.bio;
+          _isPrivate = userData.isPrivate;
           _profileViews = userData.profileViews;
           _isBlocked = userData.isBlocked;
 

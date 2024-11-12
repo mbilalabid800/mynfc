@@ -14,6 +14,7 @@ class UserDataModel {
   String website;
   String profileImage;
   String bio;
+  bool isPrivate;
   final String timeStamp;
   bool connectionTypeAll;
   int profileViews;
@@ -33,6 +34,7 @@ class UserDataModel {
     required this.website,
     required this.profileImage,
     required this.bio,
+    required this.isPrivate,
     required this.timeStamp,
     required this.connectionTypeAll,
     this.profileViews = 0,
@@ -55,6 +57,7 @@ class UserDataModel {
       website: data['website_link'] ?? '',
       profileImage: data['image_url'] ?? '',
       bio: data['bio'] ?? '',
+      isPrivate: data['isPrivate'],
       timeStamp: data['timeStamp'] ?? '',
       connectionTypeAll: data['connectionTypeAll'],
       profileViews: data['profileViews'] ?? 0,
@@ -76,6 +79,7 @@ class UserDataModel {
       'website_link': website,
       'image_url': profileImage,
       'bio': bio,
+      'isPrivate': isPrivate,
       'timeStamp': timeStamp,
       'connectionTypeAll': connectionTypeAll,
       'profileViews': profileViews,

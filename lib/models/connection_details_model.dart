@@ -14,6 +14,7 @@ class ConnectionDetailsModel {
   String designation;
   String website;
   String profileImage;
+  bool isPrivate;
   List<SocialAppModel>? socialApps;
 
   ConnectionDetailsModel({
@@ -29,6 +30,7 @@ class ConnectionDetailsModel {
     required this.designation,
     required this.website,
     required this.profileImage,
+    required this.isPrivate,
     this.socialApps,
   });
 
@@ -47,6 +49,7 @@ class ConnectionDetailsModel {
       designation: data['designation'] ?? '',
       website: data['website_link'] ?? '',
       profileImage: data['image_url'] ?? '',
+      isPrivate: data['isPrivate'],
       socialApps: (data['social_apps'] as List<dynamic>?)
               ?.map((app) =>
                   SocialAppModel.fromFirestore(app as Map<String, dynamic>))
@@ -69,6 +72,7 @@ class ConnectionDetailsModel {
       designation: designation,
       website: website,
       profileImage: profileImage,
+      isPrivate: isPrivate,
       socialApps: socialApps ?? this.socialApps,
     );
   }
