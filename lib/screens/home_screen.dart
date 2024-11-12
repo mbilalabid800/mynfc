@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     Future.delayed(Duration(seconds: 2), _isBlocked);
-    //Future.delayed(Duration(seconds: 10), _checkNewsletterPopup);
+    Future.delayed(Duration(seconds: 10), _checkNewsletterPopup);
   }
 
   Future<void> _isBlocked() async {
@@ -65,15 +65,15 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // Future<void> _checkNewsletterPopup() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool isPopupShown = prefs.getBool('isNewsletterPopupShown') ?? false;
+  Future<void> _checkNewsletterPopup() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isPopupShown = prefs.getBool('isNewsletterPopupShown') ?? false;
 
-  //   if (!isPopupShown) {
-  //     NewsletterPopup.show(context);
-  //     await prefs.setBool('isNewsletterPopupShown', true);
-  //   }
-  // }
+    if (!isPopupShown) {
+      NewsletterPopup.show(context);
+      await prefs.setBool('isNewsletterPopupShown', true);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
