@@ -91,7 +91,8 @@ class ActiveLink extends StatelessWidget {
                                           color: Colors.black54,
                                           image: DecorationImage(
                                             image: CachedNetworkImageProvider(
-                                                appItem.icon),
+                                              appItem.icon,
+                                            ),
                                             fit: BoxFit.cover,
                                           ),
                                         ),
