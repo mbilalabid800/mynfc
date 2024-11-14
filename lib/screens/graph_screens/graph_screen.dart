@@ -51,7 +51,7 @@ class _GraphScreenState extends State<GraphScreen> {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserInfoFormStateProvider>(context);
 
-    // Call listenToTextUpdates to start listening for real-time changes
+    // Call loadChartsData() to start listening for real-time changes
     userProvider.loadChartsData();
     return SafeArea(
       child: Scaffold(
