@@ -224,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               children: [
                                                 Text(
                                                   userProvider.selectedItem ??
-                                                      '',
+                                                      'Not Select',
                                                   style: TextStyle(
                                                     fontFamily: 'Barlow-Bold',
                                                     fontSize: DeviceDimensions
@@ -350,8 +350,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         Row(
                                           children: [
-                                            SvgPicture.asset(
-                                                "assets/icons/info-circle.svg"),
+                                            GestureDetector(
+                                              onTapDown:
+                                                  (TapDownDetails details) {
+                                                showMenu(
+                                                  color: Colors.grey.shade100,
+                                                  context: context,
+                                                  position:
+                                                      RelativeRect.fromLTRB(
+                                                          details.globalPosition
+                                                              .dx,
+                                                          details.globalPosition
+                                                              .dy,
+                                                          details.globalPosition
+                                                              .dx,
+                                                          details.globalPosition
+                                                              .dy),
+                                                  items: [
+                                                    PopupMenuItem(
+                                                      child: Text(
+                                                          "Turn on for Private Profile"),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                              child: SvgPicture.asset(
+                                                "assets/icons/info-circle.svg",
+                                              ),
+                                            ),
                                             const SizedBox(width: 7),
                                             Padding(
                                               padding: const EdgeInsets.only(
