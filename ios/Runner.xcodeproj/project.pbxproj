@@ -3,17 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
-		18DD34FA2CD2665900D4428D /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DD34F92CD2663D00D4428D /* Flutter.xcframework */; };
+		18DD34FA2CD2665900D4428D /* Flutter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18DD34F92CD2663D00D4428D /* Flutter.xcframework */; settings = {ATTRIBUTES = (Required, ); }; };
 		18DD34FC2CD2712000D4428D /* Flutter.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 18DD34FB2CD2710500D4428D /* Flutter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		26CC0921B1F0EEE02EE9E013 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4054CE4CD19E8CB78BA0A625 /* GoogleService-Info.plist */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
-		4DA126517AE6E6EFD4089049 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 987CF312F05BC59CC7BD5564 /* Pods_Runner.framework */; };
+		4DA126517AE6E6EFD4089049 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 987CF312F05BC59CC7BD5564 /* Pods_Runner.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		860931E5CE5D527877926736 /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D32747FF04F84F73B0321AB /* Pods_RunnerTests.framework */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };

@@ -16,6 +16,28 @@ class ViewsChart extends StatelessWidget {
         lineBarsData: [
           LineChartBarData(
             spots: [
+              const FlSpot(30, 350),
+              const FlSpot(100, 480),
+              const FlSpot(120, 500),
+              const FlSpot(130, 520),
+              const FlSpot(150, 450),
+              const FlSpot(160, 480),
+              const FlSpot(220, 530),
+              const FlSpot(280, 530),
+              const FlSpot(285, 580),
+              const FlSpot(290, 600),
+            ],
+            isCurved: true,
+            color: Colors.red,
+            barWidth: 2,
+            dotData: const FlDotData(show: false),
+            belowBarData: BarAreaData(
+              show: false,
+              color: Colors.transparent.withOpacity(0.3),
+            ),
+          ),
+          LineChartBarData(
+            spots: [
               const FlSpot(50, 350),
               const FlSpot(90, 480),
               const FlSpot(100, 500),
