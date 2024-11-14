@@ -27,7 +27,8 @@ class _GraphScreenState extends State<GraphScreen> {
   @override
   void initState() {
     super.initState();
-    fetchTapCount(); // Call the method to fetch tap count from Firestore
+    fetchTapCount();
+    // Call the method to fetch tap count from Firestore
   }
 
   Future<void> fetchTapCount() async {
@@ -48,6 +49,10 @@ class _GraphScreenState extends State<GraphScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserInfoFormStateProvider>(context);
+
+    // Call listenToTextUpdates to start listening for real-time changes
+    userProvider.loadChartsData();
     return SafeArea(
       child: Scaffold(
           backgroundColor: const Color(0xFFEFEFEF),
@@ -210,8 +215,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                             builder:
                                                 (context, userProvider, child) {
                                           return Text(
-                                            userProvider.profileViews
-                                                .toString(),
+                                            userProvider.viewCount.toString(),
                                             style: TextStyle(
                                                 overflow: TextOverflow.ellipsis,
                                                 fontSize: DeviceDimensions
@@ -233,7 +237,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                     width:
                                         DeviceDimensions.screenWidth(context) *
                                             0.3,
-                                    child: const ViewsChart(),
+                                    child: ViewsChart(),
                                   ),
                                   Expanded(
                                     child: Padding(
@@ -644,7 +648,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                 child: Consumer<UserInfoFormStateProvider>(
                                     builder: (context, userProvider, child) {
                                   return Text(
-                                    userProvider.profileViews.toString(),
+                                    userProvider.viewCount.toString(),
                                     style: TextStyle(
                                         overflow: TextOverflow.ellipsis,
                                         fontSize:

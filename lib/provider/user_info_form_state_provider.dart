@@ -23,7 +23,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String _websiteLink = '';
   String? _imageUrl;
   String _bio = '';
-  int _profileViews = 0;
+  // int _profileViews = 0;
   String _currentEditingField = '';
   String? _firstNameError;
   String? _lastNameError;
@@ -32,6 +32,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? _companyNameError;
   String? _designationError;
   String? _cityNameError;
+  int _viewCount = 0;
 
   bool _isPrivate = false;
   bool _connectionTypeAll = true;
@@ -54,7 +55,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? get imageUrl => _imageUrl;
   String get bio => _bio;
   bool get isPrivate => _isPrivate;
-  int get profileViews => _profileViews;
+  // int get profileViews => _profileViews;
   bool get isBlocked => _isBlocked;
   String get currentEditingField => _currentEditingField;
   String? get firstNameError => _firstNameError;
@@ -64,6 +65,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? get companyNameError => _companyNameError;
   String? get designationError => _designationError;
   String? get cityNameError => _cityNameError;
+  int get viewCount => _viewCount;
 
   bool get isNameFormValid =>
       _firstName.isNotEmpty &&
@@ -284,8 +286,13 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateProfileViews(int views) {
-    _profileViews = views;
+  // void updateProfileViews(int views) {
+  //   _profileViews = views;
+  //   notifyListeners();
+  // }
+
+  void updateProfileViews(int viewCount) {
+    _viewCount = viewCount;
     notifyListeners();
   }
 
@@ -329,7 +336,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'bio': _bio,
           'isPrivate': _isPrivate,
           'timeStamp': DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
-          'profileViews': _profileViews,
+          // 'profileViews': _profileViews,
           'connectionTypeAll': _connectionTypeAll,
           'isBlocked': _isBlocked,
         });
@@ -349,6 +356,14 @@ class UserInfoFormStateProvider extends ChangeNotifier {
         //  const SnackBar(content: Text('Error saving user data')),
         //);
       }
+
+      // Third action: Save charts Data in users> uid> chartsData
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection("chartsData")
+          .doc("profileViews")
+          .set({'viewCount': viewCount});
 
       //
     }
@@ -415,9 +430,33 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           _countryName = userData.countryName;
           _bio = userData.bio;
           _isPrivate = userData.isPrivate;
-          _profileViews = userData.profileViews;
+          // _profileViews = userData.profileViews;
           _isBlocked = userData.isBlocked;
 
+          notifyListeners();
+        }
+      } catch (e) {
+        print("Error loading user data: $e");
+      }
+    }
+  }
+
+  Future<void> loadChartsData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final uid = user.uid;
+      try {
+        DocumentReference<Map<String, dynamic>> docRef = FirebaseFirestore
+            .instance
+            .collection("users")
+            .doc(uid)
+            .collection("chartsData")
+            .doc("profileViews");
+        DocumentSnapshot<Map<String, dynamic>> docSnapshot = await docRef.get();
+        if (docSnapshot.exists) {
+          final chartsData = ChartsDataModel.fromFirestore(docSnapshot);
+
+          _viewCount = chartsData.viewCount;
           notifyListeners();
         }
       } catch (e) {

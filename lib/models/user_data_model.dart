@@ -17,8 +17,9 @@ class UserDataModel {
   bool isPrivate;
   final String timeStamp;
   bool connectionTypeAll;
-  int profileViews;
+  // int profileViews;
   bool isBlocked;
+  int viewCount;
 
   UserDataModel({
     required this.countryName,
@@ -37,8 +38,9 @@ class UserDataModel {
     required this.isPrivate,
     required this.timeStamp,
     required this.connectionTypeAll,
-    this.profileViews = 0,
+    // this.profileViews = 0,
     this.isBlocked = false,
+    this.viewCount = 0,
   });
 
   factory UserDataModel.fromFirestore(DocumentSnapshot doc) {
@@ -60,8 +62,9 @@ class UserDataModel {
       isPrivate: data['isPrivate'],
       timeStamp: data['timeStamp'] ?? '',
       connectionTypeAll: data['connectionTypeAll'],
-      profileViews: data['profileViews'] ?? 0,
+      // profileViews: data['profileViews'] ?? 0,
       isBlocked: data['isBlocked'] ?? false,
+      viewCount: data['viewCount'] ?? 0,
     );
   }
   Map<String, dynamic> toMap() {
@@ -82,8 +85,27 @@ class UserDataModel {
       'isPrivate': isPrivate,
       'timeStamp': timeStamp,
       'connectionTypeAll': connectionTypeAll,
-      'profileViews': profileViews,
+      // 'profileViews': profileViews,
       'isBlocked': isBlocked,
+      'viewCount': viewCount
     };
+  }
+}
+
+class ChartsDataModel {
+  int viewCount;
+
+  ChartsDataModel({
+    this.viewCount = 0,
+  });
+
+  factory ChartsDataModel.fromFirestore(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+    return ChartsDataModel(
+      viewCount: data['viewCount'] ?? 0,
+    );
+  }
+  Map<String, dynamic> toMap() {
+    return {'viewCount': viewCount};
   }
 }

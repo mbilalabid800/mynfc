@@ -1,42 +1,47 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_app/services/chart_data_service/chart_data_service.dart';
 
 class ViewsChart extends StatelessWidget {
-  const ViewsChart({
-    super.key,
-  });
+  final ChartDataService _chartDataService = ChartDataService();
 
   @override
   Widget build(BuildContext context) {
-    return LineChart(
-      LineChartData(
-        gridData: const FlGridData(show: false),
-        titlesData: FlTitlesData(show: false),
-        borderData: FlBorderData(show: false),
-        lineBarsData: [
-          LineChartBarData(
-            spots: [
-              const FlSpot(50, 350),
-              const FlSpot(90, 480),
-              const FlSpot(100, 500),
-              const FlSpot(120, 520),
-              const FlSpot(150, 450),
-              const FlSpot(180, 480),
-              const FlSpot(220, 530),
-              const FlSpot(280, 530),
-              const FlSpot(320, 580),
-              const FlSpot(380, 600),
-            ],
-            isCurved: true,
-            color: Colors.black,
-            barWidth: 2,
-            dotData: const FlDotData(show: false),
-            belowBarData: BarAreaData(
-              show: false,
-              color: Colors.transparent.withOpacity(0.3),
+    return Scaffold(
+      body: StreamBuilder<List<Map<String, dynamic>>>(
+        stream: _chartDataService.getChartData(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return CircularProgressIndicator();
+
+          final data = snapshot.data!;
+          final chartData = data.map((entry) {
+            final timestamp = entry['timestamp'] as Timestamp;
+            final value = entry['value'] as double;
+            return FlSpot(
+                timestamp.toDate().millisecondsSinceEpoch.toDouble(), value);
+          }).toList();
+          return LineChart(
+            LineChartData(
+              gridData: const FlGridData(show: false),
+              titlesData: FlTitlesData(show: false),
+              borderData: FlBorderData(show: false),
+              lineBarsData: [
+                LineChartBarData(
+                  spots: chartData,
+                  isCurved: true,
+                  color: Colors.black,
+                  barWidth: 2,
+                  dotData: const FlDotData(show: false),
+                  belowBarData: BarAreaData(
+                    show: false,
+                    color: Colors.transparent.withOpacity(0.3),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
