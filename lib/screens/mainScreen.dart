@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/screens/active_product_screen.dart';
 import 'package:nfc_app/screens/card_details_screen.dart';
@@ -17,13 +18,25 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
-  final List<Widget> _pages = [
-    const HomeScreen(), // Contains UI for Home
-    const GraphScreen(), // Contains UI for Category
-    const ActiveProductScreen(), // Contains UI for Add
-    const CardDetails(), // Contains UI for Category
-    const Settings(), // Contains UI for Settings
-  ];
+  late final String _uid;
+  late List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    final user = FirebaseAuth.instance.currentUser;
+    _uid = user?.uid ?? 'defaultUid'; // Fetch UID
+
+    // Initialize the pages after _uid is set
+    _pages = [
+      const HomeScreen(),
+      GraphScreen(uid: _uid), // Use _uid here
+      const ActiveProductScreen(),
+      const CardDetails(),
+      const Settings(),
+    ];
+  }
+
   void _onItemTapped(int index) {
     // if (!mounted) return;
 

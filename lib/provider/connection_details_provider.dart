@@ -59,24 +59,51 @@ class ConnectionDetailsProvider extends ChangeNotifier {
   //     final userDocRef = FirebaseFirestore.instance
   //         .collection("users")
   //         .doc(uid)
-  //         .collection("userProfile")
-  //         .doc("details");
-  //     await userDocRef.update({'profileViews': FieldValue.increment(1)});
+  //         .collection("chartsData")
+  //         .doc("profileViews");
+  //     await userDocRef.set({
+  //       'viewCount': FieldValue.increment(1),
+  //       'timestamp':
+  //           FieldValue.serverTimestamp(), // Add the current server time
+  //     }, SetOptions(merge: true));
   //   } catch (e) {
   //     print("Error incrementing profile views for $uid: $e");
   //   }
   // }
-
   Future<void> incrementProfileViews(String uid) async {
     try {
-      final userDocRef = FirebaseFirestore.instance
+      final profileViewsRef = FirebaseFirestore.instance
           .collection("users")
           .doc(uid)
           .collection("chartsData")
           .doc("profileViews");
-      await userDocRef.update({'viewCount': FieldValue.increment(1)});
+
+      final logRef = FirebaseFirestore.instance
+          .collection("users")
+          .doc(uid)
+          .collection("chartsData")
+          .doc("profileViewsLog")
+          .collection("logs")
+          .doc(); // Automatically generate a unique document ID
+
+      // Perform both actions in parallel for efficiency
+      await Future.wait([
+        // Increment the total views
+        profileViewsRef.set({
+          'totalViews': FieldValue.increment(1),
+          'lastUpdated': FieldValue.serverTimestamp(),
+        }, SetOptions(merge: true)),
+
+        // Log the individual view with timestamp
+        logRef.set({
+          'viewCount': 1, // Each view is recorded as a single count
+          'timestamp': FieldValue.serverTimestamp(), // Current server time
+        }),
+      ]);
+
+      print("Profile view handled successfully for $uid");
     } catch (e) {
-      print("Error incrementing profile views for $uid: $e");
+      print("Error handling profile view for $uid: $e");
     }
   }
 

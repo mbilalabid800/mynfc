@@ -15,7 +15,8 @@ import 'package:nfc_app/widgets/time_frame_list_widget.dart';
 import 'package:provider/provider.dart';
 
 class GraphScreen extends StatefulWidget {
-  const GraphScreen({super.key});
+  final String uid; // Pass this UID from your user data
+  const GraphScreen({super.key, required this.uid});
 
   @override
   State<GraphScreen> createState() => _GraphScreenState();
@@ -231,14 +232,13 @@ class _GraphScreenState extends State<GraphScreen> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.05,
-                                    width:
-                                        DeviceDimensions.screenWidth(context) *
-                                            0.3,
-                                    child: ViewsChart(),
-                                  ),
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.05,
+                                      width: DeviceDimensions.screenWidth(
+                                              context) *
+                                          0.3,
+                                      child: ViewsChart(uid: widget.uid)),
                                   Expanded(
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -613,7 +613,7 @@ class _GraphScreenState extends State<GraphScreen> {
                             height:
                                 DeviceDimensions.screenHeight(context) * 0.25,
                             width: DeviceDimensions.screenWidth(context) * 0.7,
-                            child: const FullViewsChart(),
+                            child: FullViewsChart(uid: widget.uid),
                           ),
                         ),
                       ),
@@ -772,7 +772,7 @@ class _GraphScreenState extends State<GraphScreen> {
                             height:
                                 DeviceDimensions.screenHeight(context) * 0.25,
                             width: DeviceDimensions.screenWidth(context) * 0.7,
-                            child: const FullViewsChart(),
+                            child: FullViewsChart(uid: widget.uid),
                           ),
                         ),
                       ),
