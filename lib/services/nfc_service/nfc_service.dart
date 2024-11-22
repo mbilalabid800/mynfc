@@ -11,13 +11,12 @@ import 'package:flutter/material.dart';
 class NfcService {
   Future<void> writeProfileToNfc(
       BuildContext context, String profileLink) async {
-    _showLoadingDialog(context);
-
     bool isAvailable = await NfcManager.instance.isAvailable();
     if (!isAvailable) {
-      _showError(context, 'NFC is unavailable');
+      CustomSnackbar().snakBarError(context, 'NFC is unavailable');
       return;
     }
+    _showLoadingDialog(context);
 
     Completer<void> completer = Completer();
     Timer? timeoutTimer;
@@ -63,7 +62,7 @@ class NfcService {
       _showSuccess(context, 'NFC tag written successfully');
     } catch (e) {
       Navigator.of(context).pop(); // Close the loading dialog
-      _showError(context, 'Failed to write NFC tag: $e');
+      CustomSnackbar().snakBarError(context, 'Failed to write NFC tag: $e');
     }
   }
 
@@ -169,7 +168,7 @@ class NfcService {
     );
   }
 
-  void _showError(BuildContext context, String message) {
-    CustomSnackbar().snakBarError(context, "Failed to write Tag.");
-  }
+  // void _showError(BuildContext context, String message) {
+  //   CustomSnackbar().snakBarError(context, "Failed to write Tag.");
+  // }
 }

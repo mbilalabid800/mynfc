@@ -35,10 +35,11 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
       });
       try {
         final DateTime timestamp = DateTime.now();
-        final uid = context.read<UserInfoFormStateProvider>().uid;
+        String formattedTimestamp = timestamp.toString();
+        // final uid = context.read<UserInfoFormStateProvider>().uid;
         await FirebaseFirestore.instance
             .collection("CustomerQueries")
-            .doc(uid)
+            .doc(formattedTimestamp)
             .set(
           {
             'Name': nameController.text,
@@ -171,6 +172,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter your Full Name';
+                            }
+                            if (RegExp(r'[0-9]').hasMatch(value)) {
+                              return 'Full Name cannot contain numbers';
                             }
 
                             return null;

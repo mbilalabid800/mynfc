@@ -116,7 +116,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // Image.asset("assets/images/eye.svg"),
                                   GestureDetector(
                                     onTap: () {
                                       Navigator.pushNamed(

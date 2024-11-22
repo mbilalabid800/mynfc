@@ -19,6 +19,8 @@ class OrderProvider with ChangeNotifier {
     try {
       await FirebaseFirestore.instance
           .collection("orders")
+          .doc('Individual')
+          .collection("orders")
           .doc(order.orderId)
           .set(order.toFirestore());
       _currentOrder = order;

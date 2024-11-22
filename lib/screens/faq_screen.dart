@@ -98,12 +98,15 @@ class _FaqScreenState extends State<FaqScreen> {
             ),
           ),
           if (_expandedIndex == index)
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Text(
-                faq.description,
-                style: const TextStyle(fontSize: 16),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
+                child: Text(
+                  faq.description,
+                  style: const TextStyle(fontSize: 16),
+                ),
               ),
             ),
           const SizedBox(
