@@ -93,19 +93,19 @@ class UserDataModel {
 }
 
 class ChartsDataModel {
-  int viewCount;
+  int totalViews;
 
   ChartsDataModel({
-    this.viewCount = 0,
+    this.totalViews = 0,
   });
 
   factory ChartsDataModel.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return ChartsDataModel(
-      viewCount: data['viewCount'] ?? 0,
+      totalViews: data['totalViews'] ?? 0,
     );
   }
   Map<String, dynamic> toMap() {
-    return {'viewCount': viewCount};
+    return {'totalViews': totalViews};
   }
 }

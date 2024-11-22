@@ -7,6 +7,7 @@ import 'package:nfc_app/models/connections_model.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 import 'package:nfc_app/services/permission_handler.dart';
 import 'package:nfc_app/widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
@@ -540,11 +541,31 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                                       platform.profileLink +
                                                           platform.userName);
 
-                                              if (await canLaunchUrl(
-                                                  socialAppUrl)) {
-                                                await launchUrl(socialAppUrl);
-                                              } else {
-                                                throw 'Could not launch $socialAppUrl';
+                                              // if (await canLaunchUrl(
+                                              //     socialAppUrl)) {
+                                              //   await launchUrl(socialAppUrl);
+                                              // } else {
+                                              //   throw 'Could not launch $socialAppUrl';
+                                              // }
+
+                                              try {
+                                                //open the URL
+                                                if (await canLaunchUrl(
+                                                    socialAppUrl)) {
+                                                  await launchUrl(socialAppUrl);
+
+                                                  //Trigger Firestore Update
+                                                  await FirestoreService
+                                                      .updateSocialAppTap(
+                                                    appName: platform.name,
+                                                    uid: widget.userId,
+                                                  );
+                                                } else {
+                                                  throw 'Could not launch $socialAppUrl';
+                                                }
+                                              } catch (e) {
+                                                print(
+                                                    'Error Launching URL or updating Firestor: $e');
                                               }
                                             }
                                           },

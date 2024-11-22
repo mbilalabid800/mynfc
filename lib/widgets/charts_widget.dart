@@ -1,185 +1,344 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:nfc_app/services/chart_data_service/chart_data_service.dart';
+import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/services/firestore_service/firestore_service.dart';
+import 'package:nfc_app/widgets/custom_loader_widget.dart';
 
 class ViewsChart extends StatelessWidget {
-  final ChartDataService _chartDataService = ChartDataService();
+  final String uid; // User's UID
+
+  ViewsChart({Key? key, required this.uid}) : super(key: key);
+
+  Stream<List<BarChartGroupData>> fetchGroupedChartData(String uid) {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .doc(uid)
+        .collection("chartsData")
+        .doc("profileViewsLog")
+        .collection("logs")
+        .snapshots()
+        .map((snapshot) {
+      // Group views by day
+      final groupedData = <String, int>{};
+      for (var doc in snapshot.docs) {
+        final data = doc.data();
+        final timestamp = (data['timestamp'] as Timestamp).toDate();
+        final viewCount = data['viewCount'] ?? 0;
+
+        // Format date as "YYYY-MM-DD"
+        final day = "${timestamp.year}-${timestamp.month}-${timestamp.day}";
+        groupedData[day] = (groupedData[day] ?? 0) + (viewCount as int);
+      }
+
+      // Convert grouped data to BarChartGroupData
+      int index = 0;
+      return groupedData.entries.map((entry) {
+        final totalViews = entry.value;
+
+        return BarChartGroupData(
+          x: index++, // Increment index for each day
+          barRods: [
+            BarChartRodData(
+              toY: totalViews.toDouble(), // Bar height
+              color: const Color.fromARGB(255, 0, 6, 69),
+              width: 3, // Bar width
+              borderRadius: BorderRadius.circular(4), // Rounded corners
+            ),
+          ],
+        );
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder<List<Map<String, dynamic>>>(
-        stream: _chartDataService.getChartData(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) return CircularProgressIndicator();
+    return StreamBuilder<List<BarChartGroupData>>(
+      stream: fetchGroupedChartData(uid),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(child: Text("Error: ${snapshot.error}"));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text("No data available"));
+        } else {
+          final barGroups = snapshot.data!;
 
-          final data = snapshot.data!;
-          final chartData = data.map((entry) {
-            final timestamp = entry['timestamp'] as Timestamp;
-            final value = entry['value'] as double;
-            return FlSpot(
-                timestamp.toDate().millisecondsSinceEpoch.toDouble(), value);
-          }).toList();
-          return LineChart(
-            LineChartData(
-              gridData: const FlGridData(show: false),
-              titlesData: FlTitlesData(show: false),
-              borderData: FlBorderData(show: false),
-              lineBarsData: [
-                LineChartBarData(
-                  spots: chartData,
-                  isCurved: true,
-                  color: Colors.black,
-                  barWidth: 2,
-                  dotData: const FlDotData(show: false),
-                  belowBarData: BarAreaData(
-                    show: false,
-                    color: Colors.transparent.withOpacity(0.3),
+          return BarChart(
+            BarChartData(
+              barGroups: barGroups,
+              gridData: const FlGridData(
+                show: false,
+                drawVerticalLine: true,
+                drawHorizontalLine: true,
+              ),
+              titlesData: FlTitlesData(
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: false,
+                    getTitlesWidget: (value, meta) {
+                      // Show day as "Day X"
+                      return Text(
+                        "Day ${value.toInt() + 1}", // Customize label as needed
+                        style: const TextStyle(fontSize: 10),
+                      );
+                    },
+                    reservedSize: 30,
                   ),
                 ),
-              ],
+                leftTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: false,
+                    interval: 1,
+                    getTitlesWidget: (value, meta) {
+                      return Text(
+                        value.toInt().toString(),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 10,
+                        ),
+                      );
+                    },
+                    reservedSize: 30,
+                  ),
+                ),
+                topTitles: const AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: false,
+                  ),
+                ),
+                rightTitles: const AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: false,
+                  ),
+                ),
+              ),
+              borderData: FlBorderData(
+                show: true,
+                border: const Border(
+                  left: BorderSide(color: Colors.black, width: 1),
+                  bottom: BorderSide(color: Colors.black, width: 1),
+                ),
+              ),
             ),
           );
-        },
-      ),
+        }
+      },
     );
   }
 }
 
 class FullViewsChart extends StatelessWidget {
-  const FullViewsChart({
-    super.key,
-  });
+  final String uid; // User's UID
+
+  FullViewsChart({Key? key, required this.uid}) : super(key: key);
+
+  Stream<List<BarChartGroupData>> fetchGroupedChartData(String uid) {
+    return FirebaseFirestore.instance
+        .collection("users")
+        .doc(uid)
+        .collection("chartsData")
+        .doc("profileViewsLog")
+        .collection("logs")
+        .snapshots()
+        .map((snapshot) {
+      // Group views by day
+      final groupedData = <String, int>{};
+      for (var doc in snapshot.docs) {
+        final data = doc.data();
+        final timestamp = (data['timestamp'] as Timestamp).toDate();
+        final viewCount = data['viewCount'] ?? 0;
+
+        // Format date as "YYYY-MM-DD"
+        final day = "${timestamp.year}-${timestamp.month}-${timestamp.day}";
+        groupedData[day] = (groupedData[day] ?? 0) + (viewCount as int);
+      }
+
+      // Convert grouped data to BarChartGroupData
+      int index = 0;
+      return groupedData.entries.map((entry) {
+        final totalViews = entry.value;
+
+        return BarChartGroupData(
+          x: index++, // Increment index for each day
+          barRods: [
+            BarChartRodData(
+              toY: totalViews.toDouble(), // Bar height
+              color: const Color.fromARGB(255, 0, 6, 69),
+              width: 12, // Bar width
+              borderRadius: BorderRadius.circular(2), // Rounded corners
+            ),
+          ],
+        );
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return LineChart(
-      LineChartData(
-        gridData: const FlGridData(
-          show: true,
-          drawVerticalLine: true,
-          drawHorizontalLine: true,
-        ),
-        titlesData: FlTitlesData(
-          show: true,
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              interval: 50,
-              getTitlesWidget: (value, meta) {
-                return Text(
-                  value.toInt().toString(),
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 8,
+    return StreamBuilder<List<BarChartGroupData>>(
+      stream: fetchGroupedChartData(uid),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Center(child: Text("Error: ${snapshot.error}"));
+        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text("No data available"));
+        } else {
+          final barGroups = snapshot.data!;
+
+          return BarChart(
+            BarChartData(
+              barGroups: barGroups,
+              gridData: const FlGridData(
+                show: false,
+                drawVerticalLine: true,
+                drawHorizontalLine: true,
+              ),
+              titlesData: FlTitlesData(
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    getTitlesWidget: (value, meta) {
+                      // Show day as "Day X"
+                      return Text(
+                        "Day ${value.toInt() + 1}", // Customize label as needed
+                        style: const TextStyle(fontSize: 10),
+                      );
+                    },
+                    reservedSize: 30,
                   ),
-                );
-              },
-              reservedSize: 30,
-            ),
-          ),
-          leftTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true, // Show titles on the Y axis (left)
-              interval: 100, // Interval between Y axis titles
-              getTitlesWidget: (value, meta) {
-                return Text(
-                  value.toInt().toString(),
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 10,
+                ),
+                leftTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    interval: 1,
+                    getTitlesWidget: (value, meta) {
+                      return Text(
+                        value.toInt().toString(),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize:
+                              DeviceDimensions.responsiveSize(context) * 0.025,
+                        ),
+                      );
+                    },
+                    reservedSize: 30,
                   ),
-                );
-              },
-              reservedSize: 50, // Reserve space for the left titles
+                ),
+                topTitles: const AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: false,
+                  ),
+                ),
+                rightTitles: const AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: false,
+                  ),
+                ),
+              ),
+              borderData: FlBorderData(
+                show: true,
+                border: const Border(
+                  left: BorderSide(color: Colors.black, width: 1),
+                  bottom: BorderSide(color: Colors.black, width: 1),
+                ),
+              ),
             ),
-          ),
-          topTitles: const AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: false,
-              reservedSize: 10, // Hide titles on the top
-            ),
-          ),
-          rightTitles: const AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: false,
-              reservedSize: 10, // Hide titles on the right
-            ),
-          ),
-        ),
-        borderData: FlBorderData(
-          show: true,
-          border: const Border(
-            left: BorderSide(color: Colors.black, width: 1),
-            bottom: BorderSide(color: Colors.black, width: 1),
-            right: BorderSide(color: Colors.transparent), // Hide right border
-            top: BorderSide(color: Colors.transparent), // Hide top border
-          ),
-        ),
-        lineBarsData: [
-          LineChartBarData(
-            spots: [
-              const FlSpot(50, 350),
-              const FlSpot(90, 480),
-              const FlSpot(100, 500),
-              const FlSpot(120, 520),
-              const FlSpot(150, 450),
-              const FlSpot(180, 480),
-              const FlSpot(220, 530),
-              const FlSpot(280, 530),
-              const FlSpot(320, 580),
-              const FlSpot(380, 600),
-            ],
-            isCurved: true,
-            color: Colors.black,
-            barWidth: 2,
-            dotData: const FlDotData(show: true),
-            belowBarData: BarAreaData(
-              show: false,
-              color: Colors.transparent.withOpacity(0.3),
-            ),
-          ),
-        ],
-      ),
+          );
+        }
+      },
     );
   }
 }
 
 class LinkTapChart extends StatelessWidget {
-  const LinkTapChart({
-    super.key,
-  });
+  final String uid;
+  const LinkTapChart({super.key, required this.uid});
 
   @override
   Widget build(BuildContext context) {
-    return LineChart(
-      LineChartData(
-        gridData: const FlGridData(show: false),
-        titlesData: const FlTitlesData(show: false),
-        borderData: FlBorderData(show: false),
-        lineBarsData: [
-          LineChartBarData(
-            spots: [
-              const FlSpot(0, 1),
-              const FlSpot(4, 3),
-              const FlSpot(6, 6),
-              const FlSpot(8, 7),
-              const FlSpot(10, 9),
-              const FlSpot(10, 13),
-              const FlSpot(12, 17),
-            ],
-            isCurved: true,
-            color: Colors.black,
-            barWidth: 2,
-            dotData: const FlDotData(show: false),
-            belowBarData: BarAreaData(
+    return FutureBuilder<Map<String, int>>(
+      future: FirestoreService().fetchSocialAppTaps(uid),
+      builder: (context, snapshot) {
+        // if (snapshot.connectionState == ConnectionState.waiting) {
+        //   return const Center(child: BigThreeBounceLoader());
+        // }
+        if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text('No data available'));
+        }
+
+        final appCounts = snapshot.data!;
+        final appNames = appCounts.keys.toList();
+        final counts = appCounts.values.toList();
+
+        return BarChart(
+          BarChartData(
+            barGroups: List.generate(appNames.length, (index) {
+              return BarChartGroupData(
+                x: index,
+                barRods: [
+                  BarChartRodData(
+                    toY: counts[index].toDouble(),
+                    width: 3,
+                    color: const Color.fromARGB(255, 0, 6, 69),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ],
+              );
+            }),
+            gridData: const FlGridData(
               show: false,
-              color: Colors.transparent.withOpacity(0.3),
+              drawVerticalLine: true,
+              drawHorizontalLine: true,
+            ),
+            titlesData: FlTitlesData(
+              leftTitles: AxisTitles(
+                sideTitles: SideTitles(showTitles: false, interval: 1),
+              ),
+              topTitles: const AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: false,
+                ),
+              ),
+              rightTitles: const AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: false,
+                ),
+              ),
+              bottomTitles: AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: false,
+                  getTitlesWidget: (value, meta) {
+                    final appIndex = value.toInt();
+                    if (appIndex >= 0 && appIndex < appNames.length) {
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Transform.rotate(
+                          angle: -0.5,
+                          child: Text(
+                            appNames[appIndex],
+                            style: TextStyle(
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.02),
+                          ),
+                        ),
+                      );
+                    }
+                    return const SizedBox.shrink();
+                  },
+                ),
+              ),
+            ),
+            borderData: FlBorderData(
+              show: true,
+              border: const Border(
+                left: BorderSide(color: Colors.black, width: 1),
+                bottom: BorderSide(color: Colors.black, width: 1),
+              ),
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -813,6 +972,103 @@ class FullNewContactChart extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class SocialAppBarChart extends StatelessWidget {
+  final String uid;
+
+  const SocialAppBarChart({Key? key, required this.uid}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Map<String, int>>(
+      future: FirestoreService().fetchSocialAppTaps(uid),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: BigThreeBounceLoader());
+        }
+        if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text('No data available'));
+        }
+
+        final appCounts = snapshot.data!;
+        final appNames = appCounts.keys.toList();
+        final counts = appCounts.values.toList();
+
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: BarChart(
+            BarChartData(
+              barGroups: List.generate(appNames.length, (index) {
+                return BarChartGroupData(
+                  x: index,
+                  barRods: [
+                    BarChartRodData(
+                      toY: counts[index].toDouble(),
+                      width: 12,
+                      color: const Color.fromARGB(255, 0, 6, 69),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ],
+                );
+              }),
+              gridData: const FlGridData(
+                show: false,
+                drawVerticalLine: true,
+                drawHorizontalLine: true,
+              ),
+              titlesData: FlTitlesData(
+                leftTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: true, interval: 1),
+                ),
+                topTitles: const AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: false,
+                  ),
+                ),
+                rightTitles: const AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: false,
+                  ),
+                ),
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    getTitlesWidget: (value, meta) {
+                      final appIndex = value.toInt();
+                      if (appIndex >= 0 && appIndex < appNames.length) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Transform.rotate(
+                            angle: -0.5,
+                            child: Text(
+                              appNames[appIndex],
+                              style: TextStyle(
+                                  fontSize:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.02),
+                            ),
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                ),
+              ),
+              borderData: FlBorderData(
+                show: true,
+                border: const Border(
+                  left: BorderSide(color: Colors.black, width: 1),
+                  bottom: BorderSide(color: Colors.black, width: 1),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

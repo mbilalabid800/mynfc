@@ -11,7 +11,7 @@ class FullScreenGraph extends StatelessWidget {
     final Widget graphWidget =
         ModalRoute.of(context)?.settings.arguments as Widget;
     return Scaffold(
-      appBar: const CustomAppBar(title: 'Profile Views Data'),
+      appBar: const CustomAppBar(title: 'Statistics'),
       backgroundColor: AppColors.screenBackground,
       body: Center(
         child: graphWidget, // Display the passed graph widget

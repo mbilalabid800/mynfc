@@ -175,7 +175,11 @@ class MyApp extends StatelessWidget {
           '/activate-product': (context) => const ActiveProductScreen(),
           '/privacy-policy': (context) => const PrivacyPolicy(),
           '/terms-conditions': (context) => const TermsConditions(),
-          '/graph-screen': (context) => const GraphScreen(),
+          '/graph-screen': (context) {
+            final args = ModalRoute.of(context)!.settings.arguments
+                as Map<String, String>;
+            return GraphScreen(uid: args['uid']!);
+          },
           '/pricing-plan': (context) => const PricingPlan(),
           '/contact-us-screen': (context) => const ContactUsScreen(),
           '/internet-error': (context) => const InternetError(),
