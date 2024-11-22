@@ -101,4 +101,61 @@ class FirestoreService {
     final RegExp emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
     return emailRegex.hasMatch(email);
   }
+
+  static Future<void> updateSocialAppTap({
+    required String appName,
+    required String uid,
+  }) async {
+    final firestore = FirebaseFirestore.instance;
+
+    try {
+      // Reference to the specific social app in Firestore
+      final socialAppRef = firestore
+          .collection('users')
+          .doc(uid)
+          .collection('chartsData')
+          .doc('socialAppTaps');
+
+      // Increment the count and add timestamp
+      await socialAppRef.set({
+        appName: FieldValue.increment(1),
+        'timestamps': FieldValue.arrayUnion([DateTime.now().toIso8601String()]),
+      }, SetOptions(merge: true));
+
+      print('$appName tap logged successfully!');
+    } catch (e) {
+      print('Error updating Firestore: $e');
+    }
+  }
+
+  Future<Map<String, int>> fetchSocialAppTaps(String uid) async {
+    final firestore = FirebaseFirestore.instance;
+    final socialAppTapsRef = firestore
+        .collection('users')
+        .doc(uid)
+        .collection('chartsData')
+        .doc('socialAppTaps');
+
+    try {
+      final snapshot = await socialAppTapsRef.get();
+      if (snapshot.exists) {
+        // Convert Firestore data to a map of appName -> count
+        final data = snapshot.data();
+        final Map<String, int> appCounts = {};
+
+        data?.forEach((key, value) {
+          if (value is int) {
+            appCounts[key] = value;
+          }
+        });
+
+        return appCounts;
+      } else {
+        return {};
+      }
+    } catch (e) {
+      print('Error fetching social app taps: $e');
+      return {};
+    }
+  }
 }

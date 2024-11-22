@@ -54,22 +54,6 @@ class ConnectionDetailsProvider extends ChangeNotifier {
     }
   }
 
-  // Future<void> incrementProfileViews(String uid) async {
-  //   try {
-  //     final userDocRef = FirebaseFirestore.instance
-  //         .collection("users")
-  //         .doc(uid)
-  //         .collection("chartsData")
-  //         .doc("profileViews");
-  //     await userDocRef.set({
-  //       'viewCount': FieldValue.increment(1),
-  //       'timestamp':
-  //           FieldValue.serverTimestamp(), // Add the current server time
-  //     }, SetOptions(merge: true));
-  //   } catch (e) {
-  //     print("Error incrementing profile views for $uid: $e");
-  //   }
-  // }
   Future<void> incrementProfileViews(String uid) async {
     try {
       final profileViewsRef = FirebaseFirestore.instance

@@ -32,7 +32,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? _companyNameError;
   String? _designationError;
   String? _cityNameError;
-  int _viewCount = 0;
+  int _totalViews = 0;
 
   bool _isPrivate = false;
   bool _connectionTypeAll = true;
@@ -65,7 +65,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? get companyNameError => _companyNameError;
   String? get designationError => _designationError;
   String? get cityNameError => _cityNameError;
-  int get viewCount => _viewCount;
+  int get totalViews => _totalViews;
 
   bool get isNameFormValid =>
       _firstName.isNotEmpty &&
@@ -292,7 +292,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   // }
 
   void updateProfileViews(int viewCount) {
-    _viewCount = viewCount;
+    _totalViews = totalViews;
     notifyListeners();
   }
 
@@ -363,7 +363,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           .doc(uid)
           .collection("chartsData")
           .doc("profileViews")
-          .set({'viewCount': viewCount});
+          .set({'totalViews': totalViews});
 
       //
     }
@@ -456,7 +456,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
         if (docSnapshot.exists) {
           final chartsData = ChartsDataModel.fromFirestore(docSnapshot);
 
-          _viewCount = chartsData.viewCount;
+          _totalViews = chartsData.totalViews;
           notifyListeners();
         }
       } catch (e) {
