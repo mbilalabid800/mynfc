@@ -263,7 +263,7 @@ class LinkTapChart extends StatelessWidget {
         //   return const Center(child: BigThreeBounceLoader());
         // }
         if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('No data available'));
+          return const Center(child: SmallThreeBounceLoader());
         }
 
         final appCounts = snapshot.data!;

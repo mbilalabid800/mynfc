@@ -31,25 +31,8 @@ class _GraphScreenState extends State<GraphScreen> {
   @override
   void initState() {
     super.initState();
-    fetchTapCount();
 
     // Call the method to fetch tap count from Firestore
-  }
-
-  Future<void> fetchTapCount() async {
-    // Get the current user's UID from Firebase Authentication
-    User? user = FirebaseAuth.instance.currentUser;
-
-    if (user != null) {
-      String userId = user.uid; // Get the current user's UID dynamically
-      int count = await FirestoreService().getTapCount(userId);
-      setState(() {
-        tapCount = count; // Update the state with fetched tap count
-      });
-    } else {
-      print(
-          'User not logged in'); // Handle the case where the user is not logged in
-    }
   }
 
   @override
@@ -70,7 +53,7 @@ class _GraphScreenState extends State<GraphScreen> {
             if (snapshot.hasError ||
                 !snapshot.hasData ||
                 snapshot.data!.isEmpty) {
-              return const Center(child: Text('No data available'));
+              return const Center(child: BigThreeBounceLoader());
             }
             final tapCounts = snapshot.data!;
             final int totalTaps =
@@ -268,8 +251,15 @@ class _GraphScreenState extends State<GraphScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
                                           children: [
-                                            SvgPicture.asset(
-                                                'assets/icons/views.svg'),
+                                            // SvgPicture.asset(
+                                            //     'assets/icons/views.svg'),
+                                            Icon(
+                                              Icons.visibility,
+                                              color: Colors.grey.shade700,
+                                              size: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.06,
+                                            ),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -354,8 +344,15 @@ class _GraphScreenState extends State<GraphScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
                                           children: [
-                                            SvgPicture.asset(
-                                                'assets/icons/taplink.svg'),
+                                            Icon(
+                                              Icons.link,
+                                              color: Colors.grey.shade700,
+                                              size: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.06,
+                                            ),
+                                            // SvgPicture.asset(
+                                            //     'assets/icons/taplink.svg'),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -447,12 +444,18 @@ class _GraphScreenState extends State<GraphScreen> {
                                             horizontal: 8),
                                         child: Row(
                                           children: [
-                                            SvgPicture.asset(
-                                                'assets/icons/rate.svg',
-                                                width: DeviceDimensions
+                                            // SvgPicture.asset(
+                                            //     'assets/icons/rate.svg',
+                                            //     width: DeviceDimensions
+                                            //             .responsiveSize(
+                                            //                 context) *
+                                            //         0.05),
+                                            Icon(Icons.credit_card,
+                                                size: DeviceDimensions
                                                         .responsiveSize(
                                                             context) *
-                                                    0.05),
+                                                    0.06,
+                                                color: Colors.grey.shade700),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -544,8 +547,15 @@ class _GraphScreenState extends State<GraphScreen> {
                                       Expanded(
                                         child: Row(
                                           children: [
-                                            SvgPicture.asset(
-                                                'assets/icons/new_contact.svg'),
+                                            // SvgPicture.asset(
+                                            //     'assets/icons/new_contact.svg'),
+                                            Icon(
+                                              Icons.person_add,
+                                              color: Colors.grey.shade700,
+                                              size: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.06,
+                                            ),
                                             Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -780,13 +790,13 @@ class _GraphScreenState extends State<GraphScreen> {
     return FutureBuilder<Map<String, int>>(
         future: FirestoreService().fetchSocialAppTaps(widget.uid),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: BigThreeBounceLoader());
-          }
+          // if (snapshot.connectionState == ConnectionState.waiting) {
+          //   return const Center(child: BigThreeBounceLoader());
+          // }
           if (snapshot.hasError ||
               !snapshot.hasData ||
               snapshot.data!.isEmpty) {
-            return const Center(child: Text('No data available'));
+            return const Center(child: BigThreeBounceLoader());
           }
           final tapCounts = snapshot.data!;
           final int totalTaps =
