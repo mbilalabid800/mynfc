@@ -51,7 +51,7 @@ class CardDetailsProvider extends ChangeNotifier {
       ],
       cardDescription:
           'The most popular option for digital business cards. Made from durable, 8 times recyclable plastic. Designed for longevity and produced with precision: the perfect choice for any occasion.',
-      cardPrice: '57.00 OMR',
+      cardPrice: 57.00,
       cardFinish: 'Glossy, Plastic Type: PET',
       cardWeight: '0.8mm',
       cardDimension: '85.60 x 53.98 mm',
@@ -106,7 +106,7 @@ class CardDetailsProvider extends ChangeNotifier {
       ],
       cardDescription:
           'This eco-friendly approach to networking is sure to make an impression. And we plant a tree for every card sold. Available in Birch (light) and Sapele (dark) from carefully sourced woods.',
-      cardPrice: '78.00 OMR',
+      cardPrice: 78.00,
       cardFinish: 'Polished finish\nAvailable in Birch and Sapele',
       cardWeight: '0.8mm',
       cardDimension: '85.60 x 53.98 mm',
@@ -161,7 +161,7 @@ class CardDetailsProvider extends ChangeNotifier {
       ],
       cardDescription:
           'Made from stainless steel and laser-engraved, this card demands attention. Available in Black, Gold, and Silver. Gold and Silver cards are engraved in black. Black cards will be engraved showing the stainless steel.',
-      cardPrice: '99.00 OMR',
+      cardPrice: 99.00,
       cardFinish: 'Brushed finish\nAvailable in Black, Silver, & Gold',
       cardWeight: '0.8mm',
       cardDimension: '85.60 x 53.98 mm',

@@ -3,7 +3,7 @@ class CardDetailsModel {
   final List<CardColorOption> cardColorOptions;
   List<String> cardImages;
   final String cardDescription;
-  final String cardPrice;
+  final double cardPrice;
   final String cardFinish;
   final String cardWeight;
   final String cardDimension;

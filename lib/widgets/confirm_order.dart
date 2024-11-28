@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:nfc_app/models/card_details_model.dart';
 import 'package:nfc_app/models/order_model.dart';
 import 'package:nfc_app/models/shipping_address_model.dart';
+import 'package:nfc_app/provider/employee_provider.dart';
 import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
@@ -27,6 +28,7 @@ class ConfirmOrder {
 
   void showConfirmOrderDialog(
       BuildContext context,
+      int employeeCount,
       CardDetailsModel selectedCard,
       CardColorOption selectedColorOption,
       int colorIndex,
@@ -87,6 +89,7 @@ class ConfirmOrder {
                           //     .showPaymentSuccessfulDialog(context, orderId);
                           orderPlaced(
                               context,
+                              employeeCount,
                               orderId,
                               selectedCard,
                               selectedColorOption,
@@ -156,6 +159,7 @@ class ConfirmOrder {
 
   Future<void> orderPlaced(
       BuildContext context,
+      int employeeCount,
       String orderId,
       CardDetailsModel selectedCard,
       CardColorOption selectedColorOption,
@@ -176,7 +180,7 @@ class ConfirmOrder {
 
     OrderModel newOrder = OrderModel(
         orderId: orderId,
-        orderPrice: selectedCard.cardPrice,
+        orderPrice: "${selectedCard.cardPrice * employeeCount}0 OMR",
         orderStatus: "Pending",
         shippingMethod: shippingMethod,
         orderHistory: "active",
@@ -187,6 +191,7 @@ class ConfirmOrder {
         cardName: selectedCard.cardName,
         cardColor: selectedColorOption.colorName,
         cardImage: cardImageUrl,
+        cardQuantity: employeeCount,
         userEmail: userProvider.email,
         userUid: userProvider.uid);
 
@@ -202,6 +207,8 @@ class ConfirmOrder {
     await Future.delayed(Duration(seconds: 3));
     try {
       await orderProvider.placeOrder(newOrder);
+      await Provider.of<EmployeeProvider>(context, listen: false)
+          .saveEmployeesToFirestore();
       PaymentSuccessful().showPaymentSuccessfulDialog(context, orderId);
     } catch (e) {
       CustomSnackbar()

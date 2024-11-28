@@ -52,7 +52,7 @@ class _DeleteConfirmationSheetState extends State<DeleteConfirmationSheet> {
         // Authenticate the user
         final user = await authService.signInWithEmailPassword(email, password);
         if (user != null) {
-          await DeleteUser().deleteUser();
+          await DeleteUser().deleteUser(context);
 
           // Sign out and show success message on main screen
           await FirebaseAuth.instance.signOut();
