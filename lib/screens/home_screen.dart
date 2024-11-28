@@ -32,35 +32,40 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
+    final userInfoProvider =
+        Provider.of<UserInfoFormStateProvider>(context, listen: false);
+    final socialAppProvider =
+        Provider.of<SocialAppProvider>(context, listen: false);
+    final connectionProvider =
+        Provider.of<ConnectionProvider>(context, listen: false);
+    final loadingState =
+        Provider.of<LoadingStateProvider>(context, listen: false);
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final loadingState =
-          Provider.of<LoadingStateProvider>(context, listen: false);
       if (!loadingState.dataFetched) {
         loadingState.setLoading(true);
+        await userInfoProvider.loadUserData();
+        await socialAppProvider.loadSocialApps();
+        await connectionProvider.loadAddedConnections();
 
-        // await _fetchData(loadingState);
-        await Provider.of<UserInfoFormStateProvider>(context, listen: false)
-            .loadUserData();
-
-        await Provider.of<SocialAppProvider>(context, listen: false)
-            .loadSocialApps();
-        await Provider.of<ConnectionProvider>(context, listen: false)
-            .loadAddedConnections();
-
-        loadingState.setDataFetched(true);
-        loadingState.setLoading(false);
+        if (mounted) {
+          loadingState.setDataFetched(true);
+          loadingState.setLoading(false);
+        }
       }
     });
 
-    Future.delayed(Duration(seconds: 2), _isBlocked);
+    Future.delayed(Duration(seconds: 2), () {
+      if (mounted) {
+        _isBlocked(userInfoProvider);
+      }
+    });
     //Future.delayed(Duration(seconds: 10), _checkNewsletterPopup);
   }
 
-  Future<void> _isBlocked() async {
-    final userProvider =
-        Provider.of<UserInfoFormStateProvider>(context, listen: false);
-    bool isBlocked = userProvider.isBlocked;
-    if (isBlocked) {
+  Future<void> _isBlocked(UserInfoFormStateProvider userProvider) async {
+    if (userProvider.isBlocked && mounted) {
       Blocked().show(context);
     }
   }
@@ -74,6 +79,13 @@ class _HomeScreenState extends State<HomeScreen> {
   //     await prefs.setBool('isNewsletterPopupShown', true);
   //   }
   // }
+
+  @override
+  void dispose() {
+    // Example: Cancel any stream subscriptions or timers
+    //_streamSubscription?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
