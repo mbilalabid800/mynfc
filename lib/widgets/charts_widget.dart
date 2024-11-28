@@ -59,7 +59,7 @@ class ViewsChart extends StatelessWidget {
         if (snapshot.hasError) {
           return Center(child: Text("Error: ${snapshot.error}"));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text("No data available"));
+          return Center(child: Icon(Icons.trending_up));
         } else {
           final barGroups = snapshot.data!;
 
