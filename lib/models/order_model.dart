@@ -10,6 +10,7 @@ class OrderModel {
   final String cardName;
   final String cardColor;
   final String cardImage;
+  final int cardQuantity;
   final String userEmail;
   final String userUid;
 
@@ -25,6 +26,7 @@ class OrderModel {
     required this.cardName,
     required this.cardColor,
     required this.cardImage,
+    required this.cardQuantity,
     required this.userEmail,
     required this.userUid,
   });
@@ -42,6 +44,7 @@ class OrderModel {
       'cardName': cardName,
       'cardColor': cardColor,
       'cardImage': cardImage,
+      'quantity': cardQuantity,
       'userEmail': userEmail,
       'userUid': userUid,
     };
@@ -60,6 +63,7 @@ class OrderModel {
         cardName: data['cardName'] ?? 'Unknown',
         cardColor: data['cardColor'] ?? 'Unknown',
         cardImage: data['cardImage'] ?? 'Unknown',
+        cardQuantity: data['quantity'] ?? 'Unknown',
         userEmail: data['userEmail'] ?? 'Unknown',
         userUid: data['userUid'] ?? 'Unknown');
   }

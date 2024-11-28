@@ -17,12 +17,21 @@ class OrderProvider with ChangeNotifier {
     isLoading = true;
     notifyListeners();
     try {
-      await FirebaseFirestore.instance
-          .collection("orders")
-          .doc('Individual')
-          .collection("orders")
-          .doc(order.orderId)
-          .set(order.toFirestore());
+      if (order.cardQuantity == 1) {
+        await FirebaseFirestore.instance
+            .collection("orders")
+            .doc('Individual')
+            .collection("orders")
+            .doc(order.orderId)
+            .set(order.toFirestore());
+      } else {
+        await FirebaseFirestore.instance
+            .collection("orders")
+            .doc('Business')
+            .collection("orders")
+            .doc(order.orderId)
+            .set(order.toFirestore());
+      }
       _currentOrder = order;
       notifyListeners();
     } catch (e) {

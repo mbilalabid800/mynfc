@@ -32,6 +32,7 @@ class ConnectionDetailsProvider extends ChangeNotifier {
                 .collection("users")
                 .doc(uid)
                 .collection("socialLinks")
+                .where("isVisible", isEqualTo: true)
                 .orderBy("index")
                 .get();
 

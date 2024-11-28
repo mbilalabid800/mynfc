@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:nfc_app/provider/card_details_provider.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
+import 'package:nfc_app/provider/employee_provider.dart';
 import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/provider/shipping_address_provider.dart';
 import 'package:nfc_app/provider/forget_password_email_provider.dart';
@@ -15,6 +16,7 @@ import 'package:nfc_app/provider/loading_state_provider.dart';
 import 'package:nfc_app/provider/resent_email.dart';
 import 'package:nfc_app/screens/active_link_screen.dart';
 import 'package:nfc_app/screens/active_product_screen.dart';
+import 'package:nfc_app/screens/add_employees.dart';
 import 'package:nfc_app/screens/add_shipping_address.dart';
 import 'package:nfc_app/screens/auth/email_verified.dart';
 import 'package:nfc_app/screens/auth/email_verify.dart';
@@ -121,6 +123,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (_) => OrderProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => EmployeeProvider(),
       )
     ],
     child: InternetStatusHandler(child: const MyApp()),
@@ -195,6 +200,7 @@ class MyApp extends StatelessWidget {
           '/order-details': (context) => const OrderDetails(),
           '/order-history-screen': (context) => const OrderHistoryScreen(),
           '/share-profile': (context) => ShareProfileScreen(),
+          '/add-employees': (context) => AddEmployee(),
         },
       ),
     );

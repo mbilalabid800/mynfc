@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/card_details_model.dart';
 import 'package:nfc_app/models/shipping_address_model.dart';
+import 'package:nfc_app/provider/employee_provider.dart';
 import 'package:nfc_app/provider/shipping_address_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/confirm_order.dart';
@@ -20,16 +21,32 @@ class PlaceOrderScreen extends StatefulWidget {
 
 class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
   bool _showDetails = false;
+  int employeeCount = 0;
 
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final orderProvider =
           Provider.of<ShippingAddressProvider>(context, listen: false);
       orderProvider.loadShippingAddress();
+      await loadAddedEmployees();
     });
+  }
+
+  Future<void> loadAddedEmployees() async {
+    final employeeProvider =
+        Provider.of<EmployeeProvider>(context, listen: false);
+    final employees = await employeeProvider.getLocalEmployees();
+    if (employees.isEmpty) {
+      setState(() {
+        employeeCount = 1;
+      });
+    } else {
+      setState(() {
+        employeeCount = employees.length;
+      });
+    }
   }
 
   @override
@@ -244,7 +261,8 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                             horizontal: 8,
                                             vertical: 4,
                                           ),
-                                          child: Text(selectedCard.cardPrice),
+                                          child: Text(
+                                              "${selectedCard.cardPrice}0  OMR"),
                                         ),
                                       ),
                                     ],
@@ -287,8 +305,8 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                 context, "Your Name:", selectedCard.cardName),
                             orderInfo(
                                 context, "Title (optional):", "Business Cards"),
-                            orderInfo(
-                                context, "Subtotal:", selectedCard.cardPrice),
+                            orderInfo(context, "Subtotal:",
+                                "${selectedCard.cardPrice * employeeCount}0  OMR"),
                             orderInfo(
                                 context,
                                 "Date:",
@@ -296,8 +314,8 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                     .format(DateTime.now())),
                             orderInfo(context, "Delivery Method:",
                                 provider.selectedMethod),
-                            orderInfo(
-                                context, "Total:", selectedCard.cardPrice),
+                            orderInfo(context, "Total:",
+                                "${selectedCard.cardPrice * employeeCount}0  OMR"),
                           ]
                         ],
                       ),
@@ -325,6 +343,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                               }
                               confirmOrder.showConfirmOrderDialog(
                                   context,
+                                  employeeCount,
                                   selectedCard,
                                   selectedColorOption,
                                   colorIndex,

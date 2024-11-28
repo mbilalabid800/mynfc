@@ -163,34 +163,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                   ),
                                   GestureDetector(
-                                    onTapDown: (TapDownDetails details) {
-                                      final Offset position =
-                                          details.globalPosition;
-
-                                      // Show the popup menu directly inside onTapDown
-                                      showMenu(
-                                        color: Colors.white,
-                                        context: context,
-                                        position: RelativeRect.fromLTRB(
-                                          position.dx, // X position
-                                          position.dy, // Y position
-                                          position.dx,
-                                          position.dy,
-                                        ),
-                                        items: [
-                                          PopupMenuItem(
-                                            child: Text(
-                                              'Coming Soon',
-                                              style: TextStyle(
-                                                fontFamily: 'Barlow-Regular',
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, '/add-employees');
                                     },
+                                    // onTapDown: (TapDownDetails details) {
+                                    //   final Offset position =
+                                    //       details.globalPosition;
+
+                                    //   // Show the popup menu directly inside onTapDown
+                                    //   showMenu(
+                                    //     color: Colors.white,
+                                    //     context: context,
+                                    //     position: RelativeRect.fromLTRB(
+                                    //       position.dx, // X position
+                                    //       position.dy, // Y position
+                                    //       position.dx,
+                                    //       position.dy,
+                                    //     ),
+                                    //     items: [
+                                    //       PopupMenuItem(
+                                    //         child: Text(
+                                    //           'Coming Soon',
+                                    //           style: TextStyle(
+                                    //             fontFamily: 'Barlow-Regular',
+                                    //             color: Colors.black,
+                                    //             fontWeight: FontWeight.w600,
+                                    //           ),
+                                    //         ),
+                                    //       ),
+                                    //     ],
+                                    //   );
+                                    // },
+
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 12.0, vertical: 9),

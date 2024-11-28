@@ -355,8 +355,7 @@ class _CardDetailsState extends State<CardDetails> {
                                               _buildDetailRow(
                                                 context,
                                                 "Price",
-                                                cardDetailsProvider
-                                                    .cards[index].cardPrice,
+                                                "${cardDetailsProvider.cards[index].cardPrice.toString()}0  OMR",
                                               ),
                                               _buildDetailRow(
                                                 context,
