@@ -119,6 +119,18 @@ class ViewsChart extends StatelessWidget {
                   bottom: BorderSide(color: Colors.black, width: 1),
                 ),
               ),
+              barTouchData: BarTouchData(
+                enabled: false,
+                touchTooltipData: BarTouchTooltipData(
+                  getTooltipItem: (
+                    _,
+                    __,
+                    ___,
+                    ____,
+                  ) =>
+                      null,
+                ),
+              ),
             ),
           );
         }
@@ -334,6 +346,18 @@ class LinkTapChart extends StatelessWidget {
               border: const Border(
                 left: BorderSide(color: Colors.black, width: 1),
                 bottom: BorderSide(color: Colors.black, width: 1),
+              ),
+            ),
+            barTouchData: BarTouchData(
+              enabled: false,
+              touchTooltipData: BarTouchTooltipData(
+                getTooltipItem: (
+                  _,
+                  __,
+                  ___,
+                  ____,
+                ) =>
+                    null,
               ),
             ),
           ),
