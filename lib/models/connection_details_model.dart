@@ -49,7 +49,7 @@ class ConnectionDetailsModel {
       designation: data['designation'] ?? '',
       website: data['website_link'] ?? '',
       profileImage: data['image_url'] ?? '',
-      isPrivate: data['isPrivate'],
+      isPrivate: data['isPrivate'] ?? false,
       socialApps: (data['social_apps'] as List<dynamic>?)
               ?.map((app) =>
                   SocialAppModel.fromFirestore(app as Map<String, dynamic>))

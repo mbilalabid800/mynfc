@@ -518,40 +518,40 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   context) *
                                               0.020),
                                       //upgrade now
-                                      Container(
-                                        height: DeviceDimensions.screenHeight(
-                                                context) *
-                                            0.06,
-                                        width: DeviceDimensions.screenWidth(
-                                                context) *
-                                            0.48,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(22),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            SvgPicture.asset(
-                                                "assets/icons/diamond.svg"),
-                                            // Image.asset("assets/images/upgrade.png"),
-                                            const SizedBox(width: 10),
-                                            GestureDetector(
-                                              onTap: () {
-                                                Navigator.pushNamed(
-                                                    context, '/pricing-plan');
-                                              },
-                                              child: const Text(
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pushNamed(
+                                              context, '/pricing-plan');
+                                        },
+                                        child: Container(
+                                          height: DeviceDimensions.screenHeight(
+                                                  context) *
+                                              0.06,
+                                          width: DeviceDimensions.screenWidth(
+                                                  context) *
+                                              0.48,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(22),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SvgPicture.asset(
+                                                  "assets/icons/diamond.svg"),
+                                              // Image.asset("assets/images/upgrade.png"),
+                                              const SizedBox(width: 10),
+                                              const Text(
                                                 "Upgrade Now",
                                                 style: TextStyle(
                                                     fontFamily: 'Barlow-Bold',
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 17),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ],
