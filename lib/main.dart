@@ -77,11 +77,13 @@ void main() async {
     print('Firebase initialization error: $e');
     // Optionally, show a dialog or handle the error gracefully in the app
   }
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-    //testtt
-  ]);
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      //testtt
+    ],
+  );
 
   runApp(MultiProvider(
     providers: [

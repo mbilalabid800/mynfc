@@ -174,97 +174,106 @@ class _GraphScreenState extends State<GraphScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/full-screen-graph',
-                              arguments: _buildGraph1(),
-                            );
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.white),
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.17,
-                            width: DeviceDimensions.screenWidth(context) * 0.45,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Consumer<UserInfoFormStateProvider>(
-                                          builder:
-                                              (context, userProvider, child) {
-                                        return Text(
-                                          userProvider.totalViews.toString(),
-                                          style: TextStyle(
-                                              overflow: TextOverflow.ellipsis,
-                                              fontSize: DeviceDimensions
-                                                      .responsiveSize(context) *
-                                                  0.06,
-                                              fontWeight: FontWeight.w500),
-                                          softWrap: true,
-                                          maxLines: 2,
-                                        );
-                                      }),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.05,
-                                    width:
-                                        DeviceDimensions.screenWidth(context) *
-                                            0.3,
-                                    child: ViewsChart(uid: widget.uid)),
-                                Expanded(
-                                  child: Padding(
+                        Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                '/full-screen-graph',
+                                arguments: _buildGraph1(),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white),
+                              height:
+                                  DeviceDimensions.screenHeight(context) * 0.17,
+                              width:
+                                  DeviceDimensions.screenWidth(context) * 0.45,
+                              child: Column(
+                                children: [
+                                  Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
                                       children: [
-                                        // SvgPicture.asset(
-                                        //     'assets/icons/views.svg'),
-                                        Icon(
-                                          Icons.visibility,
-                                          color: Colors.grey.shade700,
-                                          size: DeviceDimensions.responsiveSize(
-                                                  context) *
-                                              0.06,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8.0),
-                                          child: Text(
-                                            'Views',
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 2,
+                                        Consumer<UserInfoFormStateProvider>(
+                                            builder:
+                                                (context, userProvider, child) {
+                                          return Text(
+                                            userProvider.totalViews.toString(),
                                             style: TextStyle(
+                                                overflow: TextOverflow.ellipsis,
                                                 fontSize: DeviceDimensions
                                                         .responsiveSize(
                                                             context) *
-                                                    0.032),
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                        GestureDetector(
-                                          onTapDown: (TapDownDetails details) {
-                                            _showPopupMenu(
-                                                context,
-                                                details.globalPosition,
-                                                'The number of times your profile was  viewed through tapping your profile.');
-                                          },
-                                          child: SvgPicture.asset(
-                                              'assets/icons/info.svg'),
-                                        ),
+                                                    0.06,
+                                                fontWeight: FontWeight.w500),
+                                            softWrap: true,
+                                            maxLines: 2,
+                                          );
+                                        }),
                                       ],
                                     ),
                                   ),
-                                ),
-                              ],
+                                  SizedBox(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.05,
+                                      width: DeviceDimensions.screenWidth(
+                                              context) *
+                                          0.3,
+                                      child: ViewsChart(uid: widget.uid)),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          // SvgPicture.asset(
+                                          //     'assets/icons/views.svg'),
+                                          Icon(
+                                            Icons.visibility,
+                                            color: Colors.grey.shade700,
+                                            size:
+                                                DeviceDimensions.responsiveSize(
+                                                        context) *
+                                                    0.06,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8.0),
+                                            child: Text(
+                                              'Views',
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                  fontSize: DeviceDimensions
+                                                          .responsiveSize(
+                                                              context) *
+                                                      0.032),
+                                            ),
+                                          ),
+                                          const Spacer(),
+                                          GestureDetector(
+                                            onTapDown:
+                                                (TapDownDetails details) {
+                                              _showPopupMenu(
+                                                  context,
+                                                  details.globalPosition,
+                                                  'The number of times your profile was  viewed through tapping your profile.');
+                                            },
+                                            child: SvgPicture.asset(
+                                                'assets/icons/info.svg'),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -298,12 +307,14 @@ class _GraphScreenState extends State<GraphScreen> {
                                           children: [
                                             Text('0',
                                                 style: TextStyle(
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     fontSize: DeviceDimensions
                                                             .responsiveSize(
                                                                 context) *
-                                                        0.05,
+                                                        0.06,
                                                     fontWeight:
-                                                        FontWeight.w600)),
+                                                        FontWeight.w500)),
                                           ],
                                         ),
                                       ),
@@ -371,97 +382,103 @@ class _GraphScreenState extends State<GraphScreen> {
                               final int totalTaps = tapCounts.values
                                   .fold<int>(0, (sum, count) => sum + count);
 
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    '/full-screen-graph',
-                                    arguments: _buildGraph2(),
-                                  );
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.white),
-                                  height:
-                                      DeviceDimensions.screenHeight(context) *
-                                          0.17,
-                                  width: DeviceDimensions.screenWidth(context) *
-                                      0.45,
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            Text(totalTaps.toString(),
-                                                style: TextStyle(
-                                                    fontSize: DeviceDimensions
-                                                            .responsiveSize(
-                                                                context) *
-                                                        0.05,
-                                                    fontWeight:
-                                                        FontWeight.w600)),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: DeviceDimensions.screenHeight(
-                                                context) *
-                                            0.05,
-                                        width: DeviceDimensions.screenWidth(
-                                                context) *
-                                            0.3,
-                                        child: LinkTapChart(uid: widget.uid),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
+                              return Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/full-screen-graph',
+                                      arguments: _buildGraph2(),
+                                    );
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Colors.white),
+                                    height:
+                                        DeviceDimensions.screenHeight(context) *
+                                            0.17,
+                                    width:
+                                        DeviceDimensions.screenWidth(context) *
+                                            0.45,
+                                    child: Column(
+                                      children: [
+                                        Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Row(
                                             children: [
-                                              Icon(
-                                                Icons.link,
-                                                color: Colors.grey.shade700,
-                                                size: DeviceDimensions
-                                                        .responsiveSize(
-                                                            context) *
-                                                    0.06,
-                                              ),
-                                              // SvgPicture.asset(
-                                              //     'assets/icons/taplink.svg'),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 8.0),
-                                                child: Text(
-                                                  'Link Tap',
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  maxLines: 2,
+                                              Text(totalTaps.toString(),
                                                   style: TextStyle(
                                                       fontSize: DeviceDimensions
                                                               .responsiveSize(
                                                                   context) *
-                                                          0.032),
-                                                ),
-                                              ),
-                                              const Spacer(),
-                                              GestureDetector(
-                                                onTapDown:
-                                                    (TapDownDetails details) {
-                                                  _showPopupMenu(
-                                                      context,
-                                                      details.globalPosition,
-                                                      'The number of times your links were tapped.');
-                                                },
-                                                child: SvgPicture.asset(
-                                                    'assets/icons/info.svg'),
-                                              ),
+                                                          0.05,
+                                                      fontWeight:
+                                                          FontWeight.w600)),
                                             ],
                                           ),
                                         ),
-                                      )
-                                    ],
+                                        SizedBox(
+                                          height: DeviceDimensions.screenHeight(
+                                                  context) *
+                                              0.05,
+                                          width: DeviceDimensions.screenWidth(
+                                                  context) *
+                                              0.3,
+                                          child: LinkTapChart(uid: widget.uid),
+                                        ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.link,
+                                                  color: Colors.grey.shade700,
+                                                  size: DeviceDimensions
+                                                          .responsiveSize(
+                                                              context) *
+                                                      0.06,
+                                                ),
+                                                // SvgPicture.asset(
+                                                //     'assets/icons/taplink.svg'),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 8.0),
+                                                  child: Text(
+                                                    'Link Tap',
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        fontSize: DeviceDimensions
+                                                                .responsiveSize(
+                                                                    context) *
+                                                            0.032),
+                                                  ),
+                                                ),
+                                                const Spacer(),
+                                                GestureDetector(
+                                                  onTapDown:
+                                                      (TapDownDetails details) {
+                                                    _showPopupMenu(
+                                                        context,
+                                                        details.globalPosition,
+                                                        'The number of times your links were tapped.');
+                                                  },
+                                                  child: SvgPicture.asset(
+                                                      'assets/icons/info.svg'),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
