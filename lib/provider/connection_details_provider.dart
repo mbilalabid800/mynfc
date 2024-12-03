@@ -16,7 +16,11 @@ class ConnectionDetailsProvider extends ChangeNotifier {
     try {
       _isLoading = true;
       notifyListeners();
+
+      // Increment profile views
       await incrementProfileViews(uid);
+
+      // Fetch the user's connection details
       DocumentSnapshot<Map<String, dynamic>> docSnapshot =
           await FirebaseFirestore.instance
               .collection("users")
@@ -24,24 +28,28 @@ class ConnectionDetailsProvider extends ChangeNotifier {
               .collection("userProfile")
               .doc("details")
               .get();
+
       if (docSnapshot.exists) {
         final connectionDetails =
             ConnectionDetailsModel.fromFirestore(docSnapshot);
+
+        // Fetch social links
         QuerySnapshot<Map<String, dynamic>> socialAppsSnapshot =
             await FirebaseFirestore.instance
                 .collection("users")
                 .doc(uid)
                 .collection("socialLinks")
-                .where("isVisible", isEqualTo: true)
                 .orderBy("index")
                 .get();
 
+        // Map and filter only visible social apps
         final socialApps = socialAppsSnapshot.docs
             .map((doc) => SocialAppModel.fromFirestore(doc.data()))
+            .where((socialApp) => socialApp.isVisible)
             .toList();
 
-        _connectionDetails = connectionDetails.copyWith(socialApps: socialApps)
-            as ConnectionDetailsModel?;
+        // Update connection details with filtered social apps
+        _connectionDetails = connectionDetails.copyWith(socialApps: socialApps);
       } else {
         print("Connection with uid $uid does not exist.");
         _connectionDetails = null;
