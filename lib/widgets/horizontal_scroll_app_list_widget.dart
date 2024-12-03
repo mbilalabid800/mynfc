@@ -23,7 +23,11 @@ class HorizontalScrollAppIcons extends StatelessWidget {
                 height: DeviceDimensions.screenHeight(context) * 0.15,
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Center(child: Text('No data available')),
+                  child: Center(
+                      child: Text(
+                    'No social apps added yet',
+                    softWrap: true,
+                  )),
                 ),
               ),
             ],
