@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_app/chat/chat_screen.dart';
 import 'package:nfc_app/screens/active_product_screen.dart';
 import 'package:nfc_app/screens/card_details_screen.dart';
 import 'package:nfc_app/screens/graph_screens/graph_screen.dart';
@@ -32,7 +33,8 @@ class _MainScreenState extends State<MainScreen> {
       const HomeScreen(),
       GraphScreen(uid: _uid), // Use _uid here
       const ActiveProductScreen(),
-      const CardDetails(),
+      //const CardDetails(),
+      const ChatScreen(),
       const Settings(),
     ];
   }
