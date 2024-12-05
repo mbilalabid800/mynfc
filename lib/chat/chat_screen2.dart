@@ -43,7 +43,7 @@ class _ChatScreen2State extends State<ChatScreen2> {
                   child: SvgPicture.asset('assets/icons/bell.svg'),
                 ),
                 const SizedBox(width: 5),
-                SvgPicture.asset('assets/ellipsis-vertical.svg'),
+                //SvgPicture.asset('assets/ellipsis-vertical.svg'),
                 const SizedBox(width: 5),
               ],
             ),

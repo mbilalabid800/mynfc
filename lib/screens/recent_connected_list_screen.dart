@@ -169,9 +169,17 @@ class _RecentConnectedListState extends State<RecentConnectedList> {
                                         fontSize: 11.50,
                                         color: Color(0xFF909091)),
                                   ),
-                                  trailing: SvgPicture.asset(
-                                      "assets/icons/more.svg",
-                                      height: 17),
+                                  trailing: GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        '/chat-screen2',
+                                      );
+                                    },
+                                    child: SvgPicture.asset(
+                                        "assets/icons/chat.svg",
+                                        height: 28),
+                                  ),
                                 ),
                               ),
                             );

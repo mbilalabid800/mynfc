@@ -2,6 +2,8 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nfc_app/chat/chat_screen.dart';
+import 'package:nfc_app/chat/chat_screen2.dart';
 import 'package:nfc_app/provider/card_details_provider.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
@@ -201,6 +203,8 @@ class MyApp extends StatelessWidget {
           '/order-history-screen': (context) => const OrderHistoryScreen(),
           '/share-profile': (context) => ShareProfileScreen(),
           '/add-employees': (context) => AddEmployee(),
+          '/chat-screen': (context) => ChatScreen(),
+          '/chat-screen2': (context) => ChatScreen2(),
         },
       ),
     );
