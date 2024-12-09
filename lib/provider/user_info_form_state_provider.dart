@@ -365,6 +365,16 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           .doc("profileViews")
           .set({'totalViews': totalViews});
 
+      // fourth action: create chats collection in users > uid > chats
+      DocumentReference chatRoomRef = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('chats')
+          .add({});
+
+      // Optional: Print the unique chat room ID
+      print("Chat room created with ID: ${chatRoomRef.id}");
+
       //
     }
   }
