@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
+import 'package:nfc_app/provider/biometric_handler_provider.dart';
 import 'package:nfc_app/provider/forget_password_email_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
@@ -33,92 +34,131 @@ class _SigninDataState extends State<SigninData> {
   @override
   void initState() {
     super.initState();
-    _loadUserData();
+    _initializeData();
   }
 
+  Future<void> _initializeData() async {
+    await _loadUserData();
+    await _triggerFingerprintAuthenticationIfEnabled();
+  }
+
+  Future<void> _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _rememberMe = prefs.getBool('rememberMe') ?? false;
+      if (_rememberMe) {
+        emailController.text = prefs.getString('email') ?? '';
+      }
+    });
+  }
+
+  Future<void> _triggerFingerprintAuthenticationIfEnabled() async {
+    final biometricProvider = context.read<BiometricHandlerProvider>();
+
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      // Ensure preferences are loaded
+      await biometricProvider.loadFingerprintPreference();
+
+      // Trigger fingerprint authentication if enabled
+      if (biometricProvider.isFingerprintEnabled) {
+        bool isAuthenticated =
+            await biometricProvider.authenticateWithFingerprint();
+
+        if (isAuthenticated) {
+          await _signInUsingFingerprint();
+        } else {
+          CustomSnackbar().snakBarError(
+            context,
+            'Fingerprint authentication failed. Please try again.',
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint('Error during fingerprint authentication: $e');
+      CustomSnackbar().snakBarError(
+        context,
+        'An error occurred during fingerprint authentication.',
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _signInUsingFingerprint() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? email = prefs.getString('email');
+      String? password = prefs.getString('password');
+
+      if (email != null && password != null) {
+        final user =
+            await _authService.signInWithEmailPassword(email, password);
+
+        if (user != null) {
+          _navigateBasedOnUserStatus(user);
+        } else {
+          CustomSnackbar().snakBarError(
+            context,
+            'Fingerprint login failed: Invalid stored credentials.',
+          );
+        }
+      } else {
+        CustomSnackbar().snakBarError(
+          context,
+          'No saved credentials found. Please log in manually.',
+        );
+      }
+    } catch (e) {
+      debugPrint('Error during fingerprint login: $e');
+      CustomSnackbar().snakBarError(
+        context,
+        'An error occurred during fingerprint login.',
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  // Handle manual login
   Future<void> signInLogic() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         isLoading = true;
       });
-      final email = emailController.text.trim();
-      final password = passwordController.text.trim();
+
       try {
+        final email = emailController.text.trim();
+        final password = passwordController.text.trim();
+
         final user =
             await _authService.signInWithEmailPassword(email, password);
 
         if (user != null) {
-          await user.reload(); // Ensure user data is up-to-date
-          final userDoc = await FirebaseFirestore.instance
-              .collection("users")
-              .doc(user.uid)
-              .collection('userProfile')
-              .doc('details')
-              .get();
-
-          if (user.emailVerified) {
-            if (userDoc.exists) {
-              // User email is verified and has a user document; go to main screen
-              _saveUserData(); // Save user data if needed
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                '/mainNav-screen', // Main screen route
-                (Route<dynamic> route) => false, // Remove all previous routes
-              );
-            } else {
-              // User email is verified but no user document exists; go to user info screen
-              Provider.of<UserInfoFormStateProvider>(context, listen: false)
-                  .setEmail(user.email ?? '');
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                '/user-info', // User info screen route
-                (Route<dynamic> route) => false, // Remove all previous routes
-              );
-            }
-          } else if (!user.emailVerified) {
-            if (!userDoc.exists) {
-              Provider.of<UserInfoFormStateProvider>(context, listen: false)
-                  .setEmail(user.email ?? '');
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                '/user-info', // Email verification route
-                (Route<dynamic> route) => false, // Remove all previous routes
-              );
-            } else if (userDoc.exists) {
-              // Email is not verified, but user document exists; go to email verify screen
-              Provider.of<UserInfoFormStateProvider>(context, listen: false)
-                  .setEmail(user.email ?? '');
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                '/email-verify', // Email verification route
-                (Route<dynamic> route) => false, // Remove all previous routes
-              );
-            }
-          }
+          _saveUserData();
+          _navigateBasedOnUserStatus(user);
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-                backgroundColor: Colors.red,
-                content: Text('Login failed: Invalid email or password')),
+          CustomSnackbar().snakBarError(
+            context,
+            'Login failed: Invalid email or password.',
           );
         }
-      } on FirebaseAuthException catch (e) {
-        String message;
-        switch (e.code) {
-          case 'user-not-found':
-            message = 'No user found for that email.';
-            break;
-          case 'wrong-password':
-            message = 'Wrong password provided for that user.';
-            break;
-          case 'network-request-failed':
-            message = 'Network error. Please check your internet connection.';
-            break;
-          case 'invalid-email':
-            message = 'The email address is badly formatted.';
-            break;
-          default:
-            message = 'An unexpected error occurred: ${e.message}';
-        }
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              backgroundColor: AppColors.errorColor, content: Text(message)),
+      } catch (e) {
+        debugPrint('Error during login: $e');
+        CustomSnackbar().snakBarError(
+          context,
+          'Error during login. Please try again later.',
         );
       } finally {
         setState(() {
@@ -128,29 +168,82 @@ class _SigninDataState extends State<SigninData> {
     }
   }
 
-  // Load the saved user data if "Remember Me" was checked
-  void _loadUserData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  void _navigateBasedOnUserStatus(User user) async {
     setState(() {
-      _rememberMe = (prefs.getBool('rememberMe') ?? false);
-      if (_rememberMe) {
-        emailController.text = prefs.getString('email') ?? '';
-        passwordController.text = prefs.getString('password') ?? '';
-      }
+      isLoading = true;
     });
+    try {
+      // Reload user data to ensure the latest status
+      await user.reload();
+
+      // Fetch user document from Firestore
+      final userDoc = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(user.uid)
+          .collection('userProfile')
+          .doc('details')
+          .get();
+
+      if (user.emailVerified) {
+        if (userDoc.exists) {
+          // User email is verified and profile exists, navigate to the main screen
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            '/mainNav-screen', // Main screen route
+            (Route<dynamic> route) => false, // Remove all previous routes
+          );
+        } else {
+          // User email is verified but profile does not exist, navigate to user info screen
+          Provider.of<UserInfoFormStateProvider>(context, listen: false)
+              .setEmail(user.email ?? '');
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            '/user-info', // User info screen route
+            (Route<dynamic> route) => false, // Remove all previous routes
+          );
+        }
+      } else {
+        if (!userDoc.exists) {
+          // Email not verified and profile does not exist, navigate to user info screen
+          Provider.of<UserInfoFormStateProvider>(context, listen: false)
+              .setEmail(user.email ?? '');
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            '/user-info', // User info screen route
+            (Route<dynamic> route) => false, // Remove all previous routes
+          );
+        } else {
+          // Email not verified but profile exists, navigate to email verification screen
+          Provider.of<UserInfoFormStateProvider>(context, listen: false)
+              .setEmail(user.email ?? '');
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            '/email-verify', // Email verification screen route
+            (Route<dynamic> route) => false, // Remove all previous routes
+          );
+        }
+      }
+    } catch (e) {
+      // Handle errors gracefully and notify the user
+      debugPrint('Error in navigating based on user status: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('An error occurred while processing your login.'),
+        ),
+      );
+    } finally {
+      // Delay turning off the loader to ensure navigation completes
+      Future.delayed(Duration(milliseconds: 300), () {
+        setState(() {
+          isLoading = false;
+        });
+      });
+    }
   }
 
-  // Save user data when "Remember Me" is checked
-  void _saveUserData() async {
+  Future<void> _saveUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('rememberMe', _rememberMe);
     if (_rememberMe) {
-      await prefs.setBool('rememberMe', true);
-      await prefs.setString('email', emailController.text);
-      await prefs.setString('password', passwordController.text);
-    } else {
-      await prefs.setBool('rememberMe', false);
-      await prefs.remove('email');
-      await prefs.remove('password');
+      prefs.setString('email', emailController.text);
+      prefs.setString('password', passwordController.text);
     }
   }
 

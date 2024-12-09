@@ -201,7 +201,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                   child: SizedBox(
                                     height: 70,
                                     width: 80,
-                                    child: Image.asset(
+                                    child: Image.network(
                                       selectedCard.cardImages[colorIndex],
                                     ),
                                   ),

@@ -8,6 +8,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/components/setting_component.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/faq_model.dart';
+import 'package:nfc_app/provider/biometric_handler_provider.dart';
+import 'package:nfc_app/provider/card_details_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
@@ -33,12 +35,15 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   List<FaqModel> _faqs = [];
   bool _isLoading = true;
+
   final AuthService _authService = AuthService();
 
   @override
   void initState() {
     super.initState();
     _loadFaqs();
+    Provider.of<BiometricHandlerProvider>(context, listen: false)
+        .loadFingerprintPreference();
   }
 
   void _loadFaqs() async {
@@ -99,6 +104,7 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
+    final biometricProvider = Provider.of<BiometricHandlerProvider>(context);
     return Consumer<UserInfoFormStateProvider>(
       builder: (context, userProvider, child) {
         return SafeArea(
@@ -416,12 +422,21 @@ class _SettingsState extends State<Settings> {
                               ),
                               SettingListComponent(
                                 icons: "assets/icons/settingicon5.svg",
-                                title: "Company Leads",
+                                title: "Add Employees",
                                 showDivider: true,
                                 callBack: () {
                                   //dummy link
                                   Navigator.pushNamed(
-                                      context, '/privacy-policy');
+                                      context, '/add-employees');
+                                },
+                              ),
+                              SettingListComponent(
+                                icons: "assets/icons/settingicon8.svg",
+                                title: "Manage Subscriptions",
+                                showDivider: true,
+                                callBack: () {
+                                  Navigator.pushNamed(
+                                      context, '/subscription-screen');
                                 },
                               ),
                               SettingListComponent(
@@ -446,28 +461,27 @@ class _SettingsState extends State<Settings> {
                                 },
                               ),
                               SettingListComponent(
-                                icons: "assets/icons/settingicon7.svg",
-                                title: "Change Password",
-                                callBack: () {
-                                  showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding: EdgeInsets.only(
-                                            bottom: MediaQuery.of(context)
-                                                .viewInsets
-                                                .bottom,
-                                          ),
-                                          child: const Wrap(
-                                            children: [
-                                              ChangePassword(),
-                                            ],
-                                          ),
-                                        );
-                                      });
-                                },
+                                icons: "assets/icons/settingicon8.svg",
+                                title: "Enable Fingureprint",
+                                trailing: SizedBox(
+                                  height: 34,
+                                  width: 45,
+                                  child: FittedBox(
+                                    fit: BoxFit.fill,
+                                    child: Switch(
+                                      activeTrackColor: Colors.black,
+                                      value: biometricProvider
+                                          .isFingerprintEnabled,
+                                      onChanged: (value) async {
+                                        await biometricProvider
+                                            .toggleFingerprint(value, context);
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                callBack: () {},
                               ),
+
                               const SizedBox(height: 8),
                             ],
                           ),
@@ -504,15 +518,6 @@ class _SettingsState extends State<Settings> {
                           child: Column(
                             children: [
                               const SizedBox(height: 8),
-                              SettingListComponent(
-                                icons: "assets/icons/settingicon8.svg",
-                                title: "Manage Subscriptions",
-                                showDivider: true,
-                                callBack: () {
-                                  Navigator.pushNamed(
-                                      context, '/subscription-screen');
-                                },
-                              ),
                               SettingListComponent(
                                 icons: "assets/icons/settingicon9.svg",
                                 title: "Billing",
@@ -553,6 +558,7 @@ class _SettingsState extends State<Settings> {
                               SettingListComponent(
                                 icons: "assets/icons/settingicon13.svg",
                                 title: "FAQs",
+                                showDivider: true,
                                 callBack: () {
                                   //dummy link
                                   Navigator.pushNamed(
@@ -560,6 +566,29 @@ class _SettingsState extends State<Settings> {
                                     '/faq-screen',
                                     arguments: _faqs,
                                   );
+                                },
+                              ),
+                              SettingListComponent(
+                                icons: "assets/icons/settingicon7.svg",
+                                title: "Change Password",
+                                callBack: () {
+                                  showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      context: context,
+                                      builder: (context) {
+                                        return Padding(
+                                          padding: EdgeInsets.only(
+                                            bottom: MediaQuery.of(context)
+                                                .viewInsets
+                                                .bottom,
+                                          ),
+                                          child: const Wrap(
+                                            children: [
+                                              ChangePassword(),
+                                            ],
+                                          ),
+                                        );
+                                      });
                                 },
                               ),
                               const SizedBox(height: 8),
