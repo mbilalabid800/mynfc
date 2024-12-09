@@ -12,10 +12,10 @@ import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 import 'package:nfc_app/widgets/blocked_widget.dart';
 import 'package:nfc_app/widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/horizontal_scroll_app_list_widget.dart';
-import 'package:nfc_app/widgets/newsletter_popup_widget.dart';
+//import 'package:nfc_app/widgets/newsletter_popup_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+//import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -167,35 +167,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Navigator.pushNamed(
                                           context, '/add-employees');
                                     },
-                                    // onTapDown: (TapDownDetails details) {
-                                    //   final Offset position =
-                                    //       details.globalPosition;
-
-                                    //   // Show the popup menu directly inside onTapDown
-                                    //   showMenu(
-                                    //     color: Colors.white,
-                                    //     context: context,
-                                    //     position: RelativeRect.fromLTRB(
-                                    //       position.dx, // X position
-                                    //       position.dy, // Y position
-                                    //       position.dx,
-                                    //       position.dy,
-                                    //     ),
-                                    //     items: [
-                                    //       PopupMenuItem(
-                                    //         child: Text(
-                                    //           'Coming Soon',
-                                    //           style: TextStyle(
-                                    //             fontFamily: 'Barlow-Regular',
-                                    //             color: Colors.black,
-                                    //             fontWeight: FontWeight.w600,
-                                    //           ),
-                                    //         ),
-                                    //       ),
-                                    //     ],
-                                    //   );
-                                    // },
-
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 12.0, vertical: 9),
@@ -577,16 +548,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Padding(
                                             padding: const EdgeInsets.only(
                                                 left: 10, top: 07, bottom: 4),
-                                            child: Text(
-                                              "Recent Connections",
-                                              style: TextStyle(
-                                                fontFamily: 'Barlow-Regular',
-                                                fontSize: DeviceDimensions
-                                                        .responsiveSize(
-                                                            context) *
-                                                    0.033,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black,
+                                            child: Center(
+                                              child: Text(
+                                                "Recent Connections",
+                                                style: TextStyle(
+                                                  fontFamily: 'Barlow-Regular',
+                                                  fontSize: DeviceDimensions
+                                                          .responsiveSize(
+                                                              context) *
+                                                      0.036,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.black,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -718,19 +691,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   ],
                                                                 ),
                                                               ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .only(
-                                                                        right:
-                                                                            15.0),
-                                                                child:
-                                                                    SvgPicture
-                                                                        .asset(
-                                                                  "assets/icons/connections-manu.svg",
-                                                                  height: 15,
-                                                                ),
-                                                              ),
+                                                              // Padding(
+                                                              //   padding:
+                                                              //       const EdgeInsets
+                                                              //           .only(
+                                                              //           right:
+                                                              //               15.0),
+                                                              //   child:
+                                                              //       SvgPicture
+                                                              //           .asset(
+                                                              //     "assets/icons/connections-manu.svg",
+                                                              //     height: 15,
+                                                              //   ),
+                                                              // ),
                                                             ],
                                                           ),
                                                         );

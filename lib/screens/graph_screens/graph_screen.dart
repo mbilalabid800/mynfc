@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
@@ -24,8 +23,8 @@ class GraphScreen extends StatefulWidget {
 }
 
 class _GraphScreenState extends State<GraphScreen> {
-  Map<String, int> _socialAppData = {};
-  int _totalTaps = 0;
+  // Map<String, int> _socialAppData = {};
+  // int _totalTaps = 0;
   int tapCount = 0; // State variable to store the tap count
 
   @override
