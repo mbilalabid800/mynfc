@@ -535,12 +535,6 @@ class _GraphScreenState extends State<GraphScreen> {
                                         horizontal: 8),
                                     child: Row(
                                       children: [
-                                        // SvgPicture.asset(
-                                        //     'assets/icons/rate.svg',
-                                        //     width: DeviceDimensions
-                                        //             .responsiveSize(
-                                        //                 context) *
-                                        //         0.05),
                                         Icon(Icons.credit_card,
                                             size:
                                                 DeviceDimensions.responsiveSize(
@@ -627,7 +621,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                     width:
                                         DeviceDimensions.screenWidth(context) *
                                             0.3,
-                                    child: const NewContactChart(),
+                                    child: const AddedConnectionChart(),
                                   ),
                                   Expanded(
                                     child: Row(
@@ -1416,7 +1410,7 @@ class _GraphScreenState extends State<GraphScreen> {
                         child: SizedBox(
                           height: DeviceDimensions.screenHeight(context) * 0.3,
                           width: DeviceDimensions.screenWidth(context) * 0.7,
-                          //child: const FullNewContactChart(),
+                          child: const AddedConnectionChart(),
                         ),
                       ),
                     ),
@@ -1459,7 +1453,7 @@ class _GraphScreenState extends State<GraphScreen> {
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        'Your New Contacts',
+                        'Your New Connections',
                         style: TextStyle(
                             overflow: TextOverflow.ellipsis,
                             fontSize: DeviceDimensions.responsiveSize(context) *
