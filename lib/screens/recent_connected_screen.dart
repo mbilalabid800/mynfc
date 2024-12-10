@@ -42,7 +42,13 @@ class _RecentConnectedState extends State<RecentConnected> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.screenBackground,
-        appBar: const CustomAppBar(title: 'Recent Connected'),
+        appBar: CustomAppBar(
+          title: 'Recent Connected',
+          icon: 'assets/icons/chat_icon.svg',
+          onIconPressed: () {
+            Navigator.pushNamed(context, '/connections-request');
+          },
+        ),
         body: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -222,7 +228,7 @@ class _RecentConnectedState extends State<RecentConnected> {
                       left: DeviceDimensions.screenWidth(context) / 2 - 48,
                       bottom: 0, // Set bottom to 0 to keep it within bounds
                       child: Transform.translate(
-                        offset: Offset(0, 20), // Adjust offset as needed
+                        offset: Offset(0, 30), // Adjust offset as needed
                         child: InkWell(
                           onTap: () {
                             Navigator.pushNamed(

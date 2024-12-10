@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/order_model.dart';
@@ -104,7 +106,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                       height: DeviceDimensions.responsiveSize(context) * 0.16,
                       child: order.cardImage != null
                           ? Image.network(
-                              order.cardImage!,
+                              order.cardImage,
                               width: DeviceDimensions.responsiveSize(context) *
                                   0.1,
                               height: DeviceDimensions.responsiveSize(context) *

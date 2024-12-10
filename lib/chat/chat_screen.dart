@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:nfc_app/chat/chat_screen2.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});

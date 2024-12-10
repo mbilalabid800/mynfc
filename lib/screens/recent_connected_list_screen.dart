@@ -39,9 +39,10 @@ class _RecentConnectedListState extends State<RecentConnectedList> {
         backgroundColor: AppColors.screenBackground,
         appBar: const CustomAppBar(title: 'Recent Connections'),
         body: Center(
-          child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 20),
             child: Container(
-              height: DeviceDimensions.screenHeight(context) * 0.85,
+              // height: DeviceDimensions.screenHeight(context) * 0.85,
               width: DeviceDimensions.screenWidth(context) * 0.92,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -123,6 +124,7 @@ class _RecentConnectedListState extends State<RecentConnectedList> {
                       }
                       return Expanded(
                         child: ListView.builder(
+                          shrinkWrap: true,
                           itemCount: addedConnections.length,
                           itemBuilder: (BuildContext context, int index) {
                             final reversedConnections =

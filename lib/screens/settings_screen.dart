@@ -9,7 +9,6 @@ import 'package:nfc_app/components/setting_component.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/faq_model.dart';
 import 'package:nfc_app/provider/biometric_handler_provider.dart';
-import 'package:nfc_app/provider/card_details_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
