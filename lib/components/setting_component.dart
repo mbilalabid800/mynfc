@@ -10,6 +10,7 @@ class SettingListComponent extends StatelessWidget {
   final String icons2;
   final bool showDivider;
   final VoidCallback callBack;
+  final Widget? trailing;
 
   const SettingListComponent({
     super.key,
@@ -18,6 +19,7 @@ class SettingListComponent extends StatelessWidget {
     this.icons2 = "assets/icons/more4.svg",
     this.showDivider = false,
     required this.callBack,
+    this.trailing,
   });
 
   @override
@@ -46,14 +48,20 @@ class SettingListComponent extends StatelessWidget {
                       fontWeight: FontWeight.w600),
                 ),
                 const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 12),
-                  child: SvgPicture.asset(
-                    icons2,
-                    height: 15,
-                    color: const Color(0xFF95989A),
+                if (trailing != null)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: trailing, // Show trailing widget if provided
+                  )
+                else
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: SvgPicture.asset(
+                      icons2,
+                      height: 15,
+                      color: const Color(0xFF95989A),
+                    ),
                   ),
-                ),
               ],
             ),
           ),

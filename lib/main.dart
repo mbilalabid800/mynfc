@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nfc_app/chat/chat_screen.dart';
 import 'package:nfc_app/chat/chat_screen2.dart';
+import 'package:nfc_app/provider/biometric_handler_provider.dart';
 import 'package:nfc_app/provider/card_details_provider.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
@@ -117,9 +118,7 @@ void main() async {
       ChangeNotifierProvider(
         create: (_) => LoadingStateProvider(),
       ),
-      ChangeNotifierProvider(
-        create: (_) => CardDetailsProvider(),
-      ),
+      ChangeNotifierProvider(create: (_) => CardDetailsProvider()),
       ChangeNotifierProvider(
         create: (_) => ShippingAddressProvider(),
       ),
@@ -128,6 +127,9 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (_) => EmployeeProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => BiometricHandlerProvider(),
       )
     ],
     child: InternetStatusHandler(child: const MyApp()),
@@ -193,7 +195,7 @@ class MyApp extends StatelessWidget {
           '/how-to-use': (context) => const HowToUseScreen(),
           '/faq-screen': (context) => const FaqScreen(),
           '/full-screen-graph': (context) => const FullScreenGraph(),
-          '/order-screen': (context) => const PlaceOrderScreen(),
+          '/place-order-screen': (context) => const PlaceOrderScreen(),
           '/choose-shipping-address': (context) =>
               const ChooseShippingAddress(),
           '/add-shipping-address': (context) => const AddShippingAddress(),

@@ -72,6 +72,7 @@ dependencies:
   share_plus: ^10.1.0
   path_provider: ^2.1.4
   connectivity_plus: ^6.1.0  
+  local_auth: ^2.3.0
 
 
 dev_dependencies:

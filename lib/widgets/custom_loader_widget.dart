@@ -115,3 +115,18 @@ class ConnectionLoader extends StatelessWidget {
     );
   }
 }
+
+class CardLoader extends StatelessWidget {
+  const CardLoader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: SpinKitDualRing(
+        color: Color.fromARGB(255, 0, 0, 0), // Set your preferred color
+        size: 50.0, // Adjust the size as needed
+        duration: Duration(seconds: 2), // Customize the animation speed
+      ),
+    );
+  }
+}

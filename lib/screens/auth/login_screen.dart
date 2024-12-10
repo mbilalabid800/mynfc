@@ -26,7 +26,6 @@ class _LoginScreenState extends State<LoginScreen>
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       setState(() {
-        // _containerHeight = _tabController.index == 1 ? 0.69 : 0.60;
         _containerHeight = 0.70;
       });
     });
