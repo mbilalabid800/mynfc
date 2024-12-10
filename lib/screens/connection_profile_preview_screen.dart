@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -397,7 +398,8 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                     profileImage:
                                         connectionDetails.profileImage,
                                     designation: connectionDetails.designation,
-                                    companyName: connectionDetails.companyName);
+                                    companyName: connectionDetails.companyName,
+                                    timestamp: Timestamp.now());
                                 final isAdded =
                                     provider.isInAddedConnections(connection);
                                 return ElevatedButton(
