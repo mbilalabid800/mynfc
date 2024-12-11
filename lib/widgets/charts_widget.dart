@@ -214,9 +214,15 @@ class FullViewsChart extends StatelessWidget {
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
                       // Show day as "Day X"
-                      return Text(
-                        "Day ${value.toInt() + 1}", // Customize label as needed
-                        style: const TextStyle(fontSize: 10),
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Transform.rotate(
+                          angle: -0.5,
+                          child: Text(
+                            "Day ${value.toInt() + 1}", // Customize label as needed
+                            style: const TextStyle(fontSize: 10),
+                          ),
+                        ),
                       );
                     },
                     reservedSize: 30,
@@ -821,7 +827,7 @@ class AddedConnectionChart extends StatelessWidget {
     // Access the connections list from the provider
     final connections = context.watch<ConnectionProvider>().addedConnections;
 
-    // Group data (e.g., by designation or other criteria)
+    // Group data by date
     final Map<String, int> dateCounts = {};
     final DateFormat formatter = DateFormat('MMM dd');
     // Example: "Dec 09"
@@ -834,81 +840,94 @@ class AddedConnectionChart extends StatelessWidget {
     final sortedKeys = dateCounts.keys.toList()
       ..sort((a, b) => formatter.parse(a).compareTo(formatter.parse(b)));
 
+    final totalConnections =
+        dateCounts.values.fold(0, (sum, count) => sum + count);
+    // Convert sorted data into BarChartGroupData
     List<BarChartGroupData> barGroups = [];
-    int index = 0;
-    dateCounts.forEach((date, count) {
+    for (int index = 0; index < sortedKeys.length; index++) {
+      String date = sortedKeys[index];
+      int count = dateCounts[date]!;
       barGroups.add(
         BarChartGroupData(
           x: index,
           barRods: [
             BarChartRodData(
               toY: count.toDouble(),
-              width: 10,
-              borderRadius: BorderRadius.circular(4),
+              color: const Color.fromARGB(255, 0, 6, 69),
+              width: 12,
+              borderRadius: BorderRadius.circular(2),
             ),
           ],
         ),
       );
-      index++;
-    });
+    }
 
     return BarChart(
       BarChartData(
         barGroups: barGroups,
+        gridData: const FlGridData(
+          show: false,
+          drawHorizontalLine: true,
+          drawVerticalLine: true,
+        ),
         titlesData: FlTitlesData(
             leftTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: true,
                 getTitlesWidget: (value, meta) {
-                  return Text(
-                    value.toInt().toString(),
-                    style: TextStyle(fontSize: 12),
-                  );
+                  if (value % 1 == 0) {
+                    return Text(
+                      value.toInt().toString(),
+                      style: TextStyle(fontSize: 12),
+                    );
+                  }
+                  return SizedBox.shrink();
                 },
+                reservedSize: 30,
               ),
             ),
             rightTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: false,
-                getTitlesWidget: (value, meta) {
-                  return Text(
-                    value.toInt().toString(),
-                    style: TextStyle(fontSize: 12),
-                  );
-                },
               ),
             ),
             topTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: false,
-                getTitlesWidget: (value, meta) {
-                  return Text(
-                    value.toInt().toString(),
-                    style: TextStyle(fontSize: 12),
-                  );
-                },
               ),
             ),
             bottomTitles: AxisTitles(
               sideTitles: SideTitles(
                 showTitles: true,
                 getTitlesWidget: (value, meta) {
-                  if (value.toInt() < dateCounts.keys.length) {
-                    return Text(
-                      dateCounts.keys.elementAt(value.toInt()),
-                      style: TextStyle(fontSize: 10),
-                      textAlign: TextAlign.center,
+                  if (value.toInt() < sortedKeys.length) {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Transform.rotate(
+                        angle: -0.5,
+                        child: Text(
+                          sortedKeys[value.toInt()],
+                          style: TextStyle(
+                              fontSize:
+                                  DeviceDimensions.responsiveSize(context) *
+                                      0.02),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                     );
                   }
                   return SizedBox.shrink();
                 },
-                reservedSize: 24,
+                reservedSize: 30,
               ),
             )),
         borderData: FlBorderData(
-          border: Border.all(color: Colors.grey, width: 1),
+          show: true,
+          border: const Border(
+            left: BorderSide(color: Colors.black, width: 1),
+            bottom: BorderSide(color: Colors.black, width: 1),
+          ),
         ),
-        gridData: FlGridData(show: false),
       ),
     );
   }
@@ -993,6 +1012,7 @@ class SocialAppBarChart extends StatelessWidget {
                       }
                       return const SizedBox.shrink();
                     },
+                    reservedSize: 30,
                   ),
                 ),
               ),
@@ -1007,6 +1027,119 @@ class SocialAppBarChart extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class ConnectionChart extends StatelessWidget {
+  const ConnectionChart({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // Access the connections list from the provider
+    final connections = context.watch<ConnectionProvider>().addedConnections;
+
+    // Group data by date
+    final Map<String, int> dateCounts = {};
+    final DateFormat formatter = DateFormat('MMM dd');
+    // Example: "Dec 09"
+    for (var connection in connections) {
+      String date = formatter.format(connection.timestamp.toDate());
+      dateCounts[date] = (dateCounts[date] ?? 0) + 1;
+    }
+
+    // Sort dates in chronological order
+    final sortedKeys = dateCounts.keys.toList()
+      ..sort((a, b) => formatter.parse(a).compareTo(formatter.parse(b)));
+
+    // Convert sorted data into BarChartGroupData
+    List<BarChartGroupData> barGroups = [];
+    for (int index = 0; index < sortedKeys.length; index++) {
+      String date = sortedKeys[index];
+      int count = dateCounts[date]!;
+      barGroups.add(
+        BarChartGroupData(
+          x: index,
+          barRods: [
+            BarChartRodData(
+              toY: count.toDouble(),
+              color: const Color.fromARGB(255, 0, 6, 69),
+              width: 3,
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return BarChart(
+      BarChartData(
+        barGroups: barGroups,
+        titlesData: FlTitlesData(
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: false,
+                getTitlesWidget: (value, meta) {
+                  if (value % 1 == 0) {
+                    return Text(
+                      value.toInt().toString(),
+                      style: TextStyle(fontSize: 12),
+                    );
+                  }
+                  return SizedBox.shrink();
+                },
+              ),
+            ),
+            rightTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: false,
+              ),
+            ),
+            topTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: false,
+              ),
+            ),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: false,
+                getTitlesWidget: (value, meta) {
+                  if (value.toInt() < sortedKeys.length) {
+                    return Text(
+                      sortedKeys[value.toInt()],
+                      style: TextStyle(fontSize: 10),
+                      textAlign: TextAlign.center,
+                    );
+                  }
+                  return SizedBox.shrink();
+                },
+                reservedSize: 24,
+              ),
+            )),
+        borderData: FlBorderData(
+          show: true,
+          border: const Border(
+            left: BorderSide(color: Colors.black, width: 1),
+            bottom: BorderSide(color: Colors.black, width: 1),
+          ),
+        ),
+        barTouchData: BarTouchData(
+          enabled: false,
+          touchTooltipData: BarTouchTooltipData(
+            getTooltipItem: (
+              _,
+              __,
+              ___,
+              ____,
+            ) =>
+                null,
+          ),
+        ),
+        gridData: FlGridData(
+            show: false, drawHorizontalLine: true, drawVerticalLine: true),
+      ),
     );
   }
 }

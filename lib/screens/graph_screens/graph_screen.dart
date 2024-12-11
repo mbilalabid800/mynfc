@@ -8,6 +8,7 @@ import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/services/firestore_service/firestore_service.dart';
+import 'package:nfc_app/widgets/added_connection_count_widget.dart';
 import 'package:nfc_app/widgets/charts_widget.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/custom_loader_widget.dart';
@@ -35,6 +36,37 @@ class _GraphScreenState extends State<GraphScreen> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserInfoFormStateProvider>(context);
+    final addedConnections =
+        Provider.of<ConnectionProvider>(context, listen: false)
+            .addedConnections;
+    final totalConnections = addedConnections.length;
+
+    final isEmpty = addedConnections.isEmpty;
+
+    // if (isEmpty) {
+    //   // Show icon if the list is empty
+    //   return Center(
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         Icon(
+    //           Icons.group_off, // Replace with any icon you prefer
+    //           size: 100,
+    //           color: Colors.grey,
+    //         ),
+    //         SizedBox(height: 16),
+    //         Text(
+    //           'No connections added yet',
+    //           style: TextStyle(
+    //             fontSize: 18,
+    //             color: Colors.grey,
+    //             fontWeight: FontWeight.w500,
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   );
+    // }
 
     // Call loadChartsData() to start listening for real-time changes
     userProvider.loadChartsData();
@@ -604,13 +636,9 @@ class _GraphScreenState extends State<GraphScreen> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
                                       children: [
-                                        Text('166',
-                                            style: TextStyle(
-                                                fontSize: DeviceDimensions
-                                                        .responsiveSize(
-                                                            context) *
-                                                    0.05,
-                                                fontWeight: FontWeight.w600)),
+                                        AddedConnectionsCountWidget(
+                                          totalConnections: totalConnections,
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -621,7 +649,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                     width:
                                         DeviceDimensions.screenWidth(context) *
                                             0.3,
-                                    child: const AddedConnectionChart(),
+                                    child: const ConnectionChart(),
                                   ),
                                   Expanded(
                                     child: Row(
@@ -1375,9 +1403,23 @@ class _GraphScreenState extends State<GraphScreen> {
   }
 
   Widget _buildGraph4() {
-    final addedconnections =
+    final addedConnections =
         Provider.of<ConnectionProvider>(context, listen: false)
             .addedConnections;
+    // Sort by timestamp in descending order to show the most recent connections
+    final recentConnections = [...addedConnections]
+      ..sort((a, b) => b.timestamp.compareTo(a.timestamp))
+      ..take(2)
+      ..toList();
+
+    // final recentConnections = addedConnections
+    //     .sorted((a, b) =>
+    //         b.timestamp.compareTo(a.timestamp)) // Sort by newest first
+    //     .take(5) // Take only the first 5 connections
+    //     .toList(); // Convert back to a list
+
+    final totalConnections = addedConnections.length;
+
     return SingleChildScrollView(
       child: Container(
         color: AppColors.screenBackground,
@@ -1390,6 +1432,40 @@ class _GraphScreenState extends State<GraphScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Your New Connections',
+                        style: TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.055,
+                            fontWeight: FontWeight.w500),
+                        softWrap: true,
+                        maxLines: 2,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 2),
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        'Total connections that you have added',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.045,
+                            fontWeight: FontWeight.w500),
+                        softWrap: true,
+                        maxLines: 2,
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Container(
@@ -1415,105 +1491,64 @@ class _GraphScreenState extends State<GraphScreen> {
                       ),
                     ),
                   ),
+                  Divider(),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 10,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          width:
-                              DeviceDimensions.responsiveSize(context) * 0.04,
-                          height:
-                              DeviceDimensions.responsiveSize(context) * 0.04,
-                          color: const Color.fromARGB(255, 69, 69, 69),
-                        ),
-                        Text(
-                          '2023 Year',
-                        ),
-                        Container(
-                          width:
-                              DeviceDimensions.responsiveSize(context) * 0.04,
-                          height:
-                              DeviceDimensions.responsiveSize(context) * 0.04,
-                          color: const Color.fromARGB(255, 94, 45, 209),
-                        ),
-                        Text('2024 Year',
-                            style: TextStyle(
-                              color: const Color.fromARGB(255, 94, 45, 209),
-                            )),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        'Your New Connections',
-                        style: TextStyle(
-                            overflow: TextOverflow.ellipsis,
-                            fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.055,
-                            fontWeight: FontWeight.w500),
-                        softWrap: true,
-                        maxLines: 2,
-                      ),
-                    ),
-                  ),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: addedconnections.length,
-                      itemBuilder: (context, index) {
-                        final addedConnection = addedconnections[index];
-                        return Padding(
-                          padding: EdgeInsets.only(left: 20.0, right: 10),
-                          child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            leading: Container(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(35),
-                                color: Colors.black54,
-                                image: DecorationImage(
-                                    image: CachedNetworkImageProvider(
-                                        addedConnection.profileImage),
-                                    fit: BoxFit.cover),
-                              ),
-                            ),
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                    "${addedConnection.firstName} ${addedConnection.lastName}"),
-                                Row(
-                                  children: [
-                                    Text(
-                                      addedConnection.designation,
-                                      style: TextStyle(
-                                        fontSize:
-                                            DeviceDimensions.responsiveSize(
-                                                    context) *
-                                                0.040,
-                                        fontFamily: 'Barlow-Regular',
-                                        color: const Color(0xFF909091),
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        //itemCount: recentConnections.length,
+                        itemCount: addedConnections.length < 5
+                            ? addedConnections.length
+                            : 5,
+                        itemBuilder: (context, index) {
+                          final recentConnection = recentConnections[index];
+                          //final addedConnection = addedConnections[index];
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0, right: 10),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: Container(
+                                width: 35,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(35),
+                                  color: Colors.black54,
+                                  image: DecorationImage(
+                                      image: CachedNetworkImageProvider(
+                                          recentConnection.profileImage),
+                                      fit: BoxFit.cover),
                                 ),
-                              ],
+                              ),
+                              title: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      "${recentConnection.firstName} ${recentConnection.lastName}"),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        recentConnection.designation,
+                                        style: TextStyle(
+                                          fontSize:
+                                              DeviceDimensions.responsiveSize(
+                                                      context) *
+                                                  0.040,
+                                          fontFamily: 'Barlow-Regular',
+                                          color: const Color(0xFF909091),
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              //trailing: Icon(Icons.arrow_right)
                             ),
-                            //trailing: Icon(Icons.arrow_right)
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                  ),
                   SizedBox(
                     height: DeviceDimensions.screenHeight(context) * 0.02,
                   )
