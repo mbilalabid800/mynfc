@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 
 class NewsletterPopup {
-  final FirestoreService _firestoreService = FirestoreService();
   //static final FirebaseService firebaseService = FirebaseService();
   static final TextEditingController emailController = TextEditingController();
 

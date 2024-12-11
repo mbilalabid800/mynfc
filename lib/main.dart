@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +29,7 @@ import 'package:nfc_app/screens/card_details_screen.dart';
 import 'package:nfc_app/screens/choose_machine.dart';
 import 'package:nfc_app/screens/choose_shipping_address.dart';
 import 'package:nfc_app/screens/connection_profile_preview_screen.dart';
+import 'package:nfc_app/screens/connections_request.dart';
 import 'package:nfc_app/screens/contact_us_screen.dart';
 import 'package:nfc_app/screens/edit_profile_screen.dart';
 import 'package:nfc_app/screens/faq_screen.dart';
@@ -156,7 +159,7 @@ class MyApp extends StatelessWidget {
           //accentColor: Colors.grey, // For desktop/web
         ),
         initialRoute: '/new-splash',
-        //initialRoute: '/google-maps-screen',
+        // initialRoute: '/connections-request',
         onGenerateRoute: _onGenerateRoute,
         routes: {
           '/mainNav-screen': (context) => const MainScreen(),
@@ -207,6 +210,7 @@ class MyApp extends StatelessWidget {
           '/add-employees': (context) => AddEmployee(),
           '/chat-screen': (context) => ChatScreen(),
           '/chat-screen2': (context) => ChatScreen2(),
+          '/connections-request': (context) => ConnectionsRequest(),
         },
       ),
     );

@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 class ViewsChart extends StatelessWidget {
   final String uid; // User's UID
 
-  ViewsChart({Key? key, required this.uid}) : super(key: key);
+  const ViewsChart({super.key, required this.uid});
 
   Stream<List<BarChartGroupData>> fetchGroupedChartData(String uid) {
     return FirebaseFirestore.instance
@@ -145,7 +145,7 @@ class ViewsChart extends StatelessWidget {
 class FullViewsChart extends StatelessWidget {
   final String uid; // User's UID
 
-  FullViewsChart({Key? key, required this.uid}) : super(key: key);
+  const FullViewsChart({super.key, required this.uid});
 
   Stream<List<BarChartGroupData>> fetchGroupedChartData(String uid) {
     return FirebaseFirestore.instance
@@ -936,7 +936,7 @@ class AddedConnectionChart extends StatelessWidget {
 class SocialAppBarChart extends StatelessWidget {
   final String uid;
 
-  const SocialAppBarChart({Key? key, required this.uid}) : super(key: key);
+  const SocialAppBarChart({super.key, required this.uid});
 
   @override
   Widget build(BuildContext context) {

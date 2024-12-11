@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/chat/chat_screen.dart';
 import 'package:nfc_app/screens/active_product_screen.dart';
-import 'package:nfc_app/screens/card_details_screen.dart';
 import 'package:nfc_app/screens/graph_screens/graph_screen.dart';
 import 'package:nfc_app/screens/home_screen.dart';
 import 'package:nfc_app/screens/settings_screen.dart';
