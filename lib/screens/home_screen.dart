@@ -143,7 +143,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       child: SvgPicture.asset(
                                           'assets/icons/eye2.svg',
-                                          width: 20),
+                                          width: 20,
+                                          color: AppColors.appBlueColor),
                                     ),
                                   ),
                                   Container(
@@ -159,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         fontFamily: 'Barlow-Bold',
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                                        color: AppColors.textColorBlue,
                                       ),
                                     ),
                                   ),
@@ -176,9 +177,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         shape: BoxShape.circle,
                                       ),
                                       child: SvgPicture.asset(
-                                        'assets/icons/cut2.svg',
-                                        width: 20,
-                                      ),
+                                          'assets/icons/cut2.svg',
+                                          width: 20,
+                                          color: AppColors.appBlueColor),
                                     ),
                                   ),
                                 ],
@@ -219,6 +220,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             .responsiveSize(
                                                                 context) *
                                                         0.049,
+                                                    color:
+                                                        AppColors.textColorBlue,
                                                     fontWeight: FontWeight.w600,
                                                   ),
                                                 ),
@@ -560,7 +563,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               context) *
                                                       0.036,
                                                   fontWeight: FontWeight.w700,
-                                                  color: Colors.black,
+                                                  color:
+                                                      AppColors.textColorBlue,
                                                 ),
                                               ),
                                             ),
@@ -605,8 +609,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w600,
-                                                              color:
-                                                                  Colors.black,
+                                                              color: AppColors
+                                                                  .textColorBlue,
                                                             ),
                                                           ),
                                                         );

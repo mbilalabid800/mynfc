@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/utils/ui_mode_helper.dart';
@@ -91,7 +92,7 @@ class _EditProfileComponentState extends State<EditProfileComponent> {
                                   DeviceDimensions.responsiveSize(context) *
                                       0.037,
                               fontWeight: FontWeight.w500,
-                              color: Colors.black,
+                              color: AppColors.textColorBlue,
                             ),
                             decoration: const InputDecoration(
                               border: InputBorder.none,
@@ -132,7 +133,7 @@ class _EditProfileComponentState extends State<EditProfileComponent> {
                                   DeviceDimensions.responsiveSize(context) *
                                       0.037,
                               fontWeight: FontWeight.w500,
-                              color: Colors.black,
+                              color: AppColors.textColorBlue,
                             ),
                           ),
                     SizedBox(

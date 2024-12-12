@@ -196,7 +196,8 @@ class HowToUseBottomSheetWidget {
                                   Padding(
                                     padding: EdgeInsets.only(left: 8.0),
                                     child: Text('Note',
-                                        style: TextStyle(color: Colors.black)),
+                                        style: TextStyle(
+                                            color: AppColors.textColorBlue)),
                                   )
                                 ]),
                               ),
@@ -342,7 +343,8 @@ class HowToUseBottomSheetWidget {
                                   Padding(
                                     padding: EdgeInsets.only(left: 8.0),
                                     child: Text('Note',
-                                        style: TextStyle(color: Colors.black)),
+                                        style: TextStyle(
+                                            color: AppColors.textColorBlue)),
                                   )
                                 ]),
                               ),

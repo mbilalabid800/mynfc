@@ -110,7 +110,7 @@ class AddEmployeeState extends State<AddEmployee> {
                           const Text(
                             'Note',
                             style: TextStyle(
-                                color: Colors.black54,
+                                color: AppColors.textColorBlue,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Barlow-Bold',
                                 fontSize: 18),
@@ -209,7 +209,7 @@ class AddEmployeeState extends State<AddEmployee> {
                                           Text(
                                             "• ${employee.email}",
                                             style: TextStyle(
-                                                color: Colors.black,
+                                                color: AppColors.textColorBlue,
                                                 fontWeight: FontWeight.w500,
                                                 fontFamily: 'Barlow-Regular',
                                                 fontSize: 15),
@@ -217,7 +217,7 @@ class AddEmployeeState extends State<AddEmployee> {
                                           Text(
                                             "• ${employee.phone}",
                                             style: TextStyle(
-                                                color: Colors.black,
+                                                color: AppColors.textColorBlue,
                                                 fontWeight: FontWeight.w500,
                                                 fontFamily: 'Barlow-Regular',
                                                 fontSize: 15),
@@ -225,7 +225,7 @@ class AddEmployeeState extends State<AddEmployee> {
                                           Text(
                                             "• ${employee.designation}",
                                             style: TextStyle(
-                                                color: Colors.black,
+                                                color: AppColors.textColorBlue,
                                                 fontWeight: FontWeight.w500,
                                                 fontFamily: 'Barlow-Regular',
                                                 fontSize: 15),

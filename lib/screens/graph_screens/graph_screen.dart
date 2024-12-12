@@ -928,7 +928,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                   'Total Views',
                                   style: TextStyle(
                                     overflow: TextOverflow.ellipsis,
-                                    color: Colors.black,
+                                    color: AppColors.textColorBlue,
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
                                         0.025,

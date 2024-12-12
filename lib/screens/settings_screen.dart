@@ -139,7 +139,7 @@ class _SettingsState extends State<Settings> {
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: AppColors.textColorBlue,
                         ),
                       ),
                       GestureDetector(
@@ -160,7 +160,8 @@ class _SettingsState extends State<Settings> {
                               const PopupMenuItem(
                                 child: Text(
                                   'Coming Soon',
-                                  style: TextStyle(color: Colors.black),
+                                  style:
+                                      TextStyle(color: AppColors.textColorBlue),
                                 ),
                               ),
                             ],

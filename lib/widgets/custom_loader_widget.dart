@@ -108,7 +108,7 @@ class ConnectionLoader extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w600,
               fontFamily: 'Barlow-Regular',
-              color: Colors.black,
+              color: AppColors.textColorBlue,
             ), // Adjust text style as needed
           ),
         ],

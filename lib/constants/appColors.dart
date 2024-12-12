@@ -8,6 +8,7 @@ class AppColors {
   //static const Color buttonColor = Color.fromARGB(255, 32, 32, 32);
   static const Color buttonColor = Color.fromARGB(255, 32, 30, 67);
   static const Color weakPassword = Color.fromARGB(255, 218, 0, 0);
+  static const Color textColorBlue = Color.fromARGB(255, 32, 30, 67);
   static const Color mediumPassword = Color.fromARGB(255, 254, 186, 0);
   static const Color strongPassword = Color.fromARGB(255, 14, 144, 0);
   static const Color successColor = Color.fromARGB(255, 14, 144, 0);

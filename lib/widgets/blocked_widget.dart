@@ -64,7 +64,7 @@ class Blocked {
                               fontSize:
                                   DeviceDimensions.responsiveSize(context) *
                                       0.038,
-                              color: Colors.black),
+                              color: AppColors.textColorBlue),
                           textAlign: TextAlign.center,
                         ),
                       ),

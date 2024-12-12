@@ -58,7 +58,7 @@ class _ChatScreen2State extends State<ChatScreen2> {
                 padding: const EdgeInsets.all(8),
                 margin: const EdgeInsets.symmetric(vertical: 8),
                 child: TextFormField(
-                  cursorColor: Colors.black,
+                  cursorColor: AppColors.appBlueColor,
                   decoration: const InputDecoration(
                     hintText: ' Search Contacts',
                     hintStyle: TextStyle(color: Colors.grey),
@@ -66,14 +66,14 @@ class _ChatScreen2State extends State<ChatScreen2> {
                     enabledBorder: border,
                     disabledBorder: border,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: BorderSide(color: AppColors.appBlueColor),
                       borderRadius: BorderRadius.all(
                         Radius.circular(15),
                       ),
                     ),
                     suffixIcon: Icon(
                       Icons.search,
-                      color: Colors.black,
+                      color: AppColors.appBlueColor,
                     ),
                   ),
                 ),
@@ -100,11 +100,11 @@ class _ChatScreen2State extends State<ChatScreen2> {
                     height: 70,
                     width: 70,
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: AppColors.appBlueColor,
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
+                          color: AppColors.appBlueColor.withOpacity(0.2),
                           spreadRadius: 3,
                           blurRadius: 6,
                           offset: const Offset(0, 3),

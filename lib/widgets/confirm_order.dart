@@ -145,7 +145,7 @@ class ConfirmOrder {
                               fontFamily: 'Barlow-Regular',
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1,
-                              color: Colors.black,
+                              color: AppColors.textColorBlue,
                             ),
                           )),
                     ),

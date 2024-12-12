@@ -94,7 +94,7 @@ class PricingCard extends StatelessWidget {
                       style: TextStyle(
                           fontSize:
                               DeviceDimensions.responsiveSize(context) * 0.05,
-                          color: Colors.black54),
+                          color: AppColors.textColorBlue),
                     ),
                   ),
                 ],
@@ -114,7 +114,7 @@ class PricingCard extends StatelessWidget {
                   maxLines: 2,
                   style: TextStyle(
                       fontSize: DeviceDimensions.responsiveSize(context) * 0.03,
-                      color: Colors.black54),
+                      color: AppColors.textColorBlue),
                 ),
               ),
             ),
@@ -159,7 +159,7 @@ class PricingCard extends StatelessWidget {
                 child: Text(
                   plan.buttonText,
                   style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.textColorBlue,
                       fontSize: DeviceDimensions.responsiveSize(context) * 0.04,
                       fontWeight: FontWeight.w500),
                 ),

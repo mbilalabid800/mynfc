@@ -46,7 +46,7 @@ class PaymentSuccessful {
                             fontWeight: FontWeight.w500,
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.036,
-                            color: Colors.black),
+                            color: AppColors.textColorBlue),
                         textAlign: TextAlign.center,
                       ),
                     ),

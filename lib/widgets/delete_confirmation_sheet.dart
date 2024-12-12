@@ -91,7 +91,8 @@ class _DeleteConfirmationSheetState extends State<DeleteConfirmationSheet> {
               child: Text(
                 "OK",
                 style: TextStyle(
-                    fontFamily: 'Barlow_regular', color: Colors.black),
+                    fontFamily: 'Barlow_regular',
+                    color: AppColors.textColorBlue),
               ),
               onPressed: () {
                 Navigator.of(context).pop(); // Dismiss the dialog
