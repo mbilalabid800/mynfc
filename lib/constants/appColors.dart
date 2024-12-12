@@ -5,7 +5,8 @@ import 'dart:ui';
 class AppColors {
   static const Color errorColor = Color.fromARGB(255, 204, 0, 0);
   static const Color errorFieldBorderColor = Color.fromARGB(255, 186, 100, 100);
-  static const Color buttonColor = Color.fromARGB(255, 32, 32, 32);
+  //static const Color buttonColor = Color.fromARGB(255, 32, 32, 32);
+  static const Color buttonColor = Color.fromARGB(255, 32, 30, 67);
   static const Color weakPassword = Color.fromARGB(255, 218, 0, 0);
   static const Color mediumPassword = Color.fromARGB(255, 254, 186, 0);
   static const Color strongPassword = Color.fromARGB(255, 14, 144, 0);
@@ -20,4 +21,6 @@ class AppColors {
   static const Color individualCardColor = Color.fromARGB(255, 96, 177, 202);
   static const Color teamsCardColor = Color.fromARGB(255, 84, 119, 216);
   static const Color companiesCardColor = Color.fromARGB(255, 74, 161, 224);
+  static const Color appBlueColor = Color.fromARGB(255, 32, 30, 67);
+  static const Color appOrangeColor = Color.fromARGB(255, 255, 130, 37);
 }

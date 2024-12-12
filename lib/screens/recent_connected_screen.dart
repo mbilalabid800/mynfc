@@ -178,7 +178,7 @@ class _RecentConnectedState extends State<RecentConnected> {
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(35),
-                                            color: Colors.black54,
+                                            color: AppColors.appBlueColor,
                                             image: DecorationImage(
                                               image: CachedNetworkImageProvider(
                                                   addedConnection.profileImage
@@ -281,7 +281,8 @@ class _RecentConnectedState extends State<RecentConnected> {
                                       activeTrackColor: const Color(0xFFCEFD4B),
                                       inactiveTrackColor:
                                           const Color(0xFFEFEFEF),
-                                      inactiveThumbColor: Colors.black,
+                                      inactiveThumbColor:
+                                          AppColors.appBlueColor,
                                       value: userProvider.connectionTypeAll,
                                       onChanged: (value) async {
                                         await connectionProvider
@@ -353,7 +354,7 @@ class _RecentConnectedState extends State<RecentConnected> {
                                       height: 41,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(35),
-                                        color: Colors.black54,
+                                        color: AppColors.appBlueColor,
                                         image: DecorationImage(
                                           image: CachedNetworkImageProvider(
                                               recommendedConnection

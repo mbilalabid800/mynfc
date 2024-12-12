@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/api_service/app_api.dart';
 import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
@@ -132,7 +133,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           height: 7.0,
                           decoration: BoxDecoration(
                             color: _currentDot == index
-                                ? Colors.black
+                                ? AppColors.appBlueColor
                                 : Colors.grey,
                             borderRadius: BorderRadius.circular(5.0),
                           ),
@@ -162,7 +163,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.033,
                             fontFamily: 'Barlow-Regular',
-                            color: Colors.black),
+                            color: AppColors.appBlueColor),
                       ),
                       SizedBox(
                           height:
@@ -227,7 +228,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     child: ElevatedButton(
                       onPressed: () => _resetPassword(),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: AppColors.appBlueColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),

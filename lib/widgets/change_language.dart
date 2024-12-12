@@ -59,7 +59,7 @@ class ChangeLanguage {
                             selectedLanguage = value!;
                           });
                         },
-                        activeColor: Colors.black,
+                        activeColor: AppColors.appBlueColor,
                       ),
                       const Divider(color: Color(0xFFE0E0E0)),
                       RadioListTile<String>(
@@ -77,7 +77,7 @@ class ChangeLanguage {
                             selectedLanguage = value!;
                           });
                         },
-                        activeColor: Colors.black,
+                        activeColor: AppColors.appBlueColor,
                       ),
                     ],
                   ),

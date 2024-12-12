@@ -79,7 +79,7 @@ class HowToUseBottomSheetWidget {
                           width: DeviceDimensions.screenWidth(context) * 0.8,
                           height: DeviceDimensions.screenHeight(context) * 0.06,
                           decoration: BoxDecoration(
-                              color: Colors.black,
+                              color: AppColors.appBlueColor,
                               borderRadius: BorderRadius.circular(25)),
                           child: const Center(
                             child: Text(
@@ -225,7 +225,7 @@ class HowToUseBottomSheetWidget {
                           width: DeviceDimensions.screenWidth(context) * 0.8,
                           height: DeviceDimensions.screenHeight(context) * 0.06,
                           decoration: BoxDecoration(
-                              color: Colors.black,
+                              color: AppColors.appBlueColor,
                               borderRadius: BorderRadius.circular(25)),
                           child: const Center(
                             child: Text(
@@ -371,7 +371,7 @@ class HowToUseBottomSheetWidget {
                           width: DeviceDimensions.screenWidth(context) * 0.8,
                           height: DeviceDimensions.screenHeight(context) * 0.06,
                           decoration: BoxDecoration(
-                              color: Colors.black,
+                              color: AppColors.appBlueColor,
                               borderRadius: BorderRadius.circular(25)),
                           child: const Center(
                             child: Text(
@@ -477,7 +477,7 @@ class HowToUseBottomSheetWidget {
                           width: DeviceDimensions.screenWidth(context) * 0.8,
                           height: DeviceDimensions.screenHeight(context) * 0.06,
                           decoration: BoxDecoration(
-                              color: Colors.black,
+                              color: AppColors.appBlueColor,
                               borderRadius: BorderRadius.circular(25)),
                           child: const Center(
                             child: Text(

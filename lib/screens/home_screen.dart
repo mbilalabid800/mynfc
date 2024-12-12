@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/loading_state_provider.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
@@ -280,7 +281,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         top: 25,
                                         child: CircleAvatar(
                                           radius: 37,
-                                          backgroundColor: Colors.black54,
+                                          backgroundColor:
+                                              AppColors.appBlueColor,
                                           child: CachedNetworkImage(
                                             imageUrl:
                                                 userProvider.imageUrl ?? '',
@@ -386,7 +388,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fit: BoxFit.fill,
                                                 child: Switch(
                                                   activeTrackColor:
-                                                      Colors.black,
+                                                      AppColors.appBlueColor,
                                                   value: userProvider.isPrivate,
                                                   onChanged: (isPrivate) {
                                                     userProvider

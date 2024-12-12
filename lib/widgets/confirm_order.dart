@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/card_details_model.dart';
 import 'package:nfc_app/models/order_model.dart';
 import 'package:nfc_app/models/shipping_address_model.dart';
@@ -39,7 +40,7 @@ class ConfirmOrder {
       builder: (BuildContext context) {
         return Center(
           child: Container(
-            color: Colors.black54,
+            color: AppColors.appBlueColor,
             child: Dialog(
               insetPadding: EdgeInsets.zero,
               backgroundColor: Colors.white,
@@ -98,7 +99,7 @@ class ConfirmOrder {
                               shippingDetails);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
+                          backgroundColor: AppColors.appBlueColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -131,7 +132,8 @@ class ConfirmOrder {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
-                            side: BorderSide(color: Colors.black, width: 1),
+                            side: BorderSide(
+                                color: AppColors.appBlueColor, width: 1),
                             padding: EdgeInsets.zero,
                           ),
                           child: Text(

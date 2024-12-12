@@ -2,6 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/api_service/app_api.dart';
 import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
@@ -117,7 +118,7 @@ class _EmailVerifyForgetPasswordState extends State<EmailVerifyForgetPassword> {
                               height: 7.0,
                               decoration: BoxDecoration(
                                 color: _currentDot == index
-                                    ? Colors.black
+                                    ? AppColors.appBlueColor
                                     : Colors.grey,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
@@ -146,11 +147,12 @@ class _EmailVerifyForgetPasswordState extends State<EmailVerifyForgetPassword> {
                           Text(
                             "A verification code has been sent to your email address:\n[provider's email address].\nPlease enter the code below to verify your email.",
                             style: TextStyle(
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.034,
-                                fontFamily: 'Barlow-Regular',
-                                color: Colors.black),
+                              fontSize:
+                                  DeviceDimensions.responsiveSize(context) *
+                                      0.034,
+                              fontFamily: 'Barlow-Regular',
+                              color: AppColors.appBlueColor,
+                            ),
                           ),
                           SizedBox(
                               height: DeviceDimensions.screenHeight(context) *
@@ -174,9 +176,9 @@ class _EmailVerifyForgetPasswordState extends State<EmailVerifyForgetPassword> {
                                   borderRadius: BorderRadius.circular(10),
                                   fieldHeight: 50,
                                   fieldWidth: 45,
-                                  activeColor: Colors.black,
-                                  selectedColor: Colors.black,
-                                  inactiveColor: Colors.black,
+                                  activeColor: AppColors.appBlueColor,
+                                  selectedColor: AppColors.appBlueColor,
+                                  inactiveColor: AppColors.appBlueColor,
                                 ),
                               ),
                             ),
@@ -201,7 +203,7 @@ class _EmailVerifyForgetPasswordState extends State<EmailVerifyForgetPassword> {
                         child: ElevatedButton(
                           onPressed: isOTPComplete ? () => _verifyOtp() : null,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
+                            backgroundColor: AppColors.appBlueColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),

@@ -97,7 +97,7 @@ class NfcService {
                       height: DeviceDimensions.screenHeight(context) * 0.055,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
-                        color: Colors.black,
+                        color: AppColors.appBlueColor,
                       ),
                       child: const Center(
                           child: Text('Cancel',
@@ -150,7 +150,7 @@ class NfcService {
                     height: DeviceDimensions.screenHeight(context) * 0.055,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
-                      color: Colors.black,
+                      color: AppColors.appBlueColor,
                     ),
                     child: const Center(
                       child: Text('Done',

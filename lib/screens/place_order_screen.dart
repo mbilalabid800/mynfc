@@ -351,7 +351,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                   shippingDetails!);
                             },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: AppColors.appBlueColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -542,7 +542,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                         Navigator.pushNamed(context, "/add-shipping-address");
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: AppColors.appBlueColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -652,7 +652,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   Navigator.pushNamed(context, "/choose-machine");
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor: AppColors.appBlueColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),

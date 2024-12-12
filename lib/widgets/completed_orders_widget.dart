@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 
 class CompletedOrdersWidget extends StatefulWidget {
@@ -69,7 +70,7 @@ class _CompletedOrdersWidgetState extends State<CompletedOrdersWidget> {
                                             0.25,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(12),
-                                        color: Colors.black),
+                                        color: AppColors.appBlueColor),
                                     child: Padding(
                                       padding: const EdgeInsets.all(6.0),
                                       child: Center(

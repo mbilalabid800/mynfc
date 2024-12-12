@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/social_app_model.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
@@ -74,7 +75,7 @@ class _ShowLinkDialogState extends State<ShowLinkDialog> {
                 height: 80,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(40),
-                  color: Colors.black54,
+                  color: AppColors.appBlueColor,
                 ),
                 child: ClipOval(
                   child: CachedNetworkImage(
@@ -166,7 +167,7 @@ class _ShowLinkDialogState extends State<ShowLinkDialog> {
                     child: ElevatedButton(
                       onPressed: _saveLink,
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
+                          backgroundColor: AppColors.appBlueColor,
                           foregroundColor: Colors.white),
                       child: Text(
                         'Update',
@@ -188,7 +189,7 @@ class _ShowLinkDialogState extends State<ShowLinkDialog> {
                 child: ElevatedButton(
                   onPressed: _saveLink,
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
+                      backgroundColor: AppColors.appBlueColor,
                       foregroundColor: Colors.white),
                   child: Text(
                     'Save',

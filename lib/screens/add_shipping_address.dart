@@ -336,7 +336,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                             await _saveShippingAddress(); // Call your save method
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
+                            backgroundColor: AppColors.appBlueColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),

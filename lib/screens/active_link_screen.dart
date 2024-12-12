@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/widgets/showLinkDialog_widget.dart';
 import 'package:nfc_app/widgets/active_apps_widget.dart';
@@ -88,7 +89,7 @@ class ActiveLink extends StatelessWidget {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(35),
-                                          color: Colors.black54,
+                                          color: AppColors.appBlueColor,
                                           image: DecorationImage(
                                             image: CachedNetworkImageProvider(
                                               appItem.icon,

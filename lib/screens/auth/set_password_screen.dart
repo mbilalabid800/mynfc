@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
 
@@ -67,8 +68,9 @@ class _SetPasswordState extends State<SetPassword> {
                         width: 20,
                         height: 7.0,
                         decoration: BoxDecoration(
-                          color:
-                              _currentDot == index ? Colors.black : Colors.grey,
+                          color: _currentDot == index
+                              ? AppColors.appBlueColor
+                              : Colors.grey,
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                       );
@@ -260,7 +262,7 @@ class _SetPasswordState extends State<SetPassword> {
                   child: ElevatedButton(
                     onPressed: () => _updatePassword(),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
+                      backgroundColor: AppColors.appBlueColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30.0),
                       ),

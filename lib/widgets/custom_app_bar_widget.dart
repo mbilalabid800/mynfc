@@ -30,12 +30,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             fontFamily: 'Barlow-Regular',
             fontSize: DeviceDimensions.responsiveSize(context) * 0.055,
             fontWeight: FontWeight.w600,
-            color: Colors.black,
+            color: AppColors.appBlueColor,
           ),
         ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: AppColors.screenBackground,
+        //foregroundColor: AppColors.screenBackground,
         leading: IconButton(
           onPressed: () {
             if (onBackPressed != null) {
@@ -44,7 +45,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               Navigator.of(context).pop(); // Default pop behavior
             }
           },
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: AppColors.appBlueColor),
         ),
         actions: [
           if (icon != null) // Show the SVG icon if `iconPath` is provided
@@ -123,7 +124,7 @@ class _CustomAppBarTwoState extends State<CustomAppBarTwo>
           child: TabBar(
             controller: widget.tabController,
             indicatorSize: TabBarIndicatorSize.tab,
-            indicatorColor: Colors.black,
+            indicatorColor: AppColors.appBlueColor,
             labelColor: const Color(0xFF202020),
             labelStyle: TextStyle(
               fontSize: DeviceDimensions.responsiveSize(context) * 0.038,
@@ -172,7 +173,8 @@ class _CustomAppBarTwoState extends State<CustomAppBarTwo>
           icon: Container(
               padding: const EdgeInsets.all(8),
               decoration: const BoxDecoration(),
-              child: const Icon(Icons.arrow_back, color: Colors.black)),
+              child:
+                  const Icon(Icons.arrow_back, color: AppColors.appBlueColor)),
         ),
       ),
     );

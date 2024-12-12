@@ -155,7 +155,8 @@ class _CardDetailsState extends State<CardDetails> {
                                                 decoration: BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   border: Border.all(
-                                                    color: Colors.black,
+                                                    color:
+                                                        AppColors.appBlueColor,
                                                     width: 1.0,
                                                   ),
                                                 ),
@@ -273,7 +274,7 @@ class _CardDetailsState extends State<CardDetails> {
                                         height: 7,
                                         decoration: BoxDecoration(
                                           color: isSelected
-                                              ? Colors.black
+                                              ? AppColors.appBlueColor
                                               : Colors.grey,
                                           borderRadius:
                                               BorderRadius.circular(5.0),
@@ -442,7 +443,7 @@ class _CardDetailsState extends State<CardDetails> {
                                   });
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black,
+                              backgroundColor: AppColors.buttonColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),

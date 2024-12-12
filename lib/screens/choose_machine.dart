@@ -54,7 +54,7 @@ class ChooseMachine extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Radio(
-                                        activeColor: Colors.black,
+                                        activeColor: AppColors.appBlueColor,
                                         value: address,
                                         groupValue:
                                             provider.selectedShippingAddress,
@@ -145,7 +145,7 @@ class ChooseMachine extends StatelessWidget {
                                 context, "/add-shipping-address");
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
+                            backgroundColor: AppColors.buttonColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),

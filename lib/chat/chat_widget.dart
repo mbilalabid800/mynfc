@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 
 class ChatPageWidget extends StatelessWidget {
   final String title;
@@ -21,7 +22,7 @@ class ChatPageWidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 12),
                   child: CircleAvatar(
                     radius: 20,
-                    backgroundColor: Colors.black54,
+                    backgroundColor: AppColors.appBlueColor,
                     child: CircleAvatar(
                       radius: 20,
                       backgroundImage: AssetImage(

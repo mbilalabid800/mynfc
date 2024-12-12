@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/firestore_service/firestore_service.dart';
@@ -118,8 +119,8 @@ class ViewsChart extends StatelessWidget {
               borderData: FlBorderData(
                 show: true,
                 border: const Border(
-                  left: BorderSide(color: Colors.black, width: 1),
-                  bottom: BorderSide(color: Colors.black, width: 1),
+                  left: BorderSide(color: AppColors.appBlueColor, width: 1),
+                  bottom: BorderSide(color: AppColors.appBlueColor, width: 1),
                 ),
               ),
               barTouchData: BarTouchData(
@@ -259,8 +260,8 @@ class FullViewsChart extends StatelessWidget {
               borderData: FlBorderData(
                 show: true,
                 border: const Border(
-                  left: BorderSide(color: Colors.black, width: 1),
-                  bottom: BorderSide(color: Colors.black, width: 1),
+                  left: BorderSide(color: AppColors.appBlueColor, width: 1),
+                  bottom: BorderSide(color: AppColors.appBlueColor, width: 1),
                 ),
               ),
             ),
@@ -353,8 +354,8 @@ class LinkTapChart extends StatelessWidget {
             borderData: FlBorderData(
               show: true,
               border: const Border(
-                left: BorderSide(color: Colors.black, width: 1),
-                bottom: BorderSide(color: Colors.black, width: 1),
+                left: BorderSide(color: AppColors.appBlueColor, width: 1),
+                bottom: BorderSide(color: AppColors.appBlueColor, width: 1),
               ),
             ),
             barTouchData: BarTouchData(
@@ -392,49 +393,49 @@ class CardTapsChart extends StatelessWidget {
           BarChartGroupData(
             x: 0,
             barRods: [
-              BarChartRodData(toY: 15, width: 3, color: Colors.black),
+              BarChartRodData(toY: 15, width: 3, color: AppColors.appBlueColor),
             ],
           ),
           //tuesday
           BarChartGroupData(
             x: 1,
             barRods: [
-              BarChartRodData(toY: 3, width: 3, color: Colors.black),
+              BarChartRodData(toY: 3, width: 3, color: AppColors.appBlueColor),
             ],
           ),
           //wednesday
           BarChartGroupData(
             x: 2,
             barRods: [
-              BarChartRodData(toY: 4, width: 3, color: Colors.black),
+              BarChartRodData(toY: 4, width: 3, color: AppColors.appBlueColor),
             ],
           ),
           //Thursday
           BarChartGroupData(
             x: 3,
             barRods: [
-              BarChartRodData(toY: 7, width: 3, color: Colors.black),
+              BarChartRodData(toY: 7, width: 3, color: AppColors.appBlueColor),
             ],
           ),
           //friday
           BarChartGroupData(
             x: 4,
             barRods: [
-              BarChartRodData(toY: 13, width: 3, color: Colors.black),
+              BarChartRodData(toY: 13, width: 3, color: AppColors.appBlueColor),
             ],
           ),
           //saturday
           BarChartGroupData(
             x: 5,
             barRods: [
-              BarChartRodData(toY: 8, width: 3, color: Colors.black),
+              BarChartRodData(toY: 8, width: 3, color: AppColors.appBlueColor),
             ],
           ),
           //sunday
           BarChartGroupData(
             x: 6,
             barRods: [
-              BarChartRodData(toY: 18, width: 3, color: Colors.black),
+              BarChartRodData(toY: 18, width: 3, color: AppColors.appBlueColor),
             ],
           ),
         ],
@@ -559,7 +560,7 @@ class FullCardTapsChart extends StatelessWidget {
             x: 0,
             barRods: [
               BarChartRodData(
-                  toY: tapsPerDay[0], width: 10, color: Colors.black),
+                  toY: tapsPerDay[0], width: 10, color: AppColors.appBlueColor),
             ],
           ),
           //tuesday
@@ -567,7 +568,7 @@ class FullCardTapsChart extends StatelessWidget {
             x: 1,
             barRods: [
               BarChartRodData(
-                  toY: tapsPerDay[1], width: 10, color: Colors.black),
+                  toY: tapsPerDay[1], width: 10, color: AppColors.appBlueColor),
             ],
           ),
           //wednesday
@@ -575,7 +576,7 @@ class FullCardTapsChart extends StatelessWidget {
             x: 2,
             barRods: [
               BarChartRodData(
-                  toY: tapsPerDay[2], width: 10, color: Colors.black),
+                  toY: tapsPerDay[2], width: 10, color: AppColors.appBlueColor),
             ],
           ),
           //Thursday
@@ -583,7 +584,7 @@ class FullCardTapsChart extends StatelessWidget {
             x: 3,
             barRods: [
               BarChartRodData(
-                  toY: tapsPerDay[3], width: 10, color: Colors.black),
+                  toY: tapsPerDay[3], width: 10, color: AppColors.appBlueColor),
             ],
           ),
           //friday
@@ -591,7 +592,7 @@ class FullCardTapsChart extends StatelessWidget {
             x: 4,
             barRods: [
               BarChartRodData(
-                  toY: tapsPerDay[4], width: 10, color: Colors.black),
+                  toY: tapsPerDay[4], width: 10, color: AppColors.appBlueColor),
             ],
           ),
           //saturday
@@ -599,7 +600,7 @@ class FullCardTapsChart extends StatelessWidget {
             x: 5,
             barRods: [
               BarChartRodData(
-                  toY: tapsPerDay[5], width: 10, color: Colors.black),
+                  toY: tapsPerDay[5], width: 10, color: AppColors.appBlueColor),
             ],
           ),
           //sunday
@@ -607,7 +608,7 @@ class FullCardTapsChart extends StatelessWidget {
             x: 6,
             barRods: [
               BarChartRodData(
-                  toY: tapsPerDay[6], width: 10, color: Colors.black),
+                  toY: tapsPerDay[6], width: 10, color: AppColors.appBlueColor),
             ],
           ),
         ],
@@ -924,8 +925,8 @@ class AddedConnectionChart extends StatelessWidget {
         borderData: FlBorderData(
           show: true,
           border: const Border(
-            left: BorderSide(color: Colors.black, width: 1),
-            bottom: BorderSide(color: Colors.black, width: 1),
+            left: BorderSide(color: AppColors.appBlueColor, width: 1),
+            bottom: BorderSide(color: AppColors.appBlueColor, width: 1),
           ),
         ),
       ),
@@ -1019,8 +1020,8 @@ class SocialAppBarChart extends StatelessWidget {
               borderData: FlBorderData(
                 show: true,
                 border: const Border(
-                  left: BorderSide(color: Colors.black, width: 1),
-                  bottom: BorderSide(color: Colors.black, width: 1),
+                  left: BorderSide(color: AppColors.appBlueColor, width: 1),
+                  bottom: BorderSide(color: AppColors.appBlueColor, width: 1),
                 ),
               ),
             ),
@@ -1121,8 +1122,8 @@ class ConnectionChart extends StatelessWidget {
         borderData: FlBorderData(
           show: true,
           border: const Border(
-            left: BorderSide(color: Colors.black, width: 1),
-            bottom: BorderSide(color: Colors.black, width: 1),
+            left: BorderSide(color: AppColors.appBlueColor, width: 1),
+            bottom: BorderSide(color: AppColors.appBlueColor, width: 1),
           ),
         ),
         barTouchData: BarTouchData(

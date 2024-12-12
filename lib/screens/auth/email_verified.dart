@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 
 class EmailVerified extends StatefulWidget {
@@ -37,9 +38,10 @@ class _EmailVerifyState extends State<EmailVerified> {
               Text(
                 "Your email address has been verified\nsuccessfully",
                 style: TextStyle(
-                    fontSize: DeviceDimensions.responsiveSize(context) * 0.040,
-                    fontFamily: 'Barlow-Regular',
-                    color: Colors.black),
+                  fontSize: DeviceDimensions.responsiveSize(context) * 0.040,
+                  fontFamily: 'Barlow-Regular',
+                  color: AppColors.appBlueColor,
+                ),
                 textAlign: TextAlign.center,
               ),
               const Spacer(),
@@ -55,7 +57,7 @@ class _EmailVerifyState extends State<EmailVerified> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
+                    backgroundColor: AppColors.appBlueColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
