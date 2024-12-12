@@ -229,10 +229,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     ? const Text(
                                                         "--",
                                                         style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: AppColors
+                                                                .textColorBlue),
                                                       )
                                                     : Text(
                                                         Provider.of<ConnectionProvider>(
@@ -243,10 +244,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             ? "0${Provider.of<ConnectionProvider>(context).addedConnections.length}+"
                                                             : "${Provider.of<ConnectionProvider>(context).addedConnections.length}+",
                                                         style: const TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: AppColors
+                                                                .textColorBlue),
                                                       ),
                                               ],
                                             ),
@@ -262,18 +264,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 Text(
                                                   "Profile",
                                                   style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontFamily:
-                                                        'Barlow-Regular',
-                                                  ),
+                                                      fontSize: 14,
+                                                      fontFamily:
+                                                          'Barlow-Regular',
+                                                      color: AppColors
+                                                          .textColorBlue),
                                                 ),
                                                 Text(
                                                   "Connected",
                                                   style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontFamily:
-                                                        'Barlow-Regular',
-                                                  ),
+                                                      fontSize: 14,
+                                                      fontFamily:
+                                                          'Barlow-Regular',
+                                                      color: AppColors
+                                                          .textColorBlue),
                                                 ),
                                               ],
                                             ),
@@ -313,6 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     "${userProvider.firstName} ${userProvider.lastName}",
                                     style: const TextStyle(
                                       fontSize: 21,
+                                      color: AppColors.textColorBlue,
                                       fontWeight: FontWeight.w600,
                                       fontFamily: 'Barlow-Bold',
                                     ),
@@ -322,6 +327,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     style: const TextStyle(
                                         fontFamily: 'Barlow-Regular',
                                         fontSize: 14,
+                                        color: AppColors.textColorBlue,
                                         letterSpacing: 1.5),
                                   ),
                                   const SizedBox(height: 15),
@@ -337,6 +343,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           "Your Links",
                                           style: TextStyle(
                                             fontSize: 15,
+                                            color: AppColors.textColorBlue,
                                             fontFamily: 'Barlow-Regular',
                                           ),
                                         ),
@@ -361,7 +368,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   items: [
                                                     PopupMenuItem(
                                                       child: Text(
-                                                          "Turn on for Private Profile"),
+                                                        "Turn on for Private Profile",
+                                                        style: TextStyle(
+                                                          color: AppColors
+                                                              .textColorBlue,
+                                                        ),
+                                                      ),
                                                     ),
                                                   ],
                                                 );
@@ -378,6 +390,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 "Private",
                                                 style: TextStyle(
                                                   fontSize: 17,
+                                                  color:
+                                                      AppColors.textColorBlue,
                                                   fontWeight: FontWeight.w600,
                                                   fontFamily: 'Barlow-Regular',
                                                 ),
@@ -431,6 +445,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Text(
                                           "Add New",
                                           style: TextStyle(
+                                              color: AppColors.textColorBlue,
                                               fontFamily: 'Barlow-Bold',
                                               fontWeight: FontWeight.bold,
                                               fontSize: 18),
@@ -459,6 +474,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           "assets/icons/addsvg.svg",
                                           width: 80,
                                           height: 80,
+                                          //color: AppColors.appBlueColor,
                                         )),
                                   ),
                                 ],
@@ -524,6 +540,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 style: TextStyle(
                                                     fontFamily: 'Barlow-Bold',
                                                     fontWeight: FontWeight.bold,
+                                                    color:
+                                                        AppColors.textColorBlue,
                                                     fontSize: 17),
                                               ),
                                             ],
@@ -680,6 +698,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                 0.028,
                                                                         fontWeight:
                                                                             FontWeight.w600,
+                                                                        color: AppColors
+                                                                            .textColorBlue,
                                                                       ),
                                                                     ),
                                                                     Text(

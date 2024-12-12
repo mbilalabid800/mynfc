@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/utils/ui_mode_helper.dart';
 import 'package:nfc_app/widgets/register_data_widget.dart';
@@ -79,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen>
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(25),
                         ),
-                        labelColor: const Color(0xFF202020),
+                        labelColor: AppColors.textColorBlue,
                         labelStyle: TextStyle(
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.045,
@@ -95,13 +96,17 @@ class _LoginScreenState extends State<LoginScreen>
                           Tab(
                             child: Text(
                               "Login",
-                              style: TextStyle(fontFamily: 'Barlow-Regular'),
+                              style: TextStyle(
+                                  fontFamily: 'Barlow-Regular',
+                                  color: AppColors.textColorBlue),
                             ),
                           ),
                           Tab(
                             child: Text(
                               "Register",
-                              style: TextStyle(fontFamily: 'Barlow-Regular'),
+                              style: TextStyle(
+                                  fontFamily: 'Barlow-Regular',
+                                  color: AppColors.textColorBlue),
                             ),
                           ),
                         ],

@@ -458,7 +458,7 @@ class _SigninDataState extends State<SigninData> {
                                       fontSize: DeviceDimensions.responsiveSize(
                                               context) *
                                           0.035,
-                                      color: const Color(0xFF202020),
+                                      color: AppColors.textColorBlue,
                                       fontWeight: FontWeight.w600,
                                       fontFamily: 'Barlow-Regular'),
                                 ),
