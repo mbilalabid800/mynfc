@@ -47,7 +47,7 @@ class _TermsConditionsState extends State<TermsConditions> {
                           DeviceDimensions.responsiveSize(context) * 0.042,
                       fontFamily: 'Barlow-Regular',
                       fontWeight: FontWeight.w600,
-                      color: Colors.black,
+                      color: AppColors.appBlueColor,
                     ),
                   ),
                   const Padding(
@@ -101,7 +101,7 @@ class _TermsConditionsState extends State<TermsConditions> {
                         children: [
                           Checkbox(
                               value: isChecked,
-                              activeColor: Colors.black,
+                              activeColor: AppColors.appBlueColor,
                               onChanged: (value) {
                                 setState(() {
                                   isChecked = value;
@@ -133,7 +133,7 @@ class _TermsConditionsState extends State<TermsConditions> {
               child: ElevatedButton(
                 onPressed: isChecked == true ? () {} : null,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
+                  backgroundColor: AppColors.appBlueColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),

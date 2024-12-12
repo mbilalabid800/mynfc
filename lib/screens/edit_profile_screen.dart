@@ -197,7 +197,8 @@ class _EditProfileState extends State<EditProfile> {
                                           onTap: _pickImage,
                                           child: CircleAvatar(
                                             radius: 32,
-                                            backgroundColor: Colors.black54,
+                                            backgroundColor:
+                                                AppColors.appBlueColor,
                                             child: CachedNetworkImage(
                                               imageUrl: userProvider.imageUrl!,
                                               imageBuilder:
@@ -341,7 +342,7 @@ class _EditProfileState extends State<EditProfile> {
                                           0.35,
                                   vertical: 12,
                                 ),
-                                backgroundColor: Colors.black,
+                                backgroundColor: AppColors.appBlueColor,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
                                 ),

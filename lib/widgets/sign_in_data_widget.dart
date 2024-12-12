@@ -425,7 +425,7 @@ class _SigninDataState extends State<SigninData> {
                         children: [
                           Checkbox(
                               value: _rememberMe,
-                              activeColor: Colors.black,
+                              activeColor: AppColors.appBlueColor,
                               onChanged: (value) {
                                 setState(() {
                                   _rememberMe = value!;

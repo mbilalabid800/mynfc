@@ -303,7 +303,7 @@ class _IndividualState extends State<Individual> {
           color: Colors.white,
           border: Border.all(
             width: 2,
-            color: selected ? Colors.black : const Color(0xFFD9D9D9),
+            color: selected ? AppColors.appBlueColor : const Color(0xFFD9D9D9),
           ),
         ),
         child: Padding(
@@ -327,7 +327,9 @@ class _IndividualState extends State<Individual> {
                     height: 18,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: selected ? Colors.black : Colors.transparent,
+                      color: selected
+                          ? AppColors.appBlueColor
+                          : Colors.transparent,
                       border: Border.all(
                         color: const Color(0xFF000000),
                         width: 2.0,

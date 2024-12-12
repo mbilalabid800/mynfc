@@ -48,7 +48,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                           children: [
                             CircleAvatar(
                               radius: 35,
-                              backgroundColor: Colors.black54,
+                              backgroundColor: AppColors.appBlueColor,
                               child: CachedNetworkImage(
                                 imageUrl: userProvider.imageUrl!,
                                 imageBuilder: (context, imageProvider) =>
@@ -118,7 +118,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                             ShareProfile().shareProfile(context, profileLink);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
+                            backgroundColor: AppColors.appBlueColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),

@@ -37,7 +37,7 @@ class HowToUseComponent extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle, // makes the container circular
                   border: Border.all(
-                    color: Colors.black, // color of the border
+                    color: AppColors.appBlueColor, // color of the border
                     width: 2.0, // width of the border
                   ),
                 ),

@@ -3,11 +3,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/services/firestore_service/firestore_service.dart';
+import 'package:nfc_app/widgets/added_connection_count_widget.dart';
 import 'package:nfc_app/widgets/charts_widget.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/custom_loader_widget.dart';
@@ -35,6 +37,37 @@ class _GraphScreenState extends State<GraphScreen> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserInfoFormStateProvider>(context);
+    final addedConnections =
+        Provider.of<ConnectionProvider>(context, listen: false)
+            .addedConnections;
+    final totalConnections = addedConnections.length;
+
+    final isEmpty = addedConnections.isEmpty;
+
+    // if (isEmpty) {
+    //   // Show icon if the list is empty
+    //   return Center(
+    //     child: Column(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         Icon(
+    //           Icons.group_off, // Replace with any icon you prefer
+    //           size: 100,
+    //           color: Colors.grey,
+    //         ),
+    //         SizedBox(height: 16),
+    //         Text(
+    //           'No connections added yet',
+    //           style: TextStyle(
+    //             fontSize: 18,
+    //             color: Colors.grey,
+    //             fontWeight: FontWeight.w500,
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   );
+    // }
 
     // Call loadChartsData() to start listening for real-time changes
     userProvider.loadChartsData();
@@ -77,7 +110,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                   DeviceDimensions.responsiveSize(context) *
                                       0.045,
                               fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                              color: AppColors.appBlueColor,
                               fontFamily: 'Barlow-Bold'),
                         ),
                         Text(
@@ -103,7 +136,7 @@ class _GraphScreenState extends State<GraphScreen> {
                           },
                           style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.zero,
-                              backgroundColor: Colors.black,
+                              backgroundColor: AppColors.appBlueColor,
                               foregroundColor: Colors.white),
                           child: Text(
                             "Personal",
@@ -209,8 +242,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                                 fontSize: DeviceDimensions
                                                         .responsiveSize(
                                                             context) *
-                                                    0.06,
-                                                fontWeight: FontWeight.w500),
+                                                    0.05,
+                                                fontWeight: FontWeight.w600),
                                             softWrap: true,
                                             maxLines: 2,
                                           );
@@ -304,16 +337,19 @@ class _GraphScreenState extends State<GraphScreen> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
                                           children: [
-                                            Text('0',
-                                                style: TextStyle(
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    fontSize: DeviceDimensions
-                                                            .responsiveSize(
-                                                                context) *
-                                                        0.06,
-                                                    fontWeight:
-                                                        FontWeight.w500)),
+                                            Text(
+                                              '0',
+                                              style: TextStyle(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  fontSize: DeviceDimensions
+                                                          .responsiveSize(
+                                                              context) *
+                                                      0.05,
+                                                  fontWeight: FontWeight.w600),
+                                              softWrap: true,
+                                              maxLines: 2,
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -512,7 +548,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Row(
                                     children: [
-                                      Text('82',
+                                      Text('0',
                                           style: TextStyle(
                                               fontSize: DeviceDimensions
                                                       .responsiveSize(context) *
@@ -527,7 +563,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                           0.05,
                                   width: DeviceDimensions.screenWidth(context) *
                                       0.3,
-                                  child: CardTapsChart(),
+                                  child: Icon(Icons.trending_up),
+                                  //child: CardTapsChart(),
                                 ),
                                 Expanded(
                                   child: Padding(
@@ -578,96 +615,182 @@ class _GraphScreenState extends State<GraphScreen> {
                         SizedBox(
                             width:
                                 DeviceDimensions.screenWidth(context) * 0.025),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/full-screen-graph',
-                              arguments: _buildGraph4(),
-                            );
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.white),
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.17,
-                            width: DeviceDimensions.screenWidth(context) * 0.45,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Text('166',
-                                            style: TextStyle(
-                                                fontSize: DeviceDimensions
-                                                        .responsiveSize(
-                                                            context) *
-                                                    0.05,
-                                                fontWeight: FontWeight.w600)),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.05,
-                                    width:
-                                        DeviceDimensions.screenWidth(context) *
-                                            0.3,
-                                    child: const AddedConnectionChart(),
-                                  ),
-                                  Expanded(
-                                    child: Row(
-                                      children: [
-                                        // SvgPicture.asset(
-                                        //     'assets/icons/new_contact.svg'),
-                                        Icon(
-                                          Icons.person_add,
-                                          color: Colors.grey.shade700,
-                                          size: DeviceDimensions.responsiveSize(
-                                                  context) *
-                                              0.06,
+                        isEmpty
+                            ? Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white),
+                                height: DeviceDimensions.screenHeight(context) *
+                                    0.17,
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.45,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children: [
+                                            AddedConnectionsCountWidget(
+                                              totalConnections:
+                                                  totalConnections,
+                                            ),
+                                          ],
                                         ),
+                                      ),
+                                      SizedBox(
+                                        height: DeviceDimensions.screenHeight(
+                                                context) *
+                                            0.05,
+                                        width: DeviceDimensions.screenWidth(
+                                                context) *
+                                            0.3,
+                                        child: Icon(Icons.trending_up),
+                                      ),
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            // SvgPicture.asset(
+                                            //     'assets/icons/new_contact.svg'),
+                                            Icon(
+                                              Icons.person_add,
+                                              color: Colors.grey.shade700,
+                                              size: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.06,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
+                                              child: Text(
+                                                'New Contact',
+                                                overflow: TextOverflow.clip,
+                                                maxLines: 2,
+                                                style: TextStyle(
+                                                    fontSize: DeviceDimensions
+                                                            .responsiveSize(
+                                                                context) *
+                                                        0.032),
+                                              ),
+                                            ),
+                                            const Spacer(),
+                                            GestureDetector(
+                                              onTapDown:
+                                                  (TapDownDetails details) {
+                                                _showPopupMenu(
+                                                    context,
+                                                    details.globalPosition,
+                                                    'The count of total connections that you are connected with');
+                                              },
+                                              child: SvgPicture.asset(
+                                                  'assets/icons/info.svg'),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/full-screen-graph',
+                                    arguments: _buildGraph4(),
+                                  );
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white),
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.17,
+                                  width: DeviceDimensions.screenWidth(context) *
+                                      0.45,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
                                         Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8.0),
-                                          child: Text(
-                                            'New Contact',
-                                            overflow: TextOverflow.clip,
-                                            maxLines: 2,
-                                            style: TextStyle(
-                                                fontSize: DeviceDimensions
-                                                        .responsiveSize(
-                                                            context) *
-                                                    0.032),
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            children: [
+                                              AddedConnectionsCountWidget(
+                                                totalConnections:
+                                                    totalConnections,
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        const Spacer(),
-                                        GestureDetector(
-                                          onTapDown: (TapDownDetails details) {
-                                            _showPopupMenu(
-                                                context,
-                                                details.globalPosition,
-                                                'The count of total connections that you are connected with');
-                                          },
-                                          child: SvgPicture.asset(
-                                              'assets/icons/info.svg'),
+                                        SizedBox(
+                                          height: DeviceDimensions.screenHeight(
+                                                  context) *
+                                              0.05,
+                                          width: DeviceDimensions.screenWidth(
+                                                  context) *
+                                              0.3,
+                                          child: const ConnectionChart(),
                                         ),
+                                        Expanded(
+                                          child: Row(
+                                            children: [
+                                              // SvgPicture.asset(
+                                              //     'assets/icons/new_contact.svg'),
+                                              Icon(
+                                                Icons.person_add,
+                                                color: Colors.grey.shade700,
+                                                size: DeviceDimensions
+                                                        .responsiveSize(
+                                                            context) *
+                                                    0.06,
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8.0),
+                                                child: Text(
+                                                  'New Contact',
+                                                  overflow: TextOverflow.clip,
+                                                  maxLines: 2,
+                                                  style: TextStyle(
+                                                      fontSize: DeviceDimensions
+                                                              .responsiveSize(
+                                                                  context) *
+                                                          0.032),
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              GestureDetector(
+                                                onTapDown:
+                                                    (TapDownDetails details) {
+                                                  _showPopupMenu(
+                                                      context,
+                                                      details.globalPosition,
+                                                      'The count of total connections that you are connected with');
+                                                },
+                                                child: SvgPicture.asset(
+                                                    'assets/icons/info.svg'),
+                                              ),
+                                            ],
+                                          ),
+                                        )
                                       ],
                                     ),
-                                  )
-                                ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -750,7 +873,8 @@ class _GraphScreenState extends State<GraphScreen> {
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
+                                  color:
+                                      AppColors.appBlueColor.withOpacity(0.2),
                                   spreadRadius: 2,
                                   blurRadius: 8,
                                   offset: Offset(0, 5)),
@@ -804,7 +928,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                   'Total Views',
                                   style: TextStyle(
                                     overflow: TextOverflow.ellipsis,
-                                    color: Colors.black,
+                                    color: AppColors.textColorBlue,
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
                                         0.025,
@@ -928,7 +1052,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                   borderRadius: BorderRadius.circular(20),
                                   boxShadow: [
                                     BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
+                                        color: AppColors.appBlueColor
+                                            .withOpacity(0.2),
                                         spreadRadius: 2,
                                         blurRadius: 8,
                                         offset: Offset(0, 5)),
@@ -1104,7 +1229,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(35),
-                                          color: Colors.black54,
+                                          color: AppColors.appBlueColor,
                                           image: DecorationImage(
                                             image: CachedNetworkImageProvider(
                                                 appItem.icon),
@@ -1165,205 +1290,210 @@ class _GraphScreenState extends State<GraphScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(12.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 2,
-                                  blurRadius: 8,
-                                  offset: Offset(0, 5)),
-                            ]),
-                        height: DeviceDimensions.screenHeight(context) * 0.45,
-                        width: DeviceDimensions.screenWidth(context) * 0.9,
-                        child: Padding(
+                      child: Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.25,
-                            width: DeviceDimensions.screenWidth(context) * 0.7,
-                            // child: FullCardTapsChart(
-                            //   tapsPerDay: tapsPerDay,
-                            // ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Lottie.asset(
+                                  'assets/animations/card_animation.json'),
+                              Text('Order your NFC card first',
+                                  style: TextStyle(
+                                      fontSize: DeviceDimensions.responsiveSize(
+                                              context) *
+                                          0.05,
+                                      fontWeight: FontWeight.w600)),
+                            ],
+                          )
+
+                          // child: SizedBox(
+                          //   height:
+                          //       DeviceDimensions.screenHeight(context) * 0.25,
+                          //   width: DeviceDimensions.screenWidth(context) * 0.7,
+                          //   // child: FullCardTapsChart(
+                          //   //   tapsPerDay: tapsPerDay,
+                          //   // ),
+                          // ),
                           ),
-                        ),
-                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12.0, vertical: 2),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Total number of taps with your NFC Card',
-                          style: TextStyle(
-                              overflow: TextOverflow.ellipsis,
-                              fontSize:
-                                  DeviceDimensions.responsiveSize(context) *
-                                      0.045,
-                              fontWeight: FontWeight.w500),
-                          softWrap: true,
-                          maxLines: 2,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12.0),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  // '${totalTaps.toInt()} Taps',
-                                  '',
-                                  style: TextStyle(
-                                      overflow: TextOverflow.ellipsis,
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.098,
-                                      fontWeight: FontWeight.w500),
-                                  softWrap: true,
-                                  maxLines: 2,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
-                              ),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Total Taps',
-                                  style: TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    color: AppColors.greyText,
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.022,
-                                  ),
-                                  softWrap: true,
-                                  maxLines: 2,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12.0, vertical: 6),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Last Updated Yesterday',
-                                  style: TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.035,
-                                    color: AppColors.greyText,
-                                  ),
-                                  softWrap: true,
-                                  maxLines: 2,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Spacer(),
-                        Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(right: 12),
-                              width:
-                                  DeviceDimensions.screenWidth(context) * 0.4,
-                              height:
-                                  DeviceDimensions.screenHeight(context) * 0.12,
-                              //color: Colors.red,
-                              child: SvgPicture.asset(
-                                'assets/icons/barchart_black.svg',
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.15,
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Text('Taps: 53 %',
-                                    style: TextStyle(
-                                        color: Colors.lightGreen,
-                                        fontSize:
-                                            DeviceDimensions.responsiveSize(
-                                                    context) *
-                                                0.03)),
-                                Icon(
-                                  Icons.trending_up,
-                                  color: Colors.lightGreen,
-                                ),
-                              ],
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    const Divider(),
-                    Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Card Taps Overview',
-                          style: TextStyle(
-                              overflow: TextOverflow.ellipsis,
-                              fontSize:
-                                  DeviceDimensions.responsiveSize(context) *
-                                      0.055,
-                              fontWeight: FontWeight.w500),
-                          softWrap: true,
-                          maxLines: 2,
-                        ),
-                      ),
-                    ),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: socialApps.length,
-                        itemBuilder: (context, index) {
-                          final appItem = socialApps[index];
-                          return Padding(
-                            padding: EdgeInsets.only(left: 20.0, right: 10),
-                            child: ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: Container(
-                                width: 35,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(35),
-                                  color: Colors.black54,
-                                  image: DecorationImage(
-                                      image: CachedNetworkImageProvider(
-                                          appItem.icon),
-                                      fit: BoxFit.cover),
-                                ),
-                              ),
-                              title: Text(appItem.name),
-                              trailing: Text('0 Taps',
-                                  style: TextStyle(
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.03)),
-                            ),
-                          );
-                        }),
-                    SizedBox(
-                      height: DeviceDimensions.screenHeight(context) * 0.02,
-                    )
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(
+                    //       horizontal: 12.0, vertical: 2),
+                    //   child: Align(
+                    //     alignment: Alignment.centerLeft,
+                    //     child: Text(
+                    //       'Total number of taps with your NFC Card',
+                    //       style: TextStyle(
+                    //           overflow: TextOverflow.ellipsis,
+                    //           fontSize:
+                    //               DeviceDimensions.responsiveSize(context) *
+                    //                   0.045,
+                    //           fontWeight: FontWeight.w500),
+                    //       softWrap: true,
+                    //       maxLines: 2,
+                    //     ),
+                    //   ),
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     Column(
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         Padding(
+                    //           padding:
+                    //               const EdgeInsets.symmetric(horizontal: 12.0),
+                    //           child: Align(
+                    //             alignment: Alignment.centerLeft,
+                    //             child: Text(
+                    //               // '${totalTaps.toInt()} Taps',
+                    //               '',
+                    //               style: TextStyle(
+                    //                   overflow: TextOverflow.ellipsis,
+                    //                   fontSize: DeviceDimensions.responsiveSize(
+                    //                           context) *
+                    //                       0.098,
+                    //                   fontWeight: FontWeight.w500),
+                    //               softWrap: true,
+                    //               maxLines: 2,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         Padding(
+                    //           padding: const EdgeInsets.symmetric(
+                    //             horizontal: 12.0,
+                    //           ),
+                    //           child: Align(
+                    //             alignment: Alignment.centerLeft,
+                    //             child: Text(
+                    //               'Total Taps',
+                    //               style: TextStyle(
+                    //                 overflow: TextOverflow.ellipsis,
+                    //                 color: AppColors.greyText,
+                    //                 fontSize: DeviceDimensions.responsiveSize(
+                    //                         context) *
+                    //                     0.022,
+                    //               ),
+                    //               softWrap: true,
+                    //               maxLines: 2,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         Padding(
+                    //           padding: const EdgeInsets.symmetric(
+                    //               horizontal: 12.0, vertical: 6),
+                    //           child: Align(
+                    //             alignment: Alignment.centerLeft,
+                    //             child: Text(
+                    //               'Last Updated Yesterday',
+                    //               style: TextStyle(
+                    //                 overflow: TextOverflow.ellipsis,
+                    //                 fontSize: DeviceDimensions.responsiveSize(
+                    //                         context) *
+                    //                     0.035,
+                    //                 color: AppColors.greyText,
+                    //               ),
+                    //               softWrap: true,
+                    //               maxLines: 2,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //     Spacer(),
+                    //     Column(
+                    //       children: [
+                    //         Container(
+                    //           padding: EdgeInsets.only(right: 12),
+                    //           width:
+                    //               DeviceDimensions.screenWidth(context) * 0.4,
+                    //           height:
+                    //               DeviceDimensions.screenHeight(context) * 0.12,
+                    //           //color: Colors.red,
+                    //           child: SvgPicture.asset(
+                    //             'assets/icons/barchart_black.svg',
+                    //             height: DeviceDimensions.screenHeight(context) *
+                    //                 0.15,
+                    //           ),
+                    //         ),
+                    //         Row(
+                    //           children: [
+                    //             Text('Taps: 53 %',
+                    //                 style: TextStyle(
+                    //                     color: Colors.lightGreen,
+                    //                     fontSize:
+                    //                         DeviceDimensions.responsiveSize(
+                    //                                 context) *
+                    //                             0.03)),
+                    //             Icon(
+                    //               Icons.trending_up,
+                    //               color: Colors.lightGreen,
+                    //             ),
+                    //           ],
+                    //         )
+                    //       ],
+                    //     )
+                    //   ],
+                    // ),
+                    // const Divider(),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(12.0),
+                    //   child: Align(
+                    //     alignment: Alignment.centerLeft,
+                    //     child: Text(
+                    //       'Card Taps Overview',
+                    //       style: TextStyle(
+                    //           overflow: TextOverflow.ellipsis,
+                    //           fontSize:
+                    //               DeviceDimensions.responsiveSize(context) *
+                    //                   0.055,
+                    //           fontWeight: FontWeight.w500),
+                    //       softWrap: true,
+                    //       maxLines: 2,
+                    //     ),
+                    //   ),
+                    // ),
+
+                    // ListView.builder(
+                    //     shrinkWrap: true,
+                    //     physics: NeverScrollableScrollPhysics(),
+                    //     itemCount: socialApps.length,
+                    //     itemBuilder: (context, index) {
+                    //       final appItem = socialApps[index];
+                    //       return Padding(
+                    //         padding: EdgeInsets.only(left: 20.0, right: 10),
+                    //         child: ListTile(
+                    //           contentPadding: EdgeInsets.zero,
+                    //           leading: Container(
+                    //             width: 35,
+                    //             height: 35,
+                    //             decoration: BoxDecoration(
+                    //               borderRadius: BorderRadius.circular(35),
+                    //               color: Colors.black54,
+                    //               image: DecorationImage(
+                    //                   image: CachedNetworkImageProvider(
+                    //                       appItem.icon),
+                    //                   fit: BoxFit.cover),
+                    //             ),
+                    //           ),
+                    //           title: Text(appItem.name),
+                    //           trailing: Text('0 Taps',
+                    //               style: TextStyle(
+                    //                   fontSize: DeviceDimensions.responsiveSize(
+                    //                           context) *
+                    //                       0.03)),
+                    //         ),
+                    //       );
+                    //     }),
+
+                    // SizedBox(
+                    //   height: DeviceDimensions.screenHeight(context) * 0.02,
+                    // )
                   ],
                 ),
               ),
@@ -1375,9 +1505,23 @@ class _GraphScreenState extends State<GraphScreen> {
   }
 
   Widget _buildGraph4() {
-    final addedconnections =
+    final addedConnections =
         Provider.of<ConnectionProvider>(context, listen: false)
             .addedConnections;
+    // Sort by timestamp in descending order to show the most recent connections
+    final recentConnections = [...addedConnections]
+      ..sort((a, b) => b.timestamp.compareTo(a.timestamp))
+      ..take(2)
+      ..toList();
+
+    // final recentConnections = addedConnections
+    //     .sorted((a, b) =>
+    //         b.timestamp.compareTo(a.timestamp)) // Sort by newest first
+    //     .take(5) // Take only the first 5 connections
+    //     .toList(); // Convert back to a list
+
+    final totalConnections = addedConnections.length;
+
     return SingleChildScrollView(
       child: Container(
         color: AppColors.screenBackground,
@@ -1390,64 +1534,6 @@ class _GraphScreenState extends State<GraphScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Column(children: [
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                spreadRadius: 2,
-                                blurRadius: 8,
-                                offset: Offset(0, 5)),
-                          ]),
-                      height: DeviceDimensions.screenHeight(context) * 0.45,
-                      width: DeviceDimensions.screenWidth(context) * 0.9,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: SizedBox(
-                          height: DeviceDimensions.screenHeight(context) * 0.3,
-                          width: DeviceDimensions.screenWidth(context) * 0.7,
-                          child: const AddedConnectionChart(),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 10,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          width:
-                              DeviceDimensions.responsiveSize(context) * 0.04,
-                          height:
-                              DeviceDimensions.responsiveSize(context) * 0.04,
-                          color: const Color.fromARGB(255, 69, 69, 69),
-                        ),
-                        Text(
-                          '2023 Year',
-                        ),
-                        Container(
-                          width:
-                              DeviceDimensions.responsiveSize(context) * 0.04,
-                          height:
-                              DeviceDimensions.responsiveSize(context) * 0.04,
-                          color: const Color.fromARGB(255, 94, 45, 209),
-                        ),
-                        Text('2024 Year',
-                            style: TextStyle(
-                              color: const Color.fromARGB(255, 94, 45, 209),
-                            )),
-                      ],
-                    ),
-                  ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Align(
@@ -1464,56 +1550,107 @@ class _GraphScreenState extends State<GraphScreen> {
                       ),
                     ),
                   ),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: addedconnections.length,
-                      itemBuilder: (context, index) {
-                        final addedConnection = addedconnections[index];
-                        return Padding(
-                          padding: EdgeInsets.only(left: 20.0, right: 10),
-                          child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            leading: Container(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(35),
-                                color: Colors.black54,
-                                image: DecorationImage(
-                                    image: CachedNetworkImageProvider(
-                                        addedConnection.profileImage),
-                                    fit: BoxFit.cover),
-                              ),
-                            ),
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                    "${addedConnection.firstName} ${addedConnection.lastName}"),
-                                Row(
-                                  children: [
-                                    Text(
-                                      addedConnection.designation,
-                                      style: TextStyle(
-                                        fontSize:
-                                            DeviceDimensions.responsiveSize(
-                                                    context) *
-                                                0.040,
-                                        fontFamily: 'Barlow-Regular',
-                                        color: const Color(0xFF909091),
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 2),
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        'Total connections that you have added',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.045,
+                            fontWeight: FontWeight.w500),
+                        softWrap: true,
+                        maxLines: 2,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                                color: AppColors.appBlueColor.withOpacity(0.2),
+                                spreadRadius: 2,
+                                blurRadius: 8,
+                                offset: Offset(0, 5)),
+                          ]),
+                      height: DeviceDimensions.screenHeight(context) * 0.45,
+                      width: DeviceDimensions.screenWidth(context) * 0.9,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: SizedBox(
+                          height: DeviceDimensions.screenHeight(context) * 0.3,
+                          width: DeviceDimensions.screenWidth(context) * 0.7,
+                          child: const AddedConnectionChart(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Divider(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        //itemCount: recentConnections.length,
+                        itemCount: addedConnections.length < 5
+                            ? addedConnections.length
+                            : 5,
+                        itemBuilder: (context, index) {
+                          final recentConnection = recentConnections[index];
+                          //final addedConnection = addedConnections[index];
+                          return Padding(
+                            padding: EdgeInsets.only(left: 20.0, right: 10),
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: Container(
+                                width: 35,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(35),
+                                  color: AppColors.appBlueColor,
+                                  image: DecorationImage(
+                                      image: CachedNetworkImageProvider(
+                                          recentConnection.profileImage),
+                                      fit: BoxFit.cover),
                                 ),
-                              ],
+                              ),
+                              title: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      "${recentConnection.firstName} ${recentConnection.lastName}"),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        recentConnection.designation,
+                                        style: TextStyle(
+                                          fontSize:
+                                              DeviceDimensions.responsiveSize(
+                                                      context) *
+                                                  0.040,
+                                          fontFamily: 'Barlow-Regular',
+                                          color: const Color(0xFF909091),
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              //trailing: Icon(Icons.arrow_right)
                             ),
-                            //trailing: Icon(Icons.arrow_right)
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                  ),
                   SizedBox(
                     height: DeviceDimensions.screenHeight(context) * 0.02,
                   )

@@ -3,6 +3,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/utils/ui_mode_helper.dart';
 
 class CustomCurvedNavigationBar extends StatefulWidget {
@@ -46,7 +47,7 @@ class _CustomCurvedNavigationBarState extends State<CustomCurvedNavigationBar> {
         _buildNavBarItem("assets/icons/setting.svg", 4),
       ],
       color: Colors.white,
-      buttonBackgroundColor: Colors.black,
+      buttonBackgroundColor: AppColors.appBlueColor,
       backgroundColor: Colors.transparent,
       animationCurve: Curves.easeInOut,
       animationDuration: const Duration(milliseconds: 600),
@@ -63,7 +64,7 @@ class _CustomCurvedNavigationBarState extends State<CustomCurvedNavigationBar> {
   Widget _buildNavBarItem(String asset, int index) {
     return SvgPicture.asset(
       asset,
-      color: _selectedIndex == index ? Colors.white : Colors.black,
+      color: _selectedIndex == index ? Colors.white : AppColors.appBlueColor,
       height: _selectedIndex == index ? 40.0 : 35.0,
       width: _selectedIndex == index ? 40.0 : 35.0,
     );

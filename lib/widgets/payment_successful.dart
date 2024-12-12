@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 
 class PaymentSuccessful {
@@ -11,7 +12,7 @@ class PaymentSuccessful {
       builder: (BuildContext context) {
         return Center(
           child: Container(
-            color: Colors.black54,
+            color: AppColors.appBlueColor,
             child: Dialog(
               insetPadding: EdgeInsets.zero,
               backgroundColor: Colors.white,
@@ -45,7 +46,7 @@ class PaymentSuccessful {
                             fontWeight: FontWeight.w500,
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.036,
-                            color: Colors.black),
+                            color: AppColors.textColorBlue),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -60,7 +61,7 @@ class PaymentSuccessful {
                                 context, "/order-details");
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
+                            backgroundColor: AppColors.appBlueColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),

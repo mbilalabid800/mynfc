@@ -45,7 +45,7 @@ class ChooseShippingAddress extends StatelessWidget {
                                     width: 1.5,
                                     color: provider.selectedShippingAddress ==
                                             address
-                                        ? const Color(0xFF000000)
+                                        ? AppColors.appBlueColor
                                         : const Color(0xFFD7D9DD),
                                   ),
                                 ),
@@ -54,7 +54,7 @@ class ChooseShippingAddress extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Radio(
-                                        activeColor: Colors.black,
+                                        activeColor: AppColors.appBlueColor,
                                         value: address,
                                         groupValue:
                                             provider.selectedShippingAddress,
@@ -107,9 +107,9 @@ class ChooseShippingAddress extends StatelessWidget {
                                                   .shippingAddress[index]);
                                         },
                                         child: SvgPicture.asset(
-                                          "assets/icons/editfield.svg",
-                                          height: 23,
-                                        ),
+                                            "assets/icons/editfield.svg",
+                                            height: 23,
+                                            color: AppColors.appBlueColor),
                                       ),
                                       SizedBox(
                                           width: DeviceDimensions.screenWidth(
@@ -121,9 +121,9 @@ class ChooseShippingAddress extends StatelessWidget {
                                               .deleteShippingAddress(address);
                                         },
                                         child: const Icon(
-                                          Icons.delete_outline_outlined,
-                                          size: 28,
-                                        ),
+                                            Icons.delete_outline_outlined,
+                                            size: 28,
+                                            color: AppColors.appBlueColor),
                                       )
                                     ],
                                   ),
@@ -144,7 +144,7 @@ class ChooseShippingAddress extends StatelessWidget {
                           Navigator.pushNamed(context, "/add-shipping-address");
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
+                          backgroundColor: AppColors.buttonColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),

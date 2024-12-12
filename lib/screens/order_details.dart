@@ -313,11 +313,11 @@ class _OrderDetailsState extends State<OrderDetails> {
               width: 25,
               height: 25,
               decoration: BoxDecoration(
-                color: isComplete ? Colors.black : Colors.grey[300],
+                color: isComplete ? AppColors.appBlueColor : Colors.grey[300],
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: isComplete
-                      ? Colors.black
+                      ? AppColors.appBlueColor
                       : Colors.grey[300] ?? Colors.grey,
                   width: 2.0,
                 ),
@@ -334,7 +334,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                 height: 50,
                 color: isBeforeLast
                     ? Colors.grey[300]
-                    : (isComplete ? Colors.black : Colors.grey[300]),
+                    : (isComplete ? AppColors.appBlueColor : Colors.grey[300]),
               )
           ],
         ),
@@ -369,7 +369,7 @@ class _OrderDetailsState extends State<OrderDetails> {
           child: SvgPicture.asset(
             icon,
             width: 28,
-            color: isComplete ? Colors.black : Colors.grey,
+            color: isComplete ? AppColors.appBlueColor : Colors.grey,
           ),
         ),
       ],

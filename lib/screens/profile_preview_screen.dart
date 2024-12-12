@@ -72,7 +72,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                           radius: 70,
                           child: CircleAvatar(
                             radius: 68,
-                            backgroundColor: Colors.black54,
+                            backgroundColor: AppColors.appBlueColor,
                             child: CachedNetworkImage(
                               imageUrl: userProvider.imageUrl!,
                               imageBuilder: (context, imageProvider) =>
@@ -343,7 +343,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                                       height: 54,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(35),
-                                        color: Colors.black54,
+                                        color: AppColors.appBlueColor,
                                         image: DecorationImage(
                                           image: CachedNetworkImageProvider(
                                               platform.icon),

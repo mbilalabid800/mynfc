@@ -341,7 +341,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           horizontal: DeviceDimensions.screenWidth(context) * 0.24,
           vertical: 12,
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.appBlueColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         ),

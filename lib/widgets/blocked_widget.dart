@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/screens/auth/login_screen.dart';
 
@@ -23,7 +24,7 @@ class Blocked {
           },
           child: Center(
             child: Container(
-              color: Colors.black87,
+              color: AppColors.appBlueColor,
               child: Dialog(
                 insetPadding: EdgeInsets.zero,
                 backgroundColor: Colors.white,
@@ -63,7 +64,7 @@ class Blocked {
                               fontSize:
                                   DeviceDimensions.responsiveSize(context) *
                                       0.038,
-                              color: Colors.black),
+                              color: AppColors.textColorBlue),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -79,7 +80,7 @@ class Blocked {
                                   context, "/contact-us-screen");
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black,
+                              backgroundColor: AppColors.appBlueColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/employee_model.dart';
 import 'package:nfc_app/provider/employee_provider.dart';
 import 'package:nfc_app/widgets/add_employee_widget.dart';
@@ -109,7 +110,7 @@ class AddEmployeeState extends State<AddEmployee> {
                           const Text(
                             'Note',
                             style: TextStyle(
-                                color: Colors.black54,
+                                color: AppColors.textColorBlue,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Barlow-Bold',
                                 fontSize: 18),
@@ -208,7 +209,7 @@ class AddEmployeeState extends State<AddEmployee> {
                                           Text(
                                             "• ${employee.email}",
                                             style: TextStyle(
-                                                color: Colors.black,
+                                                color: AppColors.textColorBlue,
                                                 fontWeight: FontWeight.w500,
                                                 fontFamily: 'Barlow-Regular',
                                                 fontSize: 15),
@@ -216,7 +217,7 @@ class AddEmployeeState extends State<AddEmployee> {
                                           Text(
                                             "• ${employee.phone}",
                                             style: TextStyle(
-                                                color: Colors.black,
+                                                color: AppColors.textColorBlue,
                                                 fontWeight: FontWeight.w500,
                                                 fontFamily: 'Barlow-Regular',
                                                 fontSize: 15),
@@ -224,7 +225,7 @@ class AddEmployeeState extends State<AddEmployee> {
                                           Text(
                                             "• ${employee.designation}",
                                             style: TextStyle(
-                                                color: Colors.black,
+                                                color: AppColors.textColorBlue,
                                                 fontWeight: FontWeight.w500,
                                                 fontFamily: 'Barlow-Regular',
                                                 fontSize: 15),
@@ -303,7 +304,7 @@ class AddEmployeeState extends State<AddEmployee> {
                             child: TextButton(
                               onPressed: submitForm,
                               style: TextButton.styleFrom(
-                                backgroundColor: Colors.black,
+                                backgroundColor: AppColors.buttonColor,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 ),

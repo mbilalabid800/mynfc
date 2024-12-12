@@ -1,6 +1,7 @@
 // lib/widgets/time_frame_list.dart
 
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 
 class TimeFrameList extends StatefulWidget {
@@ -48,7 +49,7 @@ class _TimeFrameListState extends State<TimeFrameList> {
                 margin: const EdgeInsets.symmetric(horizontal: 5),
                 decoration: BoxDecoration(
                   color: selectedTimeFrame == timeFrames[index]
-                      ? Colors.black
+                      ? AppColors.appBlueColor
                       : Colors.grey[300],
                   borderRadius: BorderRadius.circular(25),
                 ),
@@ -58,7 +59,7 @@ class _TimeFrameListState extends State<TimeFrameList> {
                     style: TextStyle(
                       color: selectedTimeFrame == timeFrames[index]
                           ? Colors.white
-                          : Colors.black,
+                          : AppColors.appBlueColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/resent_email.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
@@ -119,7 +120,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                                     DeviceDimensions.responsiveSize(context) *
                                         0.038,
                                 fontFamily: 'Barlow-Regular',
-                                color: Colors.black),
+                                color: AppColors.appBlueColor),
                           ),
                         ],
                       ),

@@ -31,7 +31,8 @@ class _ChatScreenState extends State<ChatScreen> {
           onPressed: () {
             Navigator.pushNamed(context, '/recent-connected-list');
           },
-          backgroundColor: Colors.black,
+          // backgroundColor: Colors.black,
+          backgroundColor: AppColors.appBlueColor,
           foregroundColor: Colors.white,
           tooltip: 'New Chat',
           shape: CircleBorder(),

@@ -139,7 +139,7 @@ class _SettingsState extends State<Settings> {
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: AppColors.textColorBlue,
                         ),
                       ),
                       GestureDetector(
@@ -160,7 +160,8 @@ class _SettingsState extends State<Settings> {
                               const PopupMenuItem(
                                 child: Text(
                                   'Coming Soon',
-                                  style: TextStyle(color: Colors.black),
+                                  style:
+                                      TextStyle(color: AppColors.textColorBlue),
                                 ),
                               ),
                             ],
@@ -297,7 +298,7 @@ class _SettingsState extends State<Settings> {
                                   0.045,
                               child: CircleAvatar(
                                 radius: 40,
-                                backgroundColor: Colors.black54,
+                                backgroundColor: AppColors.appBlueColor,
                                 child: CachedNetworkImage(
                                   imageUrl: userProvider.imageUrl!,
                                   imageBuilder: (context, imageProvider) =>
@@ -468,7 +469,7 @@ class _SettingsState extends State<Settings> {
                                   child: FittedBox(
                                     fit: BoxFit.fill,
                                     child: Switch(
-                                      activeTrackColor: Colors.black,
+                                      activeTrackColor: AppColors.appBlueColor,
                                       value: biometricProvider
                                           .isFingerprintEnabled,
                                       onChanged: (value) async {

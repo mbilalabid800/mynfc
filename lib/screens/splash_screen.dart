@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/utils/ui_mode_helper.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
@@ -171,7 +172,7 @@ class _SplashScreenState extends State<SplashScreen>
                                   0.010,
                               decoration: BoxDecoration(
                                 color: _currentDot == index
-                                    ? Colors.black
+                                    ? AppColors.appBlueColor
                                     : Colors.grey,
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
@@ -214,7 +215,7 @@ class _SplashScreenState extends State<SplashScreen>
                             Navigator.pushNamed(context, '/login-screen');
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
+                            backgroundColor: AppColors.appBlueColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),

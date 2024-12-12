@@ -105,7 +105,7 @@ class ConnectionsRequest extends StatelessWidget {
       height: 58,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(35),
-        color: Colors.black54,
+        color: AppColors.appBlueColor,
         image: DecorationImage(
           image: CachedNetworkImageProvider(
               profileImageUrl.isNotEmpty ? profileImageUrl : defaultImage),
@@ -160,7 +160,7 @@ class ConnectionsRequest extends StatelessWidget {
         _buildActionButton(
           context,
           label: "Confirm",
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.appBlueColor,
           textColor: Colors.white,
           onPressed: () {
             // Add confirm action here
@@ -171,8 +171,8 @@ class ConnectionsRequest extends StatelessWidget {
           context,
           label: "Cancel",
           backgroundColor: Colors.white,
-          textColor: Colors.black,
-          borderColor: Colors.black,
+          textColor: AppColors.appBlueColor,
+          borderColor: AppColors.appBlueColor,
           onPressed: () {
             // Add cancel action here
           },

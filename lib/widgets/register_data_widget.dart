@@ -179,8 +179,8 @@ class _RegisterFormState extends State<RegisterData> {
                                               AppColors.errorFieldBorderColor)),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15),
-                                    borderSide:
-                                        const BorderSide(color: Colors.black),
+                                    borderSide: const BorderSide(
+                                        color: AppColors.appBlueColor),
                                   ),
                                 ),
                                 validator: (value) {
@@ -262,8 +262,8 @@ class _RegisterFormState extends State<RegisterData> {
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
-                                    borderSide:
-                                        const BorderSide(color: Colors.black),
+                                    borderSide: const BorderSide(
+                                        color: AppColors.appBlueColor),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
@@ -376,8 +376,8 @@ class _RegisterFormState extends State<RegisterData> {
                                               AppColors.errorFieldBorderColor)),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
-                                    borderSide:
-                                        const BorderSide(color: Colors.black),
+                                    borderSide: const BorderSide(
+                                        color: AppColors.appBlueColor),
                                   ),
                                 ),
                                 validator: (value) {

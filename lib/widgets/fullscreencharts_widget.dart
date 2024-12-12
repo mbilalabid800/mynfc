@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 
 class FullViewsChart extends StatelessWidget {
   const FullViewsChart({
@@ -25,7 +26,7 @@ class FullViewsChart extends StatelessWidget {
               FlSpot(6, 17),
             ],
             isCurved: true,
-            color: Colors.black,
+            color: AppColors.appBlueColor,
             barWidth: 2,
             dotData: FlDotData(show: false),
             belowBarData: BarAreaData(
@@ -63,7 +64,7 @@ class LinkTapChart extends StatelessWidget {
               FlSpot(12, 17),
             ],
             isCurved: true,
-            color: Colors.black,
+            color: AppColors.appBlueColor,
             barWidth: 2,
             dotData: FlDotData(show: false),
             belowBarData: BarAreaData(
@@ -101,7 +102,7 @@ class RateChart extends StatelessWidget {
               FlSpot(4, 2),
             ],
             isCurved: true,
-            color: Colors.black,
+            color: AppColors.appBlueColor,
             barWidth: 2,
             dotData: FlDotData(show: false),
             belowBarData: BarAreaData(
@@ -139,7 +140,7 @@ class NewContactChart extends StatelessWidget {
               FlSpot(12, 17),
             ],
             isCurved: true,
-            color: Colors.black,
+            color: AppColors.appBlueColor,
             barWidth: 2,
             dotData: FlDotData(show: false),
             belowBarData: BarAreaData(

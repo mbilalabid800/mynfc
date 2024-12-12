@@ -164,7 +164,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                     color: AppColors.errorFieldBorderColor)),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(color: Colors.black),
+                              borderSide: const BorderSide(
+                                  color: AppColors.appBlueColor),
                             ),
                           ),
                           validator: (value) {
@@ -217,7 +218,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: const BorderSide(color: Colors.black),
+                              borderSide: const BorderSide(
+                                  color: AppColors.appBlueColor),
                             ),
                             errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
@@ -286,7 +288,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(color: Colors.black),
+                              borderSide: const BorderSide(
+                                  color: AppColors.appBlueColor),
                             ),
                           ),
                           value: selectedSubject,
@@ -370,7 +373,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                     color: AppColors.errorFieldBorderColor)),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(color: Colors.black),
+                              borderSide: const BorderSide(
+                                  color: AppColors.appBlueColor),
                             ),
                           ),
                           validator: (value) {
@@ -397,7 +401,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                 DeviceDimensions.screenWidth(context) * 0.24,
                             vertical: 10,
                           ),
-                          backgroundColor: Colors.black,
+                          backgroundColor: AppColors.appBlueColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25),
                           ),

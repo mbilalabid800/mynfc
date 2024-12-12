@@ -71,8 +71,9 @@ class ProgressRectangle extends StatelessWidget {
       builder: (context, progressProvider, child) {
         return Container(
           decoration: BoxDecoration(
-            color:
-                progressProvider.progress >= index ? Colors.black : Colors.grey,
+            color: progressProvider.progress >= index
+                ? AppColors.appBlueColor
+                : Colors.grey,
             borderRadius: BorderRadius.circular(10),
           ),
           width: DeviceDimensions.screenWidth(context) * 0.05,
@@ -446,7 +447,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                         child: Text(
                           value,
                           style: TextStyle(
-                              color: Colors.black,
+                              color: AppColors.appBlueColor,
                               fontSize:
                                   DeviceDimensions.responsiveSize(context) *
                                       0.03,
@@ -615,7 +616,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                           DeviceDimensions.responsiveSize(context) * 0.035)),
               leading: Radio<int>(
                 value: 1,
-                activeColor: Colors.black,
+                activeColor: AppColors.appBlueColor,
                 groupValue: _connectionType,
                 onChanged: (int? value) {
                   setState(() {
@@ -632,7 +633,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                           DeviceDimensions.responsiveSize(context) * 0.035)),
               leading: Radio<int>(
                 value: 2,
-                activeColor: Colors.black,
+                activeColor: AppColors.appBlueColor,
                 groupValue: _connectionType,
                 onChanged: (int? value) {
                   setState(() {
@@ -829,7 +830,7 @@ class ImageStep extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(double.infinity, 50),
                   disabledBackgroundColor: Colors.grey,
-                  backgroundColor: Colors.black,
+                  backgroundColor: AppColors.appBlueColor,
                   foregroundColor: Colors.white, // Full-width button
                 ), // Disable button if no image is selected
                 child: Text('Save'),

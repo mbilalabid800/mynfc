@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/connections_model.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
@@ -97,7 +98,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                               padding: const EdgeInsets.only(left: 15.0),
                               child: CircleAvatar(
                                 radius: 58,
-                                backgroundColor: Colors.black54,
+                                backgroundColor: AppColors.appBlueColor,
                                 child: CachedNetworkImage(
                                   imageUrl: connectionDetails
                                           .profileImage.isNotEmpty
@@ -361,7 +362,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                     }
                                   },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black,
+                              backgroundColor: AppColors.appBlueColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
@@ -416,13 +417,14 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        isAdded ? Colors.black : Colors.white,
+                                    backgroundColor: isAdded
+                                        ? AppColors.appBlueColor
+                                        : Colors.white,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(30.0),
                                         side: const BorderSide(
-                                          color: Colors.black,
+                                          color: AppColors.appBlueColor,
                                           width: 1.2,
                                         )),
                                     padding: EdgeInsets.zero,
@@ -436,8 +438,9 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                       fontFamily: 'Barlow-Regular',
                                       fontWeight: FontWeight.w600,
                                       letterSpacing: 1,
-                                      color:
-                                          isAdded ? Colors.white : Colors.black,
+                                      color: isAdded
+                                          ? Colors.white
+                                          : AppColors.appBlueColor,
                                     ),
                                   ),
                                 );
@@ -578,7 +581,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(35),
-                                              color: Colors.black54,
+                                              color: AppColors.appBlueColor,
                                               image: DecorationImage(
                                                 image:
                                                     CachedNetworkImageProvider(

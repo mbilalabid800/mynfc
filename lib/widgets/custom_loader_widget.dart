@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +11,7 @@ class DualRingLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: SpinKitDualRing(
-        color: Color.fromARGB(255, 0, 0, 0), // Set your preferred color
+        color: AppColors.appBlueColor, // Set your preferred color
         size: 50.0, // Adjust the size as needed
         duration: Duration(milliseconds: 1200), // Customize the animation speed
       ),
@@ -25,7 +26,7 @@ class SmallThreeBounceLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: SpinKitThreeBounce(
-        color: Color.fromARGB(255, 0, 0, 0), // Set your preferred color
+        color: AppColors.appBlueColor, // Set your preferred color
         size: 30.0, // Adjust the size as needed
         duration: Duration(milliseconds: 1200), // Customize the animation speed
       ),
@@ -40,7 +41,7 @@ class BigThreeBounceLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: SpinKitThreeBounce(
-        color: Color.fromARGB(255, 0, 0, 0), // Set your preferred color
+        color: AppColors.appBlueColor, // Set your preferred color
         size: 40.0, // Adjust the size as needed
         duration: Duration(milliseconds: 1200), // Customize the animation speed
       ),
@@ -55,7 +56,7 @@ class ScreenLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: SpinKitChasingDots(
-        color: Color.fromARGB(255, 0, 0, 0), // Set your preferred color
+        color: AppColors.appBlueColor, // Set your preferred color
         size: 50.0, // Adjust the size as needed
         duration: Duration(milliseconds: 1200), // Customize the animation speed
       ),
@@ -70,7 +71,7 @@ class OrderLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: SpinKitFoldingCube(
-        color: Color.fromARGB(255, 0, 0, 0), // Set your preferred color
+        color: AppColors.appBlueColor, // Set your preferred color
         size: 50.0, // Adjust the size as needed
         duration: Duration(milliseconds: 1200), // Customize the animation speed
       ),
@@ -93,7 +94,7 @@ class ConnectionLoader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SpinKitDualRing(
-            color: Color.fromARGB(255, 0, 0, 0), // Set your preferred color
+            color: AppColors.appBlueColor, // Set your preferred color
             size: 40.0, // Adjust the size as needed
             duration:
                 Duration(milliseconds: 1200), // Customize the animation speed
@@ -107,7 +108,7 @@ class ConnectionLoader extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.w600,
               fontFamily: 'Barlow-Regular',
-              color: Colors.black,
+              color: AppColors.textColorBlue,
             ), // Adjust text style as needed
           ),
         ],
@@ -123,7 +124,7 @@ class CardLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: SpinKitDualRing(
-        color: Color.fromARGB(255, 0, 0, 0), // Set your preferred color
+        color: AppColors.appBlueColor, // Set your preferred color
         size: 50.0, // Adjust the size as needed
         duration: Duration(seconds: 2), // Customize the animation speed
       ),

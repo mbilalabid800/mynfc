@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/loading_state_provider.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
@@ -142,7 +143,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       child: SvgPicture.asset(
                                           'assets/icons/eye2.svg',
-                                          width: 20),
+                                          width: 20,
+                                          color: AppColors.appBlueColor),
                                     ),
                                   ),
                                   Container(
@@ -158,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         fontFamily: 'Barlow-Bold',
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black,
+                                        color: AppColors.textColorBlue,
                                       ),
                                     ),
                                   ),
@@ -175,9 +177,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         shape: BoxShape.circle,
                                       ),
                                       child: SvgPicture.asset(
-                                        'assets/icons/cut2.svg',
-                                        width: 20,
-                                      ),
+                                          'assets/icons/cut2.svg',
+                                          width: 20,
+                                          color: AppColors.appBlueColor),
                                     ),
                                   ),
                                 ],
@@ -218,6 +220,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             .responsiveSize(
                                                                 context) *
                                                         0.049,
+                                                    color:
+                                                        AppColors.textColorBlue,
                                                     fontWeight: FontWeight.w600,
                                                   ),
                                                 ),
@@ -280,7 +284,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         top: 25,
                                         child: CircleAvatar(
                                           radius: 37,
-                                          backgroundColor: Colors.black54,
+                                          backgroundColor:
+                                              AppColors.appBlueColor,
                                           child: CachedNetworkImage(
                                             imageUrl:
                                                 userProvider.imageUrl ?? '',
@@ -386,7 +391,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fit: BoxFit.fill,
                                                 child: Switch(
                                                   activeTrackColor:
-                                                      Colors.black,
+                                                      AppColors.appBlueColor,
                                                   value: userProvider.isPrivate,
                                                   onChanged: (isPrivate) {
                                                     userProvider
@@ -558,7 +563,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               context) *
                                                       0.036,
                                                   fontWeight: FontWeight.w700,
-                                                  color: Colors.black,
+                                                  color:
+                                                      AppColors.textColorBlue,
                                                 ),
                                               ),
                                             ),
@@ -603,8 +609,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w600,
-                                                              color:
-                                                                  Colors.black,
+                                                              color: AppColors
+                                                                  .textColorBlue,
                                                             ),
                                                           ),
                                                         );

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/social_app_model.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
@@ -51,7 +52,7 @@ class ActiveAppsContainer extends StatelessWidget {
                       activeColor: Colors.white,
                       activeTrackColor: const Color(0xFFCEFD4B),
                       inactiveTrackColor: const Color(0xFFEFEFEF),
-                      inactiveThumbColor: Colors.black,
+                      inactiveThumbColor: AppColors.appBlueColor,
                       value: provider.isViewAllActive,
                       onChanged: (value) {
                         provider.toggleViewAll(value);
@@ -134,7 +135,7 @@ class ActiveAppsContainer extends StatelessWidget {
                           height: 35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(35),
-                            color: Colors.black54,
+                            color: AppColors.appBlueColor,
                             image: DecorationImage(
                               image: CachedNetworkImageProvider(appItem.icon),
                               fit: BoxFit.cover,
@@ -155,7 +156,7 @@ class ActiveAppsContainer extends StatelessWidget {
                             activeColor: Colors.white,
                             activeTrackColor: const Color(0xFFCEFD4B),
                             inactiveTrackColor: const Color(0xFFEFEFEF),
-                            inactiveThumbColor: Colors.black,
+                            inactiveThumbColor: AppColors.appBlueColor,
                             value: appItem.isVisible,
                             onChanged: (value) {
                               Provider.of<SocialAppProvider>(context,
