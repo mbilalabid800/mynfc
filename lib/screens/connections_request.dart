@@ -14,7 +14,7 @@ class ConnectionsRequest extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.screenBackground,
-        appBar: const CustomAppBar(title: "Connection Request"),
+        appBar: const CustomAppBar(title: "Connection Requests"),
         body: Consumer<ConnectionProvider>(
           builder: (context, connectionProvider, child) {
             final connectionRequests =
@@ -22,15 +22,19 @@ class ConnectionsRequest extends StatelessWidget {
             return Center(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 20),
-                child: Container(
-                  width: DeviceDimensions.screenWidth(context) * 0.92,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: connectionRequests.isEmpty
-                      ? _buildNoConnectionsPlaceholder()
-                      : _buildConnectionList(context, connectionRequests),
+                child: Column(
+                  children: [
+                    Container(
+                      width: DeviceDimensions.screenWidth(context) * 0.92,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: connectionRequests.isEmpty
+                          ? _buildNoConnectionsPlaceholder()
+                          : _buildConnectionList(context, connectionRequests),
+                    ),
+                  ],
                 ),
               ),
             );
