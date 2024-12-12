@@ -149,7 +149,7 @@ class _RecentConnectedListState extends State<RecentConnectedList> {
                                     height: 41,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(35),
-                                      color: AppColors.appBlueColor,
+                                      color: Colors.black54,
                                       image: DecorationImage(
                                         image: CachedNetworkImageProvider(
                                             connection.profileImage.isNotEmpty
