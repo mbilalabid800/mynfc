@@ -411,7 +411,8 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                     if (isAdded) {
                                       provider.removeConnection(connection);
                                     } else {
-                                      provider.addConnection(connection);
+                                      provider.sendConnectionRequest(
+                                          connection, context);
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(

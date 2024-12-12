@@ -384,8 +384,9 @@ class _RecentConnectedState extends State<RecentConnected> {
                                     ),
                                     trailing: IconButton(
                                       onPressed: () async {
-                                        connectionProvider.addConnection(
-                                            recommendedConnection);
+                                        connectionProvider
+                                            .sendConnectionRequest(
+                                                recommendedConnection, context);
                                         CustomSnackbar().snakBarMessage(context,
                                             '${recommendedConnection.firstName} added successfully!');
                                       },

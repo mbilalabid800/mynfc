@@ -8,6 +8,8 @@ class ConnectionsModel {
   String designation;
   String companyName;
   Timestamp timestamp;
+  bool isRequested;
+  bool isAccepted;
 
   ConnectionsModel({
     required this.uid,
@@ -17,6 +19,8 @@ class ConnectionsModel {
     required this.designation,
     required this.companyName,
     required this.timestamp,
+    this.isRequested = false,
+    this.isAccepted = false,
   });
 
   factory ConnectionsModel.fromFirestore(DocumentSnapshot doc) {
@@ -29,6 +33,8 @@ class ConnectionsModel {
       designation: data['designation'] ?? '',
       companyName: data['company_name'] ?? '',
       timestamp: data['timestamp'] ?? Timestamp.now(),
+      isRequested: data['isRequested'] ?? false,
+      isAccepted: data['isAccepted'] ?? false,
     );
   }
 
@@ -41,6 +47,8 @@ class ConnectionsModel {
       'designation': designation,
       'company_name': companyName,
       'timestamp': timestamp,
+      'isRequested': isRequested,
+      'isAccepted': isAccepted,
     };
   }
 }
