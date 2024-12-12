@@ -1,6 +1,7 @@
 // lib/widgets/time_frame_list.dart
 
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 
 class TimeFrameList extends StatefulWidget {
