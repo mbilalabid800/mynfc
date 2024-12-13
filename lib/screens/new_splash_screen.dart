@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 
 class NewSplashScreen extends StatefulWidget {
   const NewSplashScreen({super.key});
@@ -56,20 +57,23 @@ class _NewSplashScreenState extends State<NewSplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: AnimatedBuilder(
-          animation: _animation,
-          builder: (context, child) {
-            return Transform.scale(
-              scale: _animation.value,
-              child: child,
-            );
-          },
-          child: Image.asset(
-            'assets/splash/nfc-2.png',
-            width: 150,
-            height: 150,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.screenBackground,
+        body: Center(
+          child: AnimatedBuilder(
+            animation: _animation,
+            builder: (context, child) {
+              return Transform.scale(
+                scale: _animation.value,
+                child: child,
+              );
+            },
+            child: Image.asset(
+              'assets/splash/ebsher_splash.png',
+              width: 150,
+              height: 150,
+            ),
           ),
         ),
       ),
