@@ -90,7 +90,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                       width: 80,
                       height: 7.0,
                       decoration: BoxDecoration(
-                        color: const Color(0xFFD7D9DD),
+                        color: AppColors.appBlueColor,
                         borderRadius: BorderRadius.circular(5.0),
                       ),
                     ),
@@ -108,7 +108,8 @@ class _EmailVerifyState extends State<EmailVerify> {
                                     DeviceDimensions.responsiveSize(context) *
                                         0.073,
                                 fontWeight: FontWeight.w600,
-                                fontFamily: 'Barlow-Bold'),
+                                fontFamily: 'Barlow-Bold',
+                                color: AppColors.textColorBlue),
                           ),
                           SizedBox(
                               height: DeviceDimensions.screenHeight(context) *
@@ -120,7 +121,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                                     DeviceDimensions.responsiveSize(context) *
                                         0.038,
                                 fontFamily: 'Barlow-Regular',
-                                color: AppColors.appBlueColor),
+                                color: AppColors.textColorBlue),
                           ),
                         ],
                       ),
@@ -132,17 +133,17 @@ class _EmailVerifyState extends State<EmailVerify> {
                       return Text(
                         provider.email,
                         style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize:
-                              DeviceDimensions.responsiveSize(context) * 0.0473,
-                          fontFamily: 'Barlow-Regular',
-                        ),
+                            fontWeight: FontWeight.w700,
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.0473,
+                            fontFamily: 'Barlow-Regular',
+                            color: AppColors.textColorBlue),
                       );
                     }),
                     SizedBox(
                         height: DeviceDimensions.screenHeight(context) * 0.025),
                     SizedBox(
-                      width: DeviceDimensions.screenWidth(context) * 0.35,
+                      width: DeviceDimensions.screenWidth(context) * 0.8,
                       child: Consumer<ResentButtonProvider>(
                         builder: (context, provider, child) {
                           return ElevatedButton(
@@ -154,7 +155,8 @@ class _EmailVerifyState extends State<EmailVerify> {
                                   }
                                 : null,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF202020),
+                              backgroundColor: AppColors.appBlueColor,
+                              foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.0),
                               ),
@@ -183,6 +185,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                           "Email is wrong??",
                           style: TextStyle(
                             fontFamily: 'Barlow-Regular',
+                            color: AppColors.textColorBlue,
                           ),
                         ),
                         SizedBox(
@@ -198,6 +201,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                             style: TextStyle(
                               fontFamily: 'Barlow-Regular',
                               fontWeight: FontWeight.bold,
+                              color: AppColors.textColorBlue,
                               fontSize:
                                   DeviceDimensions.responsiveSize(context) *
                                       0.040,

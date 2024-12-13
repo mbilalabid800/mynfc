@@ -284,7 +284,8 @@ class _SigninDataState extends State<SigninData> {
                                 prefixIcon: Padding(
                                   padding: const EdgeInsets.all(13.0),
                                   child: SvgPicture.asset(
-                                      "assets/icons/email.svg"),
+                                    "assets/icons/email.svg",
+                                  ),
                                 ),
                                 errorStyle: const TextStyle(
                                   color: AppColors
@@ -300,12 +301,13 @@ class _SigninDataState extends State<SigninData> {
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: const BorderSide(
-                                      color: Color(0xFFA9A9A9)),
+                                      color: AppColors.textFieldBorder),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: const BorderSide(
-                                      color: Color(0xFFA9A9A9)),
+                                    color: AppColors.appBlueColor,
+                                  ),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
@@ -384,12 +386,13 @@ class _SigninDataState extends State<SigninData> {
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: const BorderSide(
-                                      color: Color(0xFFA9A9A9)),
+                                      color: AppColors.textFieldBorder),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: const BorderSide(
-                                      color: Color(0xFFA9A9A9)),
+                                    color: AppColors.appBlueColor,
+                                  ),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),

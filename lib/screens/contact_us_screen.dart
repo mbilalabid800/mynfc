@@ -96,6 +96,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     style: TextStyle(
                       fontFamily: 'Barlow-Bold',
                       fontWeight: FontWeight.bold,
+                      color: AppColors.textColorBlue,
                       fontSize:
                           DeviceDimensions.responsiveSize(context) * 0.055,
                     ),
@@ -110,6 +111,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     style: TextStyle(
                       fontFamily: 'Barlow-Regular',
                       fontWeight: FontWeight.bold,
+                      color: AppColors.textColorBlue,
                       fontSize:
                           DeviceDimensions.responsiveSize(context) * 0.033,
                     ),
@@ -430,6 +432,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     style: TextStyle(
                       fontFamily: 'Barlow-Regular',
                       fontWeight: FontWeight.w600,
+                      color: AppColors.textColorBlue,
                       fontSize:
                           DeviceDimensions.responsiveSize(context) * 0.045,
                     ),

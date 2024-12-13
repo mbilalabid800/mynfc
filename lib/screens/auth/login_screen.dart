@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen>
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(25),
                         ),
-                        labelColor: AppColors.textColorBlue,
+                        labelColor: AppColors.appOrangeColor,
                         labelStyle: TextStyle(
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.045,
@@ -97,16 +97,18 @@ class _LoginScreenState extends State<LoginScreen>
                             child: Text(
                               "Login",
                               style: TextStyle(
-                                  fontFamily: 'Barlow-Regular',
-                                  color: AppColors.textColorBlue),
+                                fontFamily: 'Barlow-Regular',
+                                //color: AppColors.textColorBlue
+                              ),
                             ),
                           ),
                           Tab(
                             child: Text(
                               "Register",
                               style: TextStyle(
-                                  fontFamily: 'Barlow-Regular',
-                                  color: AppColors.textColorBlue),
+                                fontFamily: 'Barlow-Regular',
+                                //color: AppColors.textColorBlue
+                              ),
                             ),
                           ),
                         ],

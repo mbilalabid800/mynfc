@@ -60,6 +60,7 @@ class _CardDetailsState extends State<CardDetails> {
                           style: TextStyle(
                             fontFamily: 'Barlow-Bold',
                             fontWeight: FontWeight.bold,
+                            color: AppColors.textColorBlue,
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.055,
                           ),
@@ -75,6 +76,7 @@ class _CardDetailsState extends State<CardDetails> {
                           style: TextStyle(
                             fontFamily: 'Barlow-Regular',
                             fontWeight: FontWeight.bold,
+                            color: AppColors.textColorBlue,
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.033,
                           ),
@@ -312,6 +314,7 @@ class _CardDetailsState extends State<CardDetails> {
                                                   0.064,
                                               letterSpacing: 1,
                                               fontFamily: 'Barlow-Bold',
+                                              color: AppColors.textColorBlue,
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
@@ -497,6 +500,7 @@ Widget _buildDetailRow(BuildContext context, String title, String value) {
             fontSize: DeviceDimensions.responsiveSize(context) * 0.042,
             fontFamily: 'Barlow-Regular',
             fontWeight: FontWeight.w600,
+            color: AppColors.textColorBlue,
             letterSpacing: 1,
           ),
         ),

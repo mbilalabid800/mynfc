@@ -31,6 +31,7 @@ class _HowToUseScreenState extends State<HowToUseScreen> {
                       style: TextStyle(
                           fontSize:
                               DeviceDimensions.responsiveSize(context) * 0.045,
+                          color: AppColors.textColorBlue,
                           fontWeight: FontWeight.w600)),
                 ),
               ),
@@ -43,6 +44,7 @@ class _HowToUseScreenState extends State<HowToUseScreen> {
                       style: TextStyle(
                         fontSize:
                             DeviceDimensions.responsiveSize(context) * 0.030,
+                        color: AppColors.textColorBlue,
                       )),
                 ),
               ),

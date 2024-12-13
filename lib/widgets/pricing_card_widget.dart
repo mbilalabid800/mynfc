@@ -55,6 +55,7 @@ class PricingCard extends StatelessWidget {
                         fontSize:
                             DeviceDimensions.responsiveSize(context) * 0.04,
                         fontWeight: FontWeight.bold,
+                        color: AppColors.textColorBlue,
                       ),
                     ),
                   ],
@@ -72,6 +73,7 @@ class PricingCard extends StatelessWidget {
                     style: TextStyle(
                         fontSize:
                             DeviceDimensions.responsiveSize(context) * 0.05,
+                        color: AppColors.textColorBlue,
                         fontWeight: FontWeight.w600)),
               ),
             ),

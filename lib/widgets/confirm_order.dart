@@ -40,7 +40,7 @@ class ConfirmOrder {
       builder: (BuildContext context) {
         return Center(
           child: Container(
-            color: AppColors.appBlueColor,
+            color: Colors.black54,
             child: Dialog(
               insetPadding: EdgeInsets.zero,
               backgroundColor: Colors.white,
@@ -59,6 +59,7 @@ class ConfirmOrder {
                       style: TextStyle(
                         fontFamily: 'Barlow-Bold',
                         fontWeight: FontWeight.w600,
+                        color: AppColors.textColorBlue,
                         fontSize:
                             DeviceDimensions.responsiveSize(context) * 0.050,
                       ),
@@ -74,6 +75,7 @@ class ConfirmOrder {
                           fontWeight: FontWeight.w500,
                           fontSize:
                               DeviceDimensions.responsiveSize(context) * 0.036,
+                          color: AppColors.textColorBlue,
                         ),
                         textAlign: TextAlign.center,
                       ),

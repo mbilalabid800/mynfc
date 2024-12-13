@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, unused_field, use_build_context_synchronously
+// ignore_for_file: file_names, unused_field, use_build_context_synchronously, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -142,9 +142,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         shape: BoxShape.circle,
                                       ),
                                       child: SvgPicture.asset(
-                                          'assets/icons/eye2.svg',
-                                          width: 20,
-                                          color: AppColors.appBlueColor),
+                                        'assets/icons/eye2.svg',
+                                        width: 20,
+                                        //color: AppColors.appBlueColor
+                                      ),
                                     ),
                                   ),
                                   Container(
@@ -444,7 +445,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Text(
                                           "Add New",
                                           style: TextStyle(
-                                              color: AppColors.textColorBlue,
+                                              color: AppColors.appBlueColor,
                                               fontFamily: 'Barlow-Bold',
                                               fontWeight: FontWeight.bold,
                                               fontSize: 18),

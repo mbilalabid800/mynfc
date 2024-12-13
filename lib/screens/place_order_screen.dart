@@ -84,12 +84,12 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                             child: Text(
                               "Delivery Method",
                               style: TextStyle(
-                                fontFamily: 'Barlow-Bold',
-                                fontWeight: FontWeight.bold,
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.055,
-                              ),
+                                  fontFamily: 'Barlow-Bold',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.055,
+                                  color: AppColors.textColorBlue),
                             ),
                           ),
                           SizedBox(
@@ -162,6 +162,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                 style: TextStyle(
                                   fontFamily: 'Barlow-Bold',
                                   fontWeight: FontWeight.bold,
+                                  color: AppColors.textColorBlue,
                                   fontSize:
                                       DeviceDimensions.responsiveSize(context) *
                                           0.055,
@@ -221,6 +222,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                       style: TextStyle(
                                         fontFamily: 'Barlow-Bold',
                                         fontWeight: FontWeight.w500,
+                                        color: AppColors.textColorBlue,
                                         fontSize:
                                             DeviceDimensions.responsiveSize(
                                                     context) *
@@ -241,6 +243,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                         style: TextStyle(
                                           fontFamily: 'Barlow-Regular',
                                           fontWeight: FontWeight.w600,
+                                          color: AppColors.textColorBlue,
                                           fontSize:
                                               DeviceDimensions.responsiveSize(
                                                       context) *
@@ -262,7 +265,11 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                             vertical: 4,
                                           ),
                                           child: Text(
-                                              "${selectedCard.cardPrice}0  OMR"),
+                                            "${selectedCard.cardPrice}0  OMR",
+                                            style: TextStyle(
+                                              color: AppColors.textColorBlue,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -390,7 +397,9 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                               Padding(
                                 padding: EdgeInsets.only(left: 8.0),
                                 child: Text('Note',
-                                    style: TextStyle(color: Colors.black)),
+                                    style: TextStyle(
+                                      color: AppColors.textColorBlue,
+                                    )),
                               )
                             ]),
                           ),
@@ -432,6 +441,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
             style: TextStyle(
               fontFamily: 'Barlow-Regular',
               fontWeight: FontWeight.w600,
+              color: AppColors.textColorBlue,
               fontSize: DeviceDimensions.responsiveSize(context) * 0.039,
             ),
           ),
@@ -581,6 +591,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                               style: TextStyle(
                                 fontFamily: 'Barlow-Regular',
                                 fontWeight: FontWeight.w600,
+                                color: AppColors.textColorBlue,
                                 fontSize:
                                     DeviceDimensions.responsiveSize(context) *
                                         0.047,
@@ -616,6 +627,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                 fontSize:
                                     DeviceDimensions.responsiveSize(context) *
                                         0.040,
+                                color: AppColors.textColorBlue,
                                 decoration: TextDecoration.underline,
                               ),
                             ),

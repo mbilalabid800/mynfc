@@ -103,6 +103,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                               DeviceDimensions.responsiveSize(
                                                       context) *
                                                   0.039,
+                                          color: AppColors.textColorBlue,
                                         ),
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 2,
@@ -133,6 +134,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       style: TextStyle(
                                         fontFamily: 'Barlow-Bold',
                                         fontWeight: FontWeight.w600,
+                                        color: AppColors.textColorBlue,
                                         fontSize:
                                             DeviceDimensions.responsiveSize(
                                                     context) *
@@ -160,6 +162,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   fontSize:
                                       DeviceDimensions.responsiveSize(context) *
                                           0.050,
+                                  color: AppColors.textColorBlue,
                                 ),
                               ),
                             ),
@@ -185,6 +188,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   style: TextStyle(
                                     fontFamily: 'Barlow-Bold',
                                     fontWeight: FontWeight.w600,
+                                    color: AppColors.textColorBlue,
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
                                         0.043,
@@ -214,6 +218,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   style: TextStyle(
                                     fontFamily: 'Barlow-Bold',
                                     fontWeight: FontWeight.w600,
+                                    color: AppColors.textColorBlue,
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
                                         0.043,
@@ -238,6 +243,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   fontSize:
                                       DeviceDimensions.responsiveSize(context) *
                                           0.050,
+                                  color: AppColors.textColorBlue,
                                 ),
                               ),
                             ),
@@ -348,6 +354,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                 style: TextStyle(
                   fontFamily: 'Barlow-Bold',
                   fontWeight: FontWeight.w600,
+                  color: AppColors.textColorBlue,
                   fontSize: DeviceDimensions.responsiveSize(context) * 0.050,
                 ),
               ),

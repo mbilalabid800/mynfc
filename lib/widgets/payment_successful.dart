@@ -33,6 +33,7 @@ class PaymentSuccessful {
                         fontWeight: FontWeight.w600,
                         fontSize:
                             DeviceDimensions.responsiveSize(context) * 0.050,
+                        color: AppColors.textColorBlue,
                       ),
                     ),
                     SizedBox(

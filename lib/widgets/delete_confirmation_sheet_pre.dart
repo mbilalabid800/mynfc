@@ -37,6 +37,7 @@ class DeleteConfirmationSheetPre {
                         fontSize:
                             DeviceDimensions.responsiveSize(context) * 0.060,
                         fontFamily: 'Barlow-Bold',
+                        color: AppColors.textColorBlue,
                         fontWeight: FontWeight.w600),
                   ),
                 ),

@@ -167,6 +167,7 @@ class _EditProfileState extends State<EditProfile> {
                                           style: TextStyle(
                                               fontFamily: "Barlow-Bold",
                                               fontWeight: FontWeight.w600,
+                                              color: AppColors.textColorBlue,
                                               fontSize: DeviceDimensions
                                                       .responsiveSize(context) *
                                                   0.050),
