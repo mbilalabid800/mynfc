@@ -44,10 +44,10 @@ class _RecentConnectedState extends State<RecentConnected> {
         backgroundColor: AppColors.screenBackground,
         appBar: CustomAppBar(
           title: 'Recent Connected',
-          icon: 'assets/icons/chat_icon.svg',
-          onIconPressed: () {
-            Navigator.pushNamed(context, '/connections-request');
-          },
+          // icon: 'assets/icons/chat_icon.svg',
+          // onIconPressed: () {
+          //   Navigator.pushNamed(context, '/connections-request');
+          // },
         ),
         body: SingleChildScrollView(
           child: Center(
@@ -385,9 +385,8 @@ class _RecentConnectedState extends State<RecentConnected> {
                                     ),
                                     trailing: IconButton(
                                       onPressed: () async {
-                                        connectionProvider
-                                            .sendConnectionRequest(
-                                                recommendedConnection, context);
+                                        connectionProvider.addConnection(
+                                            recommendedConnection);
                                         CustomSnackbar().snakBarMessage(context,
                                             '${recommendedConnection.firstName} added successfully!');
                                       },

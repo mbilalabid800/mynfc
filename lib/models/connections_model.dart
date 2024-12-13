@@ -8,8 +8,6 @@ class ConnectionsModel {
   String designation;
   String companyName;
   Timestamp timestamp;
-  bool isRequested;
-  bool isAccepted;
 
   ConnectionsModel({
     required this.uid,
@@ -19,23 +17,18 @@ class ConnectionsModel {
     required this.designation,
     required this.companyName,
     required this.timestamp,
-    this.isRequested = false,
-    this.isAccepted = false,
   });
 
   factory ConnectionsModel.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return ConnectionsModel(
-      uid: data['uid'] ?? '',
-      profileImage: data['image_url'] ?? '',
-      firstName: data['first_name'] ?? '',
-      lastName: data['last_name'] ?? '',
-      designation: data['designation'] ?? '',
-      companyName: data['company_name'] ?? '',
-      timestamp: data['timestamp'] ?? Timestamp.now(),
-      isRequested: data['isRequested'] ?? false,
-      isAccepted: data['isAccepted'] ?? false,
-    );
+        uid: data['uid'] ?? '',
+        profileImage: data['image_url'] ?? '',
+        firstName: data['first_name'] ?? '',
+        lastName: data['last_name'] ?? '',
+        designation: data['designation'] ?? '',
+        companyName: data['company_name'] ?? '',
+        timestamp: data['timestamp'] ?? Timestamp.now());
   }
 
   Map<String, dynamic> toFirestore() {
@@ -47,8 +40,6 @@ class ConnectionsModel {
       'designation': designation,
       'company_name': companyName,
       'timestamp': timestamp,
-      'isRequested': isRequested,
-      'isAccepted': isAccepted,
     };
   }
 }

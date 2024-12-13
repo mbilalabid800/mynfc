@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 class ConnectionProvider with ChangeNotifier {
   List<ConnectionsModel> _recommendedConnections = [];
   List<ConnectionsModel> _addedConnections = [];
-  List<ConnectionsModel> _pendingRequests = [];
   List<ConnectionsModel> _searchAddedConnections = [];
   List<ConnectionsModel> _searchRecommendedConnections = [];
   bool _showCompanyConnections = false;
@@ -18,7 +17,6 @@ class ConnectionProvider with ChangeNotifier {
 
   List<ConnectionsModel> get recommendedConnections => _recommendedConnections;
   List<ConnectionsModel> get addedConnections => _addedConnections;
-  List<ConnectionsModel> get pendingRequests => _pendingRequests;
   List<ConnectionsModel> get searchAddedConnections => _searchAddedConnections;
   List<ConnectionsModel> get searchRecommendedConnections =>
       _searchRecommendedConnections;
@@ -143,13 +141,12 @@ class ConnectionProvider with ChangeNotifier {
     }
   }
 
-  void sendConnectionRequest(
-      ConnectionsModel connection, BuildContext context) async {
+  void addConnection(ConnectionsModel connection) async {
     try {
-      _pendingRequests.add(connection);
+      _addedConnections.add(connection);
       _removeFromRecommendedConnections(connection);
       notifyListeners();
-      await _saveRequestToFirestore(connection, context);
+      await _saveToFirestore(connection);
     } catch (e) {
       print("Error adding/updating connection: $e");
     }
@@ -187,26 +184,20 @@ class ConnectionProvider with ChangeNotifier {
     return _addedConnections.any((added) => added.uid == connection.uid);
   }
 
-  Future<void> _saveRequestToFirestore(
-      ConnectionsModel connection, BuildContext context) async {
-    final user = Provider.of<UserInfoFormStateProvider>(context, listen: false);
-    try {
-      print("object");
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(connection.uid)
-          .collection('pendingRequests')
-          .doc(user.uid)
-          .set({
-        'company_name': user.companyName,
-        'designation': user.designation,
-        'first_name': user.firstName,
-        'image_url': user.imageUrl,
-        'last_name': user.lastName,
-        'timeStamp': Timestamp.now()
-      });
-    } catch (e) {
-      print("Error saving social link data: $e");
+  Future<void> _saveToFirestore(ConnectionsModel connection) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final uid = user.uid;
+      try {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .collection('connections')
+            .doc(connection.uid)
+            .set(connection.toFirestore());
+      } catch (e) {
+        print("Error saving social link data: $e");
+      }
     }
   }
 
@@ -214,9 +205,9 @@ class ConnectionProvider with ChangeNotifier {
     _recommendedConnections.removeWhere((c) => c.uid == connection.uid);
   }
 
-  Future<void> saveAllConnectionsToFirestore(BuildContext context) async {
+  Future<void> saveAllConnectionsToFirestore() async {
     for (var connection in _addedConnections) {
-      await _saveRequestToFirestore(connection, context);
+      await _saveToFirestore(connection);
     }
   }
 
