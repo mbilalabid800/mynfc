@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/widgets/showLinkDialog_widget.dart';
 import 'package:nfc_app/widgets/active_apps_widget.dart';
@@ -49,8 +50,9 @@ class ActiveLink extends StatelessWidget {
                               child: Text(
                                 'Recommended for you',
                                 style: TextStyle(
-                                  fontFamily: 'Barlow-Regular',
+                                  fontFamily: 'Barlow-Bold',
                                   fontWeight: FontWeight.w600,
+                                  color: AppColors.textColorBlue,
                                   fontSize:
                                       DeviceDimensions.responsiveSize(context) *
                                           0.042,
@@ -97,7 +99,12 @@ class ActiveLink extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      title: Text(appItem.name),
+                                      title: Text(appItem.name,
+                                          style: TextStyle(
+                                            fontFamily: 'Barlow-Regular',
+                                            color: AppColors.textColorBlue,
+                                            fontWeight: FontWeight.w600,
+                                          )),
                                       trailing: IconButton(
                                         icon: SvgPicture.asset(
                                             "assets/icons/addconnections.svg"),

@@ -38,8 +38,9 @@ class ActiveAppsContainer extends StatelessWidget {
               children: [
                 Text('Active All',
                     style: TextStyle(
-                      fontFamily: 'Barlow-Regular',
+                      fontFamily: 'Barlow-Bold',
                       fontWeight: FontWeight.w600,
+                      color: AppColors.textColorBlue,
                       fontSize:
                           DeviceDimensions.responsiveSize(context) * 0.042,
                     )),
@@ -144,7 +145,12 @@ class ActiveAppsContainer extends StatelessWidget {
                         ),
                       ],
                     ),
-                    title: Text(appItem.name),
+                    title: Text(appItem.name,
+                        style: TextStyle(
+                          fontFamily: 'Barlow-Regular',
+                          color: AppColors.textColorBlue,
+                          fontWeight: FontWeight.w600,
+                        )),
                     trailing: Padding(
                       padding: const EdgeInsets.only(right: 15.0),
                       child: SizedBox(

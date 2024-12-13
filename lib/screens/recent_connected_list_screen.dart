@@ -163,6 +163,7 @@ class _RecentConnectedListState extends State<RecentConnectedList> {
                                     "${connection.firstName} ${connection.lastName}",
                                     style: const TextStyle(
                                         fontSize: 14,
+                                        color: AppColors.textColorBlue,
                                         fontWeight: FontWeight.w600),
                                   ),
                                   subtitle: Text(

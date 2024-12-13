@@ -87,6 +87,7 @@ class AddEmployeeState extends State<AddEmployee> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
+                      color: AppColors.textColorBlue,
                       fontFamily: 'Barlow-Bold'),
                 ),
                 const SizedBox(height: 20),
@@ -150,6 +151,7 @@ class AddEmployeeState extends State<AddEmployee> {
                                 'Employee Added',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
+                                    color: AppColors.textColorBlue,
                                     fontFamily: 'Barlow-Regular'),
                               ),
                             ],
@@ -187,6 +189,7 @@ class AddEmployeeState extends State<AddEmployee> {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w600,
                                                 fontFamily: 'Barlow-Bold',
+                                                color: AppColors.textColorBlue,
                                                 fontSize: 17),
                                           ),
                                           const SizedBox(width: 30),
@@ -195,6 +198,7 @@ class AddEmployeeState extends State<AddEmployee> {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w600,
                                                 fontFamily: 'Barlow-Bold',
+                                                color: AppColors.textColorBlue,
                                                 fontSize: 17),
                                           ),
                                         ],
@@ -257,6 +261,7 @@ class AddEmployeeState extends State<AddEmployee> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Barlow-Regular',
+                              color: AppColors.textColorBlue,
                               fontSize: 16),
                         ),
                         const SizedBox(height: 5),

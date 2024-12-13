@@ -522,7 +522,7 @@ class _RegisterFormState extends State<RegisterData> {
                                             DeviceDimensions.responsiveSize(
                                                     context) *
                                                 0.053,
-                                        color: const Color(0xFF202020),
+                                        color: AppColors.textColorBlue,
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Barlow-Regular'),
                                   )
@@ -586,7 +586,7 @@ class _RegisterFormState extends State<RegisterData> {
                                             DeviceDimensions.responsiveSize(
                                                     context) *
                                                 0.053,
-                                        color: const Color(0xFF202020),
+                                        color: AppColors.appBlueColor,
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Barlow-Regular'),
                                   )

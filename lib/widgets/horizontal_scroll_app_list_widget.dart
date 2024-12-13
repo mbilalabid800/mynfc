@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/social_app_model.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
@@ -102,6 +103,7 @@ class HorizontalScrollAppIcons extends StatelessWidget {
                         fontSize:
                             DeviceDimensions.responsiveSize(context) * 0.08,
                         fontWeight: FontWeight.bold,
+                        color: AppColors.textColorBlue,
                       ),
                     ),
                     Text(

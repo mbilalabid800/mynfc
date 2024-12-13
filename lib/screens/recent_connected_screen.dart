@@ -197,6 +197,7 @@ class _RecentConnectedState extends State<RecentConnected> {
                                                       .responsiveSize(context) *
                                                   0.040,
                                               fontFamily: 'Barlow-Regular',
+                                              color: AppColors.textColorBlue,
                                               fontWeight: FontWeight.w600),
                                         ),
                                         subtitle: Text(
@@ -261,7 +262,10 @@ class _RecentConnectedState extends State<RecentConnected> {
                             child: Text(
                               "Recommended for you",
                               style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textColorBlue,
+                              ),
                             ),
                           ),
                           Spacer(),
@@ -371,6 +375,7 @@ class _RecentConnectedState extends State<RecentConnected> {
                                                       context) *
                                                   0.040,
                                           fontFamily: 'Barlow-Regular',
+                                          color: AppColors.textColorBlue,
                                           fontWeight: FontWeight.w600),
                                     ),
                                     subtitle: Text(

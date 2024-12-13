@@ -221,6 +221,7 @@ class _SettingsState extends State<Settings> {
                                             style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600,
+                                              color: AppColors.textColorBlue,
                                             ),
                                           ),
                                           Provider.of<ConnectionProvider>(
@@ -244,6 +245,8 @@ class _SettingsState extends State<Settings> {
                                                   style: const TextStyle(
                                                     fontSize: 20,
                                                     fontWeight: FontWeight.bold,
+                                                    color:
+                                                        AppColors.textColorBlue,
                                                   ),
                                                 ),
                                         ],
@@ -258,11 +261,20 @@ class _SettingsState extends State<Settings> {
                                         children: [
                                           Text(
                                             "Profile",
-                                            style: TextStyle(fontSize: 14),
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'Barlow-Regular',
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColors.textColorBlue,
+                                            ),
                                           ),
                                           Text(
                                             "Connected",
-                                            style: TextStyle(fontSize: 14),
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'Barlow-Regular',
+                                              color: AppColors.textColorBlue,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -276,12 +288,16 @@ class _SettingsState extends State<Settings> {
                                       style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600,
+                                        color: AppColors.textColorBlue,
                                       ),
                                     ),
                                     Text(
                                       "${userProvider.designation} at ${userProvider.companyName}",
                                       style: const TextStyle(
-                                          fontSize: 13, letterSpacing: 1.5),
+                                        fontSize: 13,
+                                        letterSpacing: 1.5,
+                                        color: AppColors.textColorBlue,
+                                      ),
                                     ),
                                     const Spacer(),
                                     const Divider(color: Color(0xFFE0E0E0)),
@@ -330,7 +346,7 @@ class _SettingsState extends State<Settings> {
                                         context, "/edit-profile");
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF202020),
+                                    backgroundColor: AppColors.textColorBlue,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),

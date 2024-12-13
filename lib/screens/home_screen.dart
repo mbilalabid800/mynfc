@@ -569,7 +569,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 10, top: 07, bottom: 4),
+                                                left: 5, top: 07, bottom: 4),
                                             child: Center(
                                               child: Text(
                                                 "Recent Connections",

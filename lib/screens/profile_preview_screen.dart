@@ -98,6 +98,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                           DeviceDimensions.responsiveSize(context) * 0.065,
                       fontFamily: 'Barlow-Bold',
                       fontWeight: FontWeight.w600,
+                      color: AppColors.textColorBlue,
                     ),
                   ),
                   SizedBox(
@@ -130,6 +131,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.045,
                             fontWeight: FontWeight.w600,
+                            color: AppColors.textColorBlue,
                             fontFamily: 'Barlow-Regular'),
                       ),
                     ],
@@ -246,6 +248,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.058,
                             fontWeight: FontWeight.bold,
+                            color: AppColors.textColorBlue,
                             fontFamily: 'Barlow-Bold'),
                       ),
                     ),
@@ -285,6 +288,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
+                            color: AppColors.textColorBlue,
                           ),
                         ),
                         SizedBox(
@@ -378,6 +382,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                                                 0.037,
                                         fontFamily: 'Barlow-Regular',
                                         fontWeight: FontWeight.w600,
+                                        color: AppColors.textColorBlue,
                                       ),
                                     ),
                                   ),

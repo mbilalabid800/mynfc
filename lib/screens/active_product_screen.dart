@@ -33,6 +33,7 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                 style: TextStyle(
                   fontSize: DeviceDimensions.responsiveSize(context) * 0.06,
                   fontWeight: FontWeight.bold,
+                  color: AppColors.textColorBlue,
                 ),
               ),
               Image.asset('assets/images/imagecardpng.png',
@@ -44,6 +45,7 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                     style: TextStyle(
                         fontSize:
                             DeviceDimensions.responsiveSize(context) * 0.04,
+                        color: AppColors.textColorBlue,
                         fontWeight: FontWeight.w400)),
               ),
               //SizedBox(height: 20),
@@ -66,8 +68,13 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                       ),
                       const Padding(
                         padding: EdgeInsets.only(left: 18.0),
-                        child: Text('Activate by QR Code',
-                            style: TextStyle(fontWeight: FontWeight.w500)),
+                        child: Text(
+                          'Activate by QR Code',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.textColorBlue,
+                          ),
+                        ),
                       ),
                       const Spacer(),
                       Padding(
@@ -103,8 +110,13 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                       ),
                       const Padding(
                         padding: EdgeInsets.only(left: 18.0),
-                        child: Text('Activate by NFC',
-                            style: TextStyle(fontWeight: FontWeight.w500)),
+                        child: Text(
+                          'Activate by NFC',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.textColorBlue,
+                          ),
+                        ),
                       ),
                       const Spacer(),
                       Padding(
@@ -160,6 +172,7 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                                             DeviceDimensions.responsiveSize(
                                                     context) *
                                                 0.045,
+                                        color: AppColors.textColorBlue,
                                         fontWeight: FontWeight.w600)),
                                 const Spacer(),
                                 SvgPicture.asset('assets/icons/code.svg')
@@ -228,6 +241,7 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                                             DeviceDimensions.responsiveSize(
                                                     context) *
                                                 0.045,
+                                        color: AppColors.textColorBlue,
                                         fontWeight: FontWeight.w600)),
                                 const Spacer(),
                                 SvgPicture.asset('assets/icons/link.svg')

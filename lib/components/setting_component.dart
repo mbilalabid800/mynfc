@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 
 class SettingListComponent extends StatelessWidget {
@@ -42,10 +43,11 @@ class SettingListComponent extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                      fontSize:
-                          DeviceDimensions.responsiveSize(context) * 0.040,
-                      fontFamily: 'Barlow-Regular',
-                      fontWeight: FontWeight.w600),
+                    fontSize: DeviceDimensions.responsiveSize(context) * 0.040,
+                    fontFamily: 'Barlow-Regular',
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textColorBlue,
+                  ),
                 ),
                 const Spacer(),
                 if (trailing != null)

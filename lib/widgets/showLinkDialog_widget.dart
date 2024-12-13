@@ -95,6 +95,7 @@ class _ShowLinkDialogState extends State<ShowLinkDialog> {
               style: TextStyle(
                   fontFamily: 'Barlow-Bold',
                   fontSize: DeviceDimensions.responsiveSize(context) * 0.072,
+                  color: AppColors.textColorBlue,
                   fontWeight: FontWeight.w600),
             ),
             SizedBox(height: DeviceDimensions.screenHeight(context) * 0.06),

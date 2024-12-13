@@ -20,7 +20,10 @@ class AddEmployeeWidget extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-              fontWeight: FontWeight.w600, fontFamily: 'Barlow-Regular'),
+            fontWeight: FontWeight.w600,
+            fontFamily: 'Barlow-Regular',
+            color: AppColors.textColorBlue,
+          ),
         ),
         SizedBox(height: 5),
         Padding(

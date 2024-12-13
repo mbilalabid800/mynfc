@@ -75,6 +75,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                                         0.055,
                                     fontFamily: 'Barlow-Bold',
                                     fontWeight: FontWeight.w600,
+                                    color: AppColors.textColorBlue,
                                   ),
                                 ),
                                 Text(
@@ -85,6 +86,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                                         0.042,
                                     fontFamily: 'Barlow-Regular',
                                     fontWeight: FontWeight.w500,
+                                    color: AppColors.textColorBlue,
                                   ),
                                 ),
                               ],
@@ -180,6 +182,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                                 0.052,
                             fontFamily: 'Barlow-Regular',
                             fontWeight: FontWeight.w600,
+                            color: AppColors.textColorBlue,
                           ),
                         )
                       ],
