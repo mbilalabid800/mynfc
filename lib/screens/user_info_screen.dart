@@ -40,7 +40,10 @@ class UserScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Text('Lastly, tell us more about yourself ',
-                style: TextStyle(fontFamily: 'Barlow-Bold', fontSize: 30)),
+                style: TextStyle(
+                    fontFamily: 'Barlow-Bold',
+                    fontSize: 30,
+                    color: AppColors.textColorBlue)),
           ),
           Expanded(
             child: PageView(
@@ -123,7 +126,7 @@ class _NameStepState extends State<NameStep> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.appBlueColor,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -158,7 +161,7 @@ class _NameStepState extends State<NameStep> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.appBlueColor,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -327,6 +330,11 @@ class _NameStepState extends State<NameStep> {
                         maxLength: 12,
                         decoration: InputDecoration(
                           border: InputBorder.none,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: AppColors.appBlueColor,
+                            ),
+                          ),
 
                           //labelText: 'First Name',
                           hintText: 'Contact No.',
@@ -475,7 +483,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.appBlueColor,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -510,7 +518,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.appBlueColor,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -545,7 +553,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.appBlueColor,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -580,7 +588,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.appBlueColor,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -699,7 +707,7 @@ class ImageStep extends StatelessWidget {
                     height: DeviceDimensions.screenHeight(context) * 0.35,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: AppColors.screenBackground),
+                        color: Colors.grey.shade300),
                     child: Column(
                       children: [
                         Align(

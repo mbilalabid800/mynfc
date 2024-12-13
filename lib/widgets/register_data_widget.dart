@@ -165,7 +165,7 @@ class _RegisterFormState extends State<RegisterData> {
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(15),
                                     borderSide: const BorderSide(
-                                        color: Color(0xFFA9A9A9)),
+                                        color: AppColors.textFieldBorder),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),
@@ -258,7 +258,7 @@ class _RegisterFormState extends State<RegisterData> {
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
                                     borderSide: const BorderSide(
-                                        color: Color(0xFFA9A9A9)),
+                                        color: AppColors.textFieldBorder),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
@@ -362,7 +362,7 @@ class _RegisterFormState extends State<RegisterData> {
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
                                     borderSide: const BorderSide(
-                                        color: Color(0xFFA9A9A9)),
+                                        color: AppColors.textFieldBorder),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(12),

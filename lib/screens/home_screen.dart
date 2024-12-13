@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: DeviceDimensions.screenHeight(context),
                   width: DeviceDimensions.screenWidth(context),
                   child: Image.asset(
-                    "assets/images/homebackground2.png",
+                    "assets/images/homebackground5.png",
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -142,9 +142,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                         shape: BoxShape.circle,
                                       ),
                                       child: SvgPicture.asset(
-                                          'assets/icons/eye2.svg',
-                                          width: 20,
-                                          color: AppColors.appBlueColor),
+                                        'assets/icons/eye2.svg',
+                                        width: 20,
+                                        //color: AppColors.appBlueColor
+                                      ),
                                     ),
                                   ),
                                   Container(
@@ -429,7 +430,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               width:
                                   DeviceDimensions.screenWidth(context) * 0.92,
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
+                                color:
+                                    AppColors.appOrangeColor.withOpacity(0.6),
                                 borderRadius: BorderRadius.circular(25),
                               ),
                               child: Row(
@@ -444,7 +446,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Text(
                                           "Add New",
                                           style: TextStyle(
-                                              color: AppColors.textColorBlue,
+                                              color: AppColors.appBlueColor,
                                               fontFamily: 'Barlow-Bold',
                                               fontWeight: FontWeight.bold,
                                               fontSize: 18),
