@@ -28,17 +28,18 @@ class _ChatScreenState extends State<ChatScreen> {
                     color: AppColors.appBlueColor)),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/recent-connected-list');
-          },
-          // backgroundColor: Colors.black,
-          backgroundColor: AppColors.appBlueColor,
-          foregroundColor: Colors.white,
-          tooltip: 'New Chat',
-          shape: CircleBorder(),
-          child: Icon(Icons.add),
-        ),
+        //floating button
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     Navigator.pushNamed(context, '/recent-connected-list');
+        //   },
+        //   // backgroundColor: Colors.black,
+        //   backgroundColor: AppColors.appBlueColor,
+        //   foregroundColor: Colors.white,
+        //   tooltip: 'New Chat',
+        //   shape: CircleBorder(),
+        //   child: Icon(Icons.add),
+        // ),
         body: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,9 +56,11 @@ class _ChatScreenState extends State<ChatScreen> {
                     color: AppColors.appBlueColor),
               ),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.02),
-              const Text(
-                  '''    Tap the plus icon at the top right, select one of your 
-                    connection and start a new chat.''',
+              // const Text(
+              //     '''    Tap the plus icon at the top right, select one of your
+              //       connection and start a new chat.''',
+              //     style: TextStyle(color: AppColors.appBlueColor)),
+              const Text('''    Coming Soon ''',
                   style: TextStyle(color: AppColors.appBlueColor)),
             ],
           ),
