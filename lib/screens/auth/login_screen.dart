@@ -15,7 +15,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  // double _containerHeight = 0.60;
   double _containerHeight = 0.70;
 
   final Duration _animationDuration = const Duration(milliseconds: 500);
@@ -44,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen>
       body: Stack(
         children: [
           SizedBox(
-            height: DeviceDimensions.screenHeight(context) * 0.40,
+            height: DeviceDimensions.screenHeight(context) * 0.35,
             width: DeviceDimensions.screenWidth(context),
             child: Image.asset(
               "assets/images/login.png",

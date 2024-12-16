@@ -147,7 +147,7 @@ class MyApp extends StatelessWidget {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
       child: MaterialApp(
-        title: 'NFC Project',
+        title: 'Absher',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           //colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),

@@ -70,7 +70,7 @@ class _NewSplashScreenState extends State<NewSplashScreen>
               );
             },
             child: Image.asset(
-              'assets/splash/ebsher_splash.png',
+              'assets/splash/abshersplash.png',
               width: 150,
               height: 150,
             ),

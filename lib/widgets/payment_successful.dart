@@ -12,7 +12,7 @@ class PaymentSuccessful {
       builder: (BuildContext context) {
         return Center(
           child: Container(
-            color: AppColors.appBlueColor,
+            color: Colors.black54,
             child: Dialog(
               insetPadding: EdgeInsets.zero,
               backgroundColor: Colors.white,

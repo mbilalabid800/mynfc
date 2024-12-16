@@ -15,7 +15,7 @@ class ResentButtonProvider extends ChangeNotifier {
   void _startCountdown() {
     _isButtonEnabled = false;
     _timer = Timer(
-      const Duration(seconds: 30),
+      const Duration(seconds: 50),
       () {
         _isButtonEnabled = true;
         notifyListeners();

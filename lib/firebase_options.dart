@@ -67,7 +67,7 @@ class DefaultFirebaseOptions {
     projectId: 'nfc-project-21b56',
     databaseURL: 'https://nfc-project-21b56-default-rtdb.firebaseio.com',
     storageBucket: 'nfc-project-21b56.appspot.com',
-    iosBundleId: 'com.example.nfcApp',
+    iosBundleId: 'com.sahab.absher',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -77,7 +77,7 @@ class DefaultFirebaseOptions {
     projectId: 'nfc-project-21b56',
     databaseURL: 'https://nfc-project-21b56-default-rtdb.firebaseio.com',
     storageBucket: 'nfc-project-21b56.appspot.com',
-    iosBundleId: 'com.example.nfcApp',
+    iosBundleId: 'com.sahab.absher',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

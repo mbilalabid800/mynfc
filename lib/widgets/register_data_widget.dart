@@ -79,19 +79,11 @@ class _RegisterFormState extends State<RegisterData> {
 
           Navigator.pushReplacementNamed(context, '/user-info');
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              backgroundColor: AppColors.errorColor,
-              content: Text('Registration failed, Email already exists'),
-            ),
-          );
+          CustomSnackbar().snakBarError(
+              context, "Registration failed, Email already exists");
         }
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Registration failed: $e'),
-          ),
-        );
+        CustomSnackbar().snakBarError(context, "Registration failed: $e");
       } finally {
         setState(() {
           isLoading = false;

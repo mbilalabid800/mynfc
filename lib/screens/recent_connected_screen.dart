@@ -136,7 +136,7 @@ class _RecentConnectedState extends State<RecentConnected> {
                                   : connectionProvider.addedConnections;
                               if (addedConnections.isEmpty) {
                                 return const Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 20),
+                                  padding: EdgeInsets.symmetric(vertical: 30),
                                   child: Center(
                                     child: Text(
                                       'No Connections are added',
@@ -229,7 +229,7 @@ class _RecentConnectedState extends State<RecentConnected> {
                       left: DeviceDimensions.screenWidth(context) / 2 - 48,
                       bottom: 0, // Set bottom to 0 to keep it within bounds
                       child: Transform.translate(
-                        offset: Offset(0, 30), // Adjust offset as needed
+                        offset: Offset(0, 28), // Adjust offset as needed
                         child: InkWell(
                           onTap: () {
                             Navigator.pushNamed(
@@ -318,7 +318,7 @@ class _RecentConnectedState extends State<RecentConnected> {
                               : connectionProvider.recommendedConnections;
                           if (recommendedConnections.isEmpty) {
                             return const Padding(
-                              padding: EdgeInsets.symmetric(vertical: 20),
+                              padding: EdgeInsets.symmetric(vertical: 80),
                               child: Center(
                                 child: Text(
                                   'No more Connections are available',
@@ -392,7 +392,8 @@ class _RecentConnectedState extends State<RecentConnected> {
                                       onPressed: () async {
                                         connectionProvider.addConnection(
                                             recommendedConnection);
-                                        CustomSnackbar().snakBarMessage(context,
+                                        CustomSnackbar().snakBarMessageShort(
+                                            context,
                                             '${recommendedConnection.firstName} added successfully!');
                                       },
                                       icon: SvgPicture.asset(

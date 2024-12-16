@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nfc_app/provider/loading_state_provider.dart';
 import 'package:nfc_app/screens/auth/login_screen.dart';
 import 'package:nfc_app/provider/clear_app_data_provider.dart';
+import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthService {
@@ -130,9 +131,8 @@ class AuthService {
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null && !user.emailVerified) {
         await user.sendEmailVerification();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Verification email sent to ${user.email}')),
-        );
+        CustomSnackbar().snakBarMessage(
+            context, 'Verification email sent to ${user.email}');
         Navigator.pushNamed(context, '/email-verify');
 
         // } else {
@@ -142,9 +142,8 @@ class AuthService {
       }
     } catch (e) {
       print("Error during email verification: $e");
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Failed to send verification email.')),
-      );
+      CustomSnackbar()
+          .snakBarError(context, 'Failed to send verification email.');
     }
   }
 
