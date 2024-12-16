@@ -51,7 +51,7 @@ class ActiveAppsContainer extends StatelessWidget {
                     fit: BoxFit.fill,
                     child: Switch(
                       activeColor: Colors.white,
-                      activeTrackColor: const Color(0xFFCEFD4B),
+                      activeTrackColor: AppColors.appOrangeColor,
                       inactiveTrackColor: const Color(0xFFEFEFEF),
                       inactiveThumbColor: AppColors.appBlueColor,
                       value: provider.isViewAllActive,
@@ -160,7 +160,7 @@ class ActiveAppsContainer extends StatelessWidget {
                           fit: BoxFit.fill,
                           child: Switch(
                             activeColor: Colors.white,
-                            activeTrackColor: const Color(0xFFCEFD4B),
+                            activeTrackColor: AppColors.appOrangeColor,
                             inactiveTrackColor: const Color(0xFFEFEFEF),
                             inactiveThumbColor: AppColors.appBlueColor,
                             value: appItem.isVisible,

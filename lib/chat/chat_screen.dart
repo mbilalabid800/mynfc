@@ -24,7 +24,8 @@ class _ChatScreenState extends State<ChatScreen> {
                 style: TextStyle(
                     fontFamily: 'Barlow-Regular',
                     fontSize: DeviceDimensions.responsiveSize(context) * 0.055,
-                    fontWeight: FontWeight.w600)),
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.appBlueColor)),
           ),
         ),
         floatingActionButton: FloatingActionButton(
@@ -43,16 +44,21 @@ class _ChatScreenState extends State<ChatScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset('assets/icons/chat_icon.svg'),
+              SvgPicture.asset('assets/icons/chat_icon.svg',
+                  color: AppColors.appBlueColor),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.02),
               const Text(
                 'Let\'s start chatting',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.appBlueColor),
               ),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.02),
               const Text(
                   '''    Tap the plus icon at the top right, select one of your 
-                    connection and start a new chat.'''),
+                    connection and start a new chat.''',
+                  style: TextStyle(color: AppColors.appBlueColor)),
             ],
           ),
         ),

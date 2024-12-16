@@ -282,7 +282,8 @@ class _RecentConnectedState extends State<RecentConnected> {
                                       userProvider, child) {
                                     return Switch(
                                       activeColor: Colors.white,
-                                      activeTrackColor: const Color(0xFFCEFD4B),
+                                      activeTrackColor:
+                                          AppColors.appOrangeColor,
                                       inactiveTrackColor:
                                           const Color(0xFFEFEFEF),
                                       inactiveThumbColor:

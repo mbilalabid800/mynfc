@@ -413,7 +413,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fit: BoxFit.fill,
                                                 child: Switch(
                                                   activeTrackColor:
-                                                      AppColors.appBlueColor,
+                                                      AppColors.appOrangeColor,
                                                   value: userProvider.isPrivate,
                                                   onChanged: (isPrivate) {
                                                     userProvider

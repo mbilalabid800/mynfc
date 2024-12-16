@@ -175,23 +175,35 @@ class _GraphScreenState extends State<GraphScreen> {
               SizedBox(
                 height: DeviceDimensions.screenHeight(context) * 0.02,
               ),
+
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                 child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text('Performance',
+                    child: Text('Profile Analytics',
                         style: TextStyle(
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.045,
                             fontWeight: FontWeight.w600))),
               ),
-              TimeFrameList(
-                onSelected: (selectedTimeFrame) {
-                  // Handle the selected time frame here
-                  print('Selected Time Frame: $selectedTimeFrame');
-                },
-              ),
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+              //   child: Align(
+              //       alignment: Alignment.centerLeft,
+              //       child: Text('Performance',
+              //           style: TextStyle(
+              //               fontSize: DeviceDimensions.responsiveSize(context) *
+              //                   0.045,
+              //               fontWeight: FontWeight.w600))),
+              // ),
+              // TimeFrameList(
+              //   onSelected: (selectedTimeFrame) {
+              //     // Handle the selected time frame here
+              //     print('Selected Time Frame: $selectedTimeFrame');
+              //   },
+              // ),
               SizedBox(
                 height: DeviceDimensions.screenHeight(context) * 0.02,
               ),
@@ -895,6 +907,7 @@ class _GraphScreenState extends State<GraphScreen> {
                               fontSize:
                                   DeviceDimensions.responsiveSize(context) *
                                       0.055,
+                              color: AppColors.appBlueColor,
                               fontWeight: FontWeight.w500)),
                     ),
                     Padding(
@@ -910,6 +923,7 @@ class _GraphScreenState extends State<GraphScreen> {
                               fontSize:
                                   DeviceDimensions.responsiveSize(context) *
                                       0.045,
+                              color: AppColors.appBlueColor,
                               fontWeight: FontWeight.w500),
                           softWrap: true,
                           maxLines: 2,
@@ -1076,6 +1090,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
                                         0.055,
+                                    color: AppColors.appBlueColor,
                                     fontWeight: FontWeight.w500)),
                           ),
                           Padding(
@@ -1091,6 +1106,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
                                         0.045,
+                                    color: AppColors.appBlueColor,
                                     fontWeight: FontWeight.w500),
                                 softWrap: true,
                                 maxLines: 2,
@@ -1361,6 +1377,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                       fontSize: DeviceDimensions.responsiveSize(
                                               context) *
                                           0.05,
+                                      color: AppColors.appBlueColor,
                                       fontWeight: FontWeight.w600)),
                             ],
                           )
@@ -1597,6 +1614,7 @@ class _GraphScreenState extends State<GraphScreen> {
                             overflow: TextOverflow.ellipsis,
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.055,
+                            color: AppColors.appBlueColor,
                             fontWeight: FontWeight.w500),
                         softWrap: true,
                         maxLines: 2,
@@ -1615,6 +1633,7 @@ class _GraphScreenState extends State<GraphScreen> {
                             overflow: TextOverflow.ellipsis,
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.045,
+                            color: AppColors.appBlueColor,
                             fontWeight: FontWeight.w500),
                         softWrap: true,
                         maxLines: 2,
@@ -1679,7 +1698,10 @@ class _GraphScreenState extends State<GraphScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                      "${recentConnection.firstName} ${recentConnection.lastName}"),
+                                      "${recentConnection.firstName} ${recentConnection.lastName}",
+                                      style: TextStyle(
+                                        color: AppColors.appBlueColor,
+                                      )),
                                   Row(
                                     children: [
                                       Text(

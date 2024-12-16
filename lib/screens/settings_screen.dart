@@ -485,7 +485,11 @@ class _SettingsState extends State<Settings> {
                                   child: FittedBox(
                                     fit: BoxFit.fill,
                                     child: Switch(
-                                      activeTrackColor: AppColors.appBlueColor,
+                                      activeTrackColor:
+                                          AppColors.appOrangeColor,
+                                      inactiveTrackColor: Colors.grey.shade200,
+                                      inactiveThumbColor:
+                                          AppColors.appBlueColor,
                                       value: biometricProvider
                                           .isFingerprintEnabled,
                                       onChanged: (value) async {
