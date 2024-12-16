@@ -45,9 +45,9 @@ class ViewsChart extends StatelessWidget {
           barRods: [
             BarChartRodData(
               toY: totalViews.toDouble(), // Bar height
-              color: const Color.fromARGB(255, 0, 6, 69),
-              width: 3, // Bar width
-              borderRadius: BorderRadius.circular(4), // Rounded corners
+              color: AppColors.appOrangeColor,
+              width: 5, // Bar width
+              borderRadius: BorderRadius.circular(1), // Rounded corners
             ),
           ],
         );
@@ -179,9 +179,9 @@ class FullViewsChart extends StatelessWidget {
           barRods: [
             BarChartRodData(
               toY: totalViews.toDouble(), // Bar height
-              color: const Color.fromARGB(255, 0, 6, 69),
-              width: 12, // Bar width
-              borderRadius: BorderRadius.circular(2), // Rounded corners
+              color: AppColors.appOrangeColor,
+              width: 14, // Bar width
+              borderRadius: BorderRadius.circular(1), // Rounded corners
             ),
           ],
         );
@@ -300,9 +300,9 @@ class LinkTapChart extends StatelessWidget {
                 barRods: [
                   BarChartRodData(
                     toY: counts[index].toDouble(),
-                    width: 3,
-                    color: const Color.fromARGB(255, 0, 6, 69),
-                    borderRadius: BorderRadius.circular(2),
+                    width: 5,
+                    color: AppColors.appOrangeColor,
+                    borderRadius: BorderRadius.circular(1),
                   ),
                 ],
               );
@@ -685,9 +685,9 @@ class AddedConnectionChart extends StatelessWidget {
           barRods: [
             BarChartRodData(
               toY: count.toDouble(),
-              color: const Color.fromARGB(255, 0, 6, 69),
-              width: 12,
-              borderRadius: BorderRadius.circular(2),
+              color: AppColors.appOrangeColor,
+              width: 14,
+              borderRadius: BorderRadius.circular(1),
             ),
           ],
         ),
@@ -796,9 +796,9 @@ class SocialAppBarChart extends StatelessWidget {
                   barRods: [
                     BarChartRodData(
                       toY: counts[index].toDouble(),
-                      width: 12,
-                      color: const Color.fromARGB(255, 0, 6, 69),
-                      borderRadius: BorderRadius.circular(2),
+                      width: 14,
+                      color: AppColors.appOrangeColor,
+                      borderRadius: BorderRadius.circular(1),
                     ),
                   ],
                 );
@@ -897,9 +897,9 @@ class ConnectionChart extends StatelessWidget {
           barRods: [
             BarChartRodData(
               toY: count.toDouble(),
-              color: const Color.fromARGB(255, 0, 6, 69),
-              width: 3,
-              borderRadius: BorderRadius.circular(2),
+              color: AppColors.appOrangeColor,
+              width: 5,
+              borderRadius: BorderRadius.circular(1),
             ),
           ],
         ),
