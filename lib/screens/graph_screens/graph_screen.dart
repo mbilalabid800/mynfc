@@ -93,7 +93,7 @@ class _GraphScreenState extends State<GraphScreen> {
                           //shape: BoxShape.circle,
                           ),
                       child: const CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 206, 199, 199),
+                        backgroundColor: AppColors.appBlueColor,
                         backgroundImage: AssetImage(
                           'assets/icons/cardprofile.png',
                         ),
@@ -130,22 +130,20 @@ class _GraphScreenState extends State<GraphScreen> {
                       child: SizedBox(
                         height: 30,
                         width: 90,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/privacy-policy');
-                          },
-                          style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              backgroundColor: AppColors.appBlueColor,
-                              foregroundColor: Colors.white),
-                          child: Text(
-                            "Personal",
-                            style: TextStyle(
-                              fontFamily: 'Barlow-Regular',
-                              fontWeight: FontWeight.w500,
-                              fontSize:
-                                  DeviceDimensions.responsiveSize(context) *
-                                      0.045,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: AppColors.appBlueColor,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Center(
+                            child: Text(
+                              "Personal",
+                              style: TextStyle(
+                                  fontFamily: 'Barlow-Regular',
+                                  fontWeight: FontWeight.w500,
+                                  fontSize:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.04,
+                                  color: Colors.white),
                             ),
                           ),
                         ),
@@ -166,8 +164,9 @@ class _GraphScreenState extends State<GraphScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 10),
-                      child: Image.asset('assets/images/imagecardpng.png',
+                          horizontal: 20.0, vertical: 25),
+                      child: Image.asset(
+                          'assets/images/cardimage_graphscreen.png',
                           width: DeviceDimensions.screenWidth(context) * 0.7),
                     ),
                   ],
@@ -176,23 +175,35 @@ class _GraphScreenState extends State<GraphScreen> {
               SizedBox(
                 height: DeviceDimensions.screenHeight(context) * 0.02,
               ),
+
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                 child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text('Performance',
+                    child: Text('Profile Analytics',
                         style: TextStyle(
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.045,
                             fontWeight: FontWeight.w600))),
               ),
-              TimeFrameList(
-                onSelected: (selectedTimeFrame) {
-                  // Handle the selected time frame here
-                  print('Selected Time Frame: $selectedTimeFrame');
-                },
-              ),
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
+              //   child: Align(
+              //       alignment: Alignment.centerLeft,
+              //       child: Text('Performance',
+              //           style: TextStyle(
+              //               fontSize: DeviceDimensions.responsiveSize(context) *
+              //                   0.045,
+              //               fontWeight: FontWeight.w600))),
+              // ),
+              // TimeFrameList(
+              //   onSelected: (selectedTimeFrame) {
+              //     // Handle the selected time frame here
+              //     print('Selected Time Frame: $selectedTimeFrame');
+              //   },
+              // ),
               SizedBox(
                 height: DeviceDimensions.screenHeight(context) * 0.02,
               ),
@@ -243,6 +254,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                                         .responsiveSize(
                                                             context) *
                                                     0.05,
+                                                color: AppColors.appBlueColor,
                                                 fontWeight: FontWeight.w600),
                                             softWrap: true,
                                             maxLines: 2,
@@ -268,7 +280,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                           //     'assets/icons/views.svg'),
                                           Icon(
                                             Icons.visibility,
-                                            color: Colors.grey.shade700,
+                                            color: AppColors.appBlueColor
+                                                .withOpacity(0.5),
                                             size:
                                                 DeviceDimensions.responsiveSize(
                                                         context) *
@@ -282,6 +295,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 2,
                                               style: TextStyle(
+                                                  color: AppColors.appBlueColor,
                                                   fontSize: DeviceDimensions
                                                           .responsiveSize(
                                                               context) *
@@ -290,16 +304,22 @@ class _GraphScreenState extends State<GraphScreen> {
                                           ),
                                           const Spacer(),
                                           GestureDetector(
-                                            onTapDown:
-                                                (TapDownDetails details) {
-                                              _showPopupMenu(
-                                                  context,
-                                                  details.globalPosition,
-                                                  'The number of times your profile was  viewed through tapping your profile.');
-                                            },
-                                            child: SvgPicture.asset(
-                                                'assets/icons/info.svg'),
-                                          ),
+                                              onTapDown:
+                                                  (TapDownDetails details) {
+                                                _showPopupMenu(
+                                                    context,
+                                                    details.globalPosition,
+                                                    'The number of times your profile was  viewed through tapping your profile.');
+                                              },
+                                              child: Icon(
+                                                Icons.info_outline,
+                                                size: 20,
+                                                color: AppColors.appBlueColor
+                                                    .withOpacity(0.5),
+                                              )
+                                              // SvgPicture.asset(
+                                              //     'assets/icons/info.svg'),
+                                              ),
                                         ],
                                       ),
                                     ),
@@ -346,6 +366,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                                           .responsiveSize(
                                                               context) *
                                                       0.05,
+                                                  color: AppColors.appBlueColor,
                                                   fontWeight: FontWeight.w600),
                                               softWrap: true,
                                               maxLines: 2,
@@ -360,7 +381,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                         width: DeviceDimensions.screenWidth(
                                                 context) *
                                             0.3,
-                                        child: Icon(Icons.trending_up),
+                                        child: Icon(Icons.trending_up,
+                                            color: AppColors.appOrangeColor),
                                       ),
                                       Expanded(
                                         child: Padding(
@@ -369,7 +391,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                             children: [
                                               Icon(
                                                 Icons.link,
-                                                color: Colors.grey.shade700,
+                                                color: AppColors.appBlueColor
+                                                    .withOpacity(0.5),
                                                 size: DeviceDimensions
                                                         .responsiveSize(
                                                             context) *
@@ -387,6 +410,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                                       TextOverflow.ellipsis,
                                                   maxLines: 2,
                                                   style: TextStyle(
+                                                      color: AppColors
+                                                          .appBlueColor,
                                                       fontSize: DeviceDimensions
                                                               .responsiveSize(
                                                                   context) *
@@ -402,8 +427,12 @@ class _GraphScreenState extends State<GraphScreen> {
                                                       details.globalPosition,
                                                       'The number of times your links were tapped.');
                                                 },
-                                                child: SvgPicture.asset(
-                                                    'assets/icons/info.svg'),
+                                                child: Icon(
+                                                  Icons.info_outline,
+                                                  size: 20,
+                                                  color: AppColors.appBlueColor
+                                                      .withOpacity(0.5),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -451,6 +480,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                                               .responsiveSize(
                                                                   context) *
                                                           0.05,
+                                                      color: AppColors
+                                                          .appBlueColor,
                                                       fontWeight:
                                                           FontWeight.w600)),
                                             ],
@@ -472,7 +503,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                               children: [
                                                 Icon(
                                                   Icons.link,
-                                                  color: Colors.grey.shade700,
+                                                  color: AppColors.appBlueColor
+                                                      .withOpacity(0.5),
                                                   size: DeviceDimensions
                                                           .responsiveSize(
                                                               context) *
@@ -490,6 +522,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                                         TextOverflow.ellipsis,
                                                     maxLines: 2,
                                                     style: TextStyle(
+                                                        color: AppColors
+                                                            .appBlueColor,
                                                         fontSize: DeviceDimensions
                                                                 .responsiveSize(
                                                                     context) *
@@ -505,8 +539,13 @@ class _GraphScreenState extends State<GraphScreen> {
                                                         details.globalPosition,
                                                         'The number of times your links were tapped.');
                                                   },
-                                                  child: SvgPicture.asset(
-                                                      'assets/icons/info.svg'),
+                                                  child: Icon(
+                                                    Icons.info_outline,
+                                                    size: 20,
+                                                    color: AppColors
+                                                        .appBlueColor
+                                                        .withOpacity(0.5),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -553,6 +592,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                               fontSize: DeviceDimensions
                                                       .responsiveSize(context) *
                                                   0.05,
+                                              color: AppColors.appBlueColor,
                                               fontWeight: FontWeight.w600)),
                                     ],
                                   ),
@@ -563,7 +603,10 @@ class _GraphScreenState extends State<GraphScreen> {
                                           0.05,
                                   width: DeviceDimensions.screenWidth(context) *
                                       0.3,
-                                  child: Icon(Icons.trending_up),
+                                  child: Icon(
+                                    Icons.trending_up,
+                                    color: AppColors.appOrangeColor,
+                                  ),
                                   //child: CardTapsChart(),
                                 ),
                                 Expanded(
@@ -577,7 +620,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                                 DeviceDimensions.responsiveSize(
                                                         context) *
                                                     0.06,
-                                            color: Colors.grey.shade700),
+                                            color: AppColors.appBlueColor
+                                                .withOpacity(0.5)),
                                         Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0),
@@ -587,6 +631,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                             softWrap: true,
                                             maxLines: 3,
                                             style: TextStyle(
+                                              color: AppColors.appBlueColor,
                                               fontSize: DeviceDimensions
                                                       .responsiveSize(context) *
                                                   0.030,
@@ -601,8 +646,12 @@ class _GraphScreenState extends State<GraphScreen> {
                                                 details.globalPosition,
                                                 'The number of times you tapped your card on NFC enabled devices');
                                           },
-                                          child: SvgPicture.asset(
-                                              'assets/icons/info.svg'),
+                                          child: Icon(
+                                            Icons.info_outline,
+                                            size: 20,
+                                            color: AppColors.appBlueColor
+                                                .withOpacity(0.5),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -650,7 +699,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                         width: DeviceDimensions.screenWidth(
                                                 context) *
                                             0.3,
-                                        child: Icon(Icons.trending_up),
+                                        child: Icon(Icons.trending_up,
+                                            color: AppColors.appOrangeColor),
                                       ),
                                       Expanded(
                                         child: Row(
@@ -659,7 +709,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                             //     'assets/icons/new_contact.svg'),
                                             Icon(
                                               Icons.person_add,
-                                              color: Colors.grey.shade700,
+                                              color: AppColors.appBlueColor
+                                                  .withOpacity(0.5),
                                               size: DeviceDimensions
                                                       .responsiveSize(context) *
                                                   0.06,
@@ -673,6 +724,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                                 overflow: TextOverflow.clip,
                                                 maxLines: 2,
                                                 style: TextStyle(
+                                                    color:
+                                                        AppColors.appBlueColor,
                                                     fontSize: DeviceDimensions
                                                             .responsiveSize(
                                                                 context) *
@@ -688,8 +741,12 @@ class _GraphScreenState extends State<GraphScreen> {
                                                     details.globalPosition,
                                                     'The count of total connections that you are connected with');
                                               },
-                                              child: SvgPicture.asset(
-                                                  'assets/icons/info.svg'),
+                                              child: Icon(
+                                                Icons.info_outline,
+                                                size: 20,
+                                                color: AppColors.appBlueColor
+                                                    .withOpacity(0.5),
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -750,7 +807,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                               //     'assets/icons/new_contact.svg'),
                                               Icon(
                                                 Icons.person_add,
-                                                color: Colors.grey.shade700,
+                                                color: AppColors.appBlueColor
+                                                    .withOpacity(0.5),
                                                 size: DeviceDimensions
                                                         .responsiveSize(
                                                             context) *
@@ -765,6 +823,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                                   overflow: TextOverflow.clip,
                                                   maxLines: 2,
                                                   style: TextStyle(
+                                                      color: AppColors
+                                                          .appBlueColor,
                                                       fontSize: DeviceDimensions
                                                               .responsiveSize(
                                                                   context) *
@@ -780,8 +840,12 @@ class _GraphScreenState extends State<GraphScreen> {
                                                       details.globalPosition,
                                                       'The count of total connections that you are connected with');
                                                 },
-                                                child: SvgPicture.asset(
-                                                    'assets/icons/info.svg'),
+                                                child: Icon(
+                                                  Icons.info_outline,
+                                                  size: 20,
+                                                  color: AppColors.appBlueColor
+                                                      .withOpacity(0.5),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -813,7 +877,8 @@ class _GraphScreenState extends State<GraphScreen> {
           position.dx, position.dy, position.dx, position.dy),
       items: [
         PopupMenuItem(
-          child: Text(popupText),
+          child:
+              Text(popupText, style: TextStyle(color: AppColors.appBlueColor)),
         ),
       ],
     );
@@ -842,6 +907,7 @@ class _GraphScreenState extends State<GraphScreen> {
                               fontSize:
                                   DeviceDimensions.responsiveSize(context) *
                                       0.055,
+                              color: AppColors.appBlueColor,
                               fontWeight: FontWeight.w500)),
                     ),
                     Padding(
@@ -857,6 +923,7 @@ class _GraphScreenState extends State<GraphScreen> {
                               fontSize:
                                   DeviceDimensions.responsiveSize(context) *
                                       0.045,
+                              color: AppColors.appBlueColor,
                               fontWeight: FontWeight.w500),
                           softWrap: true,
                           maxLines: 2,
@@ -1023,6 +1090,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
                                         0.055,
+                                    color: AppColors.appBlueColor,
                                     fontWeight: FontWeight.w500)),
                           ),
                           Padding(
@@ -1038,6 +1106,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
                                         0.045,
+                                    color: AppColors.appBlueColor,
                                     fontWeight: FontWeight.w500),
                                 softWrap: true,
                                 maxLines: 2,
@@ -1308,6 +1377,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                       fontSize: DeviceDimensions.responsiveSize(
                                               context) *
                                           0.05,
+                                      color: AppColors.appBlueColor,
                                       fontWeight: FontWeight.w600)),
                             ],
                           )
@@ -1544,6 +1614,7 @@ class _GraphScreenState extends State<GraphScreen> {
                             overflow: TextOverflow.ellipsis,
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.055,
+                            color: AppColors.appBlueColor,
                             fontWeight: FontWeight.w500),
                         softWrap: true,
                         maxLines: 2,
@@ -1562,6 +1633,7 @@ class _GraphScreenState extends State<GraphScreen> {
                             overflow: TextOverflow.ellipsis,
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.045,
+                            color: AppColors.appBlueColor,
                             fontWeight: FontWeight.w500),
                         softWrap: true,
                         maxLines: 2,
@@ -1626,7 +1698,10 @@ class _GraphScreenState extends State<GraphScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                      "${recentConnection.firstName} ${recentConnection.lastName}"),
+                                      "${recentConnection.firstName} ${recentConnection.lastName}",
+                                      style: TextStyle(
+                                        color: AppColors.appBlueColor,
+                                      )),
                                   Row(
                                     children: [
                                       Text(

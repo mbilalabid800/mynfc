@@ -36,7 +36,7 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                   color: AppColors.textColorBlue,
                 ),
               ),
-              Image.asset('assets/images/imagecardpng.png',
+              Image.asset('assets/images/cardimage_graphscreen.png',
                   width: DeviceDimensions.screenWidth(context) * 0.55),
               //SizedBox(height: 10),
               Padding(
@@ -192,7 +192,7 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                                 image: AssetImage(
                                   'assets/images/Subtract.png',
                                 ),
-                                fit: BoxFit.fill,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
@@ -261,7 +261,7 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                                 image: AssetImage(
                                   'assets/images/Subtract1.png',
                                 ),
-                                fit: BoxFit.fill,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),

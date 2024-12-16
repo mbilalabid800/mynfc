@@ -68,7 +68,8 @@ class ActiveLink extends StatelessWidget {
                                 child: Center(
                                     child: Text('All Apps are added',
                                         style: TextStyle(
-                                            fontFamily: 'Barlow-Regular'))),
+                                            fontFamily: 'Barlow-Regular',
+                                            color: AppColors.appBlueColor))),
                               )
                             else
                               ListView.builder(

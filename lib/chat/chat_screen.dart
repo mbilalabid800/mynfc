@@ -24,35 +24,44 @@ class _ChatScreenState extends State<ChatScreen> {
                 style: TextStyle(
                     fontFamily: 'Barlow-Regular',
                     fontSize: DeviceDimensions.responsiveSize(context) * 0.055,
-                    fontWeight: FontWeight.w600)),
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.appBlueColor)),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/recent-connected-list');
-          },
-          // backgroundColor: Colors.black,
-          backgroundColor: AppColors.appBlueColor,
-          foregroundColor: Colors.white,
-          tooltip: 'New Chat',
-          shape: CircleBorder(),
-          child: Icon(Icons.add),
-        ),
+        //floating button
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {
+        //     Navigator.pushNamed(context, '/recent-connected-list');
+        //   },
+        //   // backgroundColor: Colors.black,
+        //   backgroundColor: AppColors.appBlueColor,
+        //   foregroundColor: Colors.white,
+        //   tooltip: 'New Chat',
+        //   shape: CircleBorder(),
+        //   child: Icon(Icons.add),
+        // ),
         body: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset('assets/icons/chat_icon.svg'),
+              SvgPicture.asset('assets/icons/chat_icon.svg',
+                  color: AppColors.appBlueColor),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.02),
               const Text(
                 'Let\'s start chatting',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.appBlueColor),
               ),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.02),
-              const Text(
-                  '''    Tap the plus icon at the top right, select one of your 
-                    connection and start a new chat.'''),
+              // const Text(
+              //     '''    Tap the plus icon at the top right, select one of your
+              //       connection and start a new chat.''',
+              //     style: TextStyle(color: AppColors.appBlueColor)),
+              const Text('''    Coming Soon ''',
+                  style: TextStyle(color: AppColors.appBlueColor)),
             ],
           ),
         ),

@@ -143,30 +143,33 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                       GestureDetector(
-                        onTapDown: (TapDownDetails details) {
-                          final Offset position = details.globalPosition;
-
-                          // Show the popup menu directly inside onTapDown
-                          showMenu(
-                            color: Colors.white,
-                            context: context,
-                            position: RelativeRect.fromLTRB(
-                              position.dx, // X position
-                              position.dy, // Y position
-                              position.dx,
-                              position.dy,
-                            ),
-                            items: [
-                              const PopupMenuItem(
-                                child: Text(
-                                  'Coming Soon',
-                                  style:
-                                      TextStyle(color: AppColors.textColorBlue),
-                                ),
-                              ),
-                            ],
-                          );
+                        onTap: () {
+                          Navigator.pushNamed(context, '/add-employees');
                         },
+                        // onTapDown: (TapDownDetails details) {
+                        //   final Offset position = details.globalPosition;
+
+                        //   // Show the popup menu directly inside onTapDown
+                        //   showMenu(
+                        //     color: Colors.white,
+                        //     context: context,
+                        //     position: RelativeRect.fromLTRB(
+                        //       position.dx, // X position
+                        //       position.dy, // Y position
+                        //       position.dx,
+                        //       position.dy,
+                        //     ),
+                        //     items: [
+                        //       const PopupMenuItem(
+                        //         child: Text(
+                        //           'Coming Soon',
+                        //           style:
+                        //               TextStyle(color: AppColors.textColorBlue),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   );
+                        // },
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12.0, vertical: 9),
@@ -485,7 +488,11 @@ class _SettingsState extends State<Settings> {
                                   child: FittedBox(
                                     fit: BoxFit.fill,
                                     child: Switch(
-                                      activeTrackColor: AppColors.appBlueColor,
+                                      activeTrackColor:
+                                          AppColors.appOrangeColor,
+                                      inactiveTrackColor: Colors.grey.shade200,
+                                      inactiveThumbColor:
+                                          AppColors.appBlueColor,
                                       value: biometricProvider
                                           .isFingerprintEnabled,
                                       onChanged: (value) async {

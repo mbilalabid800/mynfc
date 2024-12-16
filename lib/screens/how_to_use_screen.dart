@@ -52,7 +52,7 @@ class _HowToUseScreenState extends State<HowToUseScreen> {
                 height: DeviceDimensions.screenHeight(context) * 0.01,
               ),
               //SvgPicture.asset('assets/icons/how_to_use.svg'),
-              Image.asset('assets/icons/how-to-use.png'),
+              Image.asset('assets/icons/howtouse.png'),
               SizedBox(
                 height: DeviceDimensions.screenHeight(context) * 0.01,
               ),

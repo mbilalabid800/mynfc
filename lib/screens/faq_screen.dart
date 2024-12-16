@@ -39,14 +39,11 @@ class _FaqScreenState extends State<FaqScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(child: Image.asset('assets/icons/faqimage.png'))
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Flexible(child: Image.asset('assets/icons/faqimage.png'))
+              ],
             ),
             ListView.builder(
               shrinkWrap: true,
@@ -77,9 +74,9 @@ class _FaqScreenState extends State<FaqScreen> {
             title: Text(
               faq.title,
               style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: AppColors.appBlueColor),
             ),
             trailing: IconButton(
               icon: Icon(
@@ -105,12 +102,14 @@ class _FaqScreenState extends State<FaqScreen> {
                     const EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
                 child: Text(
                   faq.description,
-                  style: const TextStyle(fontSize: 16),
+                  style: const TextStyle(
+                      fontSize: 16, color: AppColors.appBlueColor),
                 ),
               ),
             ),
-          const SizedBox(
-              height: 10), // SizedBox for better spacing after each tile
+          SizedBox(
+              height: DeviceDimensions.screenHeight(context) *
+                  0.01), // SizedBox for better spacing after each tile
         ],
       ),
     );

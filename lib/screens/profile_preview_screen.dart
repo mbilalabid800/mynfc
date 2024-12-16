@@ -47,13 +47,13 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                           height: DeviceDimensions.screenHeight(context) * 0.40,
                           width: DeviceDimensions.screenWidth(context),
                           child: Image.asset(
-                            "assets/images/profilecard.png",
+                            "assets/images/cardimage_graphscreen.png",
                           ),
                         ),
                       ),
                       Positioned(
                         right: 30,
-                        top: 60,
+                        top: 70,
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, '/share-profile');
@@ -69,7 +69,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                         right: 0,
                         child: CircleAvatar(
                           backgroundColor: Colors.white,
-                          radius: 70,
+                          radius: 60,
                           child: CircleAvatar(
                             radius: 68,
                             backgroundColor: AppColors.appBlueColor,
