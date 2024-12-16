@@ -107,9 +107,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: DeviceDimensions.screenHeight(context),
                   width: DeviceDimensions.screenWidth(context),
-                  child: Image.asset(
-                    "assets/images/homebackground2.png",
-                    fit: BoxFit.cover,
+                  child: ColorFiltered(
+                    colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(
+                          0.5), // You can change the color and opacity
+                      BlendMode
+                          .darken, // You can choose different blend modes (darken, lighten, etc.)
+                    ),
+                    child: Image.asset(
+                      "assets/images/homebackground8.jpeg",
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Stack(

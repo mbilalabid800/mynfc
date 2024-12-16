@@ -45,23 +45,25 @@ class _TimeFrameListState extends State<TimeFrameList> {
               },
               child: Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 margin: const EdgeInsets.symmetric(horizontal: 5),
                 decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.appBlueColor),
                   color: selectedTimeFrame == timeFrames[index]
                       ? AppColors.appBlueColor
-                      : Colors.grey[300],
+                      : Colors.transparent,
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Center(
                   child: Text(
                     timeFrames[index],
                     style: TextStyle(
-                      color: selectedTimeFrame == timeFrames[index]
-                          ? Colors.white
-                          : AppColors.appBlueColor,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        color: selectedTimeFrame == timeFrames[index]
+                            ? Colors.white
+                            : AppColors.appBlueColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize:
+                            DeviceDimensions.responsiveSize(context) * 0.035),
                   ),
                 ),
               ),

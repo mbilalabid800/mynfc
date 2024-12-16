@@ -93,7 +93,7 @@ class _GraphScreenState extends State<GraphScreen> {
                           //shape: BoxShape.circle,
                           ),
                       child: const CircleAvatar(
-                        backgroundColor: Color.fromARGB(255, 206, 199, 199),
+                        backgroundColor: AppColors.appBlueColor,
                         backgroundImage: AssetImage(
                           'assets/icons/cardprofile.png',
                         ),
@@ -130,22 +130,20 @@ class _GraphScreenState extends State<GraphScreen> {
                       child: SizedBox(
                         height: 30,
                         width: 90,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/privacy-policy');
-                          },
-                          style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              backgroundColor: AppColors.appBlueColor,
-                              foregroundColor: Colors.white),
-                          child: Text(
-                            "Personal",
-                            style: TextStyle(
-                              fontFamily: 'Barlow-Regular',
-                              fontWeight: FontWeight.w500,
-                              fontSize:
-                                  DeviceDimensions.responsiveSize(context) *
-                                      0.045,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: AppColors.appBlueColor,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Center(
+                            child: Text(
+                              "Personal",
+                              style: TextStyle(
+                                  fontFamily: 'Barlow-Regular',
+                                  fontWeight: FontWeight.w500,
+                                  fontSize:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.04,
+                                  color: Colors.white),
                             ),
                           ),
                         ),
@@ -166,8 +164,9 @@ class _GraphScreenState extends State<GraphScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 10),
-                      child: Image.asset('assets/images/imagecardpng.png',
+                          horizontal: 20.0, vertical: 25),
+                      child: Image.asset(
+                          'assets/images/cardimage_graphscreen.png',
                           width: DeviceDimensions.screenWidth(context) * 0.7),
                     ),
                   ],
