@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nfc_app/chat/chat_screen.dart';
 import 'package:nfc_app/chat/chat_screen2.dart';
+import 'package:nfc_app/provider/app_data_provider.dart';
 import 'package:nfc_app/provider/biometric_handler_provider.dart';
 import 'package:nfc_app/provider/card_details_provider.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
@@ -135,7 +136,13 @@ void main() async {
       ChangeNotifierProvider(
         create: (_) => BiometricHandlerProvider(),
       ),
+<<<<<<< HEAD
       ChangeNotifierProvider(create: (_) => FormValidationProvider()),
+=======
+      ChangeNotifierProvider(
+        create: (_) => AppDataProvider(),
+      )
+>>>>>>> 0ce485ec7672bfd9442aa98d9c7b9ba21f9f0b4b
     ],
     child: InternetStatusHandler(child: const MyApp()),
   ));

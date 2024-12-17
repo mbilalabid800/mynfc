@@ -26,9 +26,11 @@ class CardDetailsProvider extends ChangeNotifier {
 
   /// Fetch data from Firestore
   Future<void> fetchCardsFromFirestore(BuildContext context) async {
-    _isLoading = true;
+    _isLoading = true; // Start loader
     notifyListeners();
+
     try {
+      // Fetch data from Firestore
       final snapshot = await _firestore.collection('cards').get();
       final List<CardDetailsModel> fetchedCards = snapshot.docs
           .map((doc) => CardDetailsModel.fromFirestore(doc))
@@ -36,8 +38,15 @@ class CardDetailsProvider extends ChangeNotifier {
 
       _cards.clear();
       _cards.addAll(fetchedCards);
+
       if (_cards.isNotEmpty) {
-        setSelectedCard(_cards.first);
+        _selectedCard = _cards.first;
+        _selectedColorOption = _selectedCard!.cardColorOptions.isNotEmpty
+            ? _selectedCard!.cardColorOptions.first
+            : null;
+        _filteredCardImages = _selectedCard!.cardImages.isNotEmpty
+            ? _selectedCard!.cardImages.first
+            : '';
       }
 
       // Preload all images
@@ -45,6 +54,7 @@ class CardDetailsProvider extends ChangeNotifier {
     } catch (e) {
       print('Error fetching cards: $e');
     } finally {
+      // Ensure the loader is off after all operations
       _isLoading = false;
       notifyListeners();
     }
@@ -52,37 +62,34 @@ class CardDetailsProvider extends ChangeNotifier {
 
   /// Preload all card images
   Future<void> _preloadCardImages(BuildContext context) async {
-    List<Future> preloadFutures = [];
+    try {
+      List<Future> preloadFutures = [];
 
-    for (var card in _cards) {
-      for (var imageUrl in card.cardImages) {
-        preloadFutures.add(
-          precacheImage(NetworkImage(imageUrl), context),
-        );
+      for (var card in _cards) {
+        for (var imageUrl in card.cardImages) {
+          preloadFutures.add(precacheImage(NetworkImage(imageUrl), context));
+        }
       }
-    }
 
-    await Future.wait(preloadFutures); // Wait for all images to load
+      await Future.wait(preloadFutures); // Wait for all images to load
+    } catch (e) {
+      print('Error preloading images: $e');
+    }
   }
 
   /// Set the selected card
   void setSelectedCard(CardDetailsModel card) {
-    _isLoading = true;
-    notifyListeners();
     _selectedCard = card;
     _selectedColorOption =
         card.cardColorOptions.isNotEmpty ? card.cardColorOptions.first : null;
     _filteredCardImages =
         card.cardImages.isNotEmpty ? card.cardImages.first : '';
     _visibleStartIndex = 0;
-    _isLoading = false;
     notifyListeners();
   }
 
   /// Set the selected color option
   void setSelectedColor(CardColorOption colorOption) {
-    _isLoading = true;
-    notifyListeners();
     _selectedColorOption = colorOption;
     _filteredCardImages = _selectedCard?.cardImages.firstWhere(
           (image) =>
@@ -90,7 +97,6 @@ class CardDetailsProvider extends ChangeNotifier {
           orElse: () => '',
         ) ??
         '';
-    _isLoading = false;
     notifyListeners();
   }
 

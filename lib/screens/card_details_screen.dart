@@ -294,7 +294,8 @@ class _CardDetailsState extends State<CardDetails> {
                                         _currentPage = index;
                                       });
                                       cardDetailsProvider.setSelectedCard(
-                                          cardDetailsProvider.cards[index]);
+                                        cardDetailsProvider.cards[index],
+                                      );
                                     },
                                     itemBuilder: (context, index) {
                                       return Column(
