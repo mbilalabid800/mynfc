@@ -115,7 +115,7 @@ class _SettingsState extends State<Settings> {
                   height: DeviceDimensions.screenHeight(context) * 0.0001,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 12, right: 12, top: 35),
+                  padding: const EdgeInsets.only(left: 12, right: 12, top: 25),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -146,30 +146,6 @@ class _SettingsState extends State<Settings> {
                         onTap: () {
                           Navigator.pushNamed(context, '/add-employees');
                         },
-                        // onTapDown: (TapDownDetails details) {
-                        //   final Offset position = details.globalPosition;
-
-                        //   // Show the popup menu directly inside onTapDown
-                        //   showMenu(
-                        //     color: Colors.white,
-                        //     context: context,
-                        //     position: RelativeRect.fromLTRB(
-                        //       position.dx, // X position
-                        //       position.dy, // Y position
-                        //       position.dx,
-                        //       position.dy,
-                        //     ),
-                        //     items: [
-                        //       const PopupMenuItem(
-                        //         child: Text(
-                        //           'Coming Soon',
-                        //           style:
-                        //               TextStyle(color: AppColors.textColorBlue),
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   );
-                        // },
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12.0, vertical: 9),
@@ -643,9 +619,8 @@ class _SettingsState extends State<Settings> {
                           ),
                         ),
                         SizedBox(
-                          height:
-                              DeviceDimensions.screenHeight(context) * 0.035,
-                        ),
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.035),
                         Center(
                           child: GestureDetector(
                             onTap: () {
@@ -665,13 +640,15 @@ class _SettingsState extends State<Settings> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.003),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(
-                                    context, "/privacy-settings");
+                                Navigator.pushNamed(context, "/privacy-policy");
                               },
                               child: Text(
                                 "Privacy policy",

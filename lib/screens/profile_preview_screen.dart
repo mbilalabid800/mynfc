@@ -41,10 +41,9 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                   Stack(
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.only(top: 10.0, left: 5, right: 5),
+                        padding: const EdgeInsets.only(left: 12, right: 12),
                         child: SizedBox(
-                          height: DeviceDimensions.screenHeight(context) * 0.40,
+                          height: DeviceDimensions.screenHeight(context) * 0.35,
                           width: DeviceDimensions.screenWidth(context),
                           child: Image.asset(
                             "assets/images/cardimage_graphscreen.png",
@@ -53,31 +52,31 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                       ),
                       Positioned(
                         right: 30,
-                        top: 70,
+                        top: 48,
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, '/share-profile');
                           },
                           child: SvgPicture.asset("assets/icons/share.svg",
                               height: DeviceDimensions.responsiveSize(context) *
-                                  0.08),
+                                  0.10),
                         ),
                       ),
                       Positioned(
-                        bottom: 15,
+                        bottom: 0,
                         left: 0,
                         right: 0,
                         child: CircleAvatar(
                           backgroundColor: Colors.white,
                           radius: 60,
                           child: CircleAvatar(
-                            radius: 68,
+                            radius: 56,
                             backgroundColor: AppColors.appBlueColor,
                             child: CachedNetworkImage(
                               imageUrl: userProvider.imageUrl!,
                               imageBuilder: (context, imageProvider) =>
                                   CircleAvatar(
-                                radius: 68,
+                                radius: 60,
                                 backgroundImage: imageProvider,
                               ),
                               placeholder: (context, url) => Center(
@@ -221,13 +220,15 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                                     "assets/icons/mail.svg",
                                     fit: BoxFit.contain,
                                   ),
-                                  Text('Email',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize:
-                                              DeviceDimensions.responsiveSize(
-                                                      context) *
-                                                  0.035)),
+                                  Text(
+                                    'Email',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.035),
+                                  ),
                                 ],
                               ),
                             ),
@@ -313,8 +314,8 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              crossAxisSpacing: 20,
-                              childAspectRatio: 2.1,
+                              crossAxisSpacing: 1,
+                              childAspectRatio: 2.2,
                             ),
                             itemBuilder: (BuildContext context, int index) {
                               final platform = socialAppProvider
@@ -343,11 +344,11 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                                       }
                                     },
                                     child: Container(
-                                      width: 54,
-                                      height: 54,
+                                      width: 50,
+                                      height: 50,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(35),
-                                        color: AppColors.appBlueColor,
+                                        color: Colors.black54,
                                         image: DecorationImage(
                                           image: CachedNetworkImageProvider(
                                               platform.icon),
@@ -397,8 +398,10 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                             onTap: () {
                               Navigator.pushNamed(context, '/active-link');
                             },
-                            child:
-                                SvgPicture.asset("assets/icons/addlink.svg")),
+                            child: SvgPicture.asset(
+                              "assets/icons/addlink.svg",
+                              height: 40,
+                            )),
                         SizedBox(
                             height:
                                 DeviceDimensions.screenHeight(context) * 0.025),
@@ -406,7 +409,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                     ),
                   ),
                   SizedBox(
-                      height: DeviceDimensions.screenHeight(context) * 0.040),
+                      height: DeviceDimensions.screenHeight(context) * 0.030),
                 ],
               );
             },

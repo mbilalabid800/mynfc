@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
-                                  left: 12, right: 12, top: 35),
+                                  left: 12, right: 12, top: 25),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
