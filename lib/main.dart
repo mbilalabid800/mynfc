@@ -136,13 +136,10 @@ void main() async {
       ChangeNotifierProvider(
         create: (_) => BiometricHandlerProvider(),
       ),
-<<<<<<< HEAD
       ChangeNotifierProvider(create: (_) => FormValidationProvider()),
-=======
       ChangeNotifierProvider(
         create: (_) => AppDataProvider(),
       )
->>>>>>> 0ce485ec7672bfd9442aa98d9c7b9ba21f9f0b4b
     ],
     child: InternetStatusHandler(child: const MyApp()),
   ));
