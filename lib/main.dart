@@ -11,6 +11,7 @@ import 'package:nfc_app/provider/card_details_provider.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/employee_provider.dart';
+import 'package:nfc_app/provider/form_validation_provider.dart';
 import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/provider/shipping_address_provider.dart';
 import 'package:nfc_app/provider/forget_password_email_provider.dart';
@@ -133,7 +134,8 @@ void main() async {
       ),
       ChangeNotifierProvider(
         create: (_) => BiometricHandlerProvider(),
-      )
+      ),
+      ChangeNotifierProvider(create: (_) => FormValidationProvider()),
     ],
     child: InternetStatusHandler(child: const MyApp()),
   ));
@@ -171,7 +173,7 @@ class MyApp extends StatelessWidget {
           '/forget2': (context) => const ForgetPassword(),
           '/email-verify-forgot-password': (context) =>
               const EmailVerifyForgetPassword(),
-          '/set-password': (context) => const SetPassword(),
+          //'/set-password': (context) => const SetPassword(),
           '/email-verify': (context) => const EmailVerify(),
           '/email-verified': (context) => const EmailVerified(),
           '/user-info': (context) => const UserScreen(),

@@ -74,6 +74,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _firstNameError == null &&
       _lastNameError == null &&
       _contactError == null;
+
   bool get isCompanyInfoFormValid =>
       _selectedItem != null &&
       _companyName.isNotEmpty &&
@@ -130,6 +131,8 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     } else {
       _lastNameError = null;
       _lastName = trimmedLastName;
+      notifyListeners();
+      return;
     }
     notifyListeners();
   }
@@ -161,8 +164,8 @@ class UserInfoFormStateProvider extends ChangeNotifier {
 
   void updateCity(String city) {
     final trimmedCityName = city.trim();
-    //Validation: Ensure the first name is between 2-20 chars and only contains letters
-    //final regex = RegExp(r'^[a-zA-Z]+$');
+    // Validation: Ensure the first name is between 2-20 chars and only contains letters
+    final regex = RegExp(r'^[a-zA-Z]+$');
     if (trimmedCityName.startsWith(' ')) {
       _cityNameError = 'City name cannot start with a space';
     } else if (trimmedCityName.isEmpty) {
@@ -171,11 +174,9 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _cityNameError = 'City name must be at least 2 characters';
     } else if (trimmedCityName.length > 20) {
       _cityNameError = 'City name must not exceed 20 characters';
-    }
-    // else if (!regex.hasMatch(trimmedCompanyName)) {
-    //   _firstNameError = 'Only letters are allowed';
-    // }
-    else {
+    } else if (!regex.hasMatch(trimmedCityName)) {
+      _cityNameError = 'Only letters are allowed';
+    } else {
       // Input is valid
       _cityNameError = null;
       _city = trimmedCityName;
@@ -189,7 +190,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   void updateCompanyName(String companyName) {
     final trimmedCompanyName = companyName.trim();
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
-    //final regex = RegExp(r'^[a-zA-Z]+$');
+    final regex = RegExp(r'^[a-zA-Z]+$');
     if (trimmedCompanyName.startsWith(' ')) {
       _companyNameError = 'Company name cannot start with a space';
     } else if (trimmedCompanyName.isEmpty) {
@@ -197,12 +198,10 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     } else if (trimmedCompanyName.length < 2) {
       _companyNameError = 'Company name must be at least 2 characters';
     } else if (trimmedCompanyName.length > 20) {
-      _companyNameError = 'Company name must not exceed 20 characters';
-    }
-    // else if (!regex.hasMatch(trimmedCompanyName)) {
-    //   _firstNameError = 'Only letters are allowed';
-    // }
-    else {
+      _companyNameError = 'Company name must not exceed 25 characters';
+    } else if (!regex.hasMatch(trimmedCompanyName)) {
+      _companyNameError = 'Only letters are allowed';
+    } else {
       // Input is valid
       _companyNameError = null;
       _companyName = trimmedCompanyName;
@@ -216,7 +215,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   void updateDesignation(String designation) {
     final trimmedDesignation = designation.trim();
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
-    //final regex = RegExp(r'^[a-zA-Z]+$');
+    final regex = RegExp(r'^[a-zA-Z]+$');
     if (trimmedDesignation.startsWith(' ')) {
       _designationError = 'Designation cannot start with a space';
     } else if (trimmedDesignation.isEmpty) {
@@ -224,12 +223,10 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     } else if (trimmedDesignation.length < 2) {
       _designationError = 'Designation must be at least 2 characters';
     } else if (trimmedDesignation.length > 20) {
-      _designationError = 'Designation must not exceed 20 characters';
-    }
-    // else if (!regex.hasMatch(trimmedCompanyName)) {
-    //   _firstNameError = 'Only letters are allowed';
-    // }
-    else {
+      _designationError = 'Designation must not exceed 25 characters';
+    } else if (!regex.hasMatch(trimmedDesignation)) {
+      _designationError = 'Only letters are allowed';
+    } else {
       // Input is valid
       _designationError = null;
       _designation = trimmedDesignation;
