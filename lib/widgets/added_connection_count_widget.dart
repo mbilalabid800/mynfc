@@ -4,8 +4,8 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 class AddedConnectionsCountWidget extends StatelessWidget {
   final int totalConnections;
 
-  const AddedConnectionsCountWidget({Key? key, required this.totalConnections})
-      : super(key: key);
+  const AddedConnectionsCountWidget(
+      {super.key, required this.totalConnections});
 
   @override
   Widget build(BuildContext context) {

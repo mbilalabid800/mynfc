@@ -2,7 +2,6 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
@@ -13,7 +12,6 @@ import 'package:nfc_app/widgets/added_connection_count_widget.dart';
 import 'package:nfc_app/widgets/charts_widget.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/custom_loader_widget.dart';
-import 'package:nfc_app/widgets/time_frame_list_widget.dart';
 import 'package:provider/provider.dart';
 
 class GraphScreen extends StatefulWidget {
