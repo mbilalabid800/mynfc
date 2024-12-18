@@ -173,8 +173,8 @@ class ConfirmOrder {
     final userProvider =
         Provider.of<UserInfoFormStateProvider>(context, listen: false);
     String orderDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
-    String deliveryDate =
-        DateFormat('yyyy-MM-dd').format(DateTime.now().add(Duration(days: 7)));
+    String deliveryDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().add(const Duration(days: 7)));
 
     CardPicturesLinks cardLink = CardPicturesLinks();
     String makeCardLink =
@@ -208,7 +208,7 @@ class ConfirmOrder {
           );
         });
 
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     try {
       await orderProvider.placeOrder(newOrder);
       await Provider.of<EmployeeProvider>(context, listen: false)

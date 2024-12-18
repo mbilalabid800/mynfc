@@ -102,15 +102,16 @@ class _NameStepState extends State<NameStep> {
 
   @override
   Widget build(BuildContext context) {
-    final formState =
-        Provider.of<UserInfoFormStateProvider>(context, listen: false);
-
+    final formState = Provider.of<UserInfoFormStateProvider>(context);
+    // final formValidator =
+    //     Provider.of<FormValidationProvider>(context, listen: false);
     return SingleChildScrollView(
       child: Container(
         color: AppColors.screenBackground,
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+            //Provider First name
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
@@ -145,6 +146,9 @@ class _NameStepState extends State<NameStep> {
                 ),
               ),
             ),
+
+            //last name with provider
+
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
@@ -180,6 +184,7 @@ class _NameStepState extends State<NameStep> {
                 ),
               ),
             ),
+
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -754,14 +759,19 @@ class ImageStep extends StatelessWidget {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: SvgPicture.asset(
-                                'assets/icons/uploadnew.svg',
-                                height:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.01,
-                                width:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.01,
+                              child: GestureDetector(
+                                onTap: () {
+                                  imageProvider.pickImage(context);
+                                },
+                                child: SvgPicture.asset(
+                                  'assets/icons/uploadnew.svg',
+                                  height:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.01,
+                                  width:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.01,
+                                ),
                               ),
                             ))
                       ],

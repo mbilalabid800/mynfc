@@ -49,14 +49,6 @@ class OrderProvider with ChangeNotifier {
 // Get the current user's UID
       String? userUid = FirebaseAuth.instance.currentUser?.uid;
 
-      // Ensure user is logged in
-      if (userUid == null) {
-        print('User is not logged in');
-        isLoading = false;
-        notifyListeners();
-        return;
-      }
-
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('orders')
           .where('userUid', isEqualTo: userUid)

@@ -98,7 +98,7 @@ class ConnectionsRequest extends StatelessWidget {
 
   /// Widget to build the profile image
   Widget _buildProfileImage(String profileImageUrl) {
-    final defaultImage =
+    const defaultImage =
         'https://firebasestorage.googleapis.com/v0/b/nfc-project-21b56.appspot.com/o/default_profile.jpg?alt=media&token=dec3b09a-d6fd-47a2-ae5b-cb0e248ae21c';
     return Container(
       width: 56,

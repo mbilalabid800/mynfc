@@ -254,7 +254,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             Container(
               color: Colors.white54,
               child: Center(
-                child: DualRingLoader(),
+                child: const DualRingLoader(),
               ),
             ),
         ],

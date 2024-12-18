@@ -96,8 +96,8 @@ class ConnectionLoader extends StatelessWidget {
           SpinKitDualRing(
             color: AppColors.appOrangeColor, // Set your preferred color
             size: 40.0, // Adjust the size as needed
-            duration:
-                Duration(milliseconds: 1200), // Customize the animation speed
+            duration: const Duration(
+                milliseconds: 1200), // Customize the animation speed
           ),
           SizedBox(height: 20),
           Text(

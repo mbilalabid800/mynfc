@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
 
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
         _isBlocked(userInfoProvider);
       }

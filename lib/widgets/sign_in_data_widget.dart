@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
+// ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison, deprecated_member_use
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -230,7 +230,7 @@ class _SigninDataState extends State<SigninData> {
       );
     } finally {
       // Delay turning off the loader to ensure navigation completes
-      Future.delayed(Duration(milliseconds: 300), () {
+      Future.delayed(const Duration(milliseconds: 300), () {
         setState(() {
           isLoading = false;
         });
