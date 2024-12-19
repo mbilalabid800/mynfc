@@ -167,7 +167,7 @@ class AuthService {
       String uid = user.uid;
       // Generate the link
       String userProfileLink =
-          'https://nfcapp.com/connection-profile-preview/$uid';
+          'https://myabsher.com/connection-profile-preview/$uid';
       return userProfileLink;
     } else {
       throw Exception('User not logged in');

@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, use_build_context_synchronously, avoid_print
+// ignore_for_file: file_names, use_build_context_synchronously, avoid_print, deprecated_member_use
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -487,8 +487,6 @@ class _RegisterFormState extends State<RegisterData> {
                                   0.060,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
-                                border:
-                                    Border.all(color: const Color(0xFFA9A9A9)),
                                 boxShadow: [
                                   BoxShadow(
                                     color: const Color.fromARGB(26, 0, 0, 0)
@@ -545,8 +543,6 @@ class _RegisterFormState extends State<RegisterData> {
                                   0.060,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
-                                border:
-                                    Border.all(color: const Color(0xFFA9A9A9)),
                                 boxShadow: [
                                   BoxShadow(
                                     color: const Color.fromARGB(26, 0, 0, 0)

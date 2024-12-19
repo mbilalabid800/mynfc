@@ -85,7 +85,7 @@ class DeleteUser {
               .imageUrl;
 
       // Check if the imageUrl exists
-      if (imageUrl != null && imageUrl.isNotEmpty) {
+      if (imageUrl.isNotEmpty) {
         // Get the Firebase Storage reference and delete the image
         await FirebaseStorage.instance.refFromURL(imageUrl).delete();
         print('Image deleted successfully from Firebase Storage.');

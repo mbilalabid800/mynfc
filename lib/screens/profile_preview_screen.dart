@@ -73,7 +73,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                             radius: 56,
                             backgroundColor: AppColors.appBlueColor,
                             child: CachedNetworkImage(
-                              imageUrl: userProvider.imageUrl!,
+                              imageUrl: userProvider.imageUrl,
                               imageBuilder: (context, imageProvider) =>
                                   CircleAvatar(
                                 radius: 60,
@@ -259,9 +259,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                   Padding(
                     padding: const EdgeInsets.only(left: 25.0, right: 25),
                     child: Text(
-                      userProvider.bio.isNotEmpty
-                          ? userProvider.bio
-                          : "What Software Quality Assurance Engineers and Testers Do. Design test plans, scenarios, scripts, or procedures. Document software defects, using a bug tracking system, and report defects to software developers. Identify, analyze, and document problems with program function, output, online screen, or content.",
+                      userProvider.bio,
                       style: TextStyle(
                         color: const Color(0xFF909091),
                         fontSize:

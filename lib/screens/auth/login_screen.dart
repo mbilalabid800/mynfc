@@ -62,10 +62,19 @@ class _LoginScreenState extends State<LoginScreen>
               child: Column(
                 children: [
                   SizedBox(
-                      height: DeviceDimensions.screenHeight(context) * 0.032),
+                      height: DeviceDimensions.screenHeight(context) * 0.006),
+                  Container(
+                    width: DeviceDimensions.screenWidth(context) * 0.14,
+                    height: DeviceDimensions.screenHeight(context) * 0.0079,
+                    decoration: BoxDecoration(
+                        color: const Color(0xFFD7D9DD),
+                        borderRadius: BorderRadius.circular(12)),
+                  ),
+                  SizedBox(
+                      height: DeviceDimensions.screenHeight(context) * 0.025),
                   Container(
                     height: DeviceDimensions.screenHeight(context) * 0.065,
-                    width: DeviceDimensions.screenWidth(context) * 0.895,
+                    width: DeviceDimensions.screenWidth(context) * 0.891,
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 239, 239, 239),
                       borderRadius: BorderRadius.circular(25),
@@ -85,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen>
                                 0.045,
                             fontWeight: FontWeight.w600,
                             letterSpacing: 1),
-                        unselectedLabelColor: const Color(0xFF727272),
+                        unselectedLabelColor: AppColors.textColorBlue,
                         unselectedLabelStyle: TextStyle(
                           fontSize:
                               DeviceDimensions.responsiveSize(context) * 0.045,

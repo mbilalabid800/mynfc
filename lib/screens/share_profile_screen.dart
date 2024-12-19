@@ -27,7 +27,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
         child: Consumer<UserInfoFormStateProvider>(
           builder: (context, userProvider, child) {
             String profileLink =
-                'https://nfcapp.com/connection-profile-preview/${userProvider.uid}';
+                'https://myabsher.com/connection-profile-preview/${userProvider.uid}';
             return Column(
               children: [
                 Container(
@@ -50,7 +50,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                               radius: 35,
                               backgroundColor: AppColors.appBlueColor,
                               child: CachedNetworkImage(
-                                imageUrl: userProvider.imageUrl!,
+                                imageUrl: userProvider.imageUrl,
                                 imageBuilder: (context, imageProvider) =>
                                     CircleAvatar(
                                   radius: 35,

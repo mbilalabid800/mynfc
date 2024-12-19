@@ -672,8 +672,8 @@ class AddedConnectionChart extends StatelessWidget {
     final sortedKeys = dateCounts.keys.toList()
       ..sort((a, b) => formatter.parse(a).compareTo(formatter.parse(b)));
 
-    final totalConnections =
-        dateCounts.values.fold(0, (sum, count) => sum + count);
+    // final totalConnections =
+    //     dateCounts.values.fold(0, (sum, count) => sum + count);
     // Convert sorted data into BarChartGroupData
     List<BarChartGroupData> barGroups = [];
     for (int index = 0; index < sortedKeys.length; index++) {

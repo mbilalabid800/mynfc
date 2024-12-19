@@ -299,8 +299,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           radius: 37,
                                           backgroundColor: Colors.black54,
                                           child: CachedNetworkImage(
-                                            imageUrl:
-                                                userProvider.imageUrl ?? '',
+                                            imageUrl: userProvider.imageUrl,
                                             imageBuilder:
                                                 (context, imageProvider) =>
                                                     CircleAvatar(

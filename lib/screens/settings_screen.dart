@@ -63,7 +63,7 @@ class _SettingsState extends State<Settings> {
       String uid = user.uid;
       // Generate the deep link
       String userProfileLink =
-          'https://nfcapp.com/connection-profile-preview/$uid?source=nfc';
+          'https://myabsher.com/connection-profile-preview/$uid?source=nfc';
       return userProfileLink;
     } else {
       throw Exception('User not logged in');
@@ -295,7 +295,7 @@ class _SettingsState extends State<Settings> {
                                 radius: 40,
                                 backgroundColor: AppColors.appBlueColor,
                                 child: CachedNetworkImage(
-                                  imageUrl: userProvider.imageUrl!,
+                                  imageUrl: userProvider.imageUrl,
                                   imageBuilder: (context, imageProvider) =>
                                       CircleAvatar(
                                     radius: 40,

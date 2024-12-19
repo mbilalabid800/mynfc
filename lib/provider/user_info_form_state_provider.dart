@@ -11,18 +11,20 @@ import '../services/shared_preferences_service/shared_preferences_services.dart'
 class UserInfoFormStateProvider extends ChangeNotifier {
   String _firstName = '';
   String _lastName = '';
-  String _countryName = '';
+  String _countryName = 'Oman';
   String _email = '';
   String _uid = '';
-  String _contact = '';
-  String _countryCode = '';
-  String _city = '';
-  String? _selectedItem;
-  String _companyName = '';
-  String _designation = '';
-  String _websiteLink = '';
-  String? _imageUrl;
-  String _bio = '';
+  String _contact = 'No Contact';
+  String _countryCode = '+968';
+  String _city = 'Muscat';
+  String? _selectedItem = 'Not Select';
+  String _companyName = 'Sahab';
+  String _designation = 'Manager';
+  String _websiteLink = 'www.sahab.com';
+  String _imageUrl =
+      'https://firebasestorage.googleapis.com/v0/b/nfc-project-21b56.appspot.com/o/default_profile.jpg?alt=media&token=dec3b09a-d6fd-47a2-ae5b-cb0e248ae21c';
+  String _bio =
+      'What Software Quality Assurance Engineers and Testers Do. Design test plans, scenarios, scripts, or procedures. Document software defects, using a bug tracking system, and report defects to software developers. Identify, analyze, and document problems with program function, output, online screen, or content.';
   // int _profileViews = 0;
   String _currentEditingField = '';
   String? _firstNameError;
@@ -52,7 +54,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String get companyName => _companyName;
   String get designation => _designation;
   String get websiteLink => _websiteLink;
-  String? get imageUrl => _imageUrl;
+  String get imageUrl => _imageUrl;
   String get bio => _bio;
   bool get isPrivate => _isPrivate;
   // int get profileViews => _profileViews;
@@ -76,7 +78,6 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _contactError == null;
 
   bool get isCompanyInfoFormValid =>
-      _selectedItem != null &&
       _companyName.isNotEmpty &&
       _designation.isNotEmpty &&
       _websiteLink.isNotEmpty &&
@@ -256,7 +257,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateImageUrl(String? imageUrl) {
+  void updateImageUrl(String imageUrl) {
     _imageUrl = imageUrl;
     notifyListeners();
   }
@@ -481,11 +482,11 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     _contact = '';
     _countryCode = '';
     _city = '';
-    _selectedItem = null;
+    _selectedItem = '';
     _companyName = '';
     _designation = '';
     _websiteLink = '';
-    _imageUrl = null;
+    _imageUrl = '';
     _bio = '';
 
     notifyListeners();

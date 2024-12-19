@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, deprecated_member_use
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -1341,8 +1341,8 @@ class _GraphScreenState extends State<GraphScreen> {
     // Calculate the total taps
     //double totalTaps = tapsPerDay.reduce((a, b) => a + b);
 
-    final socialApps = Provider.of<SocialAppProvider>(context, listen: false)
-        .filteredSocialApps;
+    // final socialApps = Provider.of<SocialAppProvider>(context, listen: false)
+    //     .filteredSocialApps;
 
     return SingleChildScrollView(
       child: Container(
@@ -1588,7 +1588,7 @@ class _GraphScreenState extends State<GraphScreen> {
     //     .take(5) // Take only the first 5 connections
     //     .toList(); // Convert back to a list
 
-    final totalConnections = addedConnections.length;
+    // final totalConnections = addedConnections.length;
 
     return SingleChildScrollView(
       child: Container(

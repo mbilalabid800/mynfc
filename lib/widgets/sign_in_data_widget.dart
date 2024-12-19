@@ -222,12 +222,8 @@ class _SigninDataState extends State<SigninData> {
     } catch (e) {
       // Handle errors gracefully and notify the user
       debugPrint('Error in navigating based on user status: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          backgroundColor: Colors.red,
-          content: Text('An error occurred while processing your login.'),
-        ),
-      );
+      CustomSnackbar().snakBarError(
+          context, "An error occurred while processing your login.");
     } finally {
       // Delay turning off the loader to ensure navigation completes
       Future.delayed(const Duration(milliseconds: 300), () {
@@ -408,9 +404,6 @@ class _SigninDataState extends State<SigninData> {
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Please enter Password';
-                                }
-                                if (value.length < 8) {
-                                  return 'Password must be at least 8 characters long';
                                 }
                                 return null;
                               },

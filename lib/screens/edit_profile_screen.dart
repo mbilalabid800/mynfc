@@ -201,7 +201,7 @@ class _EditProfileState extends State<EditProfile> {
                                             backgroundColor:
                                                 AppColors.appBlueColor,
                                             child: CachedNetworkImage(
-                                              imageUrl: userProvider.imageUrl!,
+                                              imageUrl: userProvider.imageUrl,
                                               imageBuilder:
                                                   (context, imageProvider) =>
                                                       CircleAvatar(

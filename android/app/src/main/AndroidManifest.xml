@@ -34,12 +34,13 @@
             <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <!-- Replace with your app's deep linking host -->
                 <data android:scheme="https"
-                      android:host="nfcapp.com"
+                      android:host="myabsher.com"
                       android:pathPrefix="/connection-profile-preview" />
             </intent-filter>
 

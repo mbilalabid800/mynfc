@@ -71,7 +71,18 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
     // Initialize Firebase
-    await Firebase.initializeApp();
+    // await Firebase.initializeApp();
+
+    await Firebase.initializeApp(
+      options: FirebaseOptions(
+        apiKey: "AIzaSyC200DWPWRT2XiiHXnVhtyrTLt-17y5bcY",
+        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+        projectId: "nfc-project-21b56",
+        storageBucket: "YOUR_PROJECT_ID.appspot.com",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+        appId: "1:165128879718:android:0cb76396c952406399f7a7",
+      ),
+    );
 
     // Initialize Firebase App Check
     await FirebaseAppCheck.instance.activate(

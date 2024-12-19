@@ -24,5 +24,5 @@ class AppColors {
   static const Color companiesCardColor = Color.fromARGB(255, 74, 161, 224);
   static const Color appBlueColor = Color.fromARGB(255, 32, 30, 67);
   static const Color appOrangeColor = Color.fromARGB(255, 255, 130, 37);
-  static const Color textFieldBorder = Color.fromARGB(255, 169, 169, 169);
+  static const Color textFieldBorder = Color(0xFFA9A9A9);
 }
