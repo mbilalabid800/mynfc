@@ -8,12 +8,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:165128879718:android:0cb76396c952406399f7a7",
+        "mobilesdk_app_id": "1:165128879718:android:fb825bf514d1599699f7a7",
         "android_client_info": {
           "package_name": "com.sahab.absher"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "165128879718-g2f1ilioaim80qb3fg9k8je01jao20sv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sahab.absher",
+            "certificate_hash": "2d41c421f3be089444053339be7e0c4e58e8967b"
+          }
+        },
+        {
+          "client_id": "165128879718-fbkpov0iqfcopcnpvee9kt2ra5e0o4gj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC200DWPWRT2XiiHXnVhtyrTLt-17y5bcY"
@@ -21,7 +34,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "165128879718-fbkpov0iqfcopcnpvee9kt2ra5e0o4gj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "165128879718-9nq5ptkta2rbd9rdehvvpfa5roit03vf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nfcApp"
+              }
+            }
+          ]
         }
       }
     }

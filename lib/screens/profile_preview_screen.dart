@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,10 +7,9 @@ import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/utils/ui_mode_helper.dart';
+import 'package:nfc_app/utils/urlLauncherHelper.dart';
 import 'package:nfc_app/widgets/custom_loader_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../provider/user_info_form_state_provider.dart';
 
 class ProfilePreview extends StatefulWidget {
@@ -143,15 +144,9 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () async {
-                            final phoneNumer = userProvider.contact;
-                            final Uri url =
-                                Uri(scheme: 'tel', path: phoneNumer);
-                            if (await canLaunchUrl(url)) {
-                              await launchUrl(url);
-                            } else {
-                              throw 'Could not launch $url';
-                            }
+                          onTap: () {
+                            UrlLauncherHelper.launchPhone(
+                                context, userProvider.contact);
                           },
                           child: Container(
                             width: DeviceDimensions.screenWidth(context) * 0.35,
@@ -188,20 +183,14 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                             width:
                                 DeviceDimensions.screenWidth(context) * 0.050),
                         GestureDetector(
-                          onTap: () async {
-                            final email = userProvider.email;
-                            final Uri emailUri = Uri(
-                              scheme: 'mailto',
-                              path: email,
-                              query:
-                                  'subject=Business Query&body=Hello ${userProvider.firstName}, How are you?',
+                          onTap: () {
+                            UrlLauncherHelper.launchEmail(
+                              context,
+                              userProvider.email,
+                              subject: 'Business Query',
+                              body:
+                                  'Hello ${userProvider.firstName}, How are you?',
                             );
-
-                            if (await canLaunchUrl(emailUri)) {
-                              await launchUrl(emailUri);
-                            } else {
-                              throw 'Could not launch $emailUri';
-                            }
                           },
                           child: Container(
                             width: DeviceDimensions.screenWidth(context) * 0.35,
@@ -329,17 +318,11 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                                               context) *
                                           0.050),
                                   GestureDetector(
-                                    onTap: () async {
-                                      {
-                                        final Uri socialAppUrl = Uri.parse(
-                                            platform.profileLink +
-                                                platform.userName);
-                                        if (await canLaunchUrl(socialAppUrl)) {
-                                          await launchUrl(socialAppUrl);
-                                        } else {
-                                          throw 'Could not launch $socialAppUrl';
-                                        }
-                                      }
+                                    onTap: () {
+                                      UrlLauncherHelper.launchSocialApps(
+                                          context,
+                                          platform.profileLink +
+                                              platform.userName);
                                     },
                                     child: Container(
                                       width: 50,
@@ -360,17 +343,11 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                                               context) *
                                           0.015),
                                   GestureDetector(
-                                    onTap: () async {
-                                      {
-                                        final Uri socialAppUrl = Uri.parse(
-                                            platform.profileLink +
-                                                platform.userName);
-                                        if (await canLaunchUrl(socialAppUrl)) {
-                                          await launchUrl(socialAppUrl);
-                                        } else {
-                                          throw 'Could not launch $socialAppUrl';
-                                        }
-                                      }
+                                    onTap: () {
+                                      UrlLauncherHelper.launchSocialApps(
+                                          context,
+                                          platform.profileLink +
+                                              platform.userName);
                                     },
                                     child: Text(
                                       platform.name,
