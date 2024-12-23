@@ -9,7 +9,6 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/services/shared_preferences_service/shared_preferences_services.dart';
-import 'package:nfc_app/shared/common_widgets/my_button.dart';
 import 'package:nfc_app/shared/utils/password_strength_helper.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
@@ -33,12 +32,31 @@ class _RegisterFormState extends State<RegisterData> {
   bool _isObscureConfirmPassword = true;
   String _passwordStrength = '';
   String _unmetCriterionMessage = '';
+  String? emailError;
   // String password = '';
 
   @override
   void initState() {
     super.initState();
+    emailController.addListener(() {
+      validateEmail(emailController.text);
+    });
     passwordController.addListener(_checkPasswordStrength);
+  }
+
+  void validateEmail(String value) {
+    setState(() {
+      if (value.isEmpty) {
+        emailError = 'Please enter your email';
+      } else {
+        final emailPattern = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+        if (!emailPattern.hasMatch(value)) {
+          emailError = 'Please enter a valid email address';
+        } else {
+          emailError = null;
+        }
+      }
+    });
   }
 
   void _checkPasswordStrength() {
@@ -142,10 +160,11 @@ class _RegisterFormState extends State<RegisterData> {
                                     fontWeight: FontWeight.w500,
                                   ),
                                   prefixIcon: Padding(
-                                    padding: const EdgeInsets.all(13.0),
+                                    padding: const EdgeInsets.all(10.0),
                                     child: SvgPicture.asset(
                                         "assets/icons/email.svg"),
                                   ),
+                                  errorText: emailError,
                                   errorStyle: const TextStyle(
                                     color: AppColors
                                         .errorColor, // Color of the error text
@@ -158,7 +177,7 @@ class _RegisterFormState extends State<RegisterData> {
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 11, horizontal: 10),
                                   enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(12),
                                     borderSide: const BorderSide(
                                         color: AppColors.textFieldBorder),
                                   ),
@@ -173,7 +192,7 @@ class _RegisterFormState extends State<RegisterData> {
                                           color:
                                               AppColors.errorFieldBorderColor)),
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(12),
                                     borderSide: const BorderSide(
                                         color: AppColors.appBlueColor),
                                   ),
@@ -239,6 +258,7 @@ class _RegisterFormState extends State<RegisterData> {
                                       });
                                     },
                                   ),
+                                  // errorText: ,
                                   errorStyle: const TextStyle(
                                     color: AppColors
                                         .errorColor, // Color of the error text
@@ -287,10 +307,15 @@ class _RegisterFormState extends State<RegisterData> {
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
                                   padding:
-                                      const EdgeInsets.only(top: 8.0, left: 30),
+                                      const EdgeInsets.only(top: 8.0, left: 35),
                                   child: Text(
                                     _unmetCriterionMessage,
-                                    style: const TextStyle(color: Colors.red),
+                                    style: const TextStyle(
+                                      color: AppColors.errorColor,
+                                      // Color of the error text
+                                      fontSize: 14.0, // Size of the error text
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -379,9 +404,9 @@ class _RegisterFormState extends State<RegisterData> {
                                   if (value!.isEmpty) {
                                     return 'Please confirm your password';
                                   }
-                                  if (value.length < 8) {
-                                    return 'Password must be at least 8 characters long';
-                                  }
+                                  // if (value.length < 8) {
+                                  //   return 'Password must be at least 8 characters long';
+                                  // }
                                   if (value != passwordController.text.trim()) {
                                     return 'Passwords do not match';
                                   }
@@ -398,19 +423,58 @@ class _RegisterFormState extends State<RegisterData> {
                       SizedBox(
                           height:
                               DeviceDimensions.screenHeight(context) * 0.020),
-                      MyButton(
-                        text: "Register",
-                        onPressed: () {
-                          if (_passwordStrength == 'Strong') {
-                            registerLogic();
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                        'Please use a stronger password')));
-                          }
-                        },
+                      SizedBox(
                         width: DeviceDimensions.screenWidth(context) * 0.85,
+                        height: DeviceDimensions.screenHeight(context) * 0.06,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (emailController.text.isEmpty) {
+                              CustomSnackbar().snakBarError(
+                                context,
+                                "Please enter an email",
+                              );
+                            } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                                .hasMatch(emailController.text)) {
+                              CustomSnackbar().snakBarError(
+                                context,
+                                "Please enter a valid email",
+                              );
+                            } else if (_passwordStrength != 'Strong') {
+                              CustomSnackbar().snakBarError(
+                                context,
+                                "Please use a stronger password",
+                              );
+                            } else {
+                              registerLogic();
+                            }
+                          },
+                          // onPressed: () {
+                          //   if (_passwordStrength == 'Strong') {
+                          //     registerLogic();
+                          //   } else {
+                          //     ScaffoldMessenger.of(context).showSnackBar(
+                          //         const SnackBar(
+                          //             content: Text(
+                          //                 'Please use a stronger password')));
+                          //   }
+                          // },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.buttonColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
+                          child: Text(
+                            'Register',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.045,
+                                fontFamily: 'Barlow-Regular',
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
                       ),
                       SizedBox(
                           height:
