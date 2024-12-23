@@ -7,7 +7,7 @@ import 'package:nfc_app/screens/active_product_screen.dart';
 import 'package:nfc_app/screens/graph_screens/graph_screen.dart';
 import 'package:nfc_app/screens/home_screen.dart';
 import 'package:nfc_app/screens/settings_screen.dart';
-import 'package:nfc_app/widgets/curved_nav_bar.dart';
+import 'package:nfc_app/shared/common_widgets/curved_nav_bar.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

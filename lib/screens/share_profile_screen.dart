@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
-import 'package:nfc_app/widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/share_profile_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -44,7 +44,6 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CircleAvatar(
                               radius: 35,
@@ -64,6 +63,9 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                                         'assets/images/default_profile.jpg'),
                               ),
                             ),
+                            SizedBox(
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.040),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -72,7 +74,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                                   style: TextStyle(
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
-                                        0.055,
+                                        0.060,
                                     fontFamily: 'Barlow-Bold',
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.textColorBlue,
@@ -91,10 +93,10 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                                 ),
                               ],
                             ),
-                            SvgPicture.asset(
-                              "assets/icons/more5.svg",
-                              height: 25,
-                            ),
+                            // SvgPicture.asset(
+                            //   "assets/icons/more5.svg",
+                            //   height: 25,
+                            // ),
                           ],
                         ),
                       ),

@@ -11,8 +11,9 @@ import 'package:nfc_app/provider/forget_password_email_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
-import 'package:nfc_app/widgets/custom_loader_widget.dart';
-import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/my_button.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -475,39 +476,19 @@ class _SigninDataState extends State<SigninData> {
                         ],
                       ),
                     ),
-                    // SizedBox(
-                    //     height: DeviceDimensions.screenHeight(context) * 0.013),
                     SizedBox(
                         height: DeviceDimensions.screenHeight(context) * 0.023),
-                    SizedBox(
+
+                    MyButton(
+                      text: 'Login',
+                      onPressed: () {
+                        signInLogic();
+                      },
                       width: DeviceDimensions.screenWidth(context) * 0.85,
-                      height: DeviceDimensions.screenHeight(context) * 0.06,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          signInLogic();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.buttonColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                        ),
-                        child: Text(
-                          'Login',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize:
-                                  DeviceDimensions.responsiveSize(context) *
-                                      0.045,
-                              fontFamily: 'Barlow-Regular',
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
                     ),
                     SizedBox(
                         height: DeviceDimensions.screenHeight(context) * 0.050),
-                    // SizedBox(
-                    //     height: DeviceDimensions.screenHeight(context) * 0.023),
+
                     Text(
                       "---------------- Or login with ----------------",
                       style: TextStyle(

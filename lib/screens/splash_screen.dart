@@ -2,7 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/utils/ui_mode_helper.dart';
+import 'package:nfc_app/shared/common_widgets/my_button.dart';
+import 'package:nfc_app/shared/utils/ui_mode_helper.dart';
 import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -206,34 +207,16 @@ class _SplashScreenState extends State<SplashScreen>
                       SizedBox(
                           height:
                               DeviceDimensions.screenHeight(context) * 0.04),
-                      SizedBox(
-                        width: DeviceDimensions.screenWidth(context) * 0.8,
-                        height: DeviceDimensions.screenHeight(context) * 0.06,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/login-screen');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.appBlueColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                          ),
-                          child: Text(
-                            'Get started',
-                            style: TextStyle(
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.053,
-                                color: Colors.white,
-                                fontFamily: 'Barlow-Regular',
-                                fontWeight: FontWeight.w500),
-                          ),
-                        ),
+                      MyButton(
+                        text: 'Get Started',
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/login-screen');
+                        },
+                        width: DeviceDimensions.screenWidth(context) * 0.75,
                       ),
                       SizedBox(
-                          height:
-                              DeviceDimensions.screenHeight(context) * 0.02),
+                        height: DeviceDimensions.screenHeight(context) * 0.02,
+                      ),
                     ],
                   ),
                 ),

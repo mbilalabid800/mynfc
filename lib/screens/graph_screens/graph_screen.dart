@@ -11,7 +11,7 @@ import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 import 'package:nfc_app/widgets/added_connection_count_widget.dart';
 import 'package:nfc_app/widgets/charts_widget.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:provider/provider.dart';
 
 class GraphScreen extends StatefulWidget {

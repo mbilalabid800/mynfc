@@ -9,9 +9,9 @@ import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/permission_handler.dart';
-import 'package:nfc_app/utils/urlLauncherHelper.dart';
-import 'package:nfc_app/widgets/custom_loader_widget.dart';
-import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/utils/urlLauncherHelper.dart';
+import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
 
 class ConnectionProfilePreview extends StatefulWidget {

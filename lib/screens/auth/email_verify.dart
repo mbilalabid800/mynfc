@@ -9,7 +9,7 @@ import 'package:nfc_app/provider/resent_email.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:nfc_app/services/shared_preferences_service/shared_preferences_services.dart';
-import 'package:nfc_app/utils/ui_mode_helper.dart';
+import 'package:nfc_app/shared/utils/ui_mode_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/app_data_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
-import 'package:nfc_app/widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:provider/provider.dart';
 
 class TermsConditions extends StatefulWidget {

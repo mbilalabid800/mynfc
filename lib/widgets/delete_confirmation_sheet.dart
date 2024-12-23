@@ -8,8 +8,8 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:nfc_app/services/firestore_service/delete_user.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:nfc_app/widgets/custom_loader_widget.dart';
-import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
 
 class DeleteConfirmationSheet extends StatefulWidget {

@@ -7,10 +7,10 @@ import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
-import 'package:nfc_app/widgets/custom_loader_widget.dart';
-import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
-import '../utils/password_strength_helper.dart';
+import '../shared/utils/password_strength_helper.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});

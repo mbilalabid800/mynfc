@@ -5,7 +5,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/pricing_plan_model.dart';
 import 'package:nfc_app/services/pricing_plan_service.dart';
-import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/widgets/pricing_card_widget.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 

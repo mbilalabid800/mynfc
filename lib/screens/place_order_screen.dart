@@ -8,8 +8,8 @@ import 'package:nfc_app/provider/employee_provider.dart';
 import 'package:nfc_app/provider/shipping_address_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/confirm_order.dart';
-import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
-import 'package:nfc_app/widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:provider/provider.dart';
 
 class PlaceOrderScreen extends StatefulWidget {
