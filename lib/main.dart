@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:nfc_app/chat/chat_screen.dart';
 import 'package:nfc_app/chat/chat_screen2.dart';
 import 'package:nfc_app/provider/app_data_provider.dart';
+import 'package:nfc_app/provider/authenticate_provider.dart';
 import 'package:nfc_app/provider/biometric_handler_provider.dart';
 import 'package:nfc_app/provider/card_details_provider.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
@@ -80,7 +81,7 @@ void main() async {
         projectId: "nfc-project-21b56",
         storageBucket: "YOUR_PROJECT_ID.appspot.com",
         messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "1:165128879718:android:0cb76396c952406399f7a7",
+        appId: "1:165128879718:android:fb825bf514d1599699f7a7",
       ),
     );
 
@@ -105,6 +106,9 @@ void main() async {
     providers: [
       ChangeNotifierProvider(
         create: (_) => InternetCheckerProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => AuthenticateProvider(),
       ),
       ChangeNotifierProvider(
         create: (_) => UserInfoProgressProvider(),

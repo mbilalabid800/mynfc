@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
+import 'package:nfc_app/provider/authenticate_provider.dart';
 import 'package:nfc_app/provider/biometric_handler_provider.dart';
 import 'package:nfc_app/provider/forget_password_email_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
@@ -245,6 +246,7 @@ class _SigninDataState extends State<SigninData> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthenticateProvider>(context);
     return Stack(
       children: [
         LayoutBuilder(builder: (context, constraints) {
@@ -523,38 +525,7 @@ class _SigninDataState extends State<SigninData> {
                       children: [
                         GestureDetector(
                           onTap: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            try {
-                              final result =
-                                  await AuthService().signInWithGoogle();
-                              if (result != null) {
-                                User? user = result['user'];
-                                bool isNew = result['isNew'];
-
-                                if (isNew) {
-                                  // New user, save email and navigate to the User Info page
-                                  Provider.of<UserInfoFormStateProvider>(
-                                          context,
-                                          listen: false)
-                                      .setEmail(user!.email ?? '');
-                                  Navigator.pushNamed(context, '/user-info');
-                                } else {
-                                  // Returning user, navigate directly to the main screen
-                                  Navigator.pushNamed(
-                                      context, '/mainNav-screen');
-                                }
-                              }
-                            } catch (error) {
-                              CustomSnackbar().snakBarError(context,
-                                  'Error signing in with Google: ${error.toString()}');
-                            } finally {
-                              setState(() {
-                                isLoading =
-                                    false; // Hide loader after navigation or error
-                              });
-                            }
+                            await authProvider.signInWithGoogleAccount(context);
                           },
                           child: Container(
                             width: DeviceDimensions.screenWidth(context) * .44,

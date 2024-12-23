@@ -38,12 +38,12 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     enableImmersiveStickyMode();
     _imageAnimationController = AnimationController(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 1),
       vsync: this,
     );
 
     _containerAnimationController = AnimationController(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 1),
       vsync: this,
     );
 
@@ -133,7 +133,7 @@ class _SplashScreenState extends State<SplashScreen>
               child: Padding(
                 padding: const EdgeInsets.only(left: 12, right: 12, bottom: 20),
                 child: Container(
-                  height: DeviceDimensions.screenHeight(context) / 2.5,
+                  height: DeviceDimensions.screenHeight(context) * 0.40,
                   width: DeviceDimensions.screenWidth(context),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),

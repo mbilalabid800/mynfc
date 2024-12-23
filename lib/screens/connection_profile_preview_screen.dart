@@ -8,12 +8,11 @@ import 'package:nfc_app/models/connections_model.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 import 'package:nfc_app/services/permission_handler.dart';
+import 'package:nfc_app/utils/urlLauncherHelper.dart';
 import 'package:nfc_app/widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ConnectionProfilePreview extends StatefulWidget {
   final String userId;
@@ -247,15 +246,8 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                           onTap: connectionDetails.isPrivate
                               ? null
                               : () async {
-                                  final phoneNumer =
-                                      connectionDetails.contactNumber;
-                                  final Uri url =
-                                      Uri(scheme: 'tel', path: phoneNumer);
-                                  if (await canLaunchUrl(url)) {
-                                    await launchUrl(url);
-                                  } else {
-                                    throw 'Could not launch $url';
-                                  }
+                                  UrlLauncherHelper.launchPhone(
+                                      context, connectionDetails.contactNumber);
                                 },
                           child: Container(
                             width: DeviceDimensions.screenWidth(context) * 0.11,
@@ -283,19 +275,13 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                           onTap: connectionDetails.isPrivate
                               ? null
                               : () async {
-                                  final email = connectionDetails.email;
-                                  final Uri emailUri = Uri(
-                                    scheme: 'mailto',
-                                    path: email,
-                                    query:
-                                        'subject=Business Query&body=Hello ${connectionDetails.firstName}, How are you?',
+                                  UrlLauncherHelper.launchEmail(
+                                    context,
+                                    connectionDetails.email,
+                                    subject: 'Business Query',
+                                    body:
+                                        'Hello ${connectionDetails.firstName}, How are you?',
                                   );
-
-                                  if (await canLaunchUrl(emailUri)) {
-                                    await launchUrl(emailUri);
-                                  } else {
-                                    throw 'Could not launch $emailUri';
-                                  }
                                 },
                           child: Container(
                             width: DeviceDimensions.screenWidth(context) * 0.11,
@@ -536,40 +522,11 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                                     context) *
                                                 0.050),
                                         GestureDetector(
-                                          onTap: () async {
-                                            {
-                                              final Uri socialAppUrl =
-                                                  Uri.parse(
-                                                      platform.profileLink +
-                                                          platform.userName);
-
-                                              // if (await canLaunchUrl(
-                                              //     socialAppUrl)) {
-                                              //   await launchUrl(socialAppUrl);
-                                              // } else {
-                                              //   throw 'Could not launch $socialAppUrl';
-                                              // }
-
-                                              try {
-                                                //open the URL
-                                                if (await canLaunchUrl(
-                                                    socialAppUrl)) {
-                                                  await launchUrl(socialAppUrl);
-
-                                                  //Trigger Firestore Update
-                                                  await FirestoreService
-                                                      .updateSocialAppTap(
-                                                    appName: platform.name,
-                                                    uid: widget.userId,
-                                                  );
-                                                } else {
-                                                  throw 'Could not launch $socialAppUrl';
-                                                }
-                                              } catch (e) {
-                                                print(
-                                                    'Error Launching URL or updating Firestor: $e');
-                                              }
-                                            }
+                                          onTap: () {
+                                            UrlLauncherHelper.launchSocialApps(
+                                                context,
+                                                platform.profileLink +
+                                                    platform.userName);
                                           },
                                           child: Container(
                                             width: 54,
@@ -592,19 +549,11 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                                     context) *
                                                 0.020),
                                         GestureDetector(
-                                          onTap: () async {
-                                            {
-                                              final Uri socialAppUrl =
-                                                  Uri.parse(
-                                                      platform.profileLink +
-                                                          platform.userName);
-                                              if (await canLaunchUrl(
-                                                  socialAppUrl)) {
-                                                await launchUrl(socialAppUrl);
-                                              } else {
-                                                throw 'Could not launch $socialAppUrl';
-                                              }
-                                            }
+                                          onTap: () {
+                                            UrlLauncherHelper.launchSocialApps(
+                                                context,
+                                                platform.profileLink +
+                                                    platform.userName);
                                           },
                                           child: Text(
                                             platform.name,
