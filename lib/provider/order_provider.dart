@@ -21,14 +21,14 @@ class OrderProvider with ChangeNotifier {
         await FirebaseFirestore.instance
             .collection("orders")
             .doc('Individual')
-            .collection("orders")
+            .collection("individual_orders")
             .doc(order.orderId)
             .set(order.toFirestore());
       } else {
         await FirebaseFirestore.instance
             .collection("orders")
             .doc('Business')
-            .collection("orders")
+            .collection("business_orders")
             .doc(order.orderId)
             .set(order.toFirestore());
       }

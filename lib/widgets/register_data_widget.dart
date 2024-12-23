@@ -31,12 +31,31 @@ class _RegisterFormState extends State<RegisterData> {
   bool _isObscureConfirmPassword = true;
   String _passwordStrength = '';
   String _unmetCriterionMessage = '';
+  String? emailError;
   // String password = '';
 
   @override
   void initState() {
     super.initState();
+    emailController.addListener(() {
+      validateEmail(emailController.text);
+    });
     passwordController.addListener(_checkPasswordStrength);
+  }
+
+  void validateEmail(String value) {
+    setState(() {
+      if (value.isEmpty) {
+        emailError = 'Please enter your email';
+      } else {
+        final emailPattern = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+        if (!emailPattern.hasMatch(value)) {
+          emailError = 'Please enter a valid email address';
+        } else {
+          emailError = null;
+        }
+      }
+    });
   }
 
   void _checkPasswordStrength() {
@@ -139,10 +158,11 @@ class _RegisterFormState extends State<RegisterData> {
                                     fontWeight: FontWeight.w500,
                                   ),
                                   prefixIcon: Padding(
-                                    padding: const EdgeInsets.all(13.0),
+                                    padding: const EdgeInsets.all(10.0),
                                     child: SvgPicture.asset(
                                         "assets/icons/email.svg"),
                                   ),
+                                  errorText: emailError,
                                   errorStyle: const TextStyle(
                                     color: AppColors
                                         .errorColor, // Color of the error text
@@ -155,7 +175,7 @@ class _RegisterFormState extends State<RegisterData> {
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 11, horizontal: 10),
                                   enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(12),
                                     borderSide: const BorderSide(
                                         color: AppColors.textFieldBorder),
                                   ),
@@ -170,7 +190,7 @@ class _RegisterFormState extends State<RegisterData> {
                                           color:
                                               AppColors.errorFieldBorderColor)),
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(12),
                                     borderSide: const BorderSide(
                                         color: AppColors.appBlueColor),
                                   ),
@@ -236,6 +256,7 @@ class _RegisterFormState extends State<RegisterData> {
                                       });
                                     },
                                   ),
+                                  // errorText: ,
                                   errorStyle: const TextStyle(
                                     color: AppColors
                                         .errorColor, // Color of the error text
@@ -284,10 +305,15 @@ class _RegisterFormState extends State<RegisterData> {
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
                                   padding:
-                                      const EdgeInsets.only(top: 8.0, left: 30),
+                                      const EdgeInsets.only(top: 8.0, left: 35),
                                   child: Text(
                                     _unmetCriterionMessage,
-                                    style: const TextStyle(color: Colors.red),
+                                    style: const TextStyle(
+                                      color: AppColors.errorColor,
+                                      // Color of the error text
+                                      fontSize: 14.0, // Size of the error text
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -376,9 +402,9 @@ class _RegisterFormState extends State<RegisterData> {
                                   if (value!.isEmpty) {
                                     return 'Please confirm your password';
                                   }
-                                  if (value.length < 8) {
-                                    return 'Password must be at least 8 characters long';
-                                  }
+                                  // if (value.length < 8) {
+                                  //   return 'Password must be at least 8 characters long';
+                                  // }
                                   if (value != passwordController.text.trim()) {
                                     return 'Passwords do not match';
                                   }
