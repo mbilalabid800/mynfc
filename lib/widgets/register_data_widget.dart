@@ -152,6 +152,8 @@ class _RegisterFormState extends State<RegisterData> {
                                         DeviceDimensions.screenHeight(context) *
                                             0.0026),
                                 controller: emailController,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                                 decoration: InputDecoration(
                                   hintText: "Email",
                                   hintStyle: const TextStyle(
