@@ -426,15 +426,36 @@ class _RegisterFormState extends State<RegisterData> {
                         height: DeviceDimensions.screenHeight(context) * 0.06,
                         child: ElevatedButton(
                           onPressed: () {
-                            if (_passwordStrength == 'Strong') {
-                              registerLogic();
+                            if (emailController.text.isEmpty) {
+                              CustomSnackbar().snakBarError(
+                                context,
+                                "Please enter an email",
+                              );
+                            } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                                .hasMatch(emailController.text)) {
+                              CustomSnackbar().snakBarError(
+                                context,
+                                "Please enter a valid email",
+                              );
+                            } else if (_passwordStrength != 'Strong') {
+                              CustomSnackbar().snakBarError(
+                                context,
+                                "Please use a stronger password",
+                              );
                             } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text(
-                                          'Please use a stronger password')));
+                              registerLogic();
                             }
                           },
+                          // onPressed: () {
+                          //   if (_passwordStrength == 'Strong') {
+                          //     registerLogic();
+                          //   } else {
+                          //     ScaffoldMessenger.of(context).showSnackBar(
+                          //         const SnackBar(
+                          //             content: Text(
+                          //                 'Please use a stronger password')));
+                          //   }
+                          // },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.buttonColor,
                             shape: RoundedRectangleBorder(
