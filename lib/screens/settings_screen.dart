@@ -16,7 +16,7 @@ import 'package:nfc_app/services/firestore_service/faq_service.dart';
 import 'package:nfc_app/services/nfc_service/nfc_service.dart';
 import 'package:nfc_app/widgets/change_password.dart';
 import 'package:nfc_app/widgets/custom_profile_container_widget.dart';
-import 'package:nfc_app/widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/delete_confirmation_sheet_pre.dart';
 import 'package:nfc_app/widgets/change_language.dart';
 import 'package:provider/provider.dart';

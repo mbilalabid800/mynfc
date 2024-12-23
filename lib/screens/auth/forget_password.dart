@@ -7,9 +7,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/api_service/app_api.dart';
-import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 
-import '../../widgets/custom_loader_widget.dart';
+import '../../shared/common_widgets/custom_loader_widget.dart';
 
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({super.key});

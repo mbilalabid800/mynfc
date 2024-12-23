@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "165128879718-jurmast4v4hghfj0vgoqbanm6iqog308.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sahab.absher",
+            "certificate_hash": "f1bf0cc79775dcee37cadfb0dd292e5efbfdbada"
+          }
+        },
+        {
           "client_id": "165128879718-fbkpov0iqfcopcnpvee9kt2ra5e0o4gj.apps.googleusercontent.com",
           "client_type": 3
         }

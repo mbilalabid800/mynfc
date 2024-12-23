@@ -6,9 +6,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/utils/ui_mode_helper.dart';
-import 'package:nfc_app/utils/urlLauncherHelper.dart';
-import 'package:nfc_app/widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/utils/ui_mode_helper.dart';
+import 'package:nfc_app/shared/utils/urlLauncherHelper.dart';
+import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:provider/provider.dart';
 import '../provider/user_info_form_state_provider.dart';
 

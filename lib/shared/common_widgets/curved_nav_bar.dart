@@ -4,7 +4,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
-import 'package:nfc_app/utils/ui_mode_helper.dart';
+import 'package:nfc_app/shared/utils/ui_mode_helper.dart';
 
 class CustomCurvedNavigationBar extends StatefulWidget {
   final int initialIndex;

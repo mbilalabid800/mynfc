@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
-import 'package:nfc_app/widgets/custom_app_bar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:provider/provider.dart';
 import '../responsive/device_dimensions.dart';
 

@@ -6,7 +6,7 @@ import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/employee_model.dart';
 import 'package:nfc_app/provider/employee_provider.dart';
 import 'package:nfc_app/widgets/add_employee_widget.dart';
-import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
 
 class AddEmployee extends StatefulWidget {

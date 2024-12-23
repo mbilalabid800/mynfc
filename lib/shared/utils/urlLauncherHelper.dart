@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UrlLauncherHelper {

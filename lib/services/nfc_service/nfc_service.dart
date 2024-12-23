@@ -3,7 +3,7 @@
 import 'package:lottie/lottie.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';

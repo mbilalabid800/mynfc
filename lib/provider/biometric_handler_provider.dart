@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BiometricHandlerProvider with ChangeNotifier {

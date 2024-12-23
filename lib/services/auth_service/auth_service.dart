@@ -7,7 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nfc_app/provider/loading_state_provider.dart';
 import 'package:nfc_app/screens/auth/login_screen.dart';
 import 'package:nfc_app/provider/clear_app_data_provider.dart';
-import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthService {

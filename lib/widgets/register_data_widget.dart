@@ -9,9 +9,10 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/services/shared_preferences_service/shared_preferences_services.dart';
-import 'package:nfc_app/utils/password_strength_helper.dart';
-import 'package:nfc_app/widgets/custom_loader_widget.dart';
-import 'package:nfc_app/widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/my_button.dart';
+import 'package:nfc_app/shared/utils/password_strength_helper.dart';
+import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
 
 class RegisterData extends StatefulWidget {
@@ -397,37 +398,19 @@ class _RegisterFormState extends State<RegisterData> {
                       SizedBox(
                           height:
                               DeviceDimensions.screenHeight(context) * 0.020),
-                      SizedBox(
+                      MyButton(
+                        text: "Register",
+                        onPressed: () {
+                          if (_passwordStrength == 'Strong') {
+                            registerLogic();
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'Please use a stronger password')));
+                          }
+                        },
                         width: DeviceDimensions.screenWidth(context) * 0.85,
-                        height: DeviceDimensions.screenHeight(context) * 0.06,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_passwordStrength == 'Strong') {
-                              registerLogic();
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content: Text(
-                                          'Please use a stronger password')));
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.buttonColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                          ),
-                          child: Text(
-                            'Register',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.045,
-                                fontFamily: 'Barlow-Regular',
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
                       ),
                       SizedBox(
                           height:
