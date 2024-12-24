@@ -74,7 +74,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                                   style: TextStyle(
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
-                                        0.060,
+                                        0.042,
                                     fontFamily: 'Barlow-Bold',
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.textColorBlue,

@@ -156,6 +156,9 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _contactError = 'Contact cannot be empty';
     } else if (!regex.hasMatch(contact)) {
       _contactError = 'Contact must be numbers only';
+    } else if (contact.length != 8) {
+      // Ensure contact is exactly 8 digits
+      _contactError = 'Contact must be exactly 8 digits';
     } else {
       _contactError = null;
       _contact = '$countryCode $contact';

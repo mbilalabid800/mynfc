@@ -35,39 +35,41 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.screenBackground,
-      appBar: CustomAppBarTwo(
-        title: 'Order History',
-        tabController: _tabController,
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: Consumer<OrderProvider>(
-                builder: (context, orderProvider, _) {
-                  if (orderProvider.isLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  if (orderProvider.orders.isEmpty) {
-                    return const Center(child: Text('No orders found.'));
-                  }
-                  return TabBarView(
-                    controller: _tabController,
-                    children: [
-                      _buildOrderList(orderProvider.orders, 'active'),
-                      _buildOrderList(orderProvider.orders, 'completed'),
-                      _buildOrderList(orderProvider.orders, 'cancelled'),
-                    ],
-                  );
-                },
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.screenBackground,
+        appBar: CustomAppBarTwo(
+          title: 'Order History',
+          tabController: _tabController,
+        ),
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: Consumer<OrderProvider>(
+                  builder: (context, orderProvider, _) {
+                    if (orderProvider.isLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (orderProvider.orders.isEmpty) {
+                      return const Center(child: Text('No orders found.'));
+                    }
+                    return TabBarView(
+                      controller: _tabController,
+                      children: [
+                        _buildOrderList(orderProvider.orders, 'active'),
+                        _buildOrderList(orderProvider.orders, 'completed'),
+                        _buildOrderList(orderProvider.orders, 'cancelled'),
+                      ],
+                    );
+                  },
+                ),
               ),
-            ),
-            SizedBox(
-              height: DeviceDimensions.screenHeight(context) * 0.02,
-            ),
-          ],
+              SizedBox(
+                height: DeviceDimensions.screenHeight(context) * 0.02,
+              ),
+            ],
+          ),
         ),
       ),
     );

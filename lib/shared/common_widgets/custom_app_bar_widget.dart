@@ -21,10 +21,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 4.0),
-      child: AppBar(
-        title: Text(
+    return AppBar(
+      title: Padding(
+        padding: const EdgeInsets.all(6.0),
+        child: Text(
           title,
           style: TextStyle(
             fontFamily: 'Barlow-Regular',
@@ -33,42 +33,42 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: AppColors.appBlueColor,
           ),
         ),
-        centerTitle: true,
-        elevation: 0,
-        backgroundColor: AppColors.screenBackground,
-        //foregroundColor: AppColors.screenBackground,
-        leading: IconButton(
-          onPressed: () {
-            if (onBackPressed != null) {
-              onBackPressed!(); // Custom back button behavior
-            } else {
-              Navigator.of(context).pop(); // Default pop behavior
-            }
-          },
-          icon: const Icon(Icons.arrow_back, color: AppColors.appBlueColor),
-        ),
-        actions: [
-          if (icon != null) // Show the SVG icon if `iconPath` is provided
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0, top: 5),
-              child: IconButton(
-                icon: SvgPicture.asset(
-                  icon!, // Load icon from provided path
-                  width: 33,
-                  height: 33,
-                ),
-                onPressed: () {
-                  // Handle SVG icon tap, if needed
-                  if (onIconPressed != null) {
-                    onIconPressed!(); // Trigger the custom callback
-                  }
-                },
-              ),
-            ),
-          if (actions != null)
-            ...actions! // Append additional actions if provided
-        ],
       ),
+      centerTitle: true,
+      elevation: 0,
+      backgroundColor: AppColors.screenBackground,
+      //foregroundColor: AppColors.screenBackground,
+      leading: IconButton(
+        onPressed: () {
+          if (onBackPressed != null) {
+            onBackPressed!(); // Custom back button behavior
+          } else {
+            Navigator.of(context).pop(); // Default pop behavior
+          }
+        },
+        icon: const Icon(Icons.arrow_back, color: AppColors.appBlueColor),
+      ),
+      actions: [
+        if (icon != null) // Show the SVG icon if `iconPath` is provided
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0, top: 5),
+            child: IconButton(
+              icon: SvgPicture.asset(
+                icon!, // Load icon from provided path
+                width: 33,
+                height: 33,
+              ),
+              onPressed: () {
+                // Handle SVG icon tap, if needed
+                if (onIconPressed != null) {
+                  onIconPressed!(); // Trigger the custom callback
+                }
+              },
+            ),
+          ),
+        if (actions != null)
+          ...actions! // Append additional actions if provided
+      ],
     );
   }
 
@@ -145,9 +145,11 @@ class _CustomAppBarTwoState extends State<CustomAppBarTwo>
         ),
         title: Text(widget.title,
             style: TextStyle(
-                fontFamily: 'Barlow-Regular',
-                fontSize: DeviceDimensions.responsiveSize(context) * 0.055,
-                fontWeight: FontWeight.w600)),
+              fontFamily: 'Barlow-Regular',
+              fontSize: DeviceDimensions.responsiveSize(context) * 0.055,
+              fontWeight: FontWeight.w600,
+              color: AppColors.appBlueColor,
+            )),
         centerTitle: true,
         actions: widget.actions,
         flexibleSpace: Container(

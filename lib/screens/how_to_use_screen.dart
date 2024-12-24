@@ -17,33 +17,36 @@ class _HowToUseScreenState extends State<HowToUseScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: const CustomAppBar(title: ""),
+        appBar: const CustomAppBar(title: "How To Use Absher"),
         backgroundColor: AppColors.screenBackground,
         body: SingleChildScrollView(
           child: Column(
             children: [
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              //   child: Align(
+              //     alignment: Alignment.centerLeft,
+              //     child: Text('HOW TO USE SAHAB',
+              //         style: TextStyle(
+              //             fontSize:
+              //                 DeviceDimensions.responsiveSize(context) * 0.045,
+              //             color: AppColors.textColorBlue,
+              //             fontWeight: FontWeight.w600)),
+              //   ),
+              // ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text('HOW TO USE SAHAB',
-                      style: TextStyle(
-                          fontSize:
-                              DeviceDimensions.responsiveSize(context) * 0.045,
-                          color: AppColors.textColorBlue,
-                          fontWeight: FontWeight.w600)),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   child: Text(
-                      'How to use Sahab with different mobiles and screens.',
+                      'How to use Absher with different mobiles and screens.',
+                      softWrap: true,
+                      maxLines: 2,
                       style: TextStyle(
                         fontSize:
-                            DeviceDimensions.responsiveSize(context) * 0.030,
+                            DeviceDimensions.responsiveSize(context) * 0.035,
                         color: AppColors.textColorBlue,
                       )),
                 ),

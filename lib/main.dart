@@ -227,7 +227,7 @@ class MyApp extends StatelessWidget {
           '/order-details': (context) => const OrderDetails(),
           '/order-history-screen': (context) => const OrderHistoryScreen(),
           '/share-profile': (context) => ShareProfileScreen(),
-          '/add-employees': (context) => AddEmployee(),
+          '/add-employees': (context) => AddEmployeeScreen(),
           '/chat-screen': (context) => ChatScreen(),
           '/chat-screen2': (context) => ChatScreen2(),
           '/connections-request': (context) => ConnectionsRequest(),
