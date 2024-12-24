@@ -17,7 +17,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String _contact = 'No Contact';
   String _countryCode = '+968';
   String _city = 'Muscat';
-  String? _selectedItem = 'Not Select';
+  String? _selectedItem = null;
   String _companyName = 'Sahab';
   String _designation = 'Manager';
   String _websiteLink = 'www.sahab.com';
@@ -95,7 +95,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     final trimmedFirstName = firstName.trim();
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
     final regex = RegExp(r'^[a-zA-Z]+$');
-    if (trimmedFirstName.startsWith(' ')) {
+    if (firstName.startsWith(' ')) {
       _firstNameError = 'First name cannot start with a space';
     } else if (trimmedFirstName.isEmpty) {
       _firstNameError = 'First name cannot be empty';
@@ -167,7 +167,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     final trimmedCityName = city.trim();
     // Validation: Ensure the first name is between 2-20 chars and only contains letters
     final regex = RegExp(r'^[a-zA-Z]+$');
-    if (trimmedCityName.startsWith(' ')) {
+    if (city.startsWith(' ')) {
       _cityNameError = 'City name cannot start with a space';
     } else if (trimmedCityName.isEmpty) {
       _cityNameError = 'City name cannot be empty';
@@ -192,7 +192,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     final trimmedCompanyName = companyName.trim();
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
     final regex = RegExp(r'^[a-zA-Z]+$');
-    if (trimmedCompanyName.startsWith(' ')) {
+    if (companyName.startsWith(' ')) {
       _companyNameError = 'Company name cannot start with a space';
     } else if (trimmedCompanyName.isEmpty) {
       _companyNameError = 'Company name cannot be empty';
@@ -217,7 +217,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     final trimmedDesignation = designation.trim();
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
     final regex = RegExp(r'^[a-zA-Z]+$');
-    if (trimmedDesignation.startsWith(' ')) {
+    if (designation.startsWith(' ')) {
       _designationError = 'Designation cannot start with a space';
     } else if (trimmedDesignation.isEmpty) {
       _designationError = 'Designation cannot be empty';

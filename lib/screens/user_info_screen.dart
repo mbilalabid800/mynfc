@@ -387,7 +387,7 @@ class _NameStepState extends State<NameStep> {
                   child: Text('Continue'),
                 );
               }),
-            )
+            ),
           ],
         ),
       ),
@@ -406,7 +406,7 @@ class CompanyInfoStep extends StatefulWidget {
 
 class _CompanyInfoStepState extends State<CompanyInfoStep> {
   final List<String> _items = [
-    'Business ',
+    'Business',
     'Individual',
   ];
 
