@@ -152,8 +152,8 @@ class _RegisterFormState extends State<RegisterData> {
                                         DeviceDimensions.screenHeight(context) *
                                             0.0026),
                                 controller: emailController,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
+                                // autovalidateMode:
+                                //     AutovalidateMode.onUserInteraction,
                                 decoration: InputDecoration(
                                   hintText: "Email",
                                   hintStyle: const TextStyle(
@@ -313,7 +313,7 @@ class _RegisterFormState extends State<RegisterData> {
                                   child: Text(
                                     _unmetCriterionMessage,
                                     style: const TextStyle(
-                                      color: AppColors.errorColor,
+                                      color: AppColors.textColorBlue,
                                       // Color of the error text
                                       fontSize: 14.0, // Size of the error text
                                       fontWeight: FontWeight.bold,
