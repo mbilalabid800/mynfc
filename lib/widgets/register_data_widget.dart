@@ -171,8 +171,8 @@ class _RegisterFormState extends State<RegisterData> {
                                     color: AppColors
                                         .errorColor, // Color of the error text
                                     fontSize: 14.0, // Size of the error text
-                                    fontWeight: FontWeight
-                                        .bold, // Weight of the error text
+                                    // fontWeight: FontWeight
+                                    //     .bold, // Weight of the error text
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
@@ -265,8 +265,8 @@ class _RegisterFormState extends State<RegisterData> {
                                     color: AppColors
                                         .errorColor, // Color of the error text
                                     fontSize: 14.0, // Size of the error text
-                                    fontWeight: FontWeight
-                                        .bold, // Weight of the error text
+                                    // fontWeight: FontWeight
+                                    //     .bold, // Weight of the error text
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
@@ -313,10 +313,10 @@ class _RegisterFormState extends State<RegisterData> {
                                   child: Text(
                                     _unmetCriterionMessage,
                                     style: const TextStyle(
-                                      color: AppColors.textColorBlue,
+                                      color: AppColors.errorColor,
                                       // Color of the error text
                                       fontSize: 14.0, // Size of the error text
-                                      fontWeight: FontWeight.bold,
+                                      //fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
@@ -374,8 +374,8 @@ class _RegisterFormState extends State<RegisterData> {
                                     color: AppColors
                                         .errorColor, // Color of the error text
                                     fontSize: 14.0, // Size of the error text
-                                    fontWeight: FontWeight
-                                        .bold, // Weight of the error text
+                                    // fontWeight: FontWeight
+                                    //     .bold, // Weight of the error text
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,

@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen>
   final List<String> splashImages = [
     "assets/images/splash1.png",
     "assets/images/splash2.png",
-    "assets/images/splash3.png",
+    "assets/images/splash3.jpeg",
   ];
   late Timer _autoChangeTimer;
 

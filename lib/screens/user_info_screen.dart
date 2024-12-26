@@ -117,6 +117,7 @@ class _NameStepState extends State<NameStep> {
               child: SizedBox(
                 width: DeviceDimensions.screenWidth(context) * 0.95,
                 child: TextField(
+                  maxLength: 25,
                   onChanged: (value) => formState.updateFirstName(value),
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -154,6 +155,7 @@ class _NameStepState extends State<NameStep> {
               child: SizedBox(
                 width: DeviceDimensions.screenWidth(context) * 0.95,
                 child: TextField(
+                  maxLength: 25,
                   //controller: lastNameController,
                   onChanged: (value) => formState.updateLastName(value),
                   decoration: InputDecoration(
@@ -512,6 +514,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
               child: SizedBox(
                 width: DeviceDimensions.screenWidth(context) * 0.9,
                 child: TextField(
+                  maxLength: 25,
                   //controller: designationController,
                   onChanged: (value) => formState.updateDesignation(value),
                   decoration: InputDecoration(
@@ -582,6 +585,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
               child: SizedBox(
                 width: DeviceDimensions.screenWidth(context) * 0.9,
                 child: TextField(
+                  maxLength: 25,
                   //controller: websiteController,
                   onChanged: (value) => formState.updateCity(value),
                   decoration: InputDecoration(

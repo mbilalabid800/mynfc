@@ -290,8 +290,8 @@ class _SigninDataState extends State<SigninData> {
                                   color: AppColors
                                       .errorColor, // Color of the error text
                                   fontSize: 14.0, // Size of the error text
-                                  fontWeight: FontWeight
-                                      .bold, // Weight of the error text
+                                  // fontWeight: FontWeight
+                                  //     .bold, // Weight of the error text
                                 ),
                                 filled: true,
                                 fillColor: Colors.white,
@@ -359,8 +359,8 @@ class _SigninDataState extends State<SigninData> {
                                   color: AppColors
                                       .errorColor, // Color of the error text
                                   fontSize: 14.0, // Size of the error text
-                                  fontWeight: FontWeight
-                                      .bold, // Weight of the error text
+                                  // fontWeight: FontWeight
+                                  //     .bold, // Weight of the error text
                                 ),
                                 suffixIcon: IconButton(
                                   icon: Padding(
