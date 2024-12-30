@@ -264,16 +264,25 @@ class _SettingsState extends State<Settings> {
                                             0.075),
                                     Text(
                                       "${userProvider.firstName} ${userProvider.lastName}",
-                                      style: const TextStyle(
-                                        fontSize: 20,
+                                      softWrap: true,
+                                      maxLines: 2,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.042,
                                         fontWeight: FontWeight.w600,
                                         color: AppColors.textColorBlue,
                                       ),
                                     ),
                                     Text(
                                       "${userProvider.designation} at ${userProvider.companyName}",
-                                      style: const TextStyle(
-                                        fontSize: 13,
+                                      style: TextStyle(
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.038,
                                         letterSpacing: 1.5,
                                         color: AppColors.textColorBlue,
                                       ),

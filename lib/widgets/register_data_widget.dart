@@ -47,7 +47,7 @@ class _RegisterFormState extends State<RegisterData> {
   void validateEmail(String value) {
     setState(() {
       if (value.isEmpty) {
-        emailError = 'Please enter your email';
+        //emailError = 'Please enter your email';
       } else {
         final emailPattern = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
         if (!emailPattern.hasMatch(value)) {
@@ -152,6 +152,8 @@ class _RegisterFormState extends State<RegisterData> {
                                         DeviceDimensions.screenHeight(context) *
                                             0.0026),
                                 controller: emailController,
+                                // autovalidateMode:
+                                //     AutovalidateMode.onUserInteraction,
                                 decoration: InputDecoration(
                                   hintText: "Email",
                                   hintStyle: const TextStyle(
@@ -169,8 +171,8 @@ class _RegisterFormState extends State<RegisterData> {
                                     color: AppColors
                                         .errorColor, // Color of the error text
                                     fontSize: 14.0, // Size of the error text
-                                    fontWeight: FontWeight
-                                        .bold, // Weight of the error text
+                                    // fontWeight: FontWeight
+                                    //     .bold, // Weight of the error text
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
@@ -263,8 +265,8 @@ class _RegisterFormState extends State<RegisterData> {
                                     color: AppColors
                                         .errorColor, // Color of the error text
                                     fontSize: 14.0, // Size of the error text
-                                    fontWeight: FontWeight
-                                        .bold, // Weight of the error text
+                                    // fontWeight: FontWeight
+                                    //     .bold, // Weight of the error text
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,
@@ -314,7 +316,7 @@ class _RegisterFormState extends State<RegisterData> {
                                       color: AppColors.errorColor,
                                       // Color of the error text
                                       fontSize: 14.0, // Size of the error text
-                                      fontWeight: FontWeight.bold,
+                                      //fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
@@ -372,8 +374,8 @@ class _RegisterFormState extends State<RegisterData> {
                                     color: AppColors
                                         .errorColor, // Color of the error text
                                     fontSize: 14.0, // Size of the error text
-                                    fontWeight: FontWeight
-                                        .bold, // Weight of the error text
+                                    // fontWeight: FontWeight
+                                    //     .bold, // Weight of the error text
                                   ),
                                   filled: true,
                                   fillColor: Colors.white,

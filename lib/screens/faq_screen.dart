@@ -31,30 +31,32 @@ class _FaqScreenState extends State<FaqScreen> {
   Widget build(BuildContext context) {
     final List<FaqModel> faqs =
         ModalRoute.of(context)!.settings.arguments as List<FaqModel>;
-    return Scaffold(
-      backgroundColor: AppColors.screenBackground,
-      appBar: const CustomAppBar(
-        title: "FAQs",
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(child: Image.asset('assets/icons/faqimage.png'))
-              ],
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: faqs.length,
-              itemBuilder: (context, index) {
-                return _buildFaqTile(faqs[index], index);
-              },
-            ),
-            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.03)
-          ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.screenBackground,
+        appBar: const CustomAppBar(
+          title: "FAQs",
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(child: Image.asset('assets/icons/faqimage.png'))
+                ],
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: faqs.length,
+                itemBuilder: (context, index) {
+                  return _buildFaqTile(faqs[index], index);
+                },
+              ),
+              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.03)
+            ],
+          ),
         ),
       ),
     );

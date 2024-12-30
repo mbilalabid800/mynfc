@@ -5,18 +5,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/employee_model.dart';
 import 'package:nfc_app/provider/employee_provider.dart';
+import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/widgets/add_employee_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
 
-class AddEmployee extends StatefulWidget {
-  const AddEmployee({super.key});
+class AddEmployeeScreen extends StatefulWidget {
+  const AddEmployeeScreen({super.key});
 
   @override
-  State<AddEmployee> createState() => AddEmployeeState();
+  State<AddEmployeeScreen> createState() => AddEmployeeScreenState();
 }
 
-class AddEmployeeState extends State<AddEmployee> {
+class AddEmployeeScreenState extends State<AddEmployeeScreen> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController designationController = TextEditingController();
@@ -25,6 +26,7 @@ class AddEmployeeState extends State<AddEmployee> {
   final formKey = GlobalKey<FormState>();
 
   List<EmployeeModel> addedEmployees = [];
+  final int maxEmployees = 20;
 
   @override
   void initState() {
@@ -75,24 +77,25 @@ class AddEmployeeState extends State<AddEmployee> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 239, 239, 239),
+        backgroundColor: AppColors.screenBackground,
+        appBar: CustomAppBar(title: 'Add Your Company Employee'),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  ' Add Your Company Employee',
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textColorBlue,
-                      fontFamily: 'Barlow-Bold'),
-                ),
-                const SizedBox(height: 20),
+                // const Text(
+                //   ' Add Your Company Employee',
+                //   style: TextStyle(
+                //       fontSize: 20,
+                //       fontWeight: FontWeight.bold,
+                //       color: AppColors.textColorBlue,
+                //       fontFamily: 'Barlow-Bold'),
+                // ),
+                //const SizedBox(height: 20),
                 Container(
-                  padding: const EdgeInsets.all(12),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: const Color.fromRGBO(251, 243, 205, 1),
                     borderRadius: BorderRadius.circular(15),
@@ -272,30 +275,32 @@ class AddEmployeeState extends State<AddEmployee> {
                           child: Column(
                             children: [
                               AddEmployeeWidget(
-                                  title: ' First Name',
-                                  errorMessage: 'First Name',
-                                  controller: firstNameController),
+                                title: 'First Name',
+                                errorMessage: 'First Name',
+                                controller: firstNameController,
+                              ),
                               const SizedBox(height: 20),
                               AddEmployeeWidget(
-                                title: ' Last Name',
+                                title: 'Last Name',
                                 errorMessage: 'Last Name',
                                 controller: lastNameController,
                               ),
                               const SizedBox(height: 20),
                               AddEmployeeWidget(
-                                title: ' Designation',
+                                title: 'Designation',
                                 errorMessage: 'Designation',
                                 controller: designationController,
                               ),
                               const SizedBox(height: 20),
                               AddEmployeeWidget(
-                                  title: ' Email',
-                                  errorMessage: 'Email',
-                                  controller: emailController),
+                                title: 'Email',
+                                errorMessage: 'Email',
+                                controller: emailController,
+                              ),
                               const SizedBox(height: 20),
                               AddEmployeeWidget(
-                                title: ' Mobile Phone',
-                                errorMessage: 'Mobile Phone',
+                                title: 'Contact',
+                                errorMessage: 'Contact',
                                 controller: phoneController,
                               ),
                             ],

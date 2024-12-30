@@ -322,8 +322,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   const SizedBox(height: 30),
                                   Text(
                                     "${userProvider.firstName} ${userProvider.lastName}",
-                                    style: const TextStyle(
-                                      fontSize: 21,
+                                    softWrap: true,
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: DeviceDimensions.responsiveSize(
+                                              context) *
+                                          0.042,
                                       color: AppColors.textColorBlue,
                                       fontWeight: FontWeight.w600,
                                       fontFamily: 'Barlow-Bold',
@@ -331,9 +336,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Text(
                                     "${userProvider.designation} at ${userProvider.companyName}",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         fontFamily: 'Barlow-Regular',
-                                        fontSize: 14,
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.038,
                                         color: AppColors.textColorBlue,
                                         letterSpacing: 1.5),
                                   ),

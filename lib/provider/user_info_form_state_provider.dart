@@ -17,7 +17,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String _contact = 'No Contact';
   String _countryCode = '+968';
   String _city = 'Muscat';
-  String? _selectedItem = 'Not Select';
+  String? _selectedItem = null;
   String _companyName = 'Sahab';
   String _designation = 'Manager';
   String _websiteLink = 'www.sahab.com';
@@ -95,14 +95,14 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     final trimmedFirstName = firstName.trim();
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
     final regex = RegExp(r'^[a-zA-Z]+$');
-    if (trimmedFirstName.startsWith(' ')) {
-      _firstNameError = 'First name cannot start with a space';
+    if (firstName.startsWith(' ')) {
+      _firstNameError = 'Spaces are not allowed. Please enter a valid name.';
     } else if (trimmedFirstName.isEmpty) {
       _firstNameError = 'First name cannot be empty';
     } else if (trimmedFirstName.length < 2) {
       _firstNameError = 'First name must be at least 2 characters';
     } else if (trimmedFirstName.length > 20) {
-      _firstNameError = 'First name must not exceed 20 characters';
+      _firstNameError = 'First name must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedFirstName)) {
       _firstNameError = 'Only letters are allowed';
     } else {
@@ -120,13 +120,13 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     final trimmedLastName = lastName.trim();
     final regex = RegExp(r'^[a-zA-Z]+$');
     if (lastName.startsWith(' ')) {
-      _lastNameError = 'Last name cannot start with a space';
+      _lastNameError = 'Spaces are not allowed. Please enter a valid name.';
     } else if (trimmedLastName.isEmpty) {
       _lastNameError = 'Last name cannot be empty';
     } else if (trimmedLastName.length < 2) {
       _lastNameError = 'Last name must be at least 2 characters';
     } else if (trimmedLastName.length > 20) {
-      _lastNameError = 'Last name must not exceed 20 characters';
+      _lastNameError = 'Last name must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedLastName)) {
       _lastNameError = 'Only letters are allowed';
     } else {
@@ -143,12 +143,19 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateCountryCode(String countryCode) {
+    _countryCode = countryCode;
+    notifyListeners();
+  }
+
   void setEmail(String email) {
     _email = email;
     notifyListeners(); // Notify listeners to rebuild widgets that use this email
   }
 
-  void updateContact(String contact, String countryCode) {
+  void updateContact(
+    String contact,
+  ) {
     final regex = RegExp(r'^[0-9]+$');
     if (contact.startsWith(' ')) {
       _contactError = 'Contact cannot start with a space';
@@ -156,6 +163,9 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _contactError = 'Contact cannot be empty';
     } else if (!regex.hasMatch(contact)) {
       _contactError = 'Contact must be numbers only';
+    } else if (contact.length != 8) {
+      // Ensure contact is exactly 8 digits
+      _contactError = 'Contact must be exactly 8 digits';
     } else {
       _contactError = null;
       _contact = '$countryCode $contact';
@@ -167,14 +177,14 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     final trimmedCityName = city.trim();
     // Validation: Ensure the first name is between 2-20 chars and only contains letters
     final regex = RegExp(r'^[a-zA-Z]+$');
-    if (trimmedCityName.startsWith(' ')) {
+    if (city.startsWith(' ')) {
       _cityNameError = 'City name cannot start with a space';
     } else if (trimmedCityName.isEmpty) {
       _cityNameError = 'City name cannot be empty';
     } else if (trimmedCityName.length < 2) {
       _cityNameError = 'City name must be at least 2 characters';
     } else if (trimmedCityName.length > 20) {
-      _cityNameError = 'City name must not exceed 20 characters';
+      _cityNameError = 'City name must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedCityName)) {
       _cityNameError = 'Only letters are allowed';
     } else {
@@ -192,7 +202,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     final trimmedCompanyName = companyName.trim();
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
     final regex = RegExp(r'^[a-zA-Z]+$');
-    if (trimmedCompanyName.startsWith(' ')) {
+    if (companyName.startsWith(' ')) {
       _companyNameError = 'Company name cannot start with a space';
     } else if (trimmedCompanyName.isEmpty) {
       _companyNameError = 'Company name cannot be empty';
@@ -217,7 +227,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     final trimmedDesignation = designation.trim();
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
     final regex = RegExp(r'^[a-zA-Z]+$');
-    if (trimmedDesignation.startsWith(' ')) {
+    if (designation.startsWith(' ')) {
       _designationError = 'Designation cannot start with a space';
     } else if (trimmedDesignation.isEmpty) {
       _designationError = 'Designation cannot be empty';
