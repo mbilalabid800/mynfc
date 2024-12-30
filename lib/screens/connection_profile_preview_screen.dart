@@ -9,7 +9,7 @@ import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/permission_handler.dart';
-import 'package:nfc_app/shared/utils/urlLauncherHelper.dart';
+import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +42,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
 
   @override
   Widget build(BuildContext context) {
+    // final proxyUrl = "https://cors-anywhere.herokuapp.com/";
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xFFEFEFEF),
@@ -538,7 +539,8 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                               image: DecorationImage(
                                                 image:
                                                     CachedNetworkImageProvider(
-                                                        platform!.icon),
+                                                  platform!.icon,
+                                                ),
                                                 fit: BoxFit.cover,
                                               ),
                                             ),

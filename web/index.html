@@ -1,20 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="$FLUTTER_BASE_HREF">
+  <base href="/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -23,14 +10,50 @@
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="nfc_app">
+  <meta name="apple-mobile-web-app-title" content="Absher">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>nfc_app</title>
+  <title>Absher</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- Add Firebase configuration script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+    import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
+  
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAfzqUeLjZuAb2E205pjv6UBbefn6gDpAA",
+      authDomain: "nfc-project-21b56.firebaseapp.com",
+      projectId: "nfc-project-21b56",
+      storageBucket: "nfc-project-21b56.appspot.com",
+      messagingSenderId: "165128879718",
+      appId: "1:165128879718:web:a48f55d5703d0d4b99f7a7"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+  
+    console.log("Firebase initialized successfully");
+  
+    // Example: Get a Firebase Storage URL
+    const storageRef = ref(storage, 'profile_pictures/1734336545510.png');
+    getDownloadURL(storageRef)
+      .then((url) => {
+        console.log('Image URL:', url);
+      })
+      .catch((error) => {
+        console.error('Error fetching image URL:', error);
+      });
+  </script>  
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
