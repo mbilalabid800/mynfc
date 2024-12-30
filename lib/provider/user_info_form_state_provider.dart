@@ -102,7 +102,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     } else if (trimmedFirstName.length < 2) {
       _firstNameError = 'First name must be at least 2 characters';
     } else if (trimmedFirstName.length > 20) {
-      _firstNameError = 'First name must not exceed 20 characters';
+      _firstNameError = 'First name must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedFirstName)) {
       _firstNameError = 'Only letters are allowed';
     } else {
@@ -126,7 +126,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     } else if (trimmedLastName.length < 2) {
       _lastNameError = 'Last name must be at least 2 characters';
     } else if (trimmedLastName.length > 20) {
-      _lastNameError = 'Last name must not exceed 20 characters';
+      _lastNameError = 'Last name must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedLastName)) {
       _lastNameError = 'Only letters are allowed';
     } else {
@@ -177,7 +177,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     } else if (trimmedCityName.length < 2) {
       _cityNameError = 'City name must be at least 2 characters';
     } else if (trimmedCityName.length > 20) {
-      _cityNameError = 'City name must not exceed 20 characters';
+      _cityNameError = 'City name must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedCityName)) {
       _cityNameError = 'Only letters are allowed';
     } else {
