@@ -1,11 +1,10 @@
 // ignore_for_file: avoid_print
-
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nfc_app/chat/chat_screen.dart';
 import 'package:nfc_app/chat/chat_screen2.dart';
+import 'package:nfc_app/firebase_options.dart';
 import 'package:nfc_app/provider/app_data_provider.dart';
 import 'package:nfc_app/provider/authenticate_provider.dart';
 import 'package:nfc_app/provider/biometric_handler_provider.dart';
@@ -68,37 +67,18 @@ import 'screens/recent_connected_list_screen.dart';
 import 'screens/user_info_screen.dart';
 
 void main() async {
-  //Ensure all bindings are initialized before Firebase
   WidgetsFlutterBinding.ensureInitialized();
   try {
-    // Initialize Firebase
-    // await Firebase.initializeApp();
-
     await Firebase.initializeApp(
-      options: FirebaseOptions(
-        apiKey: "AIzaSyC200DWPWRT2XiiHXnVhtyrTLt-17y5bcY",
-        authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-        projectId: "nfc-project-21b56",
-        storageBucket: "YOUR_PROJECT_ID.appspot.com",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "1:165128879718:android:fb825bf514d1599699f7a7",
-      ),
-    );
-
-    // Initialize Firebase App Check
-    await FirebaseAppCheck.instance.activate(
-      androidProvider: AndroidProvider.playIntegrity, // For Android
-      appleProvider: AppleProvider.deviceCheck, // For iOS
+      options: DefaultFirebaseOptions.currentPlatform,
     );
   } catch (e) {
     print('Firebase initialization error: $e');
-    // Optionally, show a dialog or handle the error gracefully in the app
   }
   SystemChrome.setPreferredOrientations(
     [
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
-      //testtt
     ],
   );
 
@@ -137,7 +117,9 @@ void main() async {
       ChangeNotifierProvider(
         create: (_) => LoadingStateProvider(),
       ),
-      ChangeNotifierProvider(create: (_) => CardDetailsProvider()),
+      ChangeNotifierProvider(
+        create: (_) => CardDetailsProvider(),
+      ),
       ChangeNotifierProvider(
         create: (_) => ShippingAddressProvider(),
       ),
