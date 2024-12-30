@@ -132,6 +132,14 @@ class _NameStepState extends State<NameStep> {
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -171,6 +179,14 @@ class _NameStepState extends State<NameStep> {
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -193,174 +209,431 @@ class _NameStepState extends State<NameStep> {
                 width: DeviceDimensions.screenWidth(context) * 0.95,
                 height: DeviceDimensions.screenHeight(context) * 0.065,
                 decoration: BoxDecoration(
-                    border: Border.all(
-                      //test
-                      color: AppColors.textFieldBorderColor,
-                    ),
-                    borderRadius: BorderRadius.circular(12)),
+                  border: Border.all(
+                    color: AppColors.textFieldBorderColor,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 child: Row(
                   children: [
-                    CountryCodePicker(
-                      onChanged: (CountryCode code) {
-                        setState(() {
-                          countryName = code.name!;
-                          formState.updateCountryName(countryName);
-                          countryCode = code.dialCode!;
-                          formState.updateContact(contactNumber, countryCode);
-                        });
-                        print(countryName);
-                      },
-
-                      initialSelection: 'OM', // Default country code
-                      favorite: const [
-                        '+968',
-                        'OM'
-                      ], // You can add favorite codes here
-
-                      countryList: const [
-                        {'name': 'Oman', 'code': 'OM', 'dial_code': '+968'},
-                        {
-                          'name': 'Afghanistan',
-                          'code': 'AF',
-                          'dial_code': '+93'
-                        },
-                        {'name': 'Albania', 'code': 'AL', 'dial_code': '+355'},
-                        {'name': 'Algeria', 'code': 'DZ', 'dial_code': '+213'},
-                        {'name': 'Argentina', 'code': 'AR', 'dial_code': '+54'},
-                        {'name': 'Australia', 'code': 'AU', 'dial_code': '+61'},
-                        {'name': 'Austria', 'code': 'AT', 'dial_code': '+43'},
-                        {'name': 'Bahrain', 'code': 'BH', 'dial_code': '+973'},
-                        {
-                          'name': 'Bangladesh',
-                          'code': 'BD',
-                          'dial_code': '+880'
-                        },
-                        {'name': 'Belgium', 'code': 'BE', 'dial_code': '+32'},
-                        {'name': 'Brazil', 'code': 'BR', 'dial_code': '+55'},
-                        {'name': 'Canada', 'code': 'CA', 'dial_code': '+1'},
-                        {'name': 'China', 'code': 'CN', 'dial_code': '+86'},
-                        {'name': 'Colombia', 'code': 'CO', 'dial_code': '+57'},
-                        {'name': 'Denmark', 'code': 'DK', 'dial_code': '+45'},
-                        {'name': 'Egypt', 'code': 'EG', 'dial_code': '+20'},
-                        {'name': 'Finland', 'code': 'FI', 'dial_code': '+358'},
-                        {'name': 'France', 'code': 'FR', 'dial_code': '+33'},
-                        {'name': 'Germany', 'code': 'DE', 'dial_code': '+49'},
-                        {'name': 'Greece', 'code': 'GR', 'dial_code': '+30'},
-                        {'name': 'India', 'code': 'IN', 'dial_code': '+91'},
-                        {'name': 'Indonesia', 'code': 'ID', 'dial_code': '+62'},
-                        {'name': 'Iraq', 'code': 'IQ', 'dial_code': '+964'},
-                        {'name': 'Italy', 'code': 'IT', 'dial_code': '+39'},
-                        {'name': 'Japan', 'code': 'JP', 'dial_code': '+81'},
-                        {'name': 'Jordan', 'code': 'JO', 'dial_code': '+962'},
-                        {'name': 'Kuwait', 'code': 'KW', 'dial_code': '+965'},
-                        {'name': 'Lebanon', 'code': 'LB', 'dial_code': '+961'},
-                        {'name': 'Malaysia', 'code': 'MY', 'dial_code': '+60'},
-                        {'name': 'Mexico', 'code': 'MX', 'dial_code': '+52'},
-                        {'name': 'Morocco', 'code': 'MA', 'dial_code': '+212'},
-                        {'name': 'Nepal', 'code': 'NP', 'dial_code': '+977'},
-                        {
-                          'name': 'Netherlands',
-                          'code': 'NL',
-                          'dial_code': '+31'
-                        },
-                        {
-                          'name': 'New Zealand',
-                          'code': 'NZ',
-                          'dial_code': '+64'
-                        },
-                        {'name': 'Nigeria', 'code': 'NG', 'dial_code': '+234'},
-                        {'name': 'Norway', 'code': 'NO', 'dial_code': '+47'},
-                        {'name': 'Pakistan', 'code': 'PK', 'dial_code': '+92'},
-                        {
-                          'name': 'Philippines',
-                          'code': 'PH',
-                          'dial_code': '+63'
-                        },
-                        {'name': 'Qatar', 'code': 'QA', 'dial_code': '+974'},
-                        {'name': 'Russia', 'code': 'RU', 'dial_code': '+7'},
-                        {
-                          'name': 'Saudi Arabia',
-                          'code': 'SA',
-                          'dial_code': '+966'
-                        },
-                        {'name': 'Singapore', 'code': 'SG', 'dial_code': '+65'},
-                        {
-                          'name': 'South Africa',
-                          'code': 'ZA',
-                          'dial_code': '+27'
-                        },
-                        {'name': 'Spain', 'code': 'ES', 'dial_code': '+34'},
-                        {'name': 'Sri Lanka', 'code': 'LK', 'dial_code': '+94'},
-                        {'name': 'Sweden', 'code': 'SE', 'dial_code': '+46'},
-                        {
-                          'name': 'Switzerland',
-                          'code': 'CH',
-                          'dial_code': '+41'
-                        },
-                        {'name': 'Turkey', 'code': 'TR', 'dial_code': '+90'},
-                        {
-                          'name': 'United Arab Emirates',
-                          'code': 'AE',
-                          'dial_code': '+971'
-                        },
-                        {
-                          'name': 'United Kingdom',
-                          'code': 'GB',
-                          'dial_code': '+44'
-                        },
-                        {
-                          'name': 'United States',
-                          'code': 'US',
-                          'dial_code': '+1'
-                        },
-                        {'name': 'Vietnam', 'code': 'VN', 'dial_code': '+84'},
-                      ],
-
-                      showFlag: true,
-                      showCountryOnly: false,
-                      showOnlyCountryWhenClosed: false,
-                      alignLeft: false,
-                    ),
                     Expanded(
-                      child: TextField(
-                        // onChanged: (value) =>
-                        //     formState.updateContact(contactNumber, countryCode),
-                        onChanged: (value) {
+                      flex: 2,
+                      child: CountryCodePicker(
+                        onChanged: (CountryCode code) {
                           setState(() {
-                            contactNumber = value; // Update contactNumber
+                            countryName = code.name!;
+                            formState.updateCountryName(countryName);
+                            countryCode = code.dialCode!;
+                            formState.updateCountryCode(countryCode);
                           });
-                          formState.updateContact(contactNumber,
-                              countryCode); // Pass both contactNumber and countryCode
                         },
-                        // controller: firstNameController,
-                        keyboardType: TextInputType.number,
-                        maxLength: 12,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: AppColors.appBlueColor,
-                            ),
-                          ),
+                        initialSelection: 'OM', // Default country code
+                        favorite: const ['+968', 'OM'],
+                        countryList: const [
+                          {'name': 'Oman', 'code': 'OM', 'dial_code': '+968'},
+                          {
+                            'name': 'Afghanistan',
+                            'code': 'AF',
+                            'dial_code': '+93'
+                          },
+                          {
+                            'name': 'Albania',
+                            'code': 'AL',
+                            'dial_code': '+355'
+                          },
+                          {
+                            'name': 'Algeria',
+                            'code': 'DZ',
+                            'dial_code': '+213'
+                          },
+                          {
+                            'name': 'Argentina',
+                            'code': 'AR',
+                            'dial_code': '+54'
+                          },
+                          {
+                            'name': 'Australia',
+                            'code': 'AU',
+                            'dial_code': '+61'
+                          },
+                          {'name': 'Austria', 'code': 'AT', 'dial_code': '+43'},
+                          {
+                            'name': 'Bahrain',
+                            'code': 'BH',
+                            'dial_code': '+973'
+                          },
+                          {
+                            'name': 'Bangladesh',
+                            'code': 'BD',
+                            'dial_code': '+880'
+                          },
+                          {'name': 'Belgium', 'code': 'BE', 'dial_code': '+32'},
+                          {'name': 'Brazil', 'code': 'BR', 'dial_code': '+55'},
+                          {'name': 'Canada', 'code': 'CA', 'dial_code': '+1'},
+                          {'name': 'China', 'code': 'CN', 'dial_code': '+86'},
+                          {
+                            'name': 'Colombia',
+                            'code': 'CO',
+                            'dial_code': '+57'
+                          },
+                          {'name': 'Denmark', 'code': 'DK', 'dial_code': '+45'},
+                          {'name': 'Egypt', 'code': 'EG', 'dial_code': '+20'},
+                          {
+                            'name': 'Finland',
+                            'code': 'FI',
+                            'dial_code': '+358'
+                          },
+                          {'name': 'France', 'code': 'FR', 'dial_code': '+33'},
+                          {'name': 'Germany', 'code': 'DE', 'dial_code': '+49'},
+                          {'name': 'Greece', 'code': 'GR', 'dial_code': '+30'},
+                          {'name': 'India', 'code': 'IN', 'dial_code': '+91'},
+                          {
+                            'name': 'Indonesia',
+                            'code': 'ID',
+                            'dial_code': '+62'
+                          },
+                          {'name': 'Iraq', 'code': 'IQ', 'dial_code': '+964'},
+                          {'name': 'Italy', 'code': 'IT', 'dial_code': '+39'},
+                          {'name': 'Japan', 'code': 'JP', 'dial_code': '+81'},
+                          {'name': 'Jordan', 'code': 'JO', 'dial_code': '+962'},
+                          {'name': 'Kuwait', 'code': 'KW', 'dial_code': '+965'},
+                          {
+                            'name': 'Lebanon',
+                            'code': 'LB',
+                            'dial_code': '+961'
+                          },
+                          {
+                            'name': 'Malaysia',
+                            'code': 'MY',
+                            'dial_code': '+60'
+                          },
+                          {'name': 'Mexico', 'code': 'MX', 'dial_code': '+52'},
+                          {
+                            'name': 'Morocco',
+                            'code': 'MA',
+                            'dial_code': '+212'
+                          },
+                          {'name': 'Nepal', 'code': 'NP', 'dial_code': '+977'},
+                          {
+                            'name': 'Netherlands',
+                            'code': 'NL',
+                            'dial_code': '+31'
+                          },
+                          {
+                            'name': 'New Zealand',
+                            'code': 'NZ',
+                            'dial_code': '+64'
+                          },
+                          {
+                            'name': 'Nigeria',
+                            'code': 'NG',
+                            'dial_code': '+234'
+                          },
+                          {'name': 'Norway', 'code': 'NO', 'dial_code': '+47'},
+                          {
+                            'name': 'Pakistan',
+                            'code': 'PK',
+                            'dial_code': '+92'
+                          },
+                          {
+                            'name': 'Philippines',
+                            'code': 'PH',
+                            'dial_code': '+63'
+                          },
+                          {'name': 'Qatar', 'code': 'QA', 'dial_code': '+974'},
+                          {'name': 'Russia', 'code': 'RU', 'dial_code': '+7'},
+                          {
+                            'name': 'Saudi Arabia',
+                            'code': 'SA',
+                            'dial_code': '+966'
+                          },
+                          {
+                            'name': 'Singapore',
+                            'code': 'SG',
+                            'dial_code': '+65'
+                          },
+                          {
+                            'name': 'South Africa',
+                            'code': 'ZA',
+                            'dial_code': '+27'
+                          },
+                          {'name': 'Spain', 'code': 'ES', 'dial_code': '+34'},
+                          {
+                            'name': 'Sri Lanka',
+                            'code': 'LK',
+                            'dial_code': '+94'
+                          },
+                          {'name': 'Sweden', 'code': 'SE', 'dial_code': '+46'},
+                          {
+                            'name': 'Switzerland',
+                            'code': 'CH',
+                            'dial_code': '+41'
+                          },
+                          {'name': 'Turkey', 'code': 'TR', 'dial_code': '+90'},
+                          {
+                            'name': 'United Arab Emirates',
+                            'code': 'AE',
+                            'dial_code': '+971'
+                          },
+                          {
+                            'name': 'United Kingdom',
+                            'code': 'GB',
+                            'dial_code': '+44'
+                          },
+                          {
+                            'name': 'United States',
+                            'code': 'US',
+                            'dial_code': '+1'
+                          },
+                          {'name': 'Vietnam', 'code': 'VN', 'dial_code': '+84'},
+                        ],
 
-                          //labelText: 'First Name',
-                          hintText: 'Contact No.',
-                          counterText: "",
-                          errorText: formState.contactError,
-                          hintStyle: TextStyle(
-                              color: AppColors.greyText,
-                              fontFamily: 'Barlow-Regular',
-                              fontSize:
-                                  DeviceDimensions.responsiveSize(context) *
-                                      0.03),
-                        ),
+                        // Favorite codes
+                        showFlag: true,
+                        showCountryOnly: false,
+                        showOnlyCountryWhenClosed:
+                            false, // Show the country flag
+                        alignLeft: false,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        countryName.isEmpty ? 'Select Country' : countryName,
+                        style: TextStyle(
+                            fontSize:
+                                DeviceDimensions.responsiveSize(context) * 0.04,
+                            color: AppColors.appBlueColor,
+                            fontFamily: 'Barlow-Regular',
+                            fontWeight: FontWeight.w600),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
+
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Container(
+            //     width: DeviceDimensions.screenWidth(context) * 0.95,
+            //     height: DeviceDimensions.screenHeight(context) * 0.065,
+            //     decoration: BoxDecoration(
+            //         border: Border.all(
+            //           //test
+            //           color: AppColors.textFieldBorderColor,
+            //         ),
+            //         borderRadius: BorderRadius.circular(12)),
+            //     child: Row(
+            //       children: [
+            //         CountryCodePicker(
+            //           onChanged: (CountryCode code) {
+            //             setState(() {
+            //               countryName = code.name!;
+            //               formState.updateCountryName(countryName);
+            //               countryCode = code.dialCode!;
+            //               formState.updateCountryCode(countryCode);
+            //             });
+            //             print(countryName);
+            //           },
+
+            //           initialSelection: 'OM', // Default country code
+            //           favorite: const [
+            //             '+968',
+            //             'OM'
+            //           ], // You can add favorite codes here
+
+            //           countryList: const [
+            //             {'name': 'Oman', 'code': 'OM', 'dial_code': '+968'},
+            //             {
+            //               'name': 'Afghanistan',
+            //               'code': 'AF',
+            //               'dial_code': '+93'
+            //             },
+            //             {'name': 'Albania', 'code': 'AL', 'dial_code': '+355'},
+            //             {'name': 'Algeria', 'code': 'DZ', 'dial_code': '+213'},
+            //             {'name': 'Argentina', 'code': 'AR', 'dial_code': '+54'},
+            //             {'name': 'Australia', 'code': 'AU', 'dial_code': '+61'},
+            //             {'name': 'Austria', 'code': 'AT', 'dial_code': '+43'},
+            //             {'name': 'Bahrain', 'code': 'BH', 'dial_code': '+973'},
+            //             {
+            //               'name': 'Bangladesh',
+            //               'code': 'BD',
+            //               'dial_code': '+880'
+            //             },
+            //             {'name': 'Belgium', 'code': 'BE', 'dial_code': '+32'},
+            //             {'name': 'Brazil', 'code': 'BR', 'dial_code': '+55'},
+            //             {'name': 'Canada', 'code': 'CA', 'dial_code': '+1'},
+            //             {'name': 'China', 'code': 'CN', 'dial_code': '+86'},
+            //             {'name': 'Colombia', 'code': 'CO', 'dial_code': '+57'},
+            //             {'name': 'Denmark', 'code': 'DK', 'dial_code': '+45'},
+            //             {'name': 'Egypt', 'code': 'EG', 'dial_code': '+20'},
+            //             {'name': 'Finland', 'code': 'FI', 'dial_code': '+358'},
+            //             {'name': 'France', 'code': 'FR', 'dial_code': '+33'},
+            //             {'name': 'Germany', 'code': 'DE', 'dial_code': '+49'},
+            //             {'name': 'Greece', 'code': 'GR', 'dial_code': '+30'},
+            //             {'name': 'India', 'code': 'IN', 'dial_code': '+91'},
+            //             {'name': 'Indonesia', 'code': 'ID', 'dial_code': '+62'},
+            //             {'name': 'Iraq', 'code': 'IQ', 'dial_code': '+964'},
+            //             {'name': 'Italy', 'code': 'IT', 'dial_code': '+39'},
+            //             {'name': 'Japan', 'code': 'JP', 'dial_code': '+81'},
+            //             {'name': 'Jordan', 'code': 'JO', 'dial_code': '+962'},
+            //             {'name': 'Kuwait', 'code': 'KW', 'dial_code': '+965'},
+            //             {'name': 'Lebanon', 'code': 'LB', 'dial_code': '+961'},
+            //             {'name': 'Malaysia', 'code': 'MY', 'dial_code': '+60'},
+            //             {'name': 'Mexico', 'code': 'MX', 'dial_code': '+52'},
+            //             {'name': 'Morocco', 'code': 'MA', 'dial_code': '+212'},
+            //             {'name': 'Nepal', 'code': 'NP', 'dial_code': '+977'},
+            //             {
+            //               'name': 'Netherlands',
+            //               'code': 'NL',
+            //               'dial_code': '+31'
+            //             },
+            //             {
+            //               'name': 'New Zealand',
+            //               'code': 'NZ',
+            //               'dial_code': '+64'
+            //             },
+            //             {'name': 'Nigeria', 'code': 'NG', 'dial_code': '+234'},
+            //             {'name': 'Norway', 'code': 'NO', 'dial_code': '+47'},
+            //             {'name': 'Pakistan', 'code': 'PK', 'dial_code': '+92'},
+            //             {
+            //               'name': 'Philippines',
+            //               'code': 'PH',
+            //               'dial_code': '+63'
+            //             },
+            //             {'name': 'Qatar', 'code': 'QA', 'dial_code': '+974'},
+            //             {'name': 'Russia', 'code': 'RU', 'dial_code': '+7'},
+            //             {
+            //               'name': 'Saudi Arabia',
+            //               'code': 'SA',
+            //               'dial_code': '+966'
+            //             },
+            //             {'name': 'Singapore', 'code': 'SG', 'dial_code': '+65'},
+            //             {
+            //               'name': 'South Africa',
+            //               'code': 'ZA',
+            //               'dial_code': '+27'
+            //             },
+            //             {'name': 'Spain', 'code': 'ES', 'dial_code': '+34'},
+            //             {'name': 'Sri Lanka', 'code': 'LK', 'dial_code': '+94'},
+            //             {'name': 'Sweden', 'code': 'SE', 'dial_code': '+46'},
+            //             {
+            //               'name': 'Switzerland',
+            //               'code': 'CH',
+            //               'dial_code': '+41'
+            //             },
+            //             {'name': 'Turkey', 'code': 'TR', 'dial_code': '+90'},
+            //             {
+            //               'name': 'United Arab Emirates',
+            //               'code': 'AE',
+            //               'dial_code': '+971'
+            //             },
+            //             {
+            //               'name': 'United Kingdom',
+            //               'code': 'GB',
+            //               'dial_code': '+44'
+            //             },
+            //             {
+            //               'name': 'United States',
+            //               'code': 'US',
+            //               'dial_code': '+1'
+            //             },
+            //             {'name': 'Vietnam', 'code': 'VN', 'dial_code': '+84'},
+            //           ],
+
+            //           showFlag: true,
+            //           showCountryOnly: false,
+            //           showOnlyCountryWhenClosed: false,
+            //           alignLeft: false,
+            //         ),
+            //         Expanded(
+            //           child: TextField(
+            //             // onChanged: (value) =>
+            //             //     formState.updateContact(contactNumber, countryCode),
+            //             onChanged: (value) {
+            //               setState(() {
+            //                 contactNumber = value; // Update contactNumber
+            //               });
+            //               formState.updateCountryCode(
+            //                   countryCode); // Pass both contactNumber and countryCode
+            //             },
+            //             // controller: firstNameController,
+            //             keyboardType: TextInputType.number,
+            //             maxLength: 12,
+            //             decoration: InputDecoration(
+            //               border: InputBorder.none,
+            //               focusedBorder: OutlineInputBorder(
+            //                 borderSide: BorderSide(
+            //                   color: AppColors.appBlueColor,
+            //                 ),
+            //               ),
+
+            //               //labelText: 'First Name',
+            //               hintText: 'Contact No.',
+            //               counterText: "",
+            //               errorText: formState.contactError,
+            //               hintStyle: TextStyle(
+            //                   color: AppColors.greyText,
+            //                   fontFamily: 'Barlow-Regular',
+            //                   fontSize:
+            //                       DeviceDimensions.responsiveSize(context) *
+            //                           0.03),
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
             //Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: DeviceDimensions.screenWidth(context) * 0.95,
+                child: TextField(
+                  //maxLength: 25,
+                  //controller: lastNameController,
+                  onChanged: (value) => formState.updateContact(value),
+                  keyboardType: TextInputType.number,
+                  //maxLength: 12,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: AppColors.textFieldBorderColor,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: AppColors.appBlueColor,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    errorText: formState.contactError,
+                    //labelText: 'Enter Last Name',
+                    hintText: 'Contact No.',
+                    hintStyle: TextStyle(
+                        color: AppColors.greyText,
+                        fontFamily: 'Barlow-Regular',
+                        fontSize:
+                            DeviceDimensions.responsiveSize(context) * 0.03),
+                  ),
+                ),
+              ),
+            ),
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.05,
             ),

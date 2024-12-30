@@ -47,7 +47,7 @@ class _RegisterFormState extends State<RegisterData> {
   void validateEmail(String value) {
     setState(() {
       if (value.isEmpty) {
-        emailError = 'Please enter your email';
+        //emailError = 'Please enter your email';
       } else {
         final emailPattern = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
         if (!emailPattern.hasMatch(value)) {

@@ -96,7 +96,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
     final regex = RegExp(r'^[a-zA-Z]+$');
     if (firstName.startsWith(' ')) {
-      _firstNameError = 'First name cannot start with a space';
+      _firstNameError = 'Spaces are not allowed. Please enter a valid name.';
     } else if (trimmedFirstName.isEmpty) {
       _firstNameError = 'First name cannot be empty';
     } else if (trimmedFirstName.length < 2) {
@@ -120,7 +120,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     final trimmedLastName = lastName.trim();
     final regex = RegExp(r'^[a-zA-Z]+$');
     if (lastName.startsWith(' ')) {
-      _lastNameError = 'Last name cannot start with a space';
+      _lastNameError = 'Spaces are not allowed. Please enter a valid name.';
     } else if (trimmedLastName.isEmpty) {
       _lastNameError = 'Last name cannot be empty';
     } else if (trimmedLastName.length < 2) {
@@ -143,12 +143,19 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateCountryCode(String countryCode) {
+    _countryCode = countryCode;
+    notifyListeners();
+  }
+
   void setEmail(String email) {
     _email = email;
     notifyListeners(); // Notify listeners to rebuild widgets that use this email
   }
 
-  void updateContact(String contact, String countryCode) {
+  void updateContact(
+    String contact,
+  ) {
     final regex = RegExp(r'^[0-9]+$');
     if (contact.startsWith(' ')) {
       _contactError = 'Contact cannot start with a space';
