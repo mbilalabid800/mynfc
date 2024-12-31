@@ -42,6 +42,7 @@ class _RegisterFormState extends State<RegisterData> {
       validateEmail(emailController.text);
     });
     passwordController.addListener(_checkPasswordStrength);
+    confirmPasswordController.addListener(_checkPasswordStrength);
   }
 
   void validateEmail(String value) {
@@ -72,6 +73,7 @@ class _RegisterFormState extends State<RegisterData> {
   void dispose() {
     passwordController.removeListener(_checkPasswordStrength);
     passwordController.dispose();
+    //confirmPasswordController.removeListener(_checkPasswordStrength);
     super.dispose();
   }
 
@@ -335,6 +337,7 @@ class _RegisterFormState extends State<RegisterData> {
                                 controller: confirmPasswordController,
                                 obscureText: _isObscureConfirmPassword,
                                 onChanged: (password) {
+                                  //_checkPasswordStrength();
                                   // Update _passwordStrength based on your logic
                                   setState(() {
                                     _checkPasswordStrength();

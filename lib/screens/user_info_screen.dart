@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/image_picker_provider.dart';
@@ -117,6 +118,11 @@ class _NameStepState extends State<NameStep> {
               child: SizedBox(
                 width: DeviceDimensions.screenWidth(context) * 0.95,
                 child: TextField(
+                  keyboardType: TextInputType.name, // Opens the letter keyboard
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(
+                        r'[a-zA-Z\s]')), // Allows only letters and spaces
+                  ],
                   //maxLength: 25,
                   onChanged: (value) => formState.updateFirstName(value),
                   decoration: InputDecoration(
@@ -163,6 +169,12 @@ class _NameStepState extends State<NameStep> {
               child: SizedBox(
                 width: DeviceDimensions.screenWidth(context) * 0.95,
                 child: TextField(
+                  keyboardType: TextInputType.name, // Opens the letter keyboard
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(
+                        r'[a-zA-Z\s]')), // Allows only letters and spaces
+                  ],
+
                   //maxLength: 25,
                   //controller: lastNameController,
                   onChanged: (value) => formState.updateLastName(value),
@@ -207,7 +219,7 @@ class _NameStepState extends State<NameStep> {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 width: DeviceDimensions.screenWidth(context) * 0.95,
-                height: DeviceDimensions.screenHeight(context) * 0.065,
+                height: DeviceDimensions.screenHeight(context) * 0.068,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: AppColors.textFieldBorderColor,
@@ -594,10 +606,10 @@ class _NameStepState extends State<NameStep> {
                 width: DeviceDimensions.screenWidth(context) * 0.95,
                 child: TextField(
                   //maxLength: 25,
-                  //controller: lastNameController,
+
                   onChanged: (value) => formState.updateContact(value),
                   keyboardType: TextInputType.number,
-                  //maxLength: 12,
+
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
