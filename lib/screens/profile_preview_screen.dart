@@ -235,6 +235,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                       alignment: Alignment.topLeft,
                       child: Text(
                         "Bio",
+                        textAlign: TextAlign.left,
                         style: TextStyle(
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.058,
@@ -248,16 +249,19 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                       height: DeviceDimensions.screenHeight(context) * 0.010),
                   Padding(
                     padding: const EdgeInsets.only(left: 25.0, right: 25),
-                    child: Text(
-                      userProvider.bio,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: const Color(0xFF909091),
-                        fontSize:
-                            DeviceDimensions.responsiveSize(context) * 0.036,
-                        fontFamily: 'Barlow-Regular',
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        userProvider.bio,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: AppColors.appBlueColor,
+                          fontSize:
+                              DeviceDimensions.responsiveSize(context) * 0.036,
+                          fontFamily: 'Barlow-Regular',
+                        ),
+                        //textAlign: TextAlign.justify,
                       ),
-                      //textAlign: TextAlign.justify,
                     ),
                   ),
                   SizedBox(

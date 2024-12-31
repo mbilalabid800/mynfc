@@ -620,7 +620,9 @@ class _SettingsState extends State<Settings> {
                                 icons: "assets/icons/settingicon14.svg",
                                 title: "Logout",
                                 callBack: () async {
-                                  await _authService.signOut(context);
+                                  showLogoutAlertDialog(context);
+
+                                  // await _authService.signOut(context);
                                 },
                               ),
                               const SizedBox(height: 8),
@@ -716,6 +718,75 @@ class _SettingsState extends State<Settings> {
                 ),
               ],
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  void showLogoutAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: AlertDialog(
+            backgroundColor: AppColors.screenBackground,
+            //title: Text(''),
+            content: Text(
+              'Do you want to Logout Absher?',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: AppColors.appBlueColor,
+                  fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
+                  fontWeight: FontWeight.w600),
+            ),
+            actions: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    width: DeviceDimensions.screenWidth(context) * 0.3,
+                    decoration: BoxDecoration(
+                        color: AppColors.greyText,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Close the dialog
+                      },
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(
+                            color: AppColors.screenBackground,
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.035),
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                  Container(
+                    width: DeviceDimensions.screenWidth(context) * 0.3,
+                    decoration: BoxDecoration(
+                        color: AppColors.appBlueColor,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: TextButton(
+                      onPressed: () async {
+                        // Perform some action
+                        await _authService.signOut(context); // Close the dialog
+                      },
+                      child: Text(
+                        'Logout',
+                        style: TextStyle(
+                            color: AppColors.screenBackground,
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.035),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         );
       },
