@@ -319,7 +319,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 35),
+                                  SizedBox(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.040),
                                   Text(
                                     "${userProvider.firstName} ${userProvider.lastName}",
                                     softWrap: true,
@@ -328,7 +331,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     style: TextStyle(
                                       fontSize: DeviceDimensions.responsiveSize(
                                               context) *
-                                          0.042,
+                                          0.047,
                                       color: AppColors.textColorBlue,
                                       fontWeight: FontWeight.w600,
                                       fontFamily: 'Barlow-Bold',
