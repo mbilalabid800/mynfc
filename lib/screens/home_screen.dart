@@ -319,7 +319,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 30),
+                                  const SizedBox(height: 35),
                                   Text(
                                     "${userProvider.firstName} ${userProvider.lastName}",
                                     softWrap: true,
@@ -334,17 +334,37 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fontFamily: 'Barlow-Bold',
                                     ),
                                   ),
-                                  Text(
-                                    "${userProvider.designation} at ${userProvider.companyName}",
-                                    style: TextStyle(
+                                  if (userProvider.companyName == '')
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                            context, '/edit-profile');
+                                      },
+                                      child: Text(
+                                        "Edit Profile",
+                                        style: TextStyle(
+                                            fontFamily: 'Barlow-Bold',
+                                            fontSize:
+                                                DeviceDimensions.responsiveSize(
+                                                        context) *
+                                                    0.037,
+                                            letterSpacing: 1,
+                                            color: AppColors.appOrangeColor),
+                                      ),
+                                    )
+                                  else
+                                    Text(
+                                      "${userProvider.designation} at ${userProvider.companyName.isNotEmpty ? userProvider.companyName : 'Company not set'}",
+                                      style: TextStyle(
                                         fontFamily: 'Barlow-Regular',
                                         fontSize:
                                             DeviceDimensions.responsiveSize(
                                                     context) *
                                                 0.038,
                                         color: AppColors.textColorBlue,
-                                        letterSpacing: 1.5),
-                                  ),
+                                        letterSpacing: 1.5,
+                                      ),
+                                    ),
                                   const SizedBox(height: 15),
                                   const Divider(),
                                   Padding(

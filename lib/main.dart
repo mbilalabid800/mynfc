@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, depend_on_referenced_packages, unused_import
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +34,7 @@ import 'package:nfc_app/screens/connection_profile_preview_screen.dart';
 import 'package:nfc_app/screens/connections_request.dart';
 import 'package:nfc_app/screens/contact_us_screen.dart';
 import 'package:nfc_app/screens/edit_profile_screen.dart';
+import 'package:nfc_app/screens/error-screen.dart';
 import 'package:nfc_app/screens/faq_screen.dart';
 import 'package:nfc_app/screens/google_maps_screen.dart';
 import 'package:nfc_app/screens/graph_screens/full_screen_graph.dart';
@@ -65,9 +66,13 @@ import 'package:provider/provider.dart';
 import 'screens/auth/email_verify_forget_password.dart';
 import 'screens/recent_connected_list_screen.dart';
 import 'screens/user_info_screen.dart';
+// import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // setUrlStrategy(
+  //     PathUrlStrategy()); // This ensures clean URLs without the '#' symbol.
+
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -213,6 +218,7 @@ class MyApp extends StatelessWidget {
           '/chat-screen': (context) => ChatScreen(),
           '/chat-screen2': (context) => ChatScreen2(),
           '/connections-request': (context) => ConnectionsRequest(),
+          '/error': (context) => ErrorScreen(message: 'Page not found'),
         },
       ),
     );
@@ -220,33 +226,21 @@ class MyApp extends StatelessWidget {
 }
 
 Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
-  // Check if the route name contains a deep link URL
   final Uri uri = Uri.parse(settings.name ?? '');
 
-  // Check if the path starts with 'connection-profile-preview'
-  if (uri.pathSegments.isNotEmpty &&
-      uri.pathSegments.first == 'connection-profile-preview') {
-    // Extract the userId from the URI path, if available
-    final String userIdFromLink =
+  // Only allow connection-profile-preview routes
+  if (uri.pathSegments.isNotEmpty && uri.pathSegments.first == 'profile') {
+    final String userId =
         uri.pathSegments.length > 1 ? uri.pathSegments[1] : '';
-
-    // If userId is found in the deep link, use it
-    if (userIdFromLink.isNotEmpty) {
+    if (userId.isNotEmpty) {
       return MaterialPageRoute(
-        builder: (_) => ConnectionProfilePreview(userId: userIdFromLink),
+        builder: (_) => ConnectionProfilePreview(userId: userId),
       );
     }
   }
 
-  // If no deep link is present, try to get the userId from the arguments
-  if (settings.name == '/connection-profile-preview') {
-    final String? userIdFromArgs = settings.arguments as String?;
-    if (userIdFromArgs != null && userIdFromArgs.isNotEmpty) {
-      return MaterialPageRoute(
-        builder: (_) => ConnectionProfilePreview(userId: userIdFromArgs),
-      );
-    }
-  }
-
-  return null;
+  // Catch all other routes and show error
+  return MaterialPageRoute(
+    builder: (_) => ErrorScreen(message: "Page not found"),
+  );
 }

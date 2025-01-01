@@ -42,7 +42,6 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
 
   @override
   Widget build(BuildContext context) {
-    // final proxyUrl = "https://cors-anywhere.herokuapp.com/";
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xFFEFEFEF),

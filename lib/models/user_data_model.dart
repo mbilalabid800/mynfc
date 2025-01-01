@@ -15,7 +15,7 @@ class UserDataModel {
   String profileImage;
   String bio;
   bool isPrivate;
-  final String timeStamp;
+  final Timestamp timeStamp;
   bool connectionTypeAll;
   // int profileViews;
   bool isBlocked;
@@ -50,7 +50,7 @@ class UserDataModel {
       email: data['email'] ?? '',
       uid: data['uid'] ?? '',
       contactNumber: data['contact'] ?? '',
-      city: data['city'] ?? '',
+      city: data['city'] ?? 'Muscat',
       firstName: data['first_name'] ?? '',
       lastName: data['last_name'] ?? '',
       businessType: data['profile_type'] ?? '',

@@ -62,8 +62,7 @@ class _SettingsState extends State<Settings> {
     if (user != null) {
       String uid = user.uid;
       // Generate the deep link
-      String userProfileLink =
-          'https://myabsher.com/connection-profile-preview/$uid?source=nfc';
+      String userProfileLink = 'https://myabsher.com/#/profile/$uid?source=nfc';
       return userProfileLink;
     } else {
       throw Exception('User not logged in');

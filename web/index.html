@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <base href="/">
-
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
+
+  <base href="/">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -57,5 +57,11 @@
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
+  <!-- Inside your web/index.html -->
+<script>
+  if (window.location.pathname === "/profile/") {
+    window.location.href = "/error";
+  }
+</script>
 </body>
 </html>
