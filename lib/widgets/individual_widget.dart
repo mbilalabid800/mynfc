@@ -67,7 +67,7 @@ class _IndividualState extends State<Individual> {
               _buildPricingContainer(
                 index: 0,
                 title: "Monthly",
-                oldPrice: "1032.00 OMR",
+                oldPrice: "1632.00 OMR",
                 newPrice: "1032.00 OMR",
                 features: [
                   PriceFeatureModel(
@@ -250,32 +250,6 @@ class _IndividualState extends State<Individual> {
                 ),
               ),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.065),
-              // SizedBox(
-              //   width: DeviceDimensions.screenWidth(context) * 0.8,
-              //   height: DeviceDimensions.screenHeight(context) * 0.057,
-              //   child: ElevatedButton(
-              //     onPressed: () {
-              //       //dummy link
-              //       Navigator.pushNamed(context, '/privacy-policy');
-              //     },
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: const Color(0xFF202020),
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(30.0),
-              //       ),
-              //     ),
-              //     child: Text(
-              //       'Upgrade Now',
-              //       style: TextStyle(
-              //           fontSize:
-              //               DeviceDimensions.responsiveSize(context) * 0.042,
-              //           color: Colors.white,
-              //           fontFamily: 'Barlow-Regular',
-              //           letterSpacing: 1,
-              //           fontWeight: FontWeight.w600),
-              //     ),
-              //   ),
-              // ),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
             ],
           ),
@@ -303,7 +277,8 @@ class _IndividualState extends State<Individual> {
           color: Colors.white,
           border: Border.all(
             width: 2,
-            color: selected ? AppColors.appBlueColor : const Color(0xFFD9D9D9),
+            color:
+                selected ? AppColors.appOrangeColor : const Color(0xFFD9D9D9),
           ),
         ),
         child: Padding(
@@ -328,7 +303,7 @@ class _IndividualState extends State<Individual> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: selected
-                          ? AppColors.appBlueColor
+                          ? AppColors.appOrangeColor
                           : Colors.transparent,
                       border: Border.all(
                         color: const Color(0xFF000000),
