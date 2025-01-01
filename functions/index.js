@@ -4,7 +4,7 @@ admin.initializeApp();
 
 exports.recordTapAndRedirect = functions.https.onRequest(async (req, res) => {
   // Extract the UID from the request URL
-  const uid = req.path.split('/')[2]; // Assuming /connection-profile-preview/<uid>
+  const uid = req.path.split('/')[2]; // Assuming /profile/<uid>
 
   if (!uid) {
     res.status(400).send('Missing userId');
@@ -28,7 +28,7 @@ exports.recordTapAndRedirect = functions.https.onRequest(async (req, res) => {
     }
 
     // Redirect to the actual profile page (replace with your profile URL)
-    res.redirect(`https://myabsher.com/connection-profile-preview/${uid}`);
+    res.redirect(`https://myabsher.com/profile/${uid}`);
   } catch (error) {
     console.error('Error recording tap:', error);
     res.status(500).send('Internal Server Error');

@@ -3,7 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:nfc_app/models/user_data_model.dart';
 
 import '../services/shared_preferences_service/shared_preferences_services.dart';
@@ -11,20 +10,18 @@ import '../services/shared_preferences_service/shared_preferences_services.dart'
 class UserInfoFormStateProvider extends ChangeNotifier {
   String _firstName = '';
   String _lastName = '';
-  String _countryName = 'Oman';
+  String _countryName = '';
   String _email = '';
   String _uid = '';
-  String _contact = 'No Contact';
-  String _countryCode = '+968';
-  String _city = 'Muscat';
-  String? _selectedItem = null;
-  String _companyName = 'Sahab';
-  String _designation = 'Manager';
-  String _websiteLink = 'www.sahab.com';
-  String _imageUrl =
-      'https://firebasestorage.googleapis.com/v0/b/nfc-project-21b56.appspot.com/o/default_profile.jpg?alt=media&token=dec3b09a-d6fd-47a2-ae5b-cb0e248ae21c';
-  String _bio =
-      'What Software Quality Assurance Engineers and Testers Do. Design test plans, scenarios, scripts, or procedures. Document software defects, using a bug tracking system, and report defects to software developers. Identify, analyze, and document problems with program function, output, online screen, or content.';
+  String _contact = '';
+  String _countryCode = '';
+  String _city = '';
+  String? _selectedItem;
+  String _companyName = '';
+  String _designation = '';
+  String _websiteLink = '';
+  String _imageUrl = '';
+  String _bio = '';
   // int _profileViews = 0;
   String _currentEditingField = '';
   String? _firstNameError;
@@ -345,7 +342,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'profile_type': _selectedItem,
           'bio': _bio,
           'isPrivate': _isPrivate,
-          'timeStamp': DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
+          'timeStamp': Timestamp.now(),
           // 'profileViews': _profileViews,
           'connectionTypeAll': _connectionTypeAll,
           'isBlocked': _isBlocked,
@@ -434,22 +431,32 @@ class UserInfoFormStateProvider extends ChangeNotifier {
             .collection("userProfile")
             .doc("details");
         DocumentSnapshot<Map<String, dynamic>> docSnapshot = await docRef.get();
+        print("Here is :$docSnapshot");
         if (docSnapshot.exists) {
+          print("Here is :$docSnapshot");
+
           final userData = UserDataModel.fromFirestore(docSnapshot);
           _firstName = userData.firstName;
           _lastName = userData.lastName;
           _email = userData.email;
           _uid = userData.uid;
-          _city = userData.city;
-          _companyName = userData.companyName;
-          _designation = userData.designation;
+          _city = userData.city.isEmpty ? '' : userData.city;
+          _companyName =
+              userData.companyName.isEmpty ? '' : userData.companyName;
+          _designation =
+              userData.designation.isEmpty ? '' : userData.designation;
           _connectionTypeAll = userData.connectionTypeAll;
-          _websiteLink = userData.website;
-          _imageUrl = userData.profileImage;
+          _websiteLink =
+              userData.website.isEmpty ? 'www.sahab.com' : userData.website;
+          _imageUrl =
+              userData.profileImage.isEmpty ? '' : userData.profileImage;
           _contact = userData.contactNumber;
           _selectedItem = userData.businessType;
-          _countryName = userData.countryName;
-          _bio = userData.bio;
+          _countryName =
+              userData.countryName.isEmpty ? '' : userData.countryName;
+          _bio = userData.bio.isEmpty
+              ? 'What Software Quality Assurance Engineers and Testers Do. Design test plans, scenarios, scripts, or procedures. Document software defects, using a bug tracking system, and report defects to software developers. Identify, analyze, and document problems with program function, output, online screen, or content.'
+              : userData.bio;
           _isPrivate = userData.isPrivate;
           // _profileViews = userData.profileViews;
           _isBlocked = userData.isBlocked;

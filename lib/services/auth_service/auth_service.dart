@@ -166,8 +166,7 @@ class AuthService {
     if (user != null) {
       String uid = user.uid;
       // Generate the link
-      String userProfileLink =
-          'https://myabsher.com/connection-profile-preview/$uid';
+      String userProfileLink = 'https://myabsher.com/profile/$uid';
       return userProfileLink;
     } else {
       throw Exception('User not logged in');

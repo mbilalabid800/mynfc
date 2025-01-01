@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
+import 'package:nfc_app/screens/connection_profile_preview_screen.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
@@ -165,9 +166,17 @@ class _RecentConnectedState extends State<RecentConnected> {
                                     ),
                                     child: GestureDetector(
                                       onTap: () {
-                                        Navigator.pushNamed(context,
-                                            '/connection-profile-preview',
-                                            arguments: addedConnection.uid);
+                                        // Navigator.pushNamed(context, '/profile',
+                                        //     arguments: addedConnection.uid);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ConnectionProfilePreview(
+                                                    userId:
+                                                        addedConnection.uid),
+                                          ),
+                                        );
                                       },
                                       child: ListTile(
                                         visualDensity:
@@ -347,9 +356,17 @@ class _RecentConnectedState extends State<RecentConnected> {
                                 ),
                                 child: GestureDetector(
                                   onTap: () {
-                                    Navigator.pushNamed(
-                                        context, '/connection-profile-preview',
-                                        arguments: recommendedConnection.uid);
+                                    // Navigator.pushNamed(context, '/profile',
+                                    //     arguments: recommendedConnection.uid);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ConnectionProfilePreview(
+                                                userId:
+                                                    recommendedConnection.uid),
+                                      ),
+                                    );
                                   },
                                   child: ListTile(
                                     visualDensity:

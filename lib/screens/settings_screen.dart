@@ -62,8 +62,7 @@ class _SettingsState extends State<Settings> {
     if (user != null) {
       String uid = user.uid;
       // Generate the deep link
-      String userProfileLink =
-          'https://myabsher.com/connection-profile-preview/$uid?source=nfc';
+      String userProfileLink = 'https://myabsher.com/#/profile/$uid?source=nfc';
       return userProfileLink;
     } else {
       throw Exception('User not logged in');
@@ -273,7 +272,7 @@ class _SettingsState extends State<Settings> {
                                     SizedBox(
                                         height: DeviceDimensions.screenHeight(
                                                 context) *
-                                            0.075),
+                                            0.080),
                                     SizedBox(
                                       width: DeviceDimensions.screenWidth(
                                               context) *
@@ -288,7 +287,7 @@ class _SettingsState extends State<Settings> {
                                           fontSize:
                                               DeviceDimensions.responsiveSize(
                                                       context) *
-                                                  0.042,
+                                                  0.047,
                                           fontWeight: FontWeight.w600,
                                           color: AppColors.textColorBlue,
                                         ),
