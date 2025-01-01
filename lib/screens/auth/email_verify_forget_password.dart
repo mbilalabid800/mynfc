@@ -232,6 +232,7 @@ class _EmailVerifyForgetPasswordState extends State<EmailVerifyForgetPassword> {
                 color: Colors.white54,
                 child: const Center(
                   child: BigThreeBounceLoader(),
+                  //child: HourGlassLoader()
                 ),
               ),
           ],

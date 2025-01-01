@@ -61,7 +61,7 @@ import 'package:nfc_app/screens/splash_screen.dart';
 import 'package:nfc_app/screens/subscription_screen.dart';
 import 'package:nfc_app/screens/terms_conditions.dart';
 import 'package:nfc_app/services/internet_status_handler.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
+// import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:provider/provider.dart';
 import 'screens/auth/email_verify_forget_password.dart';
 import 'screens/recent_connected_list_screen.dart';

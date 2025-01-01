@@ -1060,6 +1060,7 @@ class _GraphScreenState extends State<GraphScreen> {
               !snapshot.hasData ||
               snapshot.data!.isEmpty) {
             return const Center(child: BigThreeBounceLoader());
+            //child: HourGlassLoader());
           }
           final tapCounts = snapshot.data!;
           final int totalTaps =
@@ -1260,7 +1261,9 @@ class _GraphScreenState extends State<GraphScreen> {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
                                 return const Center(
-                                    child: BigThreeBounceLoader());
+                                    child: BigThreeBounceLoader()
+                                    // child: HourGlassLoader()
+                                    );
                               }
                               if (snapshot.hasError ||
                                   !snapshot.hasData ||
