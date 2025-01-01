@@ -36,6 +36,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   bool _isPrivate = false;
   bool _connectionTypeAll = true;
   bool _isBlocked = false;
+  String? _subscriptionPlan = '';
 
   // Getters
   String get firstName => _firstName;
@@ -65,6 +66,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? get designationError => _designationError;
   String? get cityNameError => _cityNameError;
   int get totalViews => _totalViews;
+  String? get subscriptionPlan => _subscriptionPlan;
 
   bool get isNameFormValid =>
       _firstName.isNotEmpty &&
@@ -350,6 +352,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
         await FirebaseFirestore.instance.collection('users').doc(uid).set(
           {
             'email': (_email.isNotEmpty) ? _email : email,
+            'subscriptionPlan': 'Free'
           },
           SetOptions(merge: true),
         ); // Use merge to avoid overwriting the entire document
