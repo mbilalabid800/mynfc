@@ -91,7 +91,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "$index. ${policy.title}",
+                                                  "$index. ${policy['title'] ?? 'No Title'}",
                                                   style: TextStyle(
                                                     fontSize: DeviceDimensions
                                                             .responsiveSize(
@@ -107,7 +107,8 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                                                                 context) *
                                                         0.010),
                                                 Text(
-                                                  policy.descriptions,
+                                                  policy['content'] ??
+                                                      'No Description',
                                                   style: TextStyle(
                                                     fontSize: DeviceDimensions
                                                             .responsiveSize(
