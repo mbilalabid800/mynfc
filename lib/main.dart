@@ -62,6 +62,7 @@ import 'package:nfc_app/screens/splash_screen.dart';
 import 'package:nfc_app/screens/subscription_screen.dart';
 import 'package:nfc_app/screens/terms_conditions.dart';
 import 'package:nfc_app/services/internet_status_handler.dart';
+// import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:provider/provider.dart';
 import 'screens/auth/email_verify_forget_password.dart';
 import 'screens/recent_connected_list_screen.dart';
@@ -151,75 +152,83 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
-      child: MaterialApp(
-        title: 'Absher',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          //colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
-          useMaterial3: true,
-          splashColor: Colors.grey, // or Colors.black
-          highlightColor: Colors.grey, // or Colors.black
-          hoverColor: Colors.grey,
-          primaryColor: Colors.grey,
-          //accentColor: Colors.grey, // For desktop/web
-        ),
-        initialRoute: '/new-splash',
-        // initialRoute: '/connections-request',
-        onGenerateRoute: _onGenerateRoute,
-        routes: {
-          '/mainNav-screen': (context) => const MainScreen(),
-          '/subscription-screen': (context) => PricingPlansScreen(),
-          '/new-splash': (context) => NewSplashScreen(),
-          '/splash': (context) => const SplashScreen(),
-          '/login-screen': (context) => const LoginScreen(),
-          '/forget-password': (context) => const ForgetPassword(),
-          '/forget2': (context) => const ForgetPassword(),
-          '/email-verify-forgot-password': (context) =>
-              const EmailVerifyForgetPassword(),
-          //'/set-password': (context) => const SetPassword(),
-          '/email-verify': (context) => const EmailVerify(),
-          '/email-verified': (context) => const EmailVerified(),
-          '/user-info': (context) => const UserScreen(),
-          '/home-screen': (context) => const HomeScreen(),
-          '/profile-preview': (context) => const ProfilePreview(),
-          '/recent-connected': (context) => const RecentConnected(),
-          '/recent-connected-list': (context) => const RecentConnectedList(),
-          '/active-link': (context) => const ActiveLink(),
-          '/settings': (context) => const Settings(),
-          '/card-details': (context) => const CardDetails(),
-          '/edit-profile': (context) => const EditProfile(),
-          '/privacy-settings': (context) => const PrivacySettings(),
-          '/activate-product': (context) => const ActiveProductScreen(),
-          '/privacy-policy': (context) => const PrivacyPolicy(),
-          '/terms-conditions': (context) => const TermsConditions(),
-          '/graph-screen': (context) {
-            final args = ModalRoute.of(context)!.settings.arguments
-                as Map<String, String>;
-            return GraphScreen(uid: args['uid']!);
+    return WillPopScope(
+      onWillPop: () async {
+        // Return false to prevent back button functionality
+        return false;
+      },
+      child: MediaQuery(
+        data:
+            MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
+        child: MaterialApp(
+          title: 'Absher',
+          debugShowCheckedModeBanner: false,
+
+          theme: ThemeData(
+            //colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+            useMaterial3: true,
+            splashColor: Colors.grey, // or Colors.black
+            highlightColor: Colors.grey, // or Colors.black
+            hoverColor: Colors.grey,
+            primaryColor: Colors.grey,
+            //accentColor: Colors.grey, // For desktop/web
+          ),
+          initialRoute: '/new-splash',
+          // initialRoute: '/connections-request',
+          onGenerateRoute: _onGenerateRoute,
+          routes: {
+            '/mainNav-screen': (context) => const MainScreen(),
+            '/subscription-screen': (context) => PricingPlansScreen(),
+            '/new-splash': (context) => NewSplashScreen(),
+            '/splash': (context) => const SplashScreen(),
+            '/login-screen': (context) => const LoginScreen(),
+            '/forget-password': (context) => const ForgetPassword(),
+            '/forget2': (context) => const ForgetPassword(),
+            '/email-verify-forgot-password': (context) =>
+                const EmailVerifyForgetPassword(),
+            //'/set-password': (context) => const SetPassword(),
+            '/email-verify': (context) => const EmailVerify(),
+            '/email-verified': (context) => const EmailVerified(),
+            '/user-info': (context) => const UserScreen(),
+            '/home-screen': (context) => const HomeScreen(),
+            '/profile-preview': (context) => const ProfilePreview(),
+            '/recent-connected': (context) => const RecentConnected(),
+            '/recent-connected-list': (context) => const RecentConnectedList(),
+            '/active-link': (context) => const ActiveLink(),
+            '/settings': (context) => const Settings(),
+            '/card-details': (context) => const CardDetails(),
+            '/edit-profile': (context) => const EditProfile(),
+            '/privacy-settings': (context) => const PrivacySettings(),
+            '/activate-product': (context) => const ActiveProductScreen(),
+            '/privacy-policy': (context) => const PrivacyPolicy(),
+            '/terms-conditions': (context) => const TermsConditions(),
+            '/graph-screen': (context) {
+              final args = ModalRoute.of(context)!.settings.arguments
+                  as Map<String, String>;
+              return GraphScreen(uid: args['uid']!);
+            },
+            '/pricing-plan': (context) => const PricingPlan(),
+            '/contact-us-screen': (context) => const ContactUsScreen(),
+            '/internet-error': (context) => const InternetError(),
+            '/how-to-use': (context) => const HowToUseScreen(),
+            '/faq-screen': (context) => const FaqScreen(),
+            '/full-screen-graph': (context) => const FullScreenGraph(),
+            '/place-order-screen': (context) => const PlaceOrderScreen(),
+            '/choose-shipping-address': (context) =>
+                const ChooseShippingAddress(),
+            '/add-shipping-address': (context) => const AddShippingAddress(),
+            '/google-maps-screen': (context) => GoogleMapsScreen(),
+            '/choose-machine': (context) => const ChooseMachine(),
+            '/order-details': (context) => const OrderDetails(),
+            '/order-history-screen': (context) => const OrderHistoryScreen(),
+            '/share-profile': (context) => ShareProfileScreen(),
+            '/add-employees': (context) => AddEmployeeScreen(),
+            '/chat-screen': (context) => ChatScreen(),
+            '/chat-screen2': (context) => ChatScreen2(),
+            '/connections-request': (context) => ConnectionsRequest(),
+            '/error': (context) => ErrorScreen(message: 'Page not found'),
           },
-          '/pricing-plan': (context) => const PricingPlan(),
-          '/contact-us-screen': (context) => const ContactUsScreen(),
-          '/internet-error': (context) => const InternetError(),
-          '/how-to-use': (context) => const HowToUseScreen(),
-          '/faq-screen': (context) => const FaqScreen(),
-          '/full-screen-graph': (context) => const FullScreenGraph(),
-          '/place-order-screen': (context) => const PlaceOrderScreen(),
-          '/choose-shipping-address': (context) =>
-              const ChooseShippingAddress(),
-          '/add-shipping-address': (context) => const AddShippingAddress(),
-          '/google-maps-screen': (context) => GoogleMapsScreen(),
-          '/choose-machine': (context) => const ChooseMachine(),
-          '/order-details': (context) => const OrderDetails(),
-          '/order-history-screen': (context) => const OrderHistoryScreen(),
-          '/share-profile': (context) => ShareProfileScreen(),
-          '/add-employees': (context) => AddEmployeeScreen(),
-          '/chat-screen': (context) => ChatScreen(),
-          '/chat-screen2': (context) => ChatScreen2(),
-          '/connections-request': (context) => ConnectionsRequest(),
-          '/error': (context) => ErrorScreen(message: 'Page not found'),
-        },
+        ),
       ),
     );
   }

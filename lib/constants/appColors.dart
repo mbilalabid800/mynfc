@@ -19,9 +19,9 @@ class AppColors {
   static const Color appBar = Color.fromARGB(255, 233, 233, 233);
   static const Color toggleEnableColor = Color.fromARGB(255, 206, 253, 75);
   static const Color textFieldBorderColor = Color.fromARGB(255, 206, 210, 216);
-  static const Color individualCardColor = Color.fromARGB(255, 96, 177, 202);
-  static const Color teamsCardColor = Color.fromARGB(255, 84, 119, 216);
-  static const Color companiesCardColor = Color.fromARGB(255, 74, 161, 224);
+  static const Color individualCardColor = Color.fromARGB(255, 250, 131, 22);
+  static const Color teamsCardColor = Color.fromARGB(255, 146, 146, 246);
+  static const Color companiesCardColor = Color.fromARGB(255, 32, 30, 67);
   static const Color appBlueColor = Color.fromARGB(255, 32, 30, 67);
   static const Color appOrangeColor = Color.fromARGB(255, 255, 130, 37);
   static const Color textFieldBorder = Color(0xFFA9A9A9);

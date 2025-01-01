@@ -23,6 +23,7 @@ class PricingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white,
       elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -47,7 +48,10 @@ class PricingCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(plan.icon),
+                    Icon(plan.icon, color: Colors.white),
+                    //Spacer(),
+                    SizedBox(
+                        width: DeviceDimensions.screenWidth(context) * 0.02),
                     Text(
                       textAlign: TextAlign.center,
                       plan.category,
@@ -55,7 +59,7 @@ class PricingCard extends StatelessWidget {
                         fontSize:
                             DeviceDimensions.responsiveSize(context) * 0.04,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.textColorBlue,
+                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -161,7 +165,7 @@ class PricingCard extends StatelessWidget {
                 child: Text(
                   plan.buttonText,
                   style: TextStyle(
-                      color: AppColors.textColorBlue,
+                      color: Colors.white,
                       fontSize: DeviceDimensions.responsiveSize(context) * 0.04,
                       fontWeight: FontWeight.w500),
                 ),

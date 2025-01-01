@@ -38,7 +38,9 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
             children: [
               Expanded(
                 child: provider.isLoading
-                    ? const Center(child: BigThreeBounceLoader())
+                    ? const Center(child: BigThreeBounceLoader()
+                        //HourGlassLoader()
+                        )
                     : provider.privacyPolicy.isEmpty
                         ? Container(
                             width: DeviceDimensions.screenWidth(context) * 0.90,

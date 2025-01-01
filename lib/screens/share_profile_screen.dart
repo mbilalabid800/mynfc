@@ -42,7 +42,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                           height:
                               DeviceDimensions.screenHeight(context) * 0.010),
                       Padding(
-                        padding: const EdgeInsets.all(15.0),
+                        padding: EdgeInsets.all(15.0),
                         child: Row(
                           children: [
                             CircleAvatar(
@@ -69,15 +69,22 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "${userProvider.firstName} ${userProvider.lastName}",
-                                  style: TextStyle(
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.042,
-                                    fontFamily: 'Barlow-Bold',
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.textColorBlue,
+                                SizedBox(
+                                  width: DeviceDimensions.screenWidth(context) *
+                                      0.6,
+                                  child: Text(
+                                    "${userProvider.firstName} ${userProvider.lastName}",
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      fontSize: DeviceDimensions.responsiveSize(
+                                              context) *
+                                          0.042,
+                                      fontFamily: 'Barlow-Bold',
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.textColorBlue,
+                                    ),
                                   ),
                                 ),
                                 Text(

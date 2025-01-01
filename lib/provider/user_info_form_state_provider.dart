@@ -91,7 +91,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   void updateFirstName(String firstName) {
     final trimmedFirstName = firstName.trim();
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
-    final regex = RegExp(r'^[a-zA-Z]+$');
+    final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
     if (firstName.startsWith(' ')) {
       _firstNameError = 'Spaces are not allowed. Please enter a valid name.';
     } else if (trimmedFirstName.isEmpty) {
@@ -115,7 +115,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
 
   void updateLastName(String lastName) {
     final trimmedLastName = lastName.trim();
-    final regex = RegExp(r'^[a-zA-Z]+$');
+    final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
     if (lastName.startsWith(' ')) {
       _lastNameError = 'Spaces are not allowed. Please enter a valid name.';
     } else if (trimmedLastName.isEmpty) {
@@ -173,7 +173,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   void updateCity(String city) {
     final trimmedCityName = city.trim();
     // Validation: Ensure the first name is between 2-20 chars and only contains letters
-    final regex = RegExp(r'^[a-zA-Z]+$');
+    final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
     if (city.startsWith(' ')) {
       _cityNameError = 'City name cannot start with a space';
     } else if (trimmedCityName.isEmpty) {
@@ -198,7 +198,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   void updateCompanyName(String companyName) {
     final trimmedCompanyName = companyName.trim();
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
-    final regex = RegExp(r'^[a-zA-Z]+$');
+    final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
     if (companyName.startsWith(' ')) {
       _companyNameError = 'Company name cannot start with a space';
     } else if (trimmedCompanyName.isEmpty) {
@@ -223,7 +223,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   void updateDesignation(String designation) {
     final trimmedDesignation = designation.trim();
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
-    final regex = RegExp(r'^[a-zA-Z]+$');
+    final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
     if (designation.startsWith(' ')) {
       _designationError = 'Designation cannot start with a space';
     } else if (trimmedDesignation.isEmpty) {

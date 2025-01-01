@@ -174,7 +174,7 @@ class _SettingsState extends State<Settings> {
                             ClipPath(
                               clipper: CustomContainer(),
                               child: Container(
-                                height: 235,
+                                height: 238,
                                 width: DeviceDimensions.screenWidth(context) *
                                     0.90,
                                 decoration: BoxDecoration(
@@ -196,8 +196,10 @@ class _SettingsState extends State<Settings> {
                                         children: [
                                           Text(
                                             "${userProvider.selectedItem}",
-                                            style: const TextStyle(
-                                              fontSize: 16,
+                                            style: TextStyle(
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.04,
                                               fontWeight: FontWeight.w600,
                                               color: AppColors.textColorBlue,
                                             ),
@@ -205,10 +207,13 @@ class _SettingsState extends State<Settings> {
                                           Provider.of<ConnectionProvider>(
                                                       context)
                                                   .isLoading
-                                              ? const Text(
+                                              ? Text(
                                                   "--",
                                                   style: TextStyle(
-                                                    fontSize: 20,
+                                                    fontSize: DeviceDimensions
+                                                            .responsiveSize(
+                                                                context) *
+                                                        0.035,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 )
@@ -220,8 +225,11 @@ class _SettingsState extends State<Settings> {
                                                           10
                                                       ? "0${Provider.of<ConnectionProvider>(context).addedConnections.length}+"
                                                       : "${Provider.of<ConnectionProvider>(context).addedConnections.length}+",
-                                                  style: const TextStyle(
-                                                    fontSize: 20,
+                                                  style: TextStyle(
+                                                    fontSize: DeviceDimensions
+                                                            .responsiveSize(
+                                                                context) *
+                                                        0.04,
                                                     fontWeight: FontWeight.bold,
                                                     color:
                                                         AppColors.textColorBlue,
@@ -230,7 +238,7 @@ class _SettingsState extends State<Settings> {
                                         ],
                                       ),
                                     ),
-                                    const Padding(
+                                    Padding(
                                       padding:
                                           EdgeInsets.symmetric(horizontal: 20),
                                       child: Row(
@@ -240,7 +248,9 @@ class _SettingsState extends State<Settings> {
                                           Text(
                                             "Profile",
                                             style: TextStyle(
-                                              fontSize: 14,
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.04,
                                               fontFamily: 'Barlow-Regular',
                                               fontWeight: FontWeight.w500,
                                               color: AppColors.textColorBlue,
@@ -249,7 +259,9 @@ class _SettingsState extends State<Settings> {
                                           Text(
                                             "Connected",
                                             style: TextStyle(
-                                              fontSize: 14,
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.035,
                                               fontFamily: 'Barlow-Regular',
                                               color: AppColors.textColorBlue,
                                             ),
@@ -261,18 +273,24 @@ class _SettingsState extends State<Settings> {
                                         height: DeviceDimensions.screenHeight(
                                                 context) *
                                             0.075),
-                                    Text(
-                                      "${userProvider.firstName} ${userProvider.lastName}",
-                                      softWrap: true,
-                                      maxLines: 2,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize:
-                                            DeviceDimensions.responsiveSize(
-                                                    context) *
-                                                0.042,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.textColorBlue,
+                                    SizedBox(
+                                      width: DeviceDimensions.screenWidth(
+                                              context) *
+                                          0.8,
+                                      child: Text(
+                                        "${userProvider.firstName} ${userProvider.lastName}",
+                                        softWrap: true,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize:
+                                              DeviceDimensions.responsiveSize(
+                                                      context) *
+                                                  0.042,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.textColorBlue,
+                                        ),
                                       ),
                                     ),
                                     Text(
@@ -619,7 +637,9 @@ class _SettingsState extends State<Settings> {
                                 icons: "assets/icons/settingicon14.svg",
                                 title: "Logout",
                                 callBack: () async {
-                                  await _authService.signOut(context);
+                                  showLogoutAlertDialog(context);
+
+                                  // await _authService.signOut(context);
                                 },
                               ),
                               const SizedBox(height: 8),
@@ -715,6 +735,75 @@ class _SettingsState extends State<Settings> {
                 ),
               ],
             ),
+          ),
+        );
+      },
+    );
+  }
+
+  void showLogoutAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: AlertDialog(
+            backgroundColor: AppColors.screenBackground,
+            //title: Text(''),
+            content: Text(
+              'Do you want to Logout Absher?',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: AppColors.appBlueColor,
+                  fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
+                  fontWeight: FontWeight.w600),
+            ),
+            actions: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    width: DeviceDimensions.screenWidth(context) * 0.3,
+                    decoration: BoxDecoration(
+                        color: AppColors.greyText,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Close the dialog
+                      },
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(
+                            color: AppColors.screenBackground,
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.035),
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                  Container(
+                    width: DeviceDimensions.screenWidth(context) * 0.3,
+                    decoration: BoxDecoration(
+                        color: AppColors.appBlueColor,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: TextButton(
+                      onPressed: () async {
+                        // Perform some action
+                        await _authService.signOut(context); // Close the dialog
+                      },
+                      child: Text(
+                        'Logout',
+                        style: TextStyle(
+                            color: AppColors.screenBackground,
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.035),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         );
       },

@@ -10,7 +10,7 @@ class DualRingLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: SpinKitDualRing(
+      child: SpinKitHourGlass(
         color: AppColors.appOrangeColor, // Set your preferred color
         size: 50.0, // Adjust the size as needed
         duration: Duration(milliseconds: 1200), // Customize the animation speed
@@ -25,7 +25,7 @@ class SmallThreeBounceLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: SpinKitThreeBounce(
+      child: SpinKitHourGlass(
         color: AppColors.appOrangeColor, // Set your preferred color
         size: 30.0, // Adjust the size as needed
         duration: Duration(milliseconds: 1200), // Customize the animation speed
@@ -49,13 +49,28 @@ class BigThreeBounceLoader extends StatelessWidget {
   }
 }
 
+// class HourGlassLoader extends StatelessWidget {
+//   const HourGlassLoader({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Center(
+//       child: SpinKitHourGlass(
+//         color: AppColors.appOrangeColor, // Set your preferred color
+//         size: 40.0, // Adjust the size as needed
+//         duration: Duration(milliseconds: 1200), // Customize the animation speed
+//       ),
+//     );
+//   }
+// }
+
 class ScreenLoader extends StatelessWidget {
   const ScreenLoader({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: SpinKitChasingDots(
+      child: SpinKitHourGlass(
         color: AppColors.appOrangeColor, // Set your preferred color
         size: 50.0, // Adjust the size as needed
         duration: Duration(milliseconds: 1200), // Customize the animation speed
@@ -93,7 +108,7 @@ class ConnectionLoader extends StatelessWidget {
             MainAxisAlignment.center, // Center the content vertically
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SpinKitDualRing(
+          SpinKitHourGlass(
             color: AppColors.appOrangeColor, // Set your preferred color
             size: 40.0, // Adjust the size as needed
             duration: const Duration(
@@ -123,8 +138,8 @@ class CardLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: SpinKitDualRing(
-        color: AppColors.appBlueColor, // Set your preferred color
+      child: SpinKitHourGlass(
+        color: AppColors.appOrangeColor, // Set your preferred color
         size: 50.0, // Adjust the size as needed
         duration: Duration(seconds: 2), // Customize the animation speed
       ),

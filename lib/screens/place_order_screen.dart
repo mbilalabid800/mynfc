@@ -228,7 +228,6 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                     context) *
                                                 0.038,
                                       ),
-                                      overflow: TextOverflow.ellipsis,
                                       maxLines: 2,
                                     ),
                                   ),

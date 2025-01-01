@@ -45,7 +45,9 @@ class _TermsConditionsState extends State<TermsConditions> {
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: provider.isLoading
-                      ? const Center(child: BigThreeBounceLoader())
+                      ? const Center(
+                          child: //HourGlassLoader()
+                              BigThreeBounceLoader())
                       : provider.termsCondition.isEmpty
                           ? const Center(
                               child: Text(
