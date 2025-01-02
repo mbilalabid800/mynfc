@@ -1,66 +1,38 @@
-// ignore_for_file: file_names
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
+import 'package:nfc_app/provider/loading_state_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:nfc_app/chat/chat_screen.dart';
 import 'package:nfc_app/screens/active_product_screen.dart';
 import 'package:nfc_app/screens/graph_screens/graph_screen.dart';
 import 'package:nfc_app/screens/home_screen.dart';
 import 'package:nfc_app/screens/settings_screen.dart';
 import 'package:nfc_app/shared/common_widgets/curved_nav_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 0;
-  late final String _uid;
-  late List<Widget> _pages;
-
-  @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
+    final provider = Provider.of<LoadingStateProvider>(context);
     final user = FirebaseAuth.instance.currentUser;
-    _uid = user?.uid ?? 'defaultUid'; // Fetch UID
+    final uid = user?.uid ?? '';
 
-    // Initialize the pages after _uid is set
-    _pages = [
+    final pages = [
       const HomeScreen(),
-      GraphScreen(uid: _uid), // Use _uid here
+      GraphScreen(uid: uid),
       const ActiveProductScreen(),
-      //const CardDetails(),
       const ChatScreen(),
       const Settings(),
     ];
-  }
 
-  void _onItemTapped(int index) {
-    // if (!mounted) return;
-
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: const Color(0xFFEFEFEF),
-
-          body: _pages[_selectedIndex], // Display the selected page
-          bottomNavigationBar: CustomCurvedNavigationBar(
-            initialIndex: _selectedIndex,
-            onTap: (index) {
-              _onItemTapped(index);
-            },
-          ),
-        ),
+    return Scaffold(
+      backgroundColor: AppColors.screenBackground,
+      body: pages[provider.selectedIndex],
+      bottomNavigationBar: CustomCurvedNavigationBar(
+        initialIndex: provider.selectedIndex,
+        onTap: provider.setIndex,
       ),
     );
   }

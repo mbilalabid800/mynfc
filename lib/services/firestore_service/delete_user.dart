@@ -44,16 +44,6 @@ class DeleteUser {
         batch.delete(doc.reference);
       }
 
-      // Delete userProfile subcollection
-      QuerySnapshot userProfileSnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection('userProfile')
-          .get();
-      for (DocumentSnapshot doc in userProfileSnapshot.docs) {
-        batch.delete(doc.reference);
-      }
-
       //Delete the shipping address
       QuerySnapshot shippingAddressSnapshot = await FirebaseFirestore.instance
           .collection('users')

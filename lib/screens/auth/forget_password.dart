@@ -38,11 +38,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         String? uid;
 
         for (var userDoc in userDocs.docs) {
-          DocumentSnapshot<Map<String, dynamic>> detailsSnapshot = await userDoc
-              .reference
-              .collection("userProfile")
-              .doc("details")
-              .get();
+          DocumentSnapshot<Map<String, dynamic>> detailsSnapshot =
+              await userDoc.reference.get();
 
           if (detailsSnapshot.exists &&
               detailsSnapshot.data()?['email'] == email) {

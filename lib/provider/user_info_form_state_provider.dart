@@ -55,7 +55,6 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String get imageUrl => _imageUrl;
   String get bio => _bio;
   bool get isPrivate => _isPrivate;
-  // int get profileViews => _profileViews;
   bool get isBlocked => _isBlocked;
   String get currentEditingField => _currentEditingField;
   String? get firstNameError => _firstNameError;
@@ -286,23 +285,13 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid != null) {
-      await FirebaseFirestore.instance
-          .collection("users")
-          .doc(uid)
-          .collection("userProfile")
-          .doc("details")
-          .update({
+      await FirebaseFirestore.instance.collection("users").doc(uid).update({
         'isPrivate': isPrivate ? true : false,
       });
     }
     _isPrivate = isPrivate;
     notifyListeners();
   }
-
-  // void updateProfileViews(int views) {
-  //   _profileViews = views;
-  //   notifyListeners();
-  // }
 
   void updateProfileViews(int viewCount) {
     _totalViews = totalViews;
@@ -325,15 +314,8 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     String? email = await prefsService.getEmail();
     if (user != null) {
       final uid = user.uid;
-      // print(uid);
-
       try {
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(uid)
-            .collection('userProfile')
-            .doc('details')
-            .set({
+        await FirebaseFirestore.instance.collection('users').doc(uid).set({
           'uid': uid,
           'first_name': _firstName,
           'last_name': _lastName,
@@ -349,19 +331,19 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'bio': _bio,
           'isPrivate': _isPrivate,
           'timeStamp': Timestamp.now(),
-          // 'profileViews': _profileViews,
           'connectionTypeAll': _connectionTypeAll,
           'isBlocked': _isBlocked,
+          'subscriptionPlan': 'Free'
         });
 
         // Second action: Save user's email in the main 'users' collection
-        await FirebaseFirestore.instance.collection('users').doc(uid).set(
-          {
-            'email': (_email.isNotEmpty) ? _email : email,
-            'subscriptionPlan': 'Free'
-          },
-          SetOptions(merge: true),
-        ); // Use merge to avoid overwriting the entire document
+        // await FirebaseFirestore.instance.collection('users').doc(uid).set(
+        //   {
+        //     'email': (_email.isNotEmpty) ? _email : email,
+        //     'subscriptionPlan': 'Free'
+        //   },
+        //   SetOptions(merge: true),
+        // ); // Use merge to avoid overwriting the entire document
 
         print("User data saved successfully.");
       } catch (e) {
@@ -371,7 +353,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
         //);
       }
 
-      // Third action: Save charts Data in users> uid> chartsData
+      // Second action: Save charts Data in users> uid> chartsData
       await FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
@@ -379,7 +361,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           .doc("profileViews")
           .set({'totalViews': totalViews});
 
-      // fourth action: create chats collection in users > uid > chats
+      // Third action: create chats collection in users > uid > chats
       DocumentReference chatRoomRef = await FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
@@ -400,14 +382,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       final uid = user.uid;
 
       try {
-        print("Updating user data for userId: $uid");
-        print("lastName is $_lastName");
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(uid)
-            .collection('userProfile')
-            .doc('details')
-            .update({
+        await FirebaseFirestore.instance.collection('users').doc(uid).update({
           'image_url': _imageUrl,
           'first_name': _firstName,
           'last_name': _lastName,
@@ -430,17 +405,11 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     if (user != null) {
       final uid = user.uid;
       try {
-        DocumentReference<Map<String, dynamic>> docRef = FirebaseFirestore
-            .instance
-            .collection("users")
-            .doc(uid)
-            .collection("userProfile")
-            .doc("details");
-        DocumentSnapshot<Map<String, dynamic>> docSnapshot = await docRef.get();
-        print("Here is :$docSnapshot");
-        if (docSnapshot.exists) {
-          print("Here is :$docSnapshot");
+        DocumentReference<Map<String, dynamic>> docRef =
+            FirebaseFirestore.instance.collection("users").doc(uid);
 
+        DocumentSnapshot<Map<String, dynamic>> docSnapshot = await docRef.get();
+        if (docSnapshot.exists) {
           final userData = UserDataModel.fromFirestore(docSnapshot);
           _firstName = userData.firstName;
           _lastName = userData.lastName;

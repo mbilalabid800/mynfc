@@ -152,8 +152,6 @@ class AuthenticateProvider with ChangeNotifier {
       final userDoc = await FirebaseFirestore.instance
           .collection("users")
           .doc(user.uid)
-          .collection('userProfile')
-          .doc('details')
           .get();
 
       if (user.emailVerified) {

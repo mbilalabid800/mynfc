@@ -111,8 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(
                           0.5), // You can change the color and opacity
-                      BlendMode
-                          .darken, // You can choose different blend modes (darken, lighten, etc.)
+                      BlendMode.darken,
                     ),
                     child: Image.asset(
                       "assets/images/homebackground8.jpeg",

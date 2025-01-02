@@ -31,12 +31,7 @@ class ConnectionProvider with ChangeNotifier {
     final userProvider =
         Provider.of<UserInfoFormStateProvider>(context, listen: false);
     if (uid != null) {
-      await FirebaseFirestore.instance
-          .collection("users")
-          .doc(uid)
-          .collection("userProfile")
-          .doc("details")
-          .update({
+      await FirebaseFirestore.instance.collection("users").doc(uid).update({
         'connectionTypeAll': value ? true : false,
       });
       userProvider.updateConnectionType(value);
@@ -55,12 +50,8 @@ class ConnectionProvider with ChangeNotifier {
         final uid = currentUser.uid;
 
         // Fetch the current user's company and connection preferences
-        final userSnapshot = await FirebaseFirestore.instance
-            .collection("users")
-            .doc(uid)
-            .collection("userProfile")
-            .doc("details")
-            .get();
+        final userSnapshot =
+            await FirebaseFirestore.instance.collection("users").doc(uid).get();
 
         if (!userSnapshot.exists) return;
 
@@ -76,11 +67,7 @@ class ConnectionProvider with ChangeNotifier {
         for (var doc in querySnapshot.docs) {
           if (doc.id != uid) {
             DocumentReference<Map<String, dynamic>> profileRef =
-                FirebaseFirestore.instance
-                    .collection("users")
-                    .doc(doc.id)
-                    .collection("userProfile")
-                    .doc("details");
+                FirebaseFirestore.instance.collection("users").doc(doc.id);
 
             DocumentSnapshot<Map<String, dynamic>> profileSnapshot =
                 await profileRef.get();
