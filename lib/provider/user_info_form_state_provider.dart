@@ -36,7 +36,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   bool _isPrivate = false;
   bool _connectionTypeAll = true;
   bool _isBlocked = false;
-  String? _subscriptionPlan = '';
+  final _subscriptionPlan = '';
 
   // Getters
   String get firstName => _firstName;

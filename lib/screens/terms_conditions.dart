@@ -98,7 +98,7 @@ class _TermsConditionsState extends State<TermsConditions> {
                                         ],
                                       ),
                                     );
-                                  }).toList(),
+                                  }),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

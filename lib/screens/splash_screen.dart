@@ -209,8 +209,9 @@ class _SplashScreenState extends State<SplashScreen>
                             width: DeviceDimensions.screenWidth(context) * 0.75,
                           ),
                           SizedBox(
-                              height: DeviceDimensions.screenHeight(context) *
-                                  0.043),
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.043,
+                          ),
                         ],
                       ),
                     );

@@ -1,21 +1,16 @@
 // ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison, deprecated_member_use
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/authenticate_provider.dart';
-import 'package:nfc_app/provider/biometric_handler_provider.dart';
 import 'package:nfc_app/provider/forget_password_email_provider.dart';
-import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
-import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:nfc_app/shared/common_widgets/my_button.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SigninData extends StatefulWidget {
   const SigninData({super.key});
@@ -25,224 +20,11 @@ class SigninData extends StatefulWidget {
 }
 
 class _SigninDataState extends State<SigninData> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final AuthService _authService = AuthService();
-  bool isLoading = false;
-  bool _isObscure = true;
-  bool _rememberMe = false;
-
   @override
   void initState() {
     super.initState();
-    _initializeData();
-  }
-
-  Future<void> _initializeData() async {
-    await _loadUserData();
-    await _triggerFingerprintAuthenticationIfEnabled();
-  }
-
-  Future<void> _loadUserData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _rememberMe = prefs.getBool('rememberMe') ?? false;
-      if (_rememberMe) {
-        emailController.text = prefs.getString('email') ?? '';
-      }
-    });
-  }
-
-  Future<void> _triggerFingerprintAuthenticationIfEnabled() async {
-    final biometricProvider = context.read<BiometricHandlerProvider>();
-
-    setState(() {
-      isLoading = true;
-    });
-
-    try {
-      // Ensure preferences are loaded
-      await biometricProvider.loadFingerprintPreference();
-
-      // Trigger fingerprint authentication if enabled
-      if (biometricProvider.isFingerprintEnabled) {
-        bool isAuthenticated =
-            await biometricProvider.authenticateWithFingerprint();
-
-        if (isAuthenticated) {
-          await _signInUsingFingerprint();
-        } else {
-          CustomSnackbar().snakBarError(
-            context,
-            'Fingerprint authentication failed. Please try again.',
-          );
-        }
-      }
-    } catch (e) {
-      debugPrint('Error during fingerprint authentication: $e');
-      CustomSnackbar().snakBarError(
-        context,
-        'An error occurred during fingerprint authentication.',
-      );
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  Future<void> _signInUsingFingerprint() async {
-    setState(() {
-      isLoading = true;
-    });
-
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? email = prefs.getString('email');
-      String? password = prefs.getString('password');
-
-      if (email != null && password != null) {
-        final user =
-            await _authService.signInWithEmailPassword(email, password);
-
-        if (user != null) {
-          _navigateBasedOnUserStatus(user);
-        } else {
-          CustomSnackbar().snakBarError(
-            context,
-            'Fingerprint login failed: Invalid stored credentials.',
-          );
-        }
-      } else {
-        CustomSnackbar().snakBarError(
-          context,
-          'No saved credentials found. Please log in manually.',
-        );
-      }
-    } catch (e) {
-      debugPrint('Error during fingerprint login: $e');
-      CustomSnackbar().snakBarError(
-        context,
-        'An error occurred during fingerprint login.',
-      );
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
-
-  // Handle manual login
-  Future<void> signInLogic() async {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        isLoading = true;
-      });
-
-      try {
-        final email = emailController.text.trim();
-        final password = passwordController.text.trim();
-
-        final user =
-            await _authService.signInWithEmailPassword(email, password);
-
-        if (user != null) {
-          _saveUserData();
-          _navigateBasedOnUserStatus(user);
-        } else {
-          CustomSnackbar().snakBarError(
-            context,
-            'Login failed: Invalid email or password.',
-          );
-        }
-      } catch (e) {
-        debugPrint('Error during login: $e');
-        CustomSnackbar().snakBarError(
-          context,
-          'Error during login. Please try again later.',
-        );
-      } finally {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    }
-  }
-
-  void _navigateBasedOnUserStatus(User user) async {
-    setState(() {
-      isLoading = true;
-    });
-    try {
-      // Reload user data to ensure the latest status
-      await user.reload();
-
-      // Fetch user document from Firestore
-      final userDoc = await FirebaseFirestore.instance
-          .collection("users")
-          .doc(user.uid)
-          .collection('userProfile')
-          .doc('details')
-          .get();
-
-      if (user.emailVerified) {
-        if (userDoc.exists) {
-          // User email is verified and profile exists, navigate to the main screen
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            '/mainNav-screen', // Main screen route
-            (Route<dynamic> route) => false, // Remove all previous routes
-          );
-        } else {
-          // User email is verified but profile does not exist, navigate to user info screen
-          Provider.of<UserInfoFormStateProvider>(context, listen: false)
-              .setEmail(user.email ?? '');
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            '/user-info', // User info screen route
-            (Route<dynamic> route) => false, // Remove all previous routes
-          );
-        }
-      } else {
-        if (!userDoc.exists) {
-          // Email not verified and profile does not exist, navigate to user info screen
-          Provider.of<UserInfoFormStateProvider>(context, listen: false)
-              .setEmail(user.email ?? '');
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            '/user-info', // User info screen route
-            (Route<dynamic> route) => false, // Remove all previous routes
-          );
-        } else {
-          // Email not verified but profile exists, navigate to email verification screen
-          Provider.of<UserInfoFormStateProvider>(context, listen: false)
-              .setEmail(user.email ?? '');
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            '/email-verify', // Email verification screen route
-            (Route<dynamic> route) => false, // Remove all previous routes
-          );
-        }
-      }
-    } catch (e) {
-      // Handle errors gracefully and notify the user
-      debugPrint('Error in navigating based on user status: $e');
-      CustomSnackbar().snakBarError(
-          context, "An error occurred while processing your login.");
-    } finally {
-      // Delay turning off the loader to ensure navigation completes
-      Future.delayed(const Duration(milliseconds: 300), () {
-        setState(() {
-          isLoading = false;
-        });
-      });
-    }
-  }
-
-  Future<void> _saveUserData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('rememberMe', _rememberMe);
-    if (_rememberMe) {
-      prefs.setString('email', emailController.text);
-      prefs.setString('password', passwordController.text);
-    }
+    Provider.of<AuthenticateProvider>(context, listen: false)
+        .initializeData(context);
   }
 
   @override
@@ -262,7 +44,7 @@ class _SigninDataState extends State<SigninData> {
                     SizedBox(
                         height: DeviceDimensions.screenHeight(context) * 0.035),
                     Form(
-                      key: _formKey,
+                      key: authProvider.formKey,
                       child: Column(
                         children: [
                           Padding(
@@ -272,7 +54,7 @@ class _SigninDataState extends State<SigninData> {
                                   height:
                                       DeviceDimensions.screenHeight(context) *
                                           0.0026),
-                              controller: emailController,
+                              controller: authProvider.emailController,
                               decoration: InputDecoration(
                                 hintText: "Email",
                                 hintStyle: const TextStyle(
@@ -342,8 +124,8 @@ class _SigninDataState extends State<SigninData> {
                                 height: DeviceDimensions.screenHeight(context) *
                                     0.0026,
                               ),
-                              controller: passwordController,
-                              obscureText: _isObscure,
+                              controller: authProvider.passwordController,
+                              obscureText: authProvider.isObscure,
                               decoration: InputDecoration(
                                 hintText: "Password",
                                 hintStyle: const TextStyle(
@@ -366,16 +148,15 @@ class _SigninDataState extends State<SigninData> {
                                   icon: Padding(
                                     padding: const EdgeInsets.only(right: 10.0),
                                     child: Icon(
-                                      _isObscure
+                                      authProvider.isObscure
                                           ? Icons.visibility_off
                                           : Icons.visibility,
                                       color: const Color(0xFFA9A9A9),
                                     ),
                                   ),
                                   onPressed: () {
-                                    setState(() {
-                                      _isObscure = !_isObscure;
-                                    });
+                                    authProvider.setIsObscure =
+                                        !authProvider.isObscure;
                                   },
                                 ),
                                 filled: true,
@@ -423,12 +204,10 @@ class _SigninDataState extends State<SigninData> {
                       child: Row(
                         children: [
                           Checkbox(
-                              value: _rememberMe,
+                              value: authProvider.isRememberMe,
                               activeColor: AppColors.appBlueColor,
                               onChanged: (value) {
-                                setState(() {
-                                  _rememberMe = value!;
-                                });
+                                authProvider.setRememberMe = value!;
                               }),
                           Text(
                             "Remember me",
@@ -444,9 +223,10 @@ class _SigninDataState extends State<SigninData> {
                             onTap: () {
                               Provider.of<ForgetPasswordEmailProvider>(context,
                                       listen: false)
-                                  .setEmail(emailController.text.trim());
+                                  .setEmail(
+                                      authProvider.emailController.text.trim());
                               // Navigator.pushNamed(context, "/forget-password");
-                              Navigator.pushNamed(context, "/forget2");
+                              Navigator.pushNamed(context, "/forget-password");
                             },
                             child: Stack(
                               alignment: Alignment.centerLeft,
@@ -482,7 +262,7 @@ class _SigninDataState extends State<SigninData> {
                     MyButton(
                       text: 'Login',
                       onPressed: () {
-                        signInLogic();
+                        authProvider.signInLogic(context);
                       },
                       width: DeviceDimensions.screenWidth(context) * 0.85,
                     ),
@@ -617,7 +397,7 @@ class _SigninDataState extends State<SigninData> {
             ),
           );
         }),
-        if (isLoading)
+        if (authProvider.isLoading)
           Container(
             color: Colors.white54,
             child: const Center(
