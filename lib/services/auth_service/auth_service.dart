@@ -21,7 +21,7 @@ class AuthService {
       User? user = result.user;
       return user;
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return null;
     }
   }
@@ -34,7 +34,7 @@ class AuthService {
       User? user = result.user;
       return user;
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return null;
     }
   }
@@ -56,7 +56,7 @@ class AuthService {
         await ClearAppData.clearAppData(context);
       });
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
       return;
     }
   }
@@ -87,7 +87,7 @@ class AuthService {
       }
       return null;
     } catch (e) {
-      print("Google Sign-In failed: $e");
+      debugPrint("Google Sign-In failed: $e");
       return null;
     } finally {
       LoadingStateProvider().setLoading(false);
@@ -120,7 +120,7 @@ class AuthService {
           await FirebaseAuth.instance.signInWithCredential(oauthCredential);
       return userCredential.user;
     } catch (e) {
-      print("Apple Sign-In failed: $e");
+      debugPrint("Apple Sign-In failed: $e");
       return null;
     }
   }
@@ -141,7 +141,7 @@ class AuthService {
         //   );
       }
     } catch (e) {
-      print("Error during email verification: $e");
+      debugPrint("Error during email verification: $e");
       CustomSnackbar()
           .snakBarError(context, 'Failed to send verification email.');
     }
@@ -152,10 +152,10 @@ class AuthService {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       // Show success message
 
-      print('Password reset email sent');
+      debugPrint('Password reset email sent');
     } on FirebaseAuthException catch (e) {
       // Handle errors here
-      print('Failed to send password reset email: $e');
+      debugPrint('Failed to send password reset email: $e');
     }
   }
 

@@ -51,11 +51,11 @@ class ConnectionDetailsProvider extends ChangeNotifier {
         // Update connection details with filtered social apps
         _connectionDetails = connectionDetails.copyWith(socialApps: socialApps);
       } else {
-        print("Connection with uid $uid does not exist.");
+        debugPrint("Connection with uid $uid does not exist.");
         _connectionDetails = null;
       }
     } catch (e) {
-      print("Error loading connection details: $e");
+      debugPrint("Error loading connection details: $e");
       _connectionDetails = null;
     } finally {
       _isLoading = false;
@@ -94,9 +94,9 @@ class ConnectionDetailsProvider extends ChangeNotifier {
         }),
       ]);
 
-      print("Profile view handled successfully for $uid");
+      debugPrint("Profile view handled successfully for $uid");
     } catch (e) {
-      print("Error handling profile view for $uid: $e");
+      debugPrint("Error handling profile view for $uid: $e");
     }
   }
 

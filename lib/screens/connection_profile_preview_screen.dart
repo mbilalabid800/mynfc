@@ -35,7 +35,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
       if (widget.userId.isNotEmpty) {
         connectionProfile.loadConnectionDetails(widget.userId);
       } else {
-        print("Error: userId is empty or invalid");
+        debugPrint("Error: userId is empty or invalid");
       }
     });
   }

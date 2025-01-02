@@ -325,7 +325,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     String? email = await prefsService.getEmail();
     if (user != null) {
       final uid = user.uid;
-      // print(uid);
+      // debugPrint(uid);
 
       try {
         await FirebaseFirestore.instance
@@ -363,9 +363,9 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           SetOptions(merge: true),
         ); // Use merge to avoid overwriting the entire document
 
-        print("User data saved successfully.");
+        debugPrint("User data saved successfully.");
       } catch (e) {
-        print("Error saving user data: $e");
+        debugPrint("Error saving user data: $e");
         //ScaffoldMessenger.of(context).showSnackBar(
         //  const SnackBar(content: Text('Error saving user data')),
         //);
@@ -387,7 +387,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           .add({});
 
       // Optional: Print the unique chat room ID
-      print("Chat room created with ID: ${chatRoomRef.id}");
+      debugPrint("Chat room created with ID: ${chatRoomRef.id}");
 
       //
     }
@@ -400,8 +400,8 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       final uid = user.uid;
 
       try {
-        print("Updating user data for userId: $uid");
-        print("lastName is $_lastName");
+        debugPrint("Updating user data for userId: $uid");
+        debugPrint("lastName is $_lastName");
         await FirebaseFirestore.instance
             .collection('users')
             .doc(uid)
@@ -417,9 +417,9 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'countryName': _countryName,
         });
 
-        print("User data updated successfully.");
+        debugPrint("User data updated successfully.");
       } catch (e) {
-        print("Error updating user data: $e");
+        debugPrint("Error updating user data: $e");
       }
       notifyListeners();
     }
@@ -437,9 +437,9 @@ class UserInfoFormStateProvider extends ChangeNotifier {
             .collection("userProfile")
             .doc("details");
         DocumentSnapshot<Map<String, dynamic>> docSnapshot = await docRef.get();
-        print("Here is :$docSnapshot");
+        debugPrint("Here is :$docSnapshot");
         if (docSnapshot.exists) {
-          print("Here is :$docSnapshot");
+          debugPrint("Here is :$docSnapshot");
 
           final userData = UserDataModel.fromFirestore(docSnapshot);
           _firstName = userData.firstName;
@@ -470,7 +470,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           notifyListeners();
         }
       } catch (e) {
-        print("Error loading user data: $e");
+        debugPrint("Error loading user data: $e");
       }
     }
   }
@@ -494,7 +494,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           notifyListeners();
         }
       } catch (e) {
-        print("Error loading user data: $e");
+        debugPrint("Error loading user data: $e");
       }
     }
   }

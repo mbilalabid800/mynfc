@@ -90,7 +90,7 @@ class ImagePickerProvider with ChangeNotifier {
       final File initialFile = File(pickedImage.path);
       final int initialFileSizeInBytes = await initialFile.length();
       final double initialFileSizeInMB = initialFileSizeInBytes / (1024 * 1024);
-      print("Initial size of image is $initialFileSizeInMB MB");
+      debugPrint("Initial size of image is $initialFileSizeInMB MB");
 
       if (initialFileSizeInMB < 5) {
         // Proceed to crop the image if it's within the size limit
@@ -100,7 +100,7 @@ class ImagePickerProvider with ChangeNotifier {
           final File finalFile = File(croppedFile.path);
           final int finalFileSizeInBytes = await finalFile.length();
           final double finalFileSizeInMB = finalFileSizeInBytes / (1024 * 1024);
-          print("Cropped size of image is $finalFileSizeInMB MB");
+          debugPrint("Cropped size of image is $finalFileSizeInMB MB");
 
           _image = finalFile;
           _error = null;

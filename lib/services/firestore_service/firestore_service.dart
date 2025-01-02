@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -15,11 +16,11 @@ class FirestoreService {
   //         'lastName': doc['last_name'] ?? '',
   //       };
   //     } else {
-  //       print('Document does not exist');
+  //       debugPrint('Document does not exist');
   //       return null;
   //     }
   //   } catch (e) {
-  //     print('Error fetching user data: $e');
+  //     debugPrint('Error fetching user data: $e');
   //     return null;
   //   }
   // }
@@ -62,7 +63,7 @@ class FirestoreService {
         }
       });
     } else {
-      print("User not authenticated");
+      debugPrint("User not authenticated");
     }
   }
 
@@ -72,9 +73,9 @@ class FirestoreService {
         'email': email,
         'subscribed_at': Timestamp.now(), // Optional: Add timestamp
       });
-      print("Subscription successful");
+      debugPrint("Subscription successful");
     } catch (e) {
-      print("Error subscribing: $e");
+      debugPrint("Error subscribing: $e");
       throw Exception("Failed to subscribe user");
     }
   }
@@ -112,9 +113,9 @@ class FirestoreService {
         'timestamps': FieldValue.arrayUnion([DateTime.now().toIso8601String()]),
       }, SetOptions(merge: true));
 
-      print('$appName tap logged successfully!');
+      debugPrint('$appName tap logged successfully!');
     } catch (e) {
-      print('Error updating Firestore: $e');
+      debugPrint('Error updating Firestore: $e');
     }
   }
 
@@ -144,7 +145,7 @@ class FirestoreService {
         return {};
       }
     } catch (e) {
-      print('Error fetching social app taps: $e');
+      debugPrint('Error fetching social app taps: $e');
       return {};
     }
   }

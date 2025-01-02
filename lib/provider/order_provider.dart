@@ -35,7 +35,7 @@ class OrderProvider with ChangeNotifier {
       _currentOrder = order;
       notifyListeners();
     } catch (e) {
-      print('Failed to place order: $e');
+      debugPrint('Failed to place order: $e');
     }
     isLoading = false;
     notifyListeners();
@@ -58,11 +58,11 @@ class OrderProvider with ChangeNotifier {
         return OrderModel.fromFirestore(doc.data() as Map<String, dynamic>);
       }).toList();
 
-      print("$orders is this ");
+      debugPrint("$orders is this ");
 
       //notifyListeners();
     } catch (e) {
-      print('Failed to fetch orders: $e');
+      debugPrint('Failed to fetch orders: $e');
     }
     isLoading = false;
     notifyListeners();

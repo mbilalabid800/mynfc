@@ -2,6 +2,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:nfc_app/models/faq_model.dart';
 
 class FaqService {
@@ -14,7 +15,7 @@ class FaqService {
         return FaqModel.fromFirestore(doc.data() as Map<String, dynamic>);
       }).toList();
     } catch (e) {
-      print('Error fetching FAQs: $e');
+      debugPrint('Error fetching FAQs: $e');
       return [];
     }
   }
