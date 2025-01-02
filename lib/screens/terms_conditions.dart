@@ -45,9 +45,7 @@ class _TermsConditionsState extends State<TermsConditions> {
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: provider.isLoading
-                      ? const Center(
-                          child: //HourGlassLoader()
-                              BigThreeBounceLoader())
+                      ? const Center(child: BigThreeBounceLoader())
                       : provider.termsCondition.isEmpty
                           ? const Center(
                               child: Text(
@@ -63,55 +61,44 @@ class _TermsConditionsState extends State<TermsConditions> {
                                       height: DeviceDimensions.screenHeight(
                                               context) *
                                           0.015),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: provider.termsCondition
-                                        .asMap()
-                                        .entries
-                                        .map((entry) {
-                                      final index = entry.key + 1;
-                                      final terms = entry.value;
-
-                                      return Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 20.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "$index. ${terms.title}",
-                                              style: TextStyle(
-                                                fontSize: DeviceDimensions
-                                                        .responsiveSize(
-                                                            context) *
-                                                    0.048,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'Barlow-Bold',
-                                              ),
+                                  ...provider.termsCondition.map((terms) {
+                                    return Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 20.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "${terms['title'] ?? 'No Title'}",
+                                            style: TextStyle(
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.048,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Barlow-Bold',
                                             ),
-                                            SizedBox(
-                                                height: DeviceDimensions
-                                                        .screenHeight(context) *
-                                                    0.010),
-                                            Text(
-                                              terms.descriptions,
-                                              style: TextStyle(
-                                                fontSize: DeviceDimensions
-                                                        .responsiveSize(
-                                                            context) *
-                                                    0.035,
-                                                fontFamily: 'Barlow-Regular',
-                                              ),
-                                              textAlign: TextAlign.justify,
+                                          ),
+                                          SizedBox(
+                                              height:
+                                                  DeviceDimensions.screenHeight(
+                                                          context) *
+                                                      0.010),
+                                          Text(
+                                            terms['content'] ??
+                                                'No Description',
+                                            style: TextStyle(
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.035,
+                                              fontFamily: 'Barlow-Regular',
                                             ),
-                                          ],
-                                        ),
-                                      );
-                                    }).toList(),
-                                  ),
-                                  // Add checkbox at the end of the terms
+                                            textAlign: TextAlign.justify,
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }).toList(),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

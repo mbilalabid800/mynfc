@@ -650,7 +650,7 @@ class _SettingsState extends State<Settings> {
                             height:
                                 DeviceDimensions.screenHeight(context) * 0.035),
                         Center(
-                          child: GestureDetector(
+                          child: InkWell(
                             onTap: () {
                               DeleteConfirmationSheetPre()
                                   .accountDeleteConfirmPre(context);
@@ -674,7 +674,7 @@ class _SettingsState extends State<Settings> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            GestureDetector(
+                            InkWell(
                               onTap: () {
                                 Navigator.pushNamed(context, "/privacy-policy");
                               },
@@ -706,7 +706,7 @@ class _SettingsState extends State<Settings> {
                             SizedBox(
                                 width: DeviceDimensions.screenWidth(context) *
                                     0.020),
-                            GestureDetector(
+                            InkWell(
                               onTap: () {
                                 Navigator.pushNamed(
                                     context, "/terms-conditions");

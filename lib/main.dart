@@ -19,6 +19,7 @@ import 'package:nfc_app/provider/forget_password_email_provider.dart';
 import 'package:nfc_app/provider/internet_checker_provider.dart';
 import 'package:nfc_app/provider/loading_state_provider.dart';
 import 'package:nfc_app/provider/resent_email.dart';
+import 'package:nfc_app/provider/splash_screen_provider.dart';
 import 'package:nfc_app/screens/active_link_screen.dart';
 import 'package:nfc_app/screens/active_product_screen.dart';
 import 'package:nfc_app/screens/add_employees.dart';
@@ -92,6 +93,9 @@ void main() async {
     providers: [
       ChangeNotifierProvider(
         create: (_) => InternetCheckerProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => SplashScreenProvider(),
       ),
       ChangeNotifierProvider(
         create: (_) => AuthenticateProvider(),
@@ -180,7 +184,7 @@ class MyApp extends StatelessWidget {
             '/mainNav-screen': (context) => const MainScreen(),
             '/subscription-screen': (context) => PricingPlansScreen(),
             '/new-splash': (context) => NewSplashScreen(),
-            '/splash': (context) => const SplashScreen(),
+            '/splash': (context) => SplashScreen(),
             '/login-screen': (context) => const LoginScreen(),
             '/forget-password': (context) => const ForgetPassword(),
             '/forget2': (context) => const ForgetPassword(),
