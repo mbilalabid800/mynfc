@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/image_picker_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
@@ -217,6 +218,107 @@ class _NameStepState extends State<NameStep> {
 
             Padding(
               padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                  width: DeviceDimensions.screenWidth(context) * 0.95,
+                  child: IntlPhoneField(
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: AppColors.textFieldBorderColor,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: AppColors.appBlueColor,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                              color: AppColors.errorFieldBorderColor)),
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                              color: AppColors.errorFieldBorderColor)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      errorText: formState.contactError,
+                      //labelText: 'Enter Last Name',
+                      hintText: 'Phone Numbers',
+                      hintStyle: TextStyle(
+                          color: AppColors.greyText,
+                          fontFamily: 'Barlow-Regular',
+                          fontSize:
+                              DeviceDimensions.responsiveSize(context) * 0.03),
+                    ),
+                    initialCountryCode: 'OM',
+                    onChanged: (phone) {
+                      final countryCode = phone.countryCode; // e.g., "+968"
+                      final countryName = phone.countryISOCode; // e.g., "OM"
+                      final contact = phone.number;
+
+                      // Save to provider
+                      formState.updateContact(
+                        countryCode: countryCode,
+                        countryName: countryName,
+                        contact: contact,
+                      );
+                      //formState.updateContact(value),
+                      //print(phone.completeNumber);
+                    },
+                  )
+                  // child: TextField(
+                  //   keyboardType: TextInputType.name, // Opens the letter keyboard
+                  //   inputFormatters: [
+                  //     FilteringTextInputFormatter.allow(RegExp(
+                  //         r'[a-zA-Z\s]')), // Allows only letters and spaces
+                  //   ],
+
+                  //   //maxLength: 25,
+                  //   //controller: lastNameController,
+                  //   onChanged: (value) => formState.updateLastName(value),
+                  //   decoration: InputDecoration(
+                  //     enabledBorder: OutlineInputBorder(
+                  //       borderSide: BorderSide(
+                  //         color: AppColors.textFieldBorderColor,
+                  //       ),
+                  //       borderRadius: BorderRadius.circular(12),
+                  //     ),
+                  //     focusedBorder: OutlineInputBorder(
+                  //       borderSide: BorderSide(
+                  //         color: AppColors.appBlueColor,
+                  //       ),
+                  //       borderRadius: BorderRadius.circular(12),
+                  //     ),
+                  //     errorBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(12),
+                  //         borderSide: const BorderSide(
+                  //             color: AppColors.errorFieldBorderColor)),
+                  //     focusedErrorBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(12),
+                  //         borderSide: const BorderSide(
+                  //             color: AppColors.errorFieldBorderColor)),
+                  //     border: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(12),
+                  //     ),
+                  //     errorText: formState.lastNameError,
+                  //     //labelText: 'Enter Last Name',
+                  //     hintText: 'Last Name new ',
+                  //     hintStyle: TextStyle(
+                  //         color: AppColors.greyText,
+                  //         fontFamily: 'Barlow-Regular',
+                  //         fontSize:
+                  //             DeviceDimensions.responsiveSize(context) * 0.03),
+                  //   ),
+                  // ),
+                  ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Container(
                 width: DeviceDimensions.screenWidth(context) * 0.95,
                 height: DeviceDimensions.screenHeight(context) * 0.068,
@@ -233,10 +335,10 @@ class _NameStepState extends State<NameStep> {
                       child: CountryCodePicker(
                         onChanged: (CountryCode code) {
                           setState(() {
-                            countryName = code.name!;
-                            formState.updateCountryName(countryName);
-                            countryCode = code.dialCode!;
-                            formState.updateCountryCode(countryCode);
+                            // countryName = code.name!;
+                            // formState.updateCountryName(countryName);
+                            // countryCode = code.dialCode!;
+                            // formState.updateCountryCode(countryCode);
                           });
                         },
                         initialSelection: 'OM', // Default country code
@@ -607,7 +709,7 @@ class _NameStepState extends State<NameStep> {
                 child: TextField(
                   //maxLength: 25,
 
-                  onChanged: (value) => formState.updateContact(value),
+                  //onChanged: (value) => formState.updateContact(value),
                   keyboardType: TextInputType.number,
 
                   decoration: InputDecoration(
