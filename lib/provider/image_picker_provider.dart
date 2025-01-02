@@ -71,6 +71,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nfc_app/constants/appColors.dart';
 
 class ImagePickerProvider with ChangeNotifier {
   File? _image;
@@ -123,7 +124,7 @@ class ImagePickerProvider with ChangeNotifier {
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Crop Image',
-          toolbarColor: Colors.grey,
+          toolbarColor: AppColors.appOrangeColor,
           toolbarWidgetColor: Colors.white,
           cropStyle: CropStyle.circle,
           hideBottomControls: true,

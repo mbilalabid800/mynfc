@@ -1185,7 +1185,7 @@ class ImageStep extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   // shape: RoundedRectangleBorder(
                   //     borderRadius: BorderRadius.circular(6)),
-                  backgroundColor: AppColors.buttonColor,
+                  backgroundColor: AppColors.appOrangeColor,
                   //disabledBackgroundColor: Colors.grey,
                   foregroundColor: Colors.white,
                 ),
@@ -1231,7 +1231,11 @@ class ImageStep extends StatelessWidget {
                           //Navigator.pushNamed(context, '/mainNav-screen');
                           await AuthService()
                               .sendVerificationEmail(context: context);
-                          Navigator.pushNamed(context, '/email-verify');
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            '/email-verify',
+                            (route) => false,
+                          );
                         } catch (e) {
                           Navigator.pop(context);
                         }
