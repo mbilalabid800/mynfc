@@ -187,7 +187,6 @@ class MyApp extends StatelessWidget {
             '/splash': (context) => SplashScreen(),
             '/login-screen': (context) => const LoginScreen(),
             '/forget-password': (context) => const ForgetPassword(),
-            '/forget2': (context) => const ForgetPassword(),
             '/email-verify-forgot-password': (context) =>
                 const EmailVerifyForgetPassword(),
             //'/set-password': (context) => const SetPassword(),
