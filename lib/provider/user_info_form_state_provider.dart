@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/models/user_data_model.dart';
-
 import '../services/shared_preferences_service/shared_preferences_services.dart';
 
 class UserInfoFormStateProvider extends ChangeNotifier {
@@ -386,12 +385,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       try {
         debugPrint("Updating user data for userId: $uid");
         debugPrint("lastName is $_lastName");
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(uid)
-            .collection('userProfile')
-            .doc('details')
-            .update({
+        await FirebaseFirestore.instance.collection('users').doc(uid).update({
           'image_url': _imageUrl,
           'first_name': _firstName,
           'last_name': _lastName,
