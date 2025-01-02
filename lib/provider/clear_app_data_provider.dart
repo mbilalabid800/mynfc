@@ -18,8 +18,7 @@ class ClearAppData {
     Provider.of<ConnectionDetailsProvider>(context, listen: false).clear();
     Provider.of<ConnectionProvider>(context, listen: false).clear();
     Provider.of<SocialAppProvider>(context, listen: false).clear();
-    Provider.of<LoadingStateProvider>(context, listen: false)
-        .setDataFetched(false);
+    Provider.of<LoadingStateProvider>(context, listen: false).clear();
     // Add more providers here as needed
   }
 

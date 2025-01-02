@@ -28,7 +28,7 @@ exports.recordTapAndRedirect = functions.https.onRequest(async (req, res) => {
     }
 
     // Redirect to the actual profile page (replace with your profile URL)
-    res.redirect(`https://myabsher.com/profile/${uid}`);
+    res.redirect(`https://myabsher.com//#profile/${uid}`);
   } catch (error) {
     console.error('Error recording tap:', error);
     res.status(500).send('Internal Server Error');

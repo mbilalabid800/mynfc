@@ -23,4 +23,10 @@ class LoadingStateProvider extends ChangeNotifier {
     _selectedIndex = index;
     notifyListeners();
   }
+
+  void clear() {
+    _selectedIndex = 0;
+    _dataFetched = false;
+    _isLoading = false;
+  }
 }
