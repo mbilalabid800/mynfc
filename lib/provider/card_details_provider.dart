@@ -52,7 +52,7 @@ class CardDetailsProvider extends ChangeNotifier {
       // Preload all images
       await _preloadCardImages(context);
     } catch (e) {
-      print('Error fetching cards: $e');
+      debugPrint('Error fetching cards: $e');
     } finally {
       // Ensure the loader is off after all operations
       _isLoading = false;
@@ -73,7 +73,7 @@ class CardDetailsProvider extends ChangeNotifier {
 
       await Future.wait(preloadFutures); // Wait for all images to load
     } catch (e) {
-      print('Error preloading images: $e');
+      debugPrint('Error preloading images: $e');
     }
   }
 

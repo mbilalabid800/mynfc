@@ -199,7 +199,7 @@ class _GraphScreenState extends State<GraphScreen> {
               // TimeFrameList(
               //   onSelected: (selectedTimeFrame) {
               //     // Handle the selected time frame here
-              //     print('Selected Time Frame: $selectedTimeFrame');
+              //     debugPrint('Selected Time Frame: $selectedTimeFrame');
               //   },
               // ),
               SizedBox(

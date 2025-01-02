@@ -118,7 +118,7 @@ class ShareProfile {
       await Share.shareXFiles([XFile(file.path)],
           text: 'Scan this QR code to view my profile.');
     } catch (e) {
-      print("Error capturing QR code: $e");
+      debugPrint("Error capturing QR code: $e");
     }
   }
 

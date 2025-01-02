@@ -14,10 +14,10 @@ class DeleteUser {
       if (user != null) {
         await user.delete();
       } else {
-        print('No user is currently signed in.');
+        debugPrint('No user is currently signed in.');
       }
     } catch (e) {
-      print('Error deleting user from Firebase Authentication: $e');
+      debugPrint('Error deleting user from Firebase Authentication: $e');
     }
   }
 
@@ -61,9 +61,9 @@ class DeleteUser {
 
       // Commit the batch
       await batch.commit();
-      print('User document and subcollections deleted from Firestore.');
+      debugPrint('User document and subcollections deleted from Firestore.');
     } catch (e) {
-      print('Error deleting user data from Firestore: $e');
+      debugPrint('Error deleting user data from Firestore: $e');
     }
   }
 
@@ -78,12 +78,12 @@ class DeleteUser {
       if (imageUrl.isNotEmpty) {
         // Get the Firebase Storage reference and delete the image
         await FirebaseStorage.instance.refFromURL(imageUrl).delete();
-        print('Image deleted successfully from Firebase Storage.');
+        debugPrint('Image deleted successfully from Firebase Storage.');
       } else {
-        print('No image URL found to delete.');
+        debugPrint('No image URL found to delete.');
       }
     } catch (e) {
-      print('Error deleting image: $e');
+      debugPrint('Error deleting image: $e');
     }
   }
 
@@ -112,9 +112,9 @@ class DeleteUser {
         }
       }
 
-      print('User removed from all connections subcollections.');
+      debugPrint('User removed from all connections subcollections.');
     } catch (e) {
-      print('Error removing user from all connections: $e');
+      debugPrint('Error removing user from all connections: $e');
     }
   }
 
@@ -127,7 +127,7 @@ class DeleteUser {
       await deleteImage(context);
       await deleteUserFromAuth();
     } else {
-      print('No user is currently signed in.');
+      debugPrint('No user is currently signed in.');
     }
   }
 }

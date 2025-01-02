@@ -267,7 +267,7 @@ class _NameStepState extends State<NameStep> {
                       formState.updateContact(phone.number, phone.countryCode,
                           phone.countryISOCode);
                       //formState.updateContact(value),
-                      //print(phone.completeNumber);
+                      //debugPrint(phone.completeNumber);
                     },
                   )
                   // child: TextField(
@@ -549,7 +549,7 @@ class _NameStepState extends State<NameStep> {
             //               countryCode = code.dialCode!;
             //               formState.updateCountryCode(countryCode);
             //             });
-            //             print(countryName);
+            //             debugPrint(countryName);
             //           },
 
             //           initialSelection: 'OM', // Default country code

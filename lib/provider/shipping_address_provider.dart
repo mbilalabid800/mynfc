@@ -40,9 +40,10 @@ class ShippingAddressProvider with ChangeNotifier {
         await loadShippingAddress(); // Reload addresses to reflect changes
         _selectedShippingAddress = address;
         notifyListeners();
-        print("Shipping address saved successfully and marked as selected.");
+        debugPrint(
+            "Shipping address saved successfully and marked as selected.");
       } catch (e) {
-        print("Error saving shipping address: $e");
+        debugPrint("Error saving shipping address: $e");
       }
     }
   }
@@ -64,9 +65,9 @@ class ShippingAddressProvider with ChangeNotifier {
         _selectedShippingAddress = updatedAddress;
 
         notifyListeners();
-        print("Successfully updated and selected the shipping address.");
+        debugPrint("Successfully updated and selected the shipping address.");
       } catch (e) {
-        print("Error in updateShippingAddress: $e");
+        debugPrint("Error in updateShippingAddress: $e");
       }
       isLoading = false;
       notifyListeners();
@@ -94,9 +95,9 @@ class ShippingAddressProvider with ChangeNotifier {
       'zipCode': address.zipCode,
       'selected': isSelected, // Mark as selected if applicable
     }).then((_) {
-      print("Address saved successfully.");
+      debugPrint("Address saved successfully.");
     }).catchError((error) {
-      print("Failed to save address: $error");
+      debugPrint("Failed to save address: $error");
     });
   }
 
@@ -147,10 +148,10 @@ class ShippingAddressProvider with ChangeNotifier {
 
           setSelectedShippingAddress();
         } else {
-          print("No shipping addresses found.");
+          debugPrint("No shipping addresses found.");
         }
       } catch (e) {
-        print("Error loading shipping addresses: $e");
+        debugPrint("Error loading shipping addresses: $e");
       }
 
       isLoading = false;
@@ -182,7 +183,7 @@ class ShippingAddressProvider with ChangeNotifier {
             .collection("shippingAddress")
             .doc(address.locationName)
             .delete();
-        print("Address deleted successfully.");
+        debugPrint("Address deleted successfully.");
         _shippingAddress
             .removeWhere((a) => a.locationName == address.locationName);
         if (_selectedShippingAddress?.locationName == address.locationName) {
@@ -194,7 +195,7 @@ class ShippingAddressProvider with ChangeNotifier {
           }
         }
       } catch (e) {
-        print("Error deleting shipping address: $e");
+        debugPrint("Error deleting shipping address: $e");
       }
     }
     isLoading = false;

@@ -21,7 +21,7 @@ class AppDataProvider with ChangeNotifier {
           await FirebaseFirestore.instance.collection("PrivacyPolicy").get();
       _privacyPolicy = querySnapshot.docs.map((doc) => doc.data()).toList();
     } catch (e) {
-      print("Error fetching Privacy Policy: $e");
+      debugPrint("Error fetching Privacy Policy: $e");
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -37,7 +37,7 @@ class AppDataProvider with ChangeNotifier {
           await FirebaseFirestore.instance.collection("TermsCondition").get();
       _termsCondition = querySnapshot.docs.map((doc) => doc.data()).toList();
     } catch (e) {
-      print("Error fetching Terms & Condition: $e");
+      debugPrint("Error fetching Terms & Condition: $e");
     } finally {
       _isLoading = false;
       notifyListeners();

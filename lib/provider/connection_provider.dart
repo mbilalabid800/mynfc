@@ -92,7 +92,7 @@ class ConnectionProvider with ChangeNotifier {
         }
       }
     } catch (e) {
-      print("Error loading recommended connections: $e");
+      debugPrint("Error loading recommended connections: $e");
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -121,7 +121,7 @@ class ConnectionProvider with ChangeNotifier {
         }
       }
     } catch (e) {
-      print("Error loading added connections: $e");
+      debugPrint("Error loading added connections: $e");
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -135,7 +135,7 @@ class ConnectionProvider with ChangeNotifier {
       notifyListeners();
       await _saveToFirestore(connection);
     } catch (e) {
-      print("Error adding/updating connection: $e");
+      debugPrint("Error adding/updating connection: $e");
     }
   }
 
@@ -146,7 +146,7 @@ class ConnectionProvider with ChangeNotifier {
       notifyListeners();
       await _removeFromFirestore(connection);
     } catch (e) {
-      print("Error removing connection: $e");
+      debugPrint("Error removing connection: $e");
     }
   }
 
@@ -162,7 +162,7 @@ class ConnectionProvider with ChangeNotifier {
             .doc(connection.uid)
             .delete();
       } catch (e) {
-        print("Error removing connection from Firestore: $e");
+        debugPrint("Error removing connection from Firestore: $e");
       }
     }
   }
@@ -183,7 +183,7 @@ class ConnectionProvider with ChangeNotifier {
             .doc(connection.uid)
             .set(connection.toFirestore());
       } catch (e) {
-        print("Error saving social link data: $e");
+        debugPrint("Error saving social link data: $e");
       }
     }
   }

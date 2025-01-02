@@ -61,7 +61,7 @@ class SocialAppProvider with ChangeNotifier {
 
       notifyListeners();
     } catch (e) {
-      print("Error loading social apps data: $e");
+      debugPrint("Error loading social apps data: $e");
     }
   }
 
@@ -89,7 +89,7 @@ class SocialAppProvider with ChangeNotifier {
       notifyListeners();
       await _saveToFirestore(item);
     } catch (e) {
-      print("Error adding/updating app item: $e");
+      debugPrint("Error adding/updating app item: $e");
     }
   }
 
@@ -125,7 +125,7 @@ class SocialAppProvider with ChangeNotifier {
         _updateFilteredSocialApps();
         notifyListeners();
       } catch (e) {
-        print("Error removing app from addedSocialApps and Firestore: $e");
+        debugPrint("Error removing app from addedSocialApps and Firestore: $e");
       }
     }
   }
@@ -183,7 +183,7 @@ class SocialAppProvider with ChangeNotifier {
             .doc(item.name)
             .set(appData);
       } catch (e) {
-        print("Error saving social link data: $e");
+        debugPrint("Error saving social link data: $e");
       }
     }
   }
@@ -219,9 +219,9 @@ class SocialAppProvider with ChangeNotifier {
           batch.set(docRef, appData);
         }
         await batch.commit();
-        print('Reordered apps saved to Firestore');
+        debugPrint('Reordered apps saved to Firestore');
       } catch (e) {
-        print('Error saving reordered social apps to Firestore: $e');
+        debugPrint('Error saving reordered social apps to Firestore: $e');
       }
     }
   }

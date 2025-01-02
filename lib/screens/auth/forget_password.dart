@@ -44,7 +44,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           if (detailsSnapshot.exists &&
               detailsSnapshot.data()?['email'] == email) {
             uid = detailsSnapshot.data()?['uid'];
-            print("uid is $uid");
+            debugPrint("uid is $uid");
             break;
           }
         }
@@ -82,7 +82,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           CustomSnackbar().snakBarError(context, "Email does not exist");
         }
       } catch (e) {
-        print("Error: $e");
+        debugPrint("Error: $e");
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
               content: Text('Error occurred while processing your request.')),

@@ -29,7 +29,7 @@ class InternetCheckerProvider extends ChangeNotifier {
       // Perform a ping to verify actual internet connectivity
       _hasInternet = await _pingInternet();
     }
-    print('Internet status updated: $_hasInternet');
+    debugPrint('Internet status updated: $_hasInternet');
     notifyListeners();
   }
 

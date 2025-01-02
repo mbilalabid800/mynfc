@@ -14,7 +14,7 @@ class EmployeeProvider extends ChangeNotifier {
     final employeesJson = prefs.getStringList('employees') ?? [];
     employeesJson.add(jsonEncode(employee.toFirestore()));
     await prefs.setStringList('employees', employeesJson);
-    print("Employee saved locally: ${employee.email}");
+    debugPrint("Employee saved locally: ${employee.email}");
     notifyListeners();
   }
 
@@ -43,14 +43,14 @@ class EmployeeProvider extends ChangeNotifier {
               {'email': user.email, 'userUid': user.uid},
               SetOptions(merge: true));
         } catch (e) {
-          print("Error saving employee data to Firestore: $e");
+          debugPrint("Error saving employee data to Firestore: $e");
         }
       }
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('employees');
-      print("Local employees cleared after saving to Firestore.");
+      debugPrint("Local employees cleared after saving to Firestore.");
     } else {
-      print("User is not authenticated");
+      debugPrint("User is not authenticated");
     }
   }
 }
