@@ -72,6 +72,8 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _firstName.isNotEmpty &&
       _lastName.isNotEmpty &&
       _contact.isNotEmpty &&
+      _countryCode.isNotEmpty &&
+      _countryName.isNotEmpty &&
       _firstNameError == null &&
       _lastNameError == null &&
       _contactError == null;
@@ -152,22 +154,26 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners(); // Notify listeners to rebuild widgets that use this email
   }
 
-  void updateContact(
-    String contact,
-  ) {
-    final regex = RegExp(r'^[0-9]+$');
+  void updateContact(String contact, String countryCode, String countryName) {
+    final regex = RegExp(r'^[0-9]+$'); // Regex to validate numbers
+
     if (contact.startsWith(' ')) {
       _contactError = 'Contact cannot start with a space';
     } else if (contact.isEmpty) {
       _contactError = 'Contact cannot be empty';
     } else if (!regex.hasMatch(contact)) {
       _contactError = 'Contact must be numbers only';
-    } else if (contact.length != 8) {
-      // Ensure contact is exactly 8 digits
-      _contactError = 'Contact must be exactly 8 digits';
-    } else {
+    }
+    // else if (contact.length != 8) {
+    //   // Assuming phone number is 8 digits
+    //   //_contactError = 'Contact must be exactly 8 digits';
+    // }
+    else {
       _contactError = null;
-      _contact = '$countryCode $contact';
+      _contact =
+          '$countryCode $contact'; // Combine country code and phone number
+      _countryCode = countryCode; // Store the country code
+      _countryName = countryName; // Store the country name
     }
     notifyListeners();
   }
