@@ -179,7 +179,7 @@ class MyApp extends StatelessWidget {
             //accentColor: Colors.grey, // For desktop/web
           ),
           initialRoute: '/new-splash',
-          // initialRoute: '/connections-request',
+          // initialRoute: '/error',
           onGenerateRoute: _onGenerateRoute,
           routes: {
             '/mainNav-screen': (context) => const MainScreen(),
@@ -239,21 +239,55 @@ class MyApp extends StatelessWidget {
 }
 
 Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
-  final Uri uri = Uri.parse(settings.name ?? '');
+  // Parse the route name into a URI object
+  final Uri uri = Uri.tryParse(settings.name ?? '') ?? Uri();
 
-  // Only allow connection-profile-preview routes
+  // Handle fragment-based URLs like "https://www.myabsher.com/#/profile/12345"
+  if (uri.fragment.isNotEmpty) {
+    final Uri fragmentUri = Uri.parse(uri.fragment); // Parse the fragment part
+
+    // Check if the fragment starts with 'profile'
+    if (fragmentUri.pathSegments.isNotEmpty &&
+        fragmentUri.pathSegments.first == 'profile') {
+      // Extract the userId from the fragment
+      final String userIdFromFragment = fragmentUri.pathSegments.length > 1
+          ? fragmentUri.pathSegments[1]
+          : '';
+
+      if (userIdFromFragment.isNotEmpty) {
+        return MaterialPageRoute(
+          builder: (_) => ConnectionProfilePreview(userId: userIdFromFragment),
+        );
+      }
+    }
+  }
+
+  // Handle argument-based routes or standard deep links
   if (uri.pathSegments.isNotEmpty && uri.pathSegments.first == 'profile') {
-    final String userId =
+    // Extract the userId from the URI path segments
+    final String userIdFromLink =
         uri.pathSegments.length > 1 ? uri.pathSegments[1] : '';
-    if (userId.isNotEmpty) {
+
+    if (userIdFromLink.isNotEmpty) {
       return MaterialPageRoute(
-        builder: (_) => ConnectionProfilePreview(userId: userId),
+        builder: (_) => ConnectionProfilePreview(userId: userIdFromLink),
       );
     }
   }
 
-  // Catch all other routes and show error
+  if (settings.name == '/profile') {
+    final String? userIdFromArgs = settings.arguments as String?;
+    if (userIdFromArgs != null && userIdFromArgs.isNotEmpty) {
+      return MaterialPageRoute(
+        builder: (_) => ConnectionProfilePreview(userId: userIdFromArgs),
+      );
+    }
+  }
+
+  // Return a fallback route for unhandled paths
   return MaterialPageRoute(
-    builder: (_) => ErrorScreen(message: "Page not found"),
+    builder: (_) => ErrorScreen(
+      message: 'Page not Found',
+    ),
   );
 }

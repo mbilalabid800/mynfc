@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:provider/provider.dart';
+
+class DualRingLoader2 extends StatelessWidget {
+  const DualRingLoader2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Lottie.asset(
+        'assets/animations/loader.json', // Path to your Lottie JSON file
+        width: 100, // Adjust the width as needed
+        height: 100, // Adjust the height as needed
+        fit: BoxFit.contain, // Fit the animation in the container
+      ),
+    );
+  }
+}
 
 class DualRingLoader extends StatelessWidget {
   const DualRingLoader({super.key});

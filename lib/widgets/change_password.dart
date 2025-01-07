@@ -98,20 +98,17 @@ class _ChangePasswordState extends State<ChangePassword> {
           if (context.mounted) {
             switch (e.code) {
               case 'wrong-password':
-                CustomSnackbar().snakBarError(
-                    context, "The old password you entered is incorrect.");
+                _showAlertDialog("Failed", "Old password is incorrect.");
                 break;
               case 'invalid-credential':
-                CustomSnackbar().snakBarError(context,
-                    "Invalid credential. Please check your email and password.");
+                _showAlertDialog("Failed", "Old password is incorrect.");
                 break;
               case 'too-many-requests':
-                CustomSnackbar().snakBarError(
-                    context, "Too many requests. Please try again later.");
+                _showAlertDialog("Failed", "Too many requests");
                 break;
               default:
-                CustomSnackbar().snakBarError(
-                    context, "An error occurred. Please try again.");
+                _showAlertDialog(
+                    "Failed", "An error occurred. Please try again.");
             }
           }
         } finally {
@@ -123,10 +120,36 @@ class _ChangePasswordState extends State<ChangePassword> {
     }
   }
 
+  // Function to display an alert dialog
+  void _showAlertDialog(String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                "OK",
+                style: TextStyle(
+                    fontFamily: 'Barlow_regular',
+                    color: AppColors.textColorBlue),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.screenBackground,
       onClosing: () {},
       builder: (BuildContext context) {
         return Stack(
