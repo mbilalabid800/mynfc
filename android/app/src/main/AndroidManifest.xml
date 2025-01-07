@@ -40,8 +40,7 @@
 
                 <!-- Replace with your app's deep linking host -->
                 <data android:scheme="https"
-                      android:host="myabsher.com"
-                      android:pathPrefix="/#/profile" />
+                      android:host="myabsher.com"/>
             </intent-filter>
 
             <intent-filter>

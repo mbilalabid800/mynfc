@@ -23,7 +23,6 @@ class ConnectionDetailsProvider extends ChangeNotifier {
       // Fetch the user's connection details
       DocumentSnapshot<Map<String, dynamic>> docSnapshot =
           await FirebaseFirestore.instance.collection("users").doc(uid).get();
-
       if (docSnapshot.exists) {
         final connectionDetails =
             ConnectionDetailsModel.fromFirestore(docSnapshot);

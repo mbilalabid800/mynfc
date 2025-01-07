@@ -62,7 +62,7 @@ class _DeleteConfirmationSheetState extends State<DeleteConfirmationSheet> {
             Navigator.pushReplacementNamed(context, '/login-screen');
           }
         } else {
-          _showAlertDialog("Failed", "Invalid email or password.");
+          _showAlertDialog("Failed", "Invalid password.");
         }
       } catch (e) {
         if (mounted) {
@@ -107,6 +107,7 @@ class _DeleteConfirmationSheetState extends State<DeleteConfirmationSheet> {
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
+      backgroundColor: AppColors.screenBackground,
       onClosing: () {},
       builder: (BuildContext context) {
         return Stack(

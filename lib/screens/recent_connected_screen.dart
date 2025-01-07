@@ -230,7 +230,7 @@ class _RecentConnectedState extends State<RecentConnected> {
                           ),
                           SizedBox(
                               height: DeviceDimensions.screenHeight(context) *
-                                  0.030),
+                                  0.038),
                         ],
                       ),
                     ),
@@ -238,12 +238,14 @@ class _RecentConnectedState extends State<RecentConnected> {
                       left: DeviceDimensions.screenWidth(context) / 2 - 48,
                       bottom: 0, // Set bottom to 0 to keep it within bounds
                       child: Transform.translate(
-                        offset: Offset(0, 28), // Adjust offset as needed
+                        offset: Offset(0, 20), // Adjust offset as needed
                         child: InkWell(
                           onTap: () {
                             Navigator.pushNamed(
                                 context, '/recent-connected-list');
                           },
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
                           child: SvgPicture.asset(
                             "assets/icons/more2.svg",
                             height: 70,

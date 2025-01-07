@@ -159,17 +159,17 @@ class AuthService {
     }
   }
 
-  Future<String> generateProfileLink() async {
-    // Get the current user's UID
-    User? user = FirebaseAuth.instance.currentUser;
+  // Future<String> generateProfileLink() async {
+  //   // Get the current user's UID
+  //   User? user = FirebaseAuth.instance.currentUser;
 
-    if (user != null) {
-      String uid = user.uid;
-      // Generate the link
-      String userProfileLink = 'https://myabsher.com/profile/$uid';
-      return userProfileLink;
-    } else {
-      throw Exception('User not logged in');
-    }
-  }
+  //   if (user != null) {
+  //     String uid = user.uid;
+  //     // Generate the link
+  //     String userProfileLink = 'https://myabsher.com/profile/$uid';
+  //     return userProfileLink;
+  //   } else {
+  //     throw Exception('User not logged in');
+  //   }
+  // }
 }

@@ -25,11 +25,9 @@ class DeepLinkingHelper {
   }
 
   void handleDeepLink(BuildContext context, Uri uri) {
-    // Check if the URL is for the valid route (profile preview only)
     if (uri.pathSegments.isNotEmpty && uri.pathSegments.first == 'profile') {
       final userId = uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
       if (userId != null && userId.isNotEmpty) {
-        // Open the profile preview screen with userId
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -37,16 +35,14 @@ class DeepLinkingHelper {
           ),
         );
       } else {
-        // Show an error screen if userId is invalid
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ErrorScreen(message: "Invalid User ID"),
+            builder: (context) => ErrorScreen(message: "Page not found"),
           ),
         );
       }
     } else {
-      // For other invalid URLs, show an error page
       Navigator.push(
         context,
         MaterialPageRoute(
