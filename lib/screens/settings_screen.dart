@@ -19,6 +19,7 @@ import 'package:nfc_app/widgets/custom_profile_container_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/delete_confirmation_sheet_pre.dart';
 import 'package:nfc_app/widgets/change_language.dart';
+import 'package:nfc_app/widgets/logout_alert_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -299,7 +300,7 @@ class _SettingsState extends State<Settings> {
                                         fontSize:
                                             DeviceDimensions.responsiveSize(
                                                     context) *
-                                                0.038,
+                                                0.035,
                                         letterSpacing: 1.5,
                                         color: AppColors.textColorBlue,
                                       ),
@@ -403,16 +404,6 @@ class _SettingsState extends State<Settings> {
                           child: Column(
                             children: [
                               const SizedBox(height: 8),
-                              // SettingListComponent(
-                              //   icons: "assets/icons/settingicon1.svg",
-                              //   title: "Account Information",
-                              //   showDivider: true,
-                              //   callBack: () {
-                              //     //dummy link
-                              //     Navigator.pushNamed(
-                              //         context, '/privacy-policy');
-                              //   },
-                              // ),
                               SettingListComponent(
                                 icons: "assets/icons/settingicon2.svg",
                                 title: "Profile View",
@@ -506,7 +497,6 @@ class _SettingsState extends State<Settings> {
                                 ),
                                 callBack: () {},
                               ),
-
                               const SizedBox(height: 8),
                             ],
                           ),
@@ -637,7 +627,8 @@ class _SettingsState extends State<Settings> {
                                 icons: "assets/icons/settingicon14.svg",
                                 title: "Logout",
                                 callBack: () async {
-                                  showLogoutAlertDialog(context);
+                                  LogoutAlertWidget.showLogoutAlertDialog(
+                                      context);
 
                                   // await _authService.signOut(context);
                                 },
@@ -735,75 +726,6 @@ class _SettingsState extends State<Settings> {
                 ),
               ],
             ),
-          ),
-        );
-      },
-    );
-  }
-
-  void showLogoutAlertDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: AlertDialog(
-            backgroundColor: AppColors.screenBackground,
-            //title: Text(''),
-            content: Text(
-              'Do you want to Logout Absher?',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: AppColors.appBlueColor,
-                  fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
-                  fontWeight: FontWeight.w600),
-            ),
-            actions: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    width: DeviceDimensions.screenWidth(context) * 0.3,
-                    decoration: BoxDecoration(
-                        color: AppColors.greyText,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(); // Close the dialog
-                      },
-                      child: Text(
-                        'Cancel',
-                        style: TextStyle(
-                            color: AppColors.screenBackground,
-                            fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.035),
-                      ),
-                    ),
-                  ),
-                  Spacer(),
-                  Container(
-                    width: DeviceDimensions.screenWidth(context) * 0.3,
-                    decoration: BoxDecoration(
-                        color: AppColors.appBlueColor,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: TextButton(
-                      onPressed: () async {
-                        // Perform some action
-                        await _authService.signOut(context); // Close the dialog
-                      },
-                      child: Text(
-                        'Logout',
-                        style: TextStyle(
-                            color: AppColors.screenBackground,
-                            fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.035),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
           ),
         );
       },
