@@ -31,6 +31,7 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController bioController = TextEditingController();
   final TextEditingController countryController = TextEditingController();
   bool isLoading = false;
+  final FocusNode _focusNode = FocusNode();
 
   Future<void> _pickImage() async {
     final imagePicker =

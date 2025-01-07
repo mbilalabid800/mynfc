@@ -27,7 +27,7 @@ class DualRingLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: SpinKitHourGlass(
+      child: SpinKitFadingFour(
         color: AppColors.appOrangeColor, // Set your preferred color
         size: 50.0, // Adjust the size as needed
         duration: Duration(milliseconds: 1200), // Customize the animation speed
@@ -42,7 +42,7 @@ class SmallThreeBounceLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: SpinKitHourGlass(
+      child: SpinKitFadingFour(
         color: AppColors.appOrangeColor, // Set your preferred color
         size: 30.0, // Adjust the size as needed
         duration: Duration(milliseconds: 1200), // Customize the animation speed
@@ -57,7 +57,7 @@ class BigThreeBounceLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: SpinKitThreeBounce(
+      child: SpinKitFadingFour(
         color: AppColors.appOrangeColor, // Set your preferred color
         size: 40.0, // Adjust the size as needed
         duration: Duration(milliseconds: 1200), // Customize the animation speed
@@ -87,7 +87,7 @@ class ScreenLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: SpinKitHourGlass(
+      child: SpinKitFadingFour(
         color: AppColors.appOrangeColor, // Set your preferred color
         size: 50.0, // Adjust the size as needed
         duration: Duration(milliseconds: 1200), // Customize the animation speed
@@ -125,7 +125,7 @@ class ConnectionLoader extends StatelessWidget {
             MainAxisAlignment.center, // Center the content vertically
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SpinKitHourGlass(
+          SpinKitFadingFour(
             color: AppColors.appOrangeColor, // Set your preferred color
             size: 40.0, // Adjust the size as needed
             duration: const Duration(

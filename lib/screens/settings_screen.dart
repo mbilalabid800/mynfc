@@ -556,7 +556,7 @@ class _SettingsState extends State<Settings> {
                               ),
                               SettingListComponent(
                                 icons: "assets/icons/settingicon11.svg",
-                                title: "How to use sahab",
+                                title: "How to use Absher",
                                 showDivider: true,
                                 callBack: () {
                                   //dummy link
