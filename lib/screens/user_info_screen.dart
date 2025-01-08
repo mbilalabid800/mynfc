@@ -1176,7 +1176,7 @@ class ImageStep extends StatelessWidget {
             SizedBox(height: DeviceDimensions.screenHeight(context) * 0.05),
             SizedBox(
               width: DeviceDimensions.screenWidth(context) * 0.8,
-              height: DeviceDimensions.screenHeight(context) * 0.07,
+              height: DeviceDimensions.screenHeight(context) * 0.055,
               child: ElevatedButton(
                 onPressed: () {
                   imageProvider.pickImage(context);
@@ -1196,10 +1196,11 @@ class ImageStep extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: DeviceDimensions.screenHeight(context) * 0.02,
+              height: DeviceDimensions.screenHeight(context) * 0.03,
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            SizedBox(
+              width: DeviceDimensions.screenWidth(context) * 0.8,
+              height: DeviceDimensions.screenHeight(context) * 0.055,
               child: ElevatedButton(
                 onPressed: imageProvider.hasImage
                     ? () async {
