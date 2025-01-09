@@ -29,6 +29,7 @@ class LogoutAlertWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
+                    height: DeviceDimensions.screenHeight(context) * 0.05,
                     width: DeviceDimensions.screenWidth(context) * 0.25,
                     decoration: BoxDecoration(
                         color: AppColors.greyText,
@@ -48,9 +49,10 @@ class LogoutAlertWidget {
                   ),
                   SizedBox(width: DeviceDimensions.screenWidth(context) * 0.1),
                   Container(
+                    height: DeviceDimensions.screenHeight(context) * 0.05,
                     width: DeviceDimensions.screenWidth(context) * 0.25,
                     decoration: BoxDecoration(
-                        color: AppColors.appBlueColor,
+                        color: AppColors.errorColor,
                         borderRadius: BorderRadius.circular(20)),
                     child: TextButton(
                       onPressed: () async {
