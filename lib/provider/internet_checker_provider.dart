@@ -1,47 +1,35 @@
-// ignore_for_file: depend_on_referenced_packages, unrelated_type_equality_checks, avoid_print
-
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:connectivity_plus/connectivity_plus.dart';
 
-class InternetCheckerProvider extends ChangeNotifier {
-  final Connectivity _connectivity = Connectivity();
-  bool _hasInternet = true;
+class InternetCheckerProvider with ChangeNotifier {
+  bool _isConnected = true;
+  bool get isConnected => _isConnected;
 
-  bool get hasInternet => _hasInternet;
+  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
 
-  InternetCheckerProvider() {
-    _checkInitialConnection();
-    _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+  // Start listening to connectivity changes
+  void startListeningToConnectivity() {
+    _connectivitySubscription = Connectivity()
+        .onConnectivityChanged
+        .listen((List<ConnectivityResult> result) {
+      _updateConnectionStatus(result[0]);
+    });
   }
 
-  Future<void> _checkInitialConnection() async {
-    var connectivityResult = await _connectivity.checkConnectivity();
-    _updateConnectionStatus(connectivityResult);
-  }
-
-  // Update connection status based on connectivity result
-  Future<void> _updateConnectionStatus(
-      List<ConnectivityResult> connectivityResult) async {
-    if (connectivityResult == ConnectivityResult.none) {
-      _hasInternet = false;
+  // Update connection status based on the connectivity result
+  void _updateConnectionStatus(ConnectivityResult result) {
+    if (result == ConnectivityResult.mobile ||
+        result == ConnectivityResult.wifi) {
+      _isConnected = true;
     } else {
-      // Perform a ping to verify actual internet connectivity
-      _hasInternet = await _pingInternet();
+      _isConnected = false;
     }
-    debugPrint('Internet status updated: $_hasInternet');
-    notifyListeners();
+    notifyListeners(); // Notify listeners of the change
   }
 
-  // Ping Google to verify internet connectivity
-  Future<bool> _pingInternet() async {
-    try {
-      final result = await http.get(Uri.parse('https://google.com')).timeout(
-            const Duration(seconds: 5),
-          );
-      return result.statusCode == 200;
-    } catch (e) {
-      return false;
-    }
+  // Stop listening to connectivity changes
+  void stopListeningToConnectivity() {
+    _connectivitySubscription.cancel();
   }
 }

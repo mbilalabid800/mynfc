@@ -90,65 +90,34 @@ void main() async {
     ],
   );
 
+  final internetCheckerProvider = InternetCheckerProvider();
+  internetCheckerProvider.startListeningToConnectivity();
+
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(
-        create: (_) => InternetCheckerProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => SplashScreenProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => AuthenticateProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => UserInfoProgressProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => UserInfoFormStateProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => ImagePickerProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => SocialAppProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => ForgetPasswordEmailProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => ResentButtonProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => ConnectionProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => ConnectionDetailsProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => LoadingStateProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => CardDetailsProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => ShippingAddressProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => OrderProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => EmployeeProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => BiometricHandlerProvider(),
-      ),
+      ChangeNotifierProvider(create: (_) => InternetCheckerProvider()),
+      ChangeNotifierProvider(create: (_) => SplashScreenProvider()),
+      ChangeNotifierProvider(create: (_) => AuthenticateProvider()),
+      ChangeNotifierProvider(create: (_) => UserInfoProgressProvider()),
+      ChangeNotifierProvider(create: (_) => UserInfoFormStateProvider()),
+      ChangeNotifierProvider(create: (_) => ImagePickerProvider()),
+      ChangeNotifierProvider(create: (_) => SocialAppProvider()),
+      ChangeNotifierProvider(create: (_) => ForgetPasswordEmailProvider()),
+      ChangeNotifierProvider(create: (_) => ResentButtonProvider()),
+      ChangeNotifierProvider(create: (_) => ConnectionProvider()),
+      ChangeNotifierProvider(create: (_) => ConnectionDetailsProvider()),
+      ChangeNotifierProvider(create: (_) => LoadingStateProvider()),
+      ChangeNotifierProvider(create: (_) => CardDetailsProvider()),
+      ChangeNotifierProvider(create: (_) => ShippingAddressProvider()),
+      ChangeNotifierProvider(create: (_) => OrderProvider()),
+      ChangeNotifierProvider(create: (_) => EmployeeProvider()),
+      ChangeNotifierProvider(create: (_) => BiometricHandlerProvider()),
       ChangeNotifierProvider(create: (_) => FormValidationProvider()),
-      ChangeNotifierProvider(
-        create: (_) => AppDataProvider(),
-      )
+      ChangeNotifierProvider(create: (_) => AppDataProvider())
     ],
-    child: InternetStatusHandler(child: const MyApp()),
+    child: InternetStatusHandler(
+      child: MyApp(),
+    ),
   ));
 }
 
