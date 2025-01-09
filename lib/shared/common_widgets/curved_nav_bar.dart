@@ -42,7 +42,6 @@ class _CustomCurvedNavigationBarState extends State<CustomCurvedNavigationBar> {
         _buildNavBarItem("assets/icons/home.svg", 0),
         _buildNavBarItem("assets/icons/graph.svg", 1),
         _buildNavBarItem("assets/icons/plus.svg", 2),
-        //_buildNavBarItem("assets/icons/order.svg", 3),
         _buildNavBarItem("assets/icons/chat.svg", 3),
         _buildNavBarItem("assets/icons/setting.svg", 4),
       ],

@@ -91,32 +91,24 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final loadingState = Provider.of<LoadingStateProvider>(context);
-    return Consumer3<SocialAppProvider, UserInfoFormStateProvider,
-        ConnectionProvider>(
-      builder: (context, appProvider, userProvider, connectionProvider, child) {
+    return Consumer2<UserInfoFormStateProvider, ConnectionProvider>(
+      builder: (context, userProvider, connectionProvider, child) {
         return SafeArea(
           child: Scaffold(
-            // backgroundColor: const Color(0xFFEFEFEF),
+            // backgroundColor: Colors.transparent,
             extendBody: true,
             body: Stack(
               children: [
-                // Container(
-                //   color: Color.fromARGB(255, 41, 41,
-                //       41), // Use same background color as `Scaffold`
-                // ),
-                SizedBox(
-                  height: DeviceDimensions.screenHeight(context),
-                  width: DeviceDimensions.screenWidth(context),
-                  child: ColorFiltered(
-                    colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(
-                          0.5), // You can change the color and opacity
-                      BlendMode.darken,
-                    ),
-                    child: Image.asset(
-                      "assets/images/homebackground8.jpeg",
-                      fit: BoxFit.cover,
-                    ),
+                ColorFiltered(
+                  colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(
+                        0.5), // You can change the color and opacity
+                    BlendMode.darken,
+                  ),
+                  child: Image.asset(
+                    "assets/images/homebackground8.jpeg",
+                    height: DeviceDimensions.screenHeight(context) * 1.2,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Stack(

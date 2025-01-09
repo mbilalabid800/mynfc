@@ -198,10 +198,18 @@ class AuthenticateProvider with ChangeNotifier {
         User? user = result['user'];
         bool isNew = result['isNew'];
 
+        if (await _isEmailRegisteredWithPassword(user!.email)) {
+          CustomSnackbar().snakBarError(
+            context,
+            'This email is already registered with an email/password account. Please use that method to log in.',
+          );
+          return;
+        }
+
         if (isNew) {
           // New user, save email and navigate to the User Info page
           Provider.of<UserInfoFormStateProvider>(context, listen: false)
-              .setEmail(user!.email ?? '');
+              .setEmail(user.email ?? '');
           Navigator.pushNamed(context, '/user-info');
         } else {
           // Returning user, navigate directly to the main screen
@@ -215,6 +223,19 @@ class AuthenticateProvider with ChangeNotifier {
       );
     } finally {
       setIsLoading = false;
+    }
+  }
+
+  Future<bool> _isEmailRegisteredWithPassword(String? email) async {
+    if (email == null || email.isEmpty) return false;
+
+    try {
+      final signInMethods =
+          await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+      return signInMethods.contains('password');
+    } catch (e) {
+      debugPrint('Error checking email sign-in methods: $e');
+      return false;
     }
   }
 }
