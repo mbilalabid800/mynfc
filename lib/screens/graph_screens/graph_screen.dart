@@ -173,7 +173,6 @@ class _GraphScreenState extends State<GraphScreen> {
               SizedBox(
                 height: DeviceDimensions.screenHeight(context) * 0.02,
               ),
-
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
@@ -185,23 +184,6 @@ class _GraphScreenState extends State<GraphScreen> {
                                 0.045,
                             fontWeight: FontWeight.w600))),
               ),
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8),
-              //   child: Align(
-              //       alignment: Alignment.centerLeft,
-              //       child: Text('Performance',
-              //           style: TextStyle(
-              //               fontSize: DeviceDimensions.responsiveSize(context) *
-              //                   0.045,
-              //               fontWeight: FontWeight.w600))),
-              // ),
-              // TimeFrameList(
-              //   onSelected: (selectedTimeFrame) {
-              //     // Handle the selected time frame here
-              //     debugPrint('Selected Time Frame: $selectedTimeFrame');
-              //   },
-              // ),
               SizedBox(
                 height: DeviceDimensions.screenHeight(context) * 0.02,
               ),

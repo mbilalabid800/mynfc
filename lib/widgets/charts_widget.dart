@@ -232,7 +232,7 @@ class FullViewsChart extends StatelessWidget {
                 leftTitles: AxisTitles(
                   sideTitles: SideTitles(
                     showTitles: true,
-                    interval: 1,
+                    interval: 10,
                     getTitlesWidget: (value, meta) {
                       return Text(
                         value.toInt().toString(),
