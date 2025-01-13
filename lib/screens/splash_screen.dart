@@ -60,7 +60,7 @@ class _SplashScreenState extends State<SplashScreen>
       end: Offset.zero, // Slide into position
     ).animate(CurvedAnimation(
       parent: _containerAnimationController,
-      curve: Curves.easeInOut,
+      curve: Curves.easeIn,
     ));
 
     // Start the animations
@@ -178,12 +178,12 @@ class _SplashScreenState extends State<SplashScreen>
                             incomingEffect: WidgetTransitionEffects
                                 .incomingSlideInFromRight(
                               duration: const Duration(milliseconds: 400),
-                              curve: Curves.easeInOut,
+                              curve: Curves.easeIn,
                             ),
                             outgoingEffect:
                                 WidgetTransitionEffects.outgoingSlideOutToLeft(
                               duration: const Duration(milliseconds: 400),
-                              curve: Curves.easeInOut,
+                              curve: Curves.easeOut,
                             ),
                             child: Text(
                               key: ValueKey<int>(provider.currentDot),

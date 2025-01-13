@@ -19,7 +19,7 @@ class SplashScreenProvider with ChangeNotifier {
       pageController.animateToPage(
         nextPage,
         duration: const Duration(milliseconds: 600),
-        curve: Curves.easeInOut,
+        curve: Curves.easeOut,
       );
     });
   }

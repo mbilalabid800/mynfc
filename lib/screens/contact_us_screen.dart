@@ -397,7 +397,11 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                 DeviceDimensions.screenHeight(context) * 0.030),
                         ElevatedButton(
                           onPressed: () {
-                            saveContactDetails();
+                            if (_formKey.currentState?.validate() ?? false) {
+                              saveContactDetails();
+                              // Proceed with form submission
+                            }
+                            //saveContactDetails();
                           },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
@@ -449,7 +453,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: const Color(0xFFD9D9D9)),
+                        border: Border.all(color: AppColors.appBlueColor),
                       ),
                       child: Row(
                         children: [
@@ -459,9 +463,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                 "assets/icons/email.svg"), // Email icon
                           ),
                           Text(
-                            "example@gmail.com",
+                            "info@sahabit.com",
                             style: TextStyle(
-                              color: const Color(0xFFA9A9A9),
+                              color: AppColors.appBlueColor,
                               fontFamily: 'Barlow-Regular',
                               fontWeight: FontWeight.w500,
                               fontSize:
@@ -481,7 +485,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: const Color(0xFFD9D9D9)),
+                        border: Border.all(color: AppColors.appBlueColor),
                       ),
                       child: Row(
                         children: [
@@ -490,9 +494,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             child: SvgPicture.asset("assets/icons/phone2.svg"),
                           ),
                           Text(
-                            "+968 123456789",
+                            "+968 91268766",
                             style: TextStyle(
-                              color: const Color(0xFFA9A9A9),
+                              color: AppColors.appBlueColor,
                               fontFamily: 'Barlow-Regular',
                               fontWeight: FontWeight.w500,
                               fontSize:
