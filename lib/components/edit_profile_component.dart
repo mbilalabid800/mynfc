@@ -39,7 +39,7 @@ class _EditProfileComponentState extends State<EditProfileComponent> {
   void initState() {
     super.initState();
     enableImmersiveStickyMode();
-    //_focusNode = FocusNode();
+    _focusNode = FocusNode();
   }
 
   @override
@@ -119,7 +119,7 @@ class _EditProfileComponentState extends State<EditProfileComponent> {
                                             context,
                                             listen: false)
                                         .updateFirstName(newValue);
-                                    _focusNode.unfocus();
+                                    //_focusNode.unfocus();
                                   } else if (widget.fieldKey == "last_name") {
                                     Provider.of<UserInfoFormStateProvider>(
                                             context,
@@ -131,31 +131,36 @@ class _EditProfileComponentState extends State<EditProfileComponent> {
                                             context,
                                             listen: false)
                                         .updateCompanyName(newValue);
-                                    _focusNode.unfocus();
+                                    //_focusNode.unfocus();
                                   } else if (widget.fieldKey == "designation") {
                                     Provider.of<UserInfoFormStateProvider>(
                                             context,
                                             listen: false)
                                         .updateDesignation(newValue);
-                                    _focusNode.unfocus();
+                                    //_focusNode.unfocus();
                                   } else if (widget.fieldKey == "bio") {
                                     Provider.of<UserInfoFormStateProvider>(
                                             context,
                                             listen: false)
                                         .updateBio(newValue);
-                                    _focusNode.unfocus();
+                                    //_focusNode.unfocus();
                                   } else if (widget.fieldKey == "country") {
                                     Provider.of<UserInfoFormStateProvider>(
                                             context,
                                             listen: false)
                                         .updateCountryName(newValue);
-                                    _focusNode.unfocus();
+                                    //_focusNode.unfocus();
                                   }
                                 },
                                 textInputAction: TextInputAction
                                     .done, // Arrow button behavior
                                 onSubmitted: (value) {
+                                  _focusNode.unfocus();
                                   _closeKeyboard(); // Close keyboard on arrow press
+                                },
+                                onEditingComplete: () {
+                                  _focusNode
+                                      .unfocus(); // Optionally unfocus when editing is complete
                                 },
                               )
                             : Text(
