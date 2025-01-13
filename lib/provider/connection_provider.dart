@@ -198,6 +198,9 @@ class ConnectionProvider with ChangeNotifier {
     }
   }
 
+  bool _isSearchEmpty = false;
+  bool get isSearchEmpty => _isSearchEmpty;
+
   void searchConnections(String query) {
     if (query.isEmpty) {
       resetSearch();
@@ -217,12 +220,17 @@ class ConnectionProvider with ChangeNotifier {
         return fullName.contains(query.toLowerCase());
       }).toList();
     }
+
+    _isSearchEmpty = _searchAddedConnections.isEmpty &&
+        _searchRecommendedConnections.isEmpty;
+
     notifyListeners();
   }
 
   void resetSearch() {
     _searchAddedConnections.clear();
     _searchRecommendedConnections.clear();
+    _isSearchEmpty = false;
     notifyListeners();
   }
 

@@ -74,6 +74,11 @@ class _RecentConnectedState extends State<RecentConnected> {
                                 Provider.of<ConnectionProvider>(context,
                                         listen: false)
                                     .searchConnections(query);
+                                if (query.isEmpty) {
+                                  Provider.of<ConnectionProvider>(context,
+                                          listen: false)
+                                      .resetSearch();
+                                }
                               },
                               decoration: InputDecoration(
                                 prefixIcon: Padding(
@@ -141,6 +146,19 @@ class _RecentConnectedState extends State<RecentConnected> {
                                   child: Center(
                                     child: Text(
                                       'No Connections are added',
+                                      style: TextStyle(
+                                          fontFamily: 'Barlow-Regular'),
+                                    ),
+                                  ),
+                                );
+                              }
+
+                              if (connectionProvider.isSearchEmpty) {
+                                return const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 40),
+                                  child: Center(
+                                    child: Text(
+                                      'Connection not found',
                                       style: TextStyle(
                                           fontFamily: 'Barlow-Regular'),
                                     ),
@@ -334,6 +352,19 @@ class _RecentConnectedState extends State<RecentConnected> {
                               child: Center(
                                 child: Text(
                                   'No more Connections are available',
+                                  style:
+                                      TextStyle(fontFamily: 'Barlow-Regular'),
+                                ),
+                              ),
+                            );
+                          }
+
+                          if (connectionProvider.isSearchEmpty) {
+                            return const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 40),
+                              child: Center(
+                                child: Text(
+                                  'Connection not found',
                                   style:
                                       TextStyle(fontFamily: 'Barlow-Regular'),
                                 ),
