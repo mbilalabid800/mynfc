@@ -65,6 +65,11 @@ class _RecentConnectedListState extends State<RecentConnectedList> {
                                 Provider.of<ConnectionProvider>(context,
                                         listen: false)
                                     .searchConnections(query);
+                                if (query.isEmpty) {
+                                  Provider.of<ConnectionProvider>(context,
+                                          listen: false)
+                                      .resetSearch();
+                                }
                               },
                               decoration: InputDecoration(
                                 prefixIcon: Padding(
@@ -123,6 +128,19 @@ class _RecentConnectedListState extends State<RecentConnectedList> {
                           ),
                         );
                       }
+
+                      if (connectionProvider.isSearchEmpty) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 40),
+                          child: Center(
+                            child: Text(
+                              'Connection not found',
+                              style: TextStyle(fontFamily: 'Barlow-Regular'),
+                            ),
+                          ),
+                        );
+                      }
+
                       return Expanded(
                         child: ListView.builder(
                           shrinkWrap: true,
