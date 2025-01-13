@@ -16,9 +16,9 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  late AnimationController _imageAnimationController;
+  //late AnimationController _imageAnimationController;
   late AnimationController _containerAnimationController;
-  late Animation<double> _scaleAnimation;
+  //late Animation<double> _scaleAnimation;
   late Animation<Offset> _containerSlideAnimation;
 
   final List<String> splashTexts = [
@@ -38,41 +38,41 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     enableImmersiveStickyMode();
 
-    _imageAnimationController = AnimationController(
-      duration: const Duration(seconds: 2),
-      vsync: this,
-    );
+    // _imageAnimationController = AnimationController(
+    //   duration: const Duration(seconds: 2),
+    //   vsync: this,
+    // );
 
     _containerAnimationController = AnimationController(
       duration: const Duration(seconds: 2), // Shorter duration for smoothness
       vsync: this,
     );
 
-    _scaleAnimation = Tween<double>(begin: 1.1, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _imageAnimationController,
-        curve: Curves.easeOut,
-      ),
-    );
+    // _scaleAnimation = Tween<double>(begin: 1.1, end: 1.0).animate(
+    //   CurvedAnimation(
+    //     parent: _imageAnimationController,
+    //     curve: Curves.easeOut,
+    //   ),
+    // );
 
     _containerSlideAnimation = Tween<Offset>(
       begin: const Offset(0, 1), // Start fully below the screen
       end: Offset.zero, // Slide into position
     ).animate(CurvedAnimation(
       parent: _containerAnimationController,
-      curve: Curves.easeIn,
+      curve: Curves.easeInCubic,
     ));
 
     // Start the animations
     _containerAnimationController.forward();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _imageAnimationController.forward();
+      //_imageAnimationController.forward();
     });
   }
 
   @override
   void dispose() {
-    _imageAnimationController.dispose();
+    //_imageAnimationController.dispose();
     _containerAnimationController.dispose();
     super.dispose();
   }
@@ -88,28 +88,40 @@ class _SplashScreenState extends State<SplashScreen>
               return PageView.builder(
                 controller: provider.pageController,
                 itemCount: splashImages.length,
+                physics: ClampingScrollPhysics(),
                 onPageChanged: (index) {
                   provider.setPage(index);
-                  _imageAnimationController.reset();
-                  _imageAnimationController.forward();
+                  // _imageAnimationController.reset();
+                  //_imageAnimationController.forward();
                 },
                 itemBuilder: (context, index) {
-                  return AnimatedBuilder(
-                    animation: _imageAnimationController,
-                    builder: (context, child) {
-                      return Transform.scale(
-                        scale: _scaleAnimation.value,
-                        child: SizedBox(
-                          height: DeviceDimensions.screenHeight(context),
-                          width: DeviceDimensions.screenWidth(context),
-                          child: Image.asset(
-                            splashImages[index],
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      );
-                    },
+                  return FadeTransition(
+                    opacity: AlwaysStoppedAnimation(1.0),
+                    child: SizedBox(
+                      height: DeviceDimensions.screenHeight(context),
+                      width: DeviceDimensions.screenWidth(context),
+                      child: Image.asset(
+                        splashImages[index],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   );
+                  // return AnimatedBuilder(
+                  //   animation: _imageAnimationController,
+                  //   builder: (context, child) {
+                  //     return Transform.scale(
+                  //       scale: _scaleAnimation.value,
+                  //       child: SizedBox(
+                  //         height: DeviceDimensions.screenHeight(context),
+                  //         width: DeviceDimensions.screenWidth(context),
+                  //         child: Image.asset(
+                  //           splashImages[index],
+                  //           fit: BoxFit.cover,
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  // );
                 },
               );
             },
