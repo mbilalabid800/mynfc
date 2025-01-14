@@ -119,12 +119,15 @@ class _SplashScreenState extends State<SplashScreen>
                 itemBuilder: (context, index) {
                   return FadeTransition(
                     opacity: AlwaysStoppedAnimation(1.0),
-                    child: SizedBox(
-                      height: DeviceDimensions.screenHeight(context),
-                      width: DeviceDimensions.screenWidth(context),
-                      child: Image.asset(
-                        splashImages[index],
-                        fit: BoxFit.cover,
+                    child: ScaleTransition(
+                      scale: _scaleAnimation,
+                      child: SizedBox(
+                        height: DeviceDimensions.screenHeight(context),
+                        width: DeviceDimensions.screenWidth(context),
+                        child: Image.asset(
+                          splashImages[index],
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   );

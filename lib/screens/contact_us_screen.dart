@@ -178,6 +178,14 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                               if (RegExp(r'[0-9]').hasMatch(value)) {
                                 return 'Full Name cannot contain numbers';
                               }
+                              // Check for special characters
+                              if (RegExp(r'[^a-zA-Z\s]').hasMatch(value)) {
+                                return 'Full Name cannot contain special characters';
+                              }
+                              // Check max length
+                              if (value.length > 25) {
+                                return 'Full Name cannot be longer than 25 characters';
+                              }
 
                               return null;
                             },
