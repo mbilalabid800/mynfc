@@ -79,7 +79,7 @@ class AddEmployeeWidget extends StatelessWidget {
               if (title.toLowerCase() == 'designation') {
                 // Check if the input contains only valid characters (letters and spaces in the middle)
                 if (!RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$').hasMatch(value)) {
-                  return 'Designation name must have charcaters';
+                  return 'Designation name must not have charcaters';
                 }
 
                 if (value.length < 3) {
@@ -94,7 +94,7 @@ class AddEmployeeWidget extends StatelessWidget {
               if (title.toLowerCase() == 'first name') {
                 // Check if the input contains only valid characters (letters and spaces in the middle)
                 if (!RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$').hasMatch(value)) {
-                  return 'First name must have charcaters';
+                  return 'First name must not have charcaters';
                 }
 
                 if (value.length < 2) {
@@ -108,7 +108,7 @@ class AddEmployeeWidget extends StatelessWidget {
 
               if (title.toLowerCase() == 'last name') {
                 if (!RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$').hasMatch(value)) {
-                  return 'Last name must have charcaters';
+                  return 'Last name must not have charcaters';
                 }
 
                 if (value.length < 2) {
