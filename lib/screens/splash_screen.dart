@@ -21,6 +21,11 @@ class _SplashScreenState extends State<SplashScreen>
   //late Animation<double> _scaleAnimation;
   late Animation<Offset> _containerSlideAnimation;
 
+  late AnimationController _imageAnimationController;
+  late Animation<Offset> _imageSlideAnimation;
+  late Animation<double> _fadeAnimation;
+  late Animation<double> _scaleAnimation;
+
   final List<String> splashTexts = [
     "Smart is your\nDigital Business\nCard",
     "Share your contact\ninfo & more Instantly\nWith NFC",
@@ -38,6 +43,23 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     enableImmersiveStickyMode();
 
+    _imageAnimationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+
+    _imageSlideAnimation = Tween<Offset>(
+      begin: const Offset(1.0, 0.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+        parent: _imageAnimationController, curve: Curves.easeOut));
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+            parent: _imageAnimationController, curve: Curves.easeOut));
+
+    _scaleAnimation = Tween<double>(begin: 0.95, end: 1.0).animate(
+        CurvedAnimation(
+            parent: _imageAnimationController, curve: Curves.easeOut));
+    _imageAnimationController.forward();
     // _imageAnimationController = AnimationController(
     //   duration: const Duration(seconds: 2),
     //   vsync: this,
@@ -91,8 +113,8 @@ class _SplashScreenState extends State<SplashScreen>
                 physics: ClampingScrollPhysics(),
                 onPageChanged: (index) {
                   provider.setPage(index);
-                  // _imageAnimationController.reset();
-                  //_imageAnimationController.forward();
+                  _imageAnimationController.reset();
+                  _imageAnimationController.forward();
                 },
                 itemBuilder: (context, index) {
                   return FadeTransition(
