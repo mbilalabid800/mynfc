@@ -40,7 +40,7 @@ class PricingPlanService {
         category: 'Teams',
         price: '6.00 ',
         currency: 'OMR',
-        assetImagePath: 'assets/icons/teamcard.png',
+        assetImagePath: 'assets/icons/cardpopular.png',
         description: 'per user, per year',
         features: [
           'Custom NFC Card',
@@ -67,7 +67,7 @@ class PricingPlanService {
         category: 'Companies',
         price: '5.50 ',
         currency: 'OMR',
-        assetImagePath: 'assets/icons/teamcard.png',
+        assetImagePath: 'assets/icons/cardpopular.png',
         description: '100+ users',
         features: [
           'Custom NFC Card',

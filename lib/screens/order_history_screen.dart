@@ -24,7 +24,11 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    Provider.of<OrderProvider>(context, listen: false).fetchOrders();
+    //Provider.of<OrderProvider>(context, listen: false).fetchOrders();
+    // Fetch orders after the first frame is rendered
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<OrderProvider>(context, listen: false).fetchOrders();
+    });
   }
 
   @override
@@ -52,7 +56,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (orderProvider.orders.isEmpty) {
-                      return const Center(child: Text('No orders found.'));
+                      return const Center(child: Text('No orderx found.'));
                     }
                     return TabBarView(
                       controller: _tabController,
@@ -83,6 +87,8 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
     }).toList();
 
     if (filteredOrders.isEmpty) {
+      debugPrint('No $orderHistory orders found for');
+
       return Center(child: Text('No $orderHistory orders found.'));
     }
 
