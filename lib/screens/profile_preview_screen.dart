@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/shared/utils/ui_mode_helper.dart';
 import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
@@ -33,6 +34,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: CustomAppBar(title: 'Profile'),
         backgroundColor: AppColors.screenBackground,
         body: SingleChildScrollView(
           child: Consumer2<UserInfoFormStateProvider, SocialAppProvider>(
@@ -42,18 +44,17 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                   Stack(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, right: 12),
-                        child: SizedBox(
-                          height: DeviceDimensions.screenHeight(context) * 0.35,
-                          width: DeviceDimensions.screenWidth(context),
-                          child: Image.asset(
-                            "assets/images/cardimage_graphscreen.png",
-                          ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                        ),
+                        child: Image.asset(
+                          "assets/images/cardimage_graphscreen.png",
+                          height: 250,
                         ),
                       ),
                       Positioned(
                         right: 30,
-                        top: 48,
+                        top: 58,
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, '/share-profile');
