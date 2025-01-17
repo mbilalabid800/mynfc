@@ -24,7 +24,11 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    Provider.of<OrderProvider>(context, listen: false).fetchOrders();
+    //Provider.of<OrderProvider>(context, listen: false).fetchOrders();
+    // Fetch orders after the first frame is rendered
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<OrderProvider>(context, listen: false).fetchOrders();
+    });
   }
 
   @override
@@ -52,7 +56,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (orderProvider.orders.isEmpty) {
-                      return const Center(child: Text('No orders found.'));
+                      return const Center(child: Text('No orderx found.'));
                     }
                     return TabBarView(
                       controller: _tabController,
@@ -83,6 +87,8 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
     }).toList();
 
     if (filteredOrders.isEmpty) {
+      debugPrint('No $orderHistory orders found for');
+
       return Center(child: Text('No $orderHistory orders found.'));
     }
 
@@ -93,70 +99,87 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6),
           child: Container(
-            width: DeviceDimensions.screenWidth(context) * 0.7,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.white,
-            ),
-            child: ListTile(
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                      width: DeviceDimensions.responsiveSize(context) * 0.15,
-                      height: DeviceDimensions.responsiveSize(context) * 0.16,
-                      child: order.cardImage != null
-                          ? Image.network(
-                              order.cardImage,
-                              width: DeviceDimensions.responsiveSize(context) *
-                                  0.1,
-                              height: DeviceDimensions.responsiveSize(context) *
-                                  0.1,
-                              fit: BoxFit.fitWidth,
-                            )
-                          : SmallThreeBounceLoader()),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Text('Name: ${order.cardName}',
-                            style: TextStyle(
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.035)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Text('Order ID: ${order.orderId}',
-                            style: TextStyle(
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.022)),
-                      ),
-                    ],
-                  ),
-                ],
-              ), // Handle null case for orderId
+              width: DeviceDimensions.screenWidth(context) * 0.7,
+              height: DeviceDimensions.screenHeight(context) * 0.14,
+              decoration: BoxDecoration(
+                border: Border.all(color: AppColors.appBlueColor),
+                borderRadius: BorderRadius.circular(12),
+                color: Colors.white,
+              ),
+              child: ListTile(
+                leading: SizedBox(
+                    width: DeviceDimensions.responsiveSize(context) * 0.26,
+                    height: DeviceDimensions.responsiveSize(context) * 0.28,
+                    child: order.cardImage != null
+                        ? Image.network(
+                            order.cardImage,
+                            // width:
+                            //     DeviceDimensions.responsiveSize(context) * 0.1,
+                            // height:
+                            //     DeviceDimensions.responsiveSize(context) * 0.1,
+                            // fit: BoxFit.fitWidth,
+                          )
+                        : SmallThreeBounceLoader()),
+              )
+              // child: ListTile(
+              //   title: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: [
+              //       SizedBox(
+              //           width: DeviceDimensions.responsiveSize(context) * 0.20,
+              //           height: DeviceDimensions.responsiveSize(context) * 0.22,
+              //           child: order.cardImage != null
+              //               ? Image.network(
+              //                   order.cardImage,
+              //                   width: DeviceDimensions.responsiveSize(context) *
+              //                       0.1,
+              //                   height: DeviceDimensions.responsiveSize(context) *
+              //                       0.1,
+              //                   fit: BoxFit.fitWidth,
+              //                 )
+              //               : SmallThreeBounceLoader()),
+              //       Column(
+              //         crossAxisAlignment: CrossAxisAlignment.start,
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           Padding(
+              //             padding: const EdgeInsets.only(left: 8.0),
+              //             child: Text('Name: ${order.cardName}',
+              //                 style: TextStyle(
+              //                     fontSize:
+              //                         DeviceDimensions.responsiveSize(context) *
+              //                             0.035)),
+              //           ),
+              //           // Padding(
+              //           //   padding: const EdgeInsets.only(left: 8.0),
+              //           //   child: Text('Order ID: ${order.orderId}',
+              //           //       style: TextStyle(
+              //           //           fontSize:
+              //           //               DeviceDimensions.responsiveSize(context) *
+              //           //                   0.022)),
+              //           // ),
+              //         ],
+              //       ),
+              //     ],
+              //   ), // Handle null case for orderId
 
-              trailing: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(' Amount ${order.orderPrice.toString()}',
-                      style: TextStyle(
-                          fontSize: DeviceDimensions.responsiveSize(context) *
-                              0.026)),
-                  Text('Status: ${order.orderHistory}',
-                      style: TextStyle(
-                          fontSize: DeviceDimensions.responsiveSize(context) *
-                              0.026)),
-                ],
-              ), // Handle null case for orderHistory
-            ),
-          ),
+              //   trailing: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.end,
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       Text(' Amount ${order.orderPrice.toString()}',
+              //           style: TextStyle(
+              //               fontSize: DeviceDimensions.responsiveSize(context) *
+              //                   0.026)),
+              //       Text('Status: ${order.orderHistory}',
+              //           style: TextStyle(
+              //               fontSize: DeviceDimensions.responsiveSize(context) *
+              //                   0.026)),
+              //     ],
+              //   ), // Handle null case for orderHistory
+              // ),
+              ),
         );
       },
     );

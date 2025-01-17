@@ -16,10 +16,15 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  late AnimationController _imageAnimationController;
+  //late AnimationController _imageAnimationController;
   late AnimationController _containerAnimationController;
-  late Animation<double> _scaleAnimation;
+  //late Animation<double> _scaleAnimation;
   late Animation<Offset> _containerSlideAnimation;
+
+  late AnimationController _imageAnimationController;
+  late Animation<Offset> _imageSlideAnimation;
+  late Animation<double> _fadeAnimation;
+  late Animation<double> _scaleAnimation;
 
   final List<String> splashTexts = [
     "Smart is your\nDigital Business\nCard",
@@ -38,41 +43,58 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     enableImmersiveStickyMode();
 
-    _imageAnimationController = AnimationController(
-      duration: const Duration(seconds: 2),
-      vsync: this,
-    );
+    _imageAnimationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+
+    _imageSlideAnimation = Tween<Offset>(
+      begin: const Offset(1.0, 0.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+        parent: _imageAnimationController, curve: Curves.easeOut));
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(
+            parent: _imageAnimationController, curve: Curves.easeOut));
+
+    _scaleAnimation = Tween<double>(begin: 0.95, end: 1.0).animate(
+        CurvedAnimation(
+            parent: _imageAnimationController, curve: Curves.easeOut));
+    _imageAnimationController.forward();
+    // _imageAnimationController = AnimationController(
+    //   duration: const Duration(seconds: 2),
+    //   vsync: this,
+    // );
 
     _containerAnimationController = AnimationController(
       duration: const Duration(seconds: 2), // Shorter duration for smoothness
       vsync: this,
     );
 
-    _scaleAnimation = Tween<double>(begin: 1.1, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _imageAnimationController,
-        curve: Curves.easeOut,
-      ),
-    );
+    // _scaleAnimation = Tween<double>(begin: 1.1, end: 1.0).animate(
+    //   CurvedAnimation(
+    //     parent: _imageAnimationController,
+    //     curve: Curves.easeOut,
+    //   ),
+    // );
 
     _containerSlideAnimation = Tween<Offset>(
       begin: const Offset(0, 1), // Start fully below the screen
       end: Offset.zero, // Slide into position
     ).animate(CurvedAnimation(
       parent: _containerAnimationController,
-      curve: Curves.easeInOut,
+      curve: Curves.easeInCubic,
     ));
 
     // Start the animations
     _containerAnimationController.forward();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _imageAnimationController.forward();
+      //_imageAnimationController.forward();
     });
   }
 
   @override
   void dispose() {
-    _imageAnimationController.dispose();
+    //_imageAnimationController.dispose();
     _containerAnimationController.dispose();
     super.dispose();
   }
@@ -88,28 +110,43 @@ class _SplashScreenState extends State<SplashScreen>
               return PageView.builder(
                 controller: provider.pageController,
                 itemCount: splashImages.length,
+                physics: ClampingScrollPhysics(),
                 onPageChanged: (index) {
                   provider.setPage(index);
                   _imageAnimationController.reset();
                   _imageAnimationController.forward();
                 },
                 itemBuilder: (context, index) {
-                  return AnimatedBuilder(
-                    animation: _imageAnimationController,
-                    builder: (context, child) {
-                      return Transform.scale(
-                        scale: _scaleAnimation.value,
-                        child: SizedBox(
-                          height: DeviceDimensions.screenHeight(context),
-                          width: DeviceDimensions.screenWidth(context),
-                          child: Image.asset(
-                            splashImages[index],
-                            fit: BoxFit.cover,
-                          ),
+                  return FadeTransition(
+                    opacity: AlwaysStoppedAnimation(1.0),
+                    child: ScaleTransition(
+                      scale: _scaleAnimation,
+                      child: SizedBox(
+                        height: DeviceDimensions.screenHeight(context),
+                        width: DeviceDimensions.screenWidth(context),
+                        child: Image.asset(
+                          splashImages[index],
+                          fit: BoxFit.cover,
                         ),
-                      );
-                    },
+                      ),
+                    ),
                   );
+                  // return AnimatedBuilder(
+                  //   animation: _imageAnimationController,
+                  //   builder: (context, child) {
+                  //     return Transform.scale(
+                  //       scale: _scaleAnimation.value,
+                  //       child: SizedBox(
+                  //         height: DeviceDimensions.screenHeight(context),
+                  //         width: DeviceDimensions.screenWidth(context),
+                  //         child: Image.asset(
+                  //           splashImages[index],
+                  //           fit: BoxFit.cover,
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  // );
                 },
               );
             },
@@ -178,12 +215,12 @@ class _SplashScreenState extends State<SplashScreen>
                             incomingEffect: WidgetTransitionEffects
                                 .incomingSlideInFromRight(
                               duration: const Duration(milliseconds: 400),
-                              curve: Curves.easeInOut,
+                              curve: Curves.easeIn,
                             ),
                             outgoingEffect:
                                 WidgetTransitionEffects.outgoingSlideOutToLeft(
                               duration: const Duration(milliseconds: 400),
-                              curve: Curves.easeInOut,
+                              curve: Curves.easeOut,
                             ),
                             child: Text(
                               key: ValueKey<int>(provider.currentDot),

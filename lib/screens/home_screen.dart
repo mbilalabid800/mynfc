@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, userProvider, connectionProvider, child) {
         return SafeArea(
           child: Scaffold(
-            // backgroundColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
             extendBody: true,
             body: Stack(
               children: [
@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     BlendMode.darken,
                   ),
                   child: Image.asset(
-                    "assets/images/homebackground8.jpeg",
+                    "assets/images/homebackground.png",
                     height: DeviceDimensions.screenHeight(context) * 1.2,
                     fit: BoxFit.cover,
                   ),
