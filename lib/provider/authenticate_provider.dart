@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
+import 'package:nfc_app/services/shared_preferences_service/shared_preferences_services.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +15,8 @@ class AuthenticateProvider with ChangeNotifier {
   final AuthService _authService = AuthService();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> signinFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
 
   // Private variables
   bool _isLoading = false;
@@ -93,9 +95,9 @@ class AuthenticateProvider with ChangeNotifier {
       String? email = prefs.getString('email');
       String? password = prefs.getString('password');
 
-      if (email != null && password != null) {
+      if (password != null) {
         final user =
-            await _authService.signInWithEmailPassword(email, password);
+            await _authService.signInWithEmailPassword(email!, password);
         if (user != null) {
           await _navigateBasedOnUserStatus(context, user);
         } else {
@@ -116,7 +118,7 @@ class AuthenticateProvider with ChangeNotifier {
   }
 
   Future<void> signInLogic(BuildContext context) async {
-    if (formKey.currentState!.validate()) {
+    if (signinFormKey.currentState!.validate()) {
       setIsLoading = true;
 
       try {
@@ -186,6 +188,39 @@ class AuthenticateProvider with ChangeNotifier {
     if (isRememberMe) {
       prefs.setString('email', emailController.text);
       prefs.setString('password', passwordController.text);
+    }
+  }
+
+//Register new account
+  Future<void> registerWithEmailPassword(
+      {required BuildContext context}) async {
+    if (registerFormKey.currentState!.validate()) {
+      setIsLoading = true;
+
+      try {
+        final email = emailController.text.trim();
+        final password = passwordController.text.trim();
+        final user =
+            await _authService.registerWithEmailPassword(email, password);
+
+        if (user != null) {
+          // Save email to shared preferences
+          SharedPreferencesServices prefsService = SharedPreferencesServices();
+          await prefsService.saveEmail(email);
+
+          // Navigate to the next screen
+          Navigator.pushReplacementNamed(context, '/user-info');
+        } else {
+          // Show error if registration fails
+          CustomSnackbar().snakBarError(
+              context, "Registration failed, Email already exists");
+        }
+      } catch (e) {
+        // Handle any exceptions during registration
+        CustomSnackbar().snakBarError(context, "Registration failed: $e");
+      } finally {
+        setIsLoading = false;
+      }
     }
   }
 

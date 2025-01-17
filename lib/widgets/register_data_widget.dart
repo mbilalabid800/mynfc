@@ -4,14 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/authenticate_provider.dart';
+import 'package:nfc_app/provider/password_validation_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:nfc_app/services/shared_preferences_service/shared_preferences_services.dart';
-import 'package:nfc_app/shared/utils/password_strength_helper.dart';
+import 'package:nfc_app/shared/common_widgets/my_textfield.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
-import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
 
 class RegisterData extends StatefulWidget {
@@ -22,105 +20,15 @@ class RegisterData extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterData> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  final AuthService _authService = AuthService();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool isLoading = false;
-  bool _isObscurePassword = true;
-  bool _isObscureConfirmPassword = true;
-  String _passwordStrength = '';
-  String _unmetCriterionMessage = '';
-  String? emailError;
-  // String password = '';
-
-  @override
-  void initState() {
-    super.initState();
-    emailController.addListener(() {
-      validateEmail(emailController.text);
-    });
-    passwordController.addListener(_checkPasswordStrength);
-    confirmPasswordController.addListener(_checkPasswordStrength);
-  }
-
-  void validateEmail(String value) {
-    setState(() {
-      if (value.isEmpty) {
-        //emailError = 'Please enter your email';
-      } else {
-        final emailPattern = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-        if (!emailPattern.hasMatch(value)) {
-          emailError = 'Please enter a valid email address';
-        } else {
-          emailError = null;
-        }
-      }
-    });
-  }
-
-  void _checkPasswordStrength() {
-    setState(() {
-      _passwordCriteria =
-          evaluatePasswordCriteria(passwordController.text.trim());
-      _passwordStrength = evaluatePasswordStrength(_passwordCriteria);
-      _unmetCriterionMessage = getFirstUnmetCriterion(_passwordCriteria);
-    });
-  }
+  FocusNode emailFocusNode = FocusNode();
 
   @override
   void dispose() {
-    passwordController.removeListener(_checkPasswordStrength);
-    passwordController.dispose();
-    //confirmPasswordController.removeListener(_checkPasswordStrength);
+    emailFocusNode.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
-
-  Future<void> registerLogic() async {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        isLoading = true;
-      });
-      final email = emailController.text.trim();
-      final password = passwordController.text.trim();
-      //final confirmPassword = confirmPasswordController.text.trim();
-
-      try {
-        final user = await _authService.registerWithEmailPassword(
-          email,
-          password,
-        );
-
-        if (user != null) {
-          Provider.of<UserInfoFormStateProvider>(context, listen: false)
-              .setEmail(email);
-
-          SharedPreferencesServices prefsService = SharedPreferencesServices();
-          await prefsService.saveEmail(email);
-
-          Navigator.pushReplacementNamed(context, '/user-info');
-        } else {
-          CustomSnackbar().snakBarError(
-              context, "Registration failed, Email already exists");
-        }
-      } catch (e) {
-        CustomSnackbar().snakBarError(context, "Registration failed: $e");
-      } finally {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    }
-  }
-
-  Map<String, bool> _passwordCriteria = {
-    'length': false,
-    'uppercase': false,
-    'lowercase': false,
-    'numbers': false,
-    'specialChars': false,
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -141,288 +49,99 @@ class _RegisterFormState extends State<RegisterData> {
                           height:
                               DeviceDimensions.screenHeight(context) * 0.035),
                       Form(
-                        key: _formKey,
-                        child: Column(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 25),
-                              child: TextFormField(
-                                style: TextStyle(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.0026),
-                                controller: emailController,
-                                // autovalidateMode:
-                                //     AutovalidateMode.onUserInteraction,
-                                decoration: InputDecoration(
-                                  hintText: "Email",
-                                  hintStyle: const TextStyle(
-                                    color: Color(0xFFA9A9A9),
-                                    fontFamily: 'Barlow-Regular',
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  prefixIcon: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: SvgPicture.asset(
-                                        "assets/icons/email.svg"),
-                                  ),
-                                  errorText: emailError,
-                                  errorStyle: const TextStyle(
-                                    color: AppColors
-                                        .errorColor, // Color of the error text
-                                    fontSize: 14.0, // Size of the error text
-                                    // fontWeight: FontWeight
-                                    //     .bold, // Weight of the error text
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 11, horizontal: 10),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: const BorderSide(
-                                        color: AppColors.textFieldBorder),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: const BorderSide(
-                                          color:
-                                              AppColors.errorFieldBorderColor)),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: const BorderSide(
-                                          color:
-                                              AppColors.errorFieldBorderColor)),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: const BorderSide(
-                                        color: AppColors.appBlueColor),
-                                  ),
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter your email';
-                                  }
-                                  final emailPattern = RegExp(
-                                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                                  if (!emailPattern.hasMatch(value)) {
-                                    return 'Please enter a valid email address';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.020),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 25),
-                              child: TextFormField(
-                                style: TextStyle(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.0026),
-                                controller: passwordController,
-                                obscureText: _isObscurePassword,
-                                onChanged: (password) {
-                                  _checkPasswordStrength();
-                                },
-                                decoration: InputDecoration(
-                                  hintText: "Password",
-                                  hintStyle: const TextStyle(
-                                    color: Color(0xFFA9A9A9),
-                                    fontFamily: 'Barlow-Regular',
-                                    fontWeight: FontWeight.w500,
-                                  ),
-
-                                  //helperText: 'Password Strength: $_passwordStrength',
-                                  prefixIcon: Padding(
-                                    padding: const EdgeInsets.all(13.0),
-                                    child: SvgPicture.asset(
-                                        "assets/icons/password.svg"),
-                                  ),
-                                  suffixIcon: IconButton(
-                                    icon: Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 10.0),
-                                      child: Icon(
-                                        _isObscurePassword
-                                            ? Icons.visibility_off
-                                            : Icons.visibility,
-                                        color: const Color(0xFFA9A9A9),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        _isObscurePassword =
-                                            !_isObscurePassword;
-                                      });
+                        key: authProvider.registerFormKey,
+                        child: Consumer2<UserInfoFormStateProvider,
+                            PasswordValidationProvider>(
+                          builder: (context, userInfoFormStateProvider,
+                              passwordValidationProvider, child) {
+                            return Column(
+                              children: [
+                                MyTextfield(
+                                    controller: authProvider.emailController,
+                                    hintText: 'Email',
+                                    iconPath: 'assets/icons/email.svg',
+                                    errorText:
+                                        userInfoFormStateProvider.emailError,
+                                    onChanged: (value) {
+                                      userInfoFormStateProvider
+                                          .validateEmail(value);
                                     },
-                                  ),
-                                  // errorText: ,
-                                  errorStyle: const TextStyle(
-                                    color: AppColors
-                                        .errorColor, // Color of the error text
-                                    fontSize: 14.0, // Size of the error text
-                                    // fontWeight: FontWeight
-                                    //     .bold, // Weight of the error text
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 11, horizontal: 10),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: const BorderSide(
-                                        color: AppColors.textFieldBorder),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: const BorderSide(
-                                        color: AppColors.appBlueColor),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: const BorderSide(
-                                          color:
-                                              AppColors.errorFieldBorderColor)),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: const BorderSide(
-                                          color:
-                                              AppColors.errorFieldBorderColor)),
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter Password';
-                                  }
-                                  if (value.length < 8) {
-                                    return 'Password must be at least 8 characters long';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            if (_unmetCriterionMessage.isNotEmpty)
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 8.0, left: 35),
-                                  child: Text(
-                                    _unmetCriterionMessage,
-                                    style: const TextStyle(
-                                      color: AppColors.errorColor,
-                                      // Color of the error text
-                                      fontSize: 14.0, // Size of the error text
-                                      //fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            SizedBox(
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.020),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 25),
-                              child: TextFormField(
-                                style: TextStyle(
+                                    validator: (value) {
+                                      if (value?.isEmpty ?? true) {
+                                        return 'Please enter an email address';
+                                      }
+                                      return userInfoFormStateProvider
+                                          .emailError;
+                                    }),
+                                SizedBox(
                                     height:
                                         DeviceDimensions.screenHeight(context) *
-                                            0.0026),
-                                controller: confirmPasswordController,
-                                obscureText: _isObscureConfirmPassword,
-                                onChanged: (password) {
-                                  //_checkPasswordStrength();
-                                  // Update _passwordStrength based on your logic
-                                  setState(() {
-                                    _checkPasswordStrength();
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                  hintText: "Confirm Password",
-                                  hintStyle: const TextStyle(
-                                    color: Color(0xFFA9A9A9),
-                                    fontFamily: 'Barlow-Regular',
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  prefixIcon: Padding(
-                                    padding: const EdgeInsets.all(13.0),
-                                    child: SvgPicture.asset(
-                                        "assets/icons/password.svg"),
-                                  ),
-                                  suffixIcon: IconButton(
-                                    icon: Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 10.0),
-                                      child: Icon(
-                                        _isObscureConfirmPassword
-                                            ? Icons.visibility_off
-                                            : Icons.visibility,
-                                        color: const Color(0xFFA9A9A9),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        _isObscureConfirmPassword =
-                                            !_isObscureConfirmPassword;
-                                      });
-                                    },
-                                  ),
-                                  errorStyle: const TextStyle(
-                                    color: AppColors
-                                        .errorColor, // Color of the error text
-                                    fontSize: 14.0, // Size of the error text
-                                    // fontWeight: FontWeight
-                                    //     .bold, // Weight of the error text
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 11, horizontal: 10),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: const BorderSide(
-                                        color: AppColors.textFieldBorder),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: const BorderSide(
-                                          color:
-                                              AppColors.errorFieldBorderColor)),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: const BorderSide(
-                                          color:
-                                              AppColors.errorFieldBorderColor)),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: const BorderSide(
-                                        color: AppColors.appBlueColor),
-                                  ),
+                                            0.020),
+                                MyTextfield(
+                                  controller: authProvider.passwordController,
+                                  hintText: 'Password',
+                                  iconPath: 'assets/icons/password.svg',
+                                  isPasswordField: true,
+                                  passwordVisibilityNotifier: ValueNotifier(
+                                      passwordValidationProvider
+                                          .isObscurePassword),
+                                  errorText: passwordValidationProvider
+                                          .unmetCriterionMessage.isEmpty
+                                      ? null
+                                      : passwordValidationProvider
+                                          .unmetCriterionMessage,
+                                  onChanged: (password) {
+                                    passwordValidationProvider
+                                        .checkPasswordStrength(password);
+                                  },
+                                  validator: (value) {
+                                    if (value?.isEmpty ?? true) {
+                                      return 'Please enter an password';
+                                    }
+                                    return passwordValidationProvider
+                                        .unmetCriterionMessage;
+                                  },
                                 ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please confirm your password';
-                                  }
-                                  // if (value.length < 8) {
-                                  //   return 'Password must be at least 8 characters long';
-                                  // }
-                                  if (value != passwordController.text.trim()) {
-                                    return 'Passwords do not match';
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.020),
-                          ],
+                                SizedBox(
+                                    height:
+                                        DeviceDimensions.screenHeight(context) *
+                                            0.020),
+                                MyTextfield(
+                                  controller: confirmPasswordController,
+                                  hintText: 'Confirm Password',
+                                  iconPath: 'assets/icons/password.svg',
+                                  isPasswordField: true,
+                                  passwordVisibilityNotifier: ValueNotifier(
+                                    passwordValidationProvider
+                                        .isObscureConfirmPassword,
+                                  ),
+                                  errorText: passwordValidationProvider
+                                          .confirmPasswordErrorMessage.isEmpty
+                                      ? null
+                                      : passwordValidationProvider
+                                          .confirmPasswordErrorMessage,
+                                  onChanged: (password) {
+                                    passwordValidationProvider
+                                        .checkConfirmPassword(
+                                            authProvider
+                                                .passwordController.text,
+                                            password);
+                                  },
+                                  validator: (value) {
+                                    if (value?.isEmpty ?? true) {
+                                      return 'Please enter confirm password';
+                                    }
+                                    return passwordValidationProvider
+                                        .confirmPasswordErrorMessage;
+                                  },
+                                ),
+                                SizedBox(
+                                    height:
+                                        DeviceDimensions.screenHeight(context) *
+                                            0.020),
+                              ],
+                            );
+                          },
                         ),
                       ),
                       SizedBox(
@@ -433,36 +152,9 @@ class _RegisterFormState extends State<RegisterData> {
                         height: DeviceDimensions.screenHeight(context) * 0.06,
                         child: ElevatedButton(
                           onPressed: () {
-                            if (emailController.text.isEmpty) {
-                              CustomSnackbar().snakBarError(
-                                context,
-                                "Please enter an email",
-                              );
-                            } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
-                                .hasMatch(emailController.text)) {
-                              CustomSnackbar().snakBarError(
-                                context,
-                                "Please enter a valid email",
-                              );
-                            } else if (_passwordStrength != 'Strong') {
-                              CustomSnackbar().snakBarError(
-                                context,
-                                "Please use a stronger password",
-                              );
-                            } else {
-                              registerLogic();
-                            }
+                            authProvider.registerWithEmailPassword(
+                                context: context);
                           },
-                          // onPressed: () {
-                          //   if (_passwordStrength == 'Strong') {
-                          //     registerLogic();
-                          //   } else {
-                          //     ScaffoldMessenger.of(context).showSnackBar(
-                          //         const SnackBar(
-                          //             content: Text(
-                          //                 'Please use a stronger password')));
-                          //   }
-                          // },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.buttonColor,
                             shape: RoundedRectangleBorder(
@@ -618,7 +310,7 @@ class _RegisterFormState extends State<RegisterData> {
             );
           },
         ),
-        if (isLoading)
+        if (authProvider.isLoading)
           Container(
             color: Colors.white54,
             child: Center(child: DualRingLoader()),
