@@ -111,12 +111,12 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                   0.020),
                           Column(
                             children: [
-                              deliveryMethod(context,
-                                  'Pick from nearby machine', provider),
-                              SizedBox(
-                                  height:
-                                      DeviceDimensions.screenHeight(context) *
-                                          0.015),
+                              // deliveryMethod(context,
+                              //     'Pick from nearby machine', provider),
+                              // SizedBox(
+                              //     height:
+                              //         DeviceDimensions.screenHeight(context) *
+                              //             0.015),
                               deliveryMethod(context,
                                   'Deliver to shipping address', provider),
                             ],
@@ -363,7 +363,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                         ),
                       ),
                       child: Text(
-                        "Pay Online",
+                        "Checkout",
                         style: TextStyle(
                           fontSize:
                               DeviceDimensions.responsiveSize(context) * 0.048,

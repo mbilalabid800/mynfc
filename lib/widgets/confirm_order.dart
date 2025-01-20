@@ -69,7 +69,7 @@ class ConfirmOrder {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       child: Text(
-                        "Are you ready to confirm  your order and payment or cancel it.",
+                        "Are you ready to confirm  your order ?",
                         style: TextStyle(
                           fontFamily: 'Barlow-Regular',
                           fontWeight: FontWeight.w500,
@@ -108,7 +108,7 @@ class ConfirmOrder {
                           padding: EdgeInsets.zero,
                         ),
                         child: Text(
-                          "Yes, Confirm & Pay",
+                          "Yes, Confirm",
                           style: TextStyle(
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.040,

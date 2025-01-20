@@ -27,7 +27,7 @@ class PaymentSuccessful {
                     SizedBox(
                         height: DeviceDimensions.screenHeight(context) * 0.010),
                     Text(
-                      "Payment Successful",
+                      "Order Placed",
                       style: TextStyle(
                         fontFamily: 'Barlow-Bold',
                         fontWeight: FontWeight.w600,
@@ -41,7 +41,7 @@ class PaymentSuccessful {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       child: Text(
-                        "Your Payment for the Order# $orderId has been successful.",
+                        "Your Order# $orderId has been placed successfully.",
                         style: TextStyle(
                             fontFamily: 'Barlow-Regular',
                             fontWeight: FontWeight.w500,
