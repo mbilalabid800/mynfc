@@ -108,7 +108,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                           ),
                           SizedBox(
                               height: DeviceDimensions.screenHeight(context) *
-                                  0.020),
+                                  0.025),
                           Column(
                             children: [
                               // deliveryMethod(context,
@@ -133,17 +133,17 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                       padding: EdgeInsets.only(
                           top: DeviceDimensions.screenHeight(context) * 0.020),
                       child: deliveryAddressContainer(context),
-                    )
-                  else if (provider.selectedMethod ==
-                      'Pick from nearby machine')
-                    //comment out if the pick up from machine is required
-                    // Padding(
-                    //   padding: EdgeInsets.only(
-                    //       top: DeviceDimensions.screenHeight(context) * 0.020),
-                    //   child: chooseMachineContainer(context),
-                    // ),
-                    SizedBox(
-                        height: DeviceDimensions.screenHeight(context) * 0.025),
+                    ),
+                  // else if (provider.selectedMethod ==
+                  //     'Pick from nearby machine')
+                  //comment out if the pick up from machine is required
+                  // Padding(
+                  //   padding: EdgeInsets.only(
+                  //       top: DeviceDimensions.screenHeight(context) * 0.020),
+                  //   child: chooseMachineContainer(context),
+                  // ),
+                  SizedBox(
+                      height: DeviceDimensions.screenHeight(context) * 0.025),
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
                     width: DeviceDimensions.screenWidth(context) * 0.90,

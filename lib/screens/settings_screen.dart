@@ -421,16 +421,16 @@ class _SettingsState extends State<Settings> {
                                       context, '/order-history-screen');
                                 },
                               ),
-                              SettingListComponent(
-                                icons: "assets/icons/settingicon5.svg",
-                                title: "Add Employees",
-                                showDivider: true,
-                                callBack: () {
-                                  //dummy link
-                                  Navigator.pushNamed(
-                                      context, '/add-employees');
-                                },
-                              ),
+                              if (userProvider.selectedItem != 'Individual')
+                                SettingListComponent(
+                                  icons: "assets/icons/settingicon5.svg",
+                                  title: "Add Employees",
+                                  showDivider: true,
+                                  callBack: () {
+                                    Navigator.pushNamed(
+                                        context, '/add-employees');
+                                  },
+                                ),
                               SettingListComponent(
                                 icons: "assets/icons/settingicon8.svg",
                                 title: "Manage Subscriptions",

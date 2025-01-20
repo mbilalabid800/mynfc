@@ -13,8 +13,12 @@ import 'biometric_handler_provider.dart';
 
 class AuthenticateProvider with ChangeNotifier {
   final AuthService _authService = AuthService();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController signinEmailController = TextEditingController();
+  final TextEditingController signinPasswordController =
+      TextEditingController();
+  final TextEditingController registerEmailController = TextEditingController();
+  final TextEditingController registerPasswordController =
+      TextEditingController();
   final GlobalKey<FormState> signinFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
 
@@ -53,7 +57,7 @@ class AuthenticateProvider with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setRememberMe = prefs.getBool('rememberMe') ?? false;
     if (isRememberMe) {
-      emailController.text = prefs.getString('email') ?? '';
+      signinEmailController.text = prefs.getString('email') ?? '';
     }
   }
 
@@ -122,8 +126,8 @@ class AuthenticateProvider with ChangeNotifier {
       setIsLoading = true;
 
       try {
-        final email = emailController.text.trim();
-        final password = passwordController.text.trim();
+        final email = signinEmailController.text.trim();
+        final password = signinPasswordController.text.trim();
         final user =
             await _authService.signInWithEmailPassword(email, password);
 
@@ -186,8 +190,8 @@ class AuthenticateProvider with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('rememberMe', isRememberMe);
     if (isRememberMe) {
-      prefs.setString('email', emailController.text);
-      prefs.setString('password', passwordController.text);
+      prefs.setString('email', signinEmailController.text);
+      prefs.setString('password', signinPasswordController.text);
     }
   }
 
@@ -198,8 +202,8 @@ class AuthenticateProvider with ChangeNotifier {
       setIsLoading = true;
 
       try {
-        final email = emailController.text.trim();
-        final password = passwordController.text.trim();
+        final email = registerEmailController.text.trim();
+        final password = registerPasswordController.text.trim();
         final user =
             await _authService.registerWithEmailPassword(email, password);
 

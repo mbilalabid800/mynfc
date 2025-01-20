@@ -54,7 +54,7 @@ class _SigninDataState extends State<SigninData> {
                                   height:
                                       DeviceDimensions.screenHeight(context) *
                                           0.0026),
-                              controller: authProvider.emailController,
+                              controller: authProvider.signinEmailController,
                               decoration: InputDecoration(
                                 hintText: "Email",
                                 hintStyle: const TextStyle(
@@ -124,7 +124,7 @@ class _SigninDataState extends State<SigninData> {
                                 height: DeviceDimensions.screenHeight(context) *
                                     0.0026,
                               ),
-                              controller: authProvider.passwordController,
+                              controller: authProvider.signinPasswordController,
                               obscureText: authProvider.isObscure,
                               decoration: InputDecoration(
                                 hintText: "Password",
@@ -223,8 +223,9 @@ class _SigninDataState extends State<SigninData> {
                             onTap: () {
                               Provider.of<ForgetPasswordEmailProvider>(context,
                                       listen: false)
-                                  .setEmail(
-                                      authProvider.emailController.text.trim());
+                                  .setEmail(authProvider
+                                      .signinEmailController.text
+                                      .trim());
                               // Navigator.pushNamed(context, "/forget-password");
                               Navigator.pushNamed(context, "/forget-password");
                             },
