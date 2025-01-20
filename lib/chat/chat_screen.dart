@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -16,18 +17,19 @@ class _ChatScreenState extends State<ChatScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.screenBackground,
-        appBar: AppBar(
-          toolbarHeight: 80,
-          backgroundColor: AppColors.screenBackground,
-          title: Center(
-            child: Text('Chats',
-                style: TextStyle(
-                    fontFamily: 'Barlow-Regular',
-                    fontSize: DeviceDimensions.responsiveSize(context) * 0.055,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.appBlueColor)),
-          ),
-        ),
+        appBar: NavBar_AppBar(title: 'Chats'),
+        // appBar: AppBar(
+        //   toolbarHeight: 80,
+        //   backgroundColor: AppColors.screenBackground,
+        //   title: Center(
+        //     child: Text('Chats',
+        //         style: TextStyle(
+        //             fontFamily: 'Barlow-Regular',
+        //             fontSize: DeviceDimensions.responsiveSize(context) * 0.055,
+        //             fontWeight: FontWeight.w600,
+        //             color: AppColors.appBlueColor)),
+        //   ),
+        // ),
         //floating button
         // floatingActionButton: FloatingActionButton(
         //   onPressed: () {
