@@ -5,8 +5,8 @@ class PasswordValidationProvider with ChangeNotifier {
   bool isObscurePassword = true;
   bool isObscureConfirmPassword = true;
   String passwordStrength = '';
-  String unmetCriterionMessage = '';
-  String confirmPasswordErrorMessage = '';
+  String? unmetCriterionMessage;
+  String? confirmPasswordErrorMessage;
 
   Map<String, bool> passwordCriteria = {
     'length': false,
@@ -28,20 +28,27 @@ class PasswordValidationProvider with ChangeNotifier {
 
   void checkPasswordStrength(String password) {
     if (password.isEmpty) {
-      unmetCriterionMessage = '';
+      unmetCriterionMessage = 'Password cannot be empty';
     } else {
       passwordCriteria = evaluatePasswordCriteria(password.trim());
       passwordStrength = evaluatePasswordStrength(passwordCriteria);
       unmetCriterionMessage = getFirstUnmetCriterion(passwordCriteria);
+
+      // If all criteria are met, set the error message to null
+      if (unmetCriterionMessage == '') {
+        unmetCriterionMessage = null;
+      }
     }
     notifyListeners();
   }
 
   void checkConfirmPassword(String password, String confirmPassword) {
-    if (password != confirmPassword) {
+    if (password.isEmpty || confirmPassword.isEmpty) {
+      confirmPasswordErrorMessage = 'Confirm password cannot be empty';
+    } else if (password != confirmPassword) {
       confirmPasswordErrorMessage = 'Passwords do not match';
     } else {
-      confirmPasswordErrorMessage = '';
+      confirmPasswordErrorMessage = null; // Set to null when valid
     }
     notifyListeners();
   }

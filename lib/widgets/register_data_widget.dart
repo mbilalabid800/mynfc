@@ -57,7 +57,8 @@ class _RegisterFormState extends State<RegisterData> {
                             return Column(
                               children: [
                                 MyTextfield(
-                                    controller: authProvider.emailController,
+                                    controller:
+                                        authProvider.registerEmailController,
                                     hintText: 'Email',
                                     iconPath: 'assets/icons/email.svg',
                                     errorText:
@@ -78,7 +79,8 @@ class _RegisterFormState extends State<RegisterData> {
                                         DeviceDimensions.screenHeight(context) *
                                             0.020),
                                 MyTextfield(
-                                  controller: authProvider.passwordController,
+                                  controller:
+                                      authProvider.registerPasswordController,
                                   hintText: 'Password',
                                   iconPath: 'assets/icons/password.svg',
                                   isPasswordField: true,
@@ -86,10 +88,7 @@ class _RegisterFormState extends State<RegisterData> {
                                       passwordValidationProvider
                                           .isObscurePassword),
                                   errorText: passwordValidationProvider
-                                          .unmetCriterionMessage.isEmpty
-                                      ? null
-                                      : passwordValidationProvider
-                                          .unmetCriterionMessage,
+                                      .unmetCriterionMessage,
                                   onChanged: (password) {
                                     passwordValidationProvider
                                         .checkPasswordStrength(password);
@@ -116,15 +115,13 @@ class _RegisterFormState extends State<RegisterData> {
                                         .isObscureConfirmPassword,
                                   ),
                                   errorText: passwordValidationProvider
-                                          .confirmPasswordErrorMessage.isEmpty
-                                      ? null
-                                      : passwordValidationProvider
-                                          .confirmPasswordErrorMessage,
+                                      .confirmPasswordErrorMessage,
                                   onChanged: (password) {
                                     passwordValidationProvider
                                         .checkConfirmPassword(
                                             authProvider
-                                                .passwordController.text,
+                                                .registerPasswordController
+                                                .text,
                                             password);
                                   },
                                   validator: (value) {
