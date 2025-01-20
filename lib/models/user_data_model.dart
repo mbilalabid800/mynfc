@@ -17,6 +17,8 @@ class UserDataModel {
   bool isPrivate;
   final Timestamp timeStamp;
   bool connectionTypeAll;
+  bool isCardOrdered;
+
   // int profileViews;
   bool isBlocked;
   int viewCount;
@@ -38,6 +40,7 @@ class UserDataModel {
     required this.isPrivate,
     required this.timeStamp,
     required this.connectionTypeAll,
+    this.isCardOrdered = false,
     // this.profileViews = 0,
     this.isBlocked = false,
     this.viewCount = 0,
@@ -65,6 +68,7 @@ class UserDataModel {
       // profileViews: data['profileViews'] ?? 0,
       isBlocked: data['isBlocked'] ?? false,
       viewCount: data['viewCount'] ?? 0,
+      isCardOrdered: data['isCardOrdered'] ?? false,
     );
   }
   Map<String, dynamic> toMap() {
@@ -87,7 +91,8 @@ class UserDataModel {
       'connectionTypeAll': connectionTypeAll,
       // 'profileViews': profileViews,
       'isBlocked': isBlocked,
-      'viewCount': viewCount
+      'viewCount': viewCount,
+      'isCardOrdered': isCardOrdered,
     };
   }
 }

@@ -37,6 +37,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   bool _connectionTypeAll = true;
   bool _isBlocked = false;
   final _subscriptionPlan = '';
+  bool _isCardOrdered = false;
 
   // Getters
   String get firstName => _firstName;
@@ -56,6 +57,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String get bio => _bio;
   bool get isPrivate => _isPrivate;
   bool get isBlocked => _isBlocked;
+  bool get isCardOrdered => _isCardOrdered;
   String get currentEditingField => _currentEditingField;
   String? get firstNameError => _firstNameError;
   String? get lastNameError => _lastNameError;
@@ -65,6 +67,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? get designationError => _designationError;
   String? get cityNameError => _cityNameError;
   int get totalViews => _totalViews;
+
   String? get subscriptionPlan => _subscriptionPlan;
 
   bool get isNameFormValid =>
@@ -315,6 +318,18 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateIsCardOrdered(bool isCardOrdered) async {
+    notifyListeners();
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      await FirebaseFirestore.instance.collection("users").doc(uid).update({
+        'isCardOrdered': isCardOrdered ? true : false,
+      });
+    }
+    _isCardOrdered = isCardOrdered;
+    notifyListeners();
+  }
+
   Future<void> saveUserData() async {
     final user = FirebaseAuth.instance.currentUser;
     SharedPreferencesServices prefsService = SharedPreferencesServices();
@@ -342,7 +357,8 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'timeStamp': Timestamp.now(),
           'connectionTypeAll': _connectionTypeAll,
           'isBlocked': _isBlocked,
-          'subscriptionPlan': 'Free'
+          'isCardOrdered': _isCardOrdered,
+          'subscriptionPlan': 'Free',
         });
 
         // Second action: Save user's email in the main 'users' collection
@@ -443,10 +459,10 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           _selectedItem = userData.businessType;
           _countryName =
               userData.countryName.isEmpty ? '' : userData.countryName;
-          _bio = userData.bio.isEmpty
-              ? 'What Software Quality Assurance Engineers and Testers Do. Design test plans, scenarios, scripts, or procedures. Document software defects, using a bug tracking system, and report defects to software developers. Identify, analyze, and document problems with program function, output, online screen, or content.'
-              : userData.bio;
+          _bio =
+              userData.bio.isEmpty ? 'Write about yourself ...' : userData.bio;
           _isPrivate = userData.isPrivate;
+          _isCardOrdered = userData.isCardOrdered;
           // _profileViews = userData.profileViews;
           _isBlocked = userData.isBlocked;
 

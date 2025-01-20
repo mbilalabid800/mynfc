@@ -9,9 +9,17 @@ class OrderProvider with ChangeNotifier {
   OrderModel? _currentOrder;
   OrderModel? get currentOrder => _currentOrder;
   bool isLoading = false;
+  // bool _isNfcCardOrdered = false;
+
   // List to store fetched orders
   List<OrderModel> _orders = [];
   List<OrderModel> get orders => _orders;
+  // bool get isNfcCardOrdered => _isNfcCardOrdered;
+
+  // void setOrderStatus(bool status) {
+  //   _isNfcCardOrdered = status;
+  //   notifyListeners();
+  // }
 
   Future<void> placeOrder(OrderModel order) async {
     isLoading = true;

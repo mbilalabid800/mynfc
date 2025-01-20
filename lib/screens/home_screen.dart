@@ -10,6 +10,7 @@ import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:nfc_app/services/firestore_service/firestore_service.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:nfc_app/widgets/blocked_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/horizontal_scroll_app_list_widget.dart';
@@ -539,44 +540,88 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   context) *
                                               0.020),
                                       //upgrade now
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, '/pricing-plan');
-                                        },
-                                        child: Container(
-                                          height: DeviceDimensions.screenHeight(
-                                                  context) *
-                                              0.06,
-                                          width: DeviceDimensions.screenWidth(
-                                                  context) *
-                                              0.48,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(22),
+                                      if (userProvider.isCardOrdered)
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                                context, '/pricing-plan');
+                                          },
+                                          child: Container(
+                                            height:
+                                                DeviceDimensions.screenHeight(
+                                                        context) *
+                                                    0.06,
+                                            width: DeviceDimensions.screenWidth(
+                                                    context) *
+                                                0.48,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(22),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SvgPicture.asset(
+                                                    "assets/icons/diamond.svg"),
+                                                // Image.asset("assets/images/upgrade.png"),
+                                                const SizedBox(width: 10),
+                                                const Text(
+                                                  "Upgrade Now",
+                                                  style: TextStyle(
+                                                      fontFamily: 'Barlow-Bold',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: AppColors
+                                                          .textColorBlue,
+                                                      fontSize: 17),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              SvgPicture.asset(
-                                                  "assets/icons/diamond.svg"),
-                                              // Image.asset("assets/images/upgrade.png"),
-                                              const SizedBox(width: 10),
-                                              const Text(
-                                                "Upgrade Now",
-                                                style: TextStyle(
-                                                    fontFamily: 'Barlow-Bold',
-                                                    fontWeight: FontWeight.bold,
-                                                    color:
-                                                        AppColors.textColorBlue,
-                                                    fontSize: 17),
-                                              ),
-                                            ],
+                                        )
+                                      else
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.pushNamed(
+                                                context, '/card-details');
+                                          },
+                                          child: Container(
+                                            height:
+                                                DeviceDimensions.screenHeight(
+                                                        context) *
+                                                    0.06,
+                                            width: DeviceDimensions.screenWidth(
+                                                    context) *
+                                                0.48,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(22),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SvgPicture.asset(
+                                                    "assets/icons/diamond.svg"),
+                                                // Image.asset("assets/images/upgrade.png"),
+                                                const SizedBox(width: 10),
+                                                const Text(
+                                                  "Order Absher Card",
+                                                  style: TextStyle(
+                                                      fontFamily: 'Barlow-Bold',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: AppColors
+                                                          .textColorBlue,
+                                                      fontSize: 15),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ),
+                                        )
                                     ],
                                   ),
                                   GestureDetector(

@@ -211,6 +211,8 @@ class ConfirmOrder {
     await Future.delayed(const Duration(seconds: 3));
     try {
       await orderProvider.placeOrder(newOrder);
+      Provider.of<UserInfoFormStateProvider>(context, listen: false)
+          .updateIsCardOrdered(true);
       await Provider.of<EmployeeProvider>(context, listen: false)
           .saveEmployeesToFirestore();
       PaymentSuccessful().showPaymentSuccessfulDialog(context, orderId);
