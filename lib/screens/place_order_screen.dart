@@ -111,12 +111,12 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                   0.020),
                           Column(
                             children: [
-                              deliveryMethod(context,
-                                  'Pick from nearby machine', provider),
-                              SizedBox(
-                                  height:
-                                      DeviceDimensions.screenHeight(context) *
-                                          0.015),
+                              // deliveryMethod(context,
+                              //     'Pick from nearby machine', provider),
+                              // SizedBox(
+                              //     height:
+                              //         DeviceDimensions.screenHeight(context) *
+                              //             0.015),
                               deliveryMethod(context,
                                   'Deliver to shipping address', provider),
                             ],
@@ -136,13 +136,14 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                     )
                   else if (provider.selectedMethod ==
                       'Pick from nearby machine')
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: DeviceDimensions.screenHeight(context) * 0.020),
-                      child: chooseMachineContainer(context),
-                    ),
-                  SizedBox(
-                      height: DeviceDimensions.screenHeight(context) * 0.025),
+                    //comment out if the pick up from machine is required
+                    // Padding(
+                    //   padding: EdgeInsets.only(
+                    //       top: DeviceDimensions.screenHeight(context) * 0.020),
+                    //   child: chooseMachineContainer(context),
+                    // ),
+                    SizedBox(
+                        height: DeviceDimensions.screenHeight(context) * 0.025),
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 300),
                     width: DeviceDimensions.screenWidth(context) * 0.90,
@@ -363,7 +364,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                         ),
                       ),
                       child: Text(
-                        "Pay Online",
+                        "Checkout",
                         style: TextStyle(
                           fontSize:
                               DeviceDimensions.responsiveSize(context) * 0.048,
@@ -643,47 +644,47 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
       },
     );
   }
-
-  chooseMachineContainer(BuildContext context) {
-    return Container(
-      width: DeviceDimensions.screenWidth(context) * 0.90,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        child: Column(
-          children: [
-            SizedBox(
-              height: DeviceDimensions.screenHeight(context) * 0.042,
-              width: DeviceDimensions.screenWidth(context) * 0.40,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/choose-machine");
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.appBlueColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  padding: EdgeInsets.zero,
-                ),
-                child: Text(
-                  "Choose Machine",
-                  style: TextStyle(
-                    fontSize: DeviceDimensions.responsiveSize(context) * 0.040,
-                    fontFamily: 'Barlow-Regular',
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+//comment out if the pick up from machine is required
+  // chooseMachineContainer(BuildContext context) {
+  //   return Container(
+  //     width: DeviceDimensions.screenWidth(context) * 0.90,
+  //     decoration: BoxDecoration(
+  //       color: Colors.white,
+  //       borderRadius: BorderRadius.circular(20),
+  //     ),
+  //     child: Padding(
+  //       padding: const EdgeInsets.symmetric(vertical: 15),
+  //       child: Column(
+  //         children: [
+  //           SizedBox(
+  //             height: DeviceDimensions.screenHeight(context) * 0.042,
+  //             width: DeviceDimensions.screenWidth(context) * 0.40,
+  //             child: ElevatedButton(
+  //               onPressed: () {
+  //                 Navigator.pushNamed(context, "/choose-machine");
+  //               },
+  //               style: ElevatedButton.styleFrom(
+  //                 backgroundColor: AppColors.appBlueColor,
+  //                 shape: RoundedRectangleBorder(
+  //                   borderRadius: BorderRadius.circular(20),
+  //                 ),
+  //                 padding: EdgeInsets.zero,
+  //               ),
+  //               child: Text(
+  //                 "Choose Machine",
+  //                 style: TextStyle(
+  //                   fontSize: DeviceDimensions.responsiveSize(context) * 0.040,
+  //                   fontFamily: 'Barlow-Regular',
+  //                   fontWeight: FontWeight.w600,
+  //                   letterSpacing: 1,
+  //                   color: Colors.white,
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

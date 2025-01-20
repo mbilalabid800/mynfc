@@ -69,7 +69,7 @@ class ConfirmOrder {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       child: Text(
-                        "Are you ready to confirm  your order and payment or cancel it.",
+                        "Are you ready to confirm  your order ?",
                         style: TextStyle(
                           fontFamily: 'Barlow-Regular',
                           fontWeight: FontWeight.w500,
@@ -108,7 +108,7 @@ class ConfirmOrder {
                           padding: EdgeInsets.zero,
                         ),
                         child: Text(
-                          "Yes, Confirm & Pay",
+                          "Yes, Confirm",
                           style: TextStyle(
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.040,
@@ -211,6 +211,8 @@ class ConfirmOrder {
     await Future.delayed(const Duration(seconds: 3));
     try {
       await orderProvider.placeOrder(newOrder);
+      Provider.of<UserInfoFormStateProvider>(context, listen: false)
+          .updateIsCardOrdered(true);
       await Provider.of<EmployeeProvider>(context, listen: false)
           .saveEmployeesToFirestore();
       PaymentSuccessful().showPaymentSuccessfulDialog(context, orderId);
