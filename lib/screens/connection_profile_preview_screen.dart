@@ -8,7 +8,6 @@ import 'package:nfc_app/models/connections_model.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/services/permission_handler.dart';
 import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
@@ -311,39 +310,31 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                             onPressed: connectionDetails.isPrivate
                                 ? null
                                 : () async {
-                                    bool permissionGranted =
-                                        await PermissionHandler()
-                                            .requestContactsPermission();
-                                    if (permissionGranted) {
-                                      try {
-                                        final Contact newContact = Contact(
-                                          name: Name(
-                                            first: connectionDetails.firstName,
-                                            last: connectionDetails.lastName,
+                                    try {
+                                      final Contact newContact = Contact(
+                                        name: Name(
+                                          first: connectionDetails.firstName,
+                                          last: connectionDetails.lastName,
+                                        ),
+                                        phones: [
+                                          Phone(
+                                            connectionDetails.contactNumber,
                                           ),
-                                          phones: [
-                                            Phone(
-                                              connectionDetails.contactNumber,
-                                            ),
-                                          ],
-                                          emails: [
-                                            Email(
-                                              connectionDetails.email,
-                                            ),
-                                          ],
-                                        );
-                                        await FlutterContacts.insertContact(
-                                            newContact);
+                                        ],
+                                        emails: [
+                                          Email(
+                                            connectionDetails.email,
+                                          ),
+                                        ],
+                                      );
+                                      await FlutterContacts.insertContact(
+                                          newContact);
 
-                                        CustomSnackbar().snakBarMessage(context,
-                                            'Contact saved successfully!\nPlease Check your Contacts');
-                                      } catch (e) {
-                                        CustomSnackbar().snakBarError(context,
-                                            'Failed to save contact: $e');
-                                      }
-                                    } else {
-                                      CustomSnackbar().snakBarError(
-                                          context, 'Permission denied!');
+                                      CustomSnackbar().snakBarMessage(context,
+                                          'Contact saved successfully!\nPlease Check your Contacts');
+                                    } catch (e) {
+                                      CustomSnackbar().snakBarError(context,
+                                          'Failed to save contact: $e');
                                     }
                                   },
                             style: ElevatedButton.styleFrom(

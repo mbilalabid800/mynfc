@@ -1,8 +1,11 @@
 import 'package:permission_handler/permission_handler.dart';
 
 class PermissionHandler {
-  Future<bool> requestContactsPermission() async {
-    return _requestPermission(Permission.contacts);
+  Future<void> requestPermission() async {
+    await _requestPermission(Permission.contacts);
+    await _requestPermission(Permission.storage);
+    await _requestPermission(Permission.location);
+    await _requestPermission(Permission.phone);
   }
 
   Future<bool> _requestPermission(Permission permission) async {
