@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, depend_on_referenced_packages, unused_import
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nfc_app/chat/chat_screen.dart';
@@ -14,6 +15,7 @@ import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/employee_provider.dart';
 import 'package:nfc_app/provider/form_validation_provider.dart';
 import 'package:nfc_app/provider/order_provider.dart';
+import 'package:nfc_app/provider/password_validation_provider.dart';
 import 'package:nfc_app/provider/shipping_address_provider.dart';
 import 'package:nfc_app/provider/forget_password_email_provider.dart';
 import 'package:nfc_app/provider/internet_checker_provider.dart';
@@ -98,6 +100,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => InternetCheckerProvider()),
       ChangeNotifierProvider(create: (_) => SplashScreenProvider()),
       ChangeNotifierProvider(create: (_) => AuthenticateProvider()),
+      ChangeNotifierProvider(create: (_) => PasswordValidationProvider()),
       ChangeNotifierProvider(create: (_) => UserInfoProgressProvider()),
       ChangeNotifierProvider(create: (_) => UserInfoFormStateProvider()),
       ChangeNotifierProvider(create: (_) => ImagePickerProvider()),
@@ -116,7 +119,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => AppDataProvider())
     ],
     child: InternetStatusHandler(
-      child: MyApp(),
+      child: const MyApp(),
     ),
   ));
 }
@@ -145,67 +148,78 @@ class MyApp extends StatelessWidget {
             highlightColor: Colors.grey, // or Colors.black
             hoverColor: Colors.grey,
             primaryColor: Colors.grey,
-            //accentColor: Colors.grey, // For desktop/web
           ),
           initialRoute: '/new-splash',
           // initialRoute: '/error',
           onGenerateRoute: _onGenerateRoute,
-          routes: {
-            '/mainNav-screen': (context) => const MainScreen(),
-            '/subscription-screen': (context) => PricingPlansScreen(),
-            '/new-splash': (context) => NewSplashScreen(),
-            '/splash': (context) => SplashScreen(),
-            '/login-screen': (context) => const LoginScreen(),
-            '/forget-password': (context) => const ForgetPassword(),
-            '/email-verify-forgot-password': (context) =>
-                const EmailVerifyForgetPassword(),
-            //'/set-password': (context) => const SetPassword(),
-            '/email-verify': (context) => const EmailVerify(),
-            '/email-verified': (context) => const EmailVerified(),
-            '/user-info': (context) => const UserScreen(),
-            '/home-screen': (context) => const HomeScreen(),
-            '/profile-preview': (context) => const ProfilePreview(),
-            '/recent-connected': (context) => const RecentConnected(),
-            '/recent-connected-list': (context) => const RecentConnectedList(),
-            '/active-link': (context) => const ActiveLink(),
-            '/settings': (context) => const Settings(),
-            '/card-details': (context) => const CardDetails(),
-            '/edit-profile': (context) => const EditProfile(),
-            '/privacy-settings': (context) => const PrivacySettings(),
-            '/activate-product': (context) => const ActiveProductScreen(),
-            '/privacy-policy': (context) => const PrivacyPolicy(),
-            '/terms-conditions': (context) => const TermsConditions(),
-            '/graph-screen': (context) {
-              final args = ModalRoute.of(context)!.settings.arguments
-                  as Map<String, String>;
-              return GraphScreen(uid: args['uid']!);
-            },
-            '/pricing-plan': (context) => const PricingPlan(),
-            '/contact-us-screen': (context) => const ContactUsScreen(),
-            '/internet-error': (context) => const InternetError(),
-            '/how-to-use': (context) => const HowToUseScreen(),
-            '/faq-screen': (context) => const FaqScreen(),
-            '/full-screen-graph': (context) => const FullScreenGraph(),
-            '/place-order-screen': (context) => const PlaceOrderScreen(),
-            '/choose-shipping-address': (context) =>
-                const ChooseShippingAddress(),
-            '/add-shipping-address': (context) => const AddShippingAddress(),
-            '/google-maps-screen': (context) => GoogleMapsScreen(),
-            '/choose-machine': (context) => const ChooseMachine(),
-            '/order-details': (context) => const OrderDetails(),
-            '/order-history-screen': (context) => const OrderHistoryScreen(),
-            '/share-profile': (context) => ShareProfileScreen(),
-            '/add-employees': (context) => AddEmployeeScreen(),
-            '/chat-screen': (context) => ChatScreen(),
-            '/chat-screen2': (context) => ChatScreen2(),
-            '/connections-request': (context) => ConnectionsRequest(),
-            '/error': (context) => ErrorScreen(message: 'Page not found'),
-          },
+          routes: kIsWeb ? _webRoutes : _appRoutes,
+          onUnknownRoute: (settings) => MaterialPageRoute(
+            builder: (_) => const ErrorScreen(
+              message: 'Page not found',
+            ),
+          ),
         ),
       ),
     );
   }
 }
+
+final Map<String, WidgetBuilder> _webRoutes = {
+  '/new-splash': (context) => const ErrorScreen(
+        message: 'Page not found',
+      ),
+  // Add other web-specific routes
+};
+
+final Map<String, WidgetBuilder> _appRoutes = {
+  '/new-splash': (context) => NewSplashScreen(),
+  '/mainNav-screen': (context) => const MainScreen(),
+  '/subscription-screen': (context) => PricingPlansScreen(),
+  '/splash': (context) => SplashScreen(),
+  '/login-screen': (context) => const LoginScreen(),
+  '/forget-password': (context) => const ForgetPassword(),
+  '/email-verify-forgot-password': (context) =>
+      const EmailVerifyForgetPassword(),
+  //'/set-password': (context) => const SetPassword(),
+  '/email-verify': (context) => const EmailVerify(),
+  '/email-verified': (context) => const EmailVerified(),
+  '/user-info': (context) => const UserScreen(),
+  '/home-screen': (context) => const HomeScreen(),
+  '/profile-preview': (context) => const ProfilePreview(),
+  '/recent-connected': (context) => const RecentConnected(),
+  '/recent-connected-list': (context) => const RecentConnectedList(),
+  '/active-link': (context) => const ActiveLink(),
+  '/settings': (context) => const Settings(),
+  '/card-details': (context) => const CardDetails(),
+  '/edit-profile': (context) => const EditProfile(),
+  '/privacy-settings': (context) => const PrivacySettings(),
+  '/activate-product': (context) => const ActiveProductScreen(),
+  '/privacy-policy': (context) => const PrivacyPolicy(),
+  '/terms-conditions': (context) => const TermsConditions(),
+  '/graph-screen': (context) {
+    final args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+    return GraphScreen(uid: args['uid']!);
+  },
+  '/pricing-plan': (context) => const PricingPlan(),
+  '/contact-us-screen': (context) => const ContactUsScreen(),
+  '/internet-error': (context) => const InternetError(),
+  '/how-to-use': (context) => const HowToUseScreen(),
+  '/faq-screen': (context) => const FaqScreen(),
+  '/full-screen-graph': (context) => const FullScreenGraph(),
+  '/place-order-screen': (context) => const PlaceOrderScreen(),
+  '/choose-shipping-address': (context) => const ChooseShippingAddress(),
+  '/add-shipping-address': (context) => const AddShippingAddress(),
+  '/google-maps-screen': (context) => GoogleMapsScreen(),
+  '/choose-machine': (context) => const ChooseMachine(),
+  '/order-details': (context) => const OrderDetails(),
+  '/order-history-screen': (context) => const OrderHistoryScreen(),
+  '/share-profile': (context) => ShareProfileScreen(),
+  '/add-employees': (context) => AddEmployeeScreen(),
+  '/chat-screen': (context) => ChatScreen(),
+  '/chat-screen2': (context) => ChatScreen2(),
+  '/connections-request': (context) => ConnectionsRequest(),
+};
 
 Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
   // Parse the route name into a URI object
@@ -252,11 +266,5 @@ Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
       );
     }
   }
-
-  // Return a fallback route for unhandled paths
-  return MaterialPageRoute(
-    builder: (_) => ErrorScreen(
-      message: 'Page not Found',
-    ),
-  );
+  return null;
 }

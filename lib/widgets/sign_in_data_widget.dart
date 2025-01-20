@@ -44,7 +44,7 @@ class _SigninDataState extends State<SigninData> {
                     SizedBox(
                         height: DeviceDimensions.screenHeight(context) * 0.035),
                     Form(
-                      key: authProvider.formKey,
+                      key: authProvider.signinFormKey,
                       child: Column(
                         children: [
                           Padding(

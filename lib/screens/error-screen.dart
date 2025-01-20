@@ -32,7 +32,7 @@ class ErrorScreen extends StatelessWidget {
               ),
               const SizedBox(height: 60),
               Text(
-                "Create your own Profile",
+                "Create your own Profile on Absher",
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontFamily: 'Barlow-Regular',
@@ -55,7 +55,7 @@ class ErrorScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
                 ),
                 child: const Text(
                   'Download App',

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/models/user_data_model.dart';
+import 'package:nfc_app/services/validation_service.dart';
 import '../services/shared_preferences_service/shared_preferences_services.dart';
 
 class UserInfoFormStateProvider extends ChangeNotifier {
@@ -84,6 +85,13 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _cityNameError == null &&
       _companyNameError == null &&
       _designationError == null;
+
+  String? emailError;
+
+  void validateEmail(String email) {
+    emailError = ValidationService.validateEmail(email);
+    notifyListeners();
+  }
 
   void updateSelectedItem(String? selectedItem) {
     _selectedItem = selectedItem;
