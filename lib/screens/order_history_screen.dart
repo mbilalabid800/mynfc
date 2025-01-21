@@ -48,6 +48,11 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
         ),
         body: Column(
           children: [
+            // SizedBox(
+            //   height: DeviceDimensions.screenHeight(context) * 0.0001,
+            // ),
+            // AbsherAppBar(title: 'Choose Machine'),
+            // SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
             Expanded(
               child: Consumer<OrderProvider>(
                 builder: (context, orderProvider, _) {
@@ -97,87 +102,127 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6),
           child: Container(
-              width: DeviceDimensions.screenWidth(context) * 0.7,
-              height: DeviceDimensions.screenHeight(context) * 0.14,
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.appBlueColor),
-                borderRadius: BorderRadius.circular(12),
-                color: Colors.white,
-              ),
-              child: ListTile(
-                leading: SizedBox(
-                    width: DeviceDimensions.responsiveSize(context) * 0.26,
-                    height: DeviceDimensions.responsiveSize(context) * 0.28,
-                    child: order.cardImage != null
-                        ? Image.network(
-                            order.cardImage,
-                            // width:
-                            //     DeviceDimensions.responsiveSize(context) * 0.1,
-                            // height:
-                            //     DeviceDimensions.responsiveSize(context) * 0.1,
-                            // fit: BoxFit.fitWidth,
-                          )
-                        : SmallThreeBounceLoader()),
-              )
-              // child: ListTile(
-              //   title: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     crossAxisAlignment: CrossAxisAlignment.center,
-              //     children: [
-              //       SizedBox(
-              //           width: DeviceDimensions.responsiveSize(context) * 0.20,
-              //           height: DeviceDimensions.responsiveSize(context) * 0.22,
-              //           child: order.cardImage != null
-              //               ? Image.network(
-              //                   order.cardImage,
-              //                   width: DeviceDimensions.responsiveSize(context) *
-              //                       0.1,
-              //                   height: DeviceDimensions.responsiveSize(context) *
-              //                       0.1,
-              //                   fit: BoxFit.fitWidth,
-              //                 )
-              //               : SmallThreeBounceLoader()),
-              //       Column(
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         mainAxisAlignment: MainAxisAlignment.center,
-              //         children: [
-              //           Padding(
-              //             padding: const EdgeInsets.only(left: 8.0),
-              //             child: Text('Name: ${order.cardName}',
-              //                 style: TextStyle(
-              //                     fontSize:
-              //                         DeviceDimensions.responsiveSize(context) *
-              //                             0.035)),
-              //           ),
-              //           // Padding(
-              //           //   padding: const EdgeInsets.only(left: 8.0),
-              //           //   child: Text('Order ID: ${order.orderId}',
-              //           //       style: TextStyle(
-              //           //           fontSize:
-              //           //               DeviceDimensions.responsiveSize(context) *
-              //           //                   0.022)),
-              //           // ),
-              //         ],
-              //       ),
-              //     ],
-              //   ), // Handle null case for orderId
+            width: DeviceDimensions.screenWidth(context) * 0.7,
+            //height: DeviceDimensions.screenHeight(context) * 0.12,
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.appBlueColor),
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.white,
+            ),
+            // child: ListTile(
+            //   leading: SizedBox(
+            //       width: DeviceDimensions.responsiveSize(context) * 0.26,
+            //       height: DeviceDimensions.responsiveSize(context) * 0.28,
+            //       child: order.cardImage != null
+            //           ? Align(
+            //               alignment: Alignment.centerLeft,
+            //               child: Image.network(
+            //                 order.cardImage,
+            //                 // width:
+            //                 //     DeviceDimensions.responsiveSize(context) * 0.1,
+            //                 // height:
+            //                 //     DeviceDimensions.responsiveSize(context) * 0.1,
+            //                 // fit: BoxFit.fitWidth,
+            //               ),
+            //             )
+            //           : SmallThreeBounceLoader()),
+            // )
+            child: ListTile(
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Text('Order ID: ${order.orderId}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  DeviceDimensions.responsiveSize(context) *
+                                      0.038)),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          width:
+                              DeviceDimensions.responsiveSize(context) * 0.22,
+                          height:
+                              DeviceDimensions.responsiveSize(context) * 0.24,
+                          child: order.cardImage != null
+                              ? Image.network(
+                                  order.cardImage,
+                                  width:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.1,
+                                  height:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.1,
+                                  fit: BoxFit.fitWidth,
+                                )
+                              : SmallThreeBounceLoader()),
+                      //Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(' Name : ${order.cardName}',
+                                style: TextStyle(
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.045)),
+                            Text(' Price : ${order.orderPrice.toString()}',
+                                style: TextStyle(
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.03)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ), // Handle null case for orderId
 
-              //   trailing: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.end,
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       Text(' Amount ${order.orderPrice.toString()}',
-              //           style: TextStyle(
-              //               fontSize: DeviceDimensions.responsiveSize(context) *
-              //                   0.026)),
-              //       Text('Status: ${order.orderHistory}',
-              //           style: TextStyle(
-              //               fontSize: DeviceDimensions.responsiveSize(context) *
-              //                   0.026)),
-              //     ],
-              //   ), // Handle null case for orderHistory
-              // ),
-              ),
+              trailing: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: Container(
+                      width: DeviceDimensions.screenWidth(context) * 0.2,
+                      height: DeviceDimensions.screenHeight(context) * 0.04,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.appOrangeColor),
+                          borderRadius: BorderRadius.circular(12),
+                          color: AppColors.appOrangeColor),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Track',
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.03,
+                                  color: Colors.white)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Text('Status: ${order.orderHistory}',
+                  //     style: TextStyle(
+                  //         fontSize: DeviceDimensions.responsiveSize(context) *
+                  //             0.026)),
+                ],
+              ), // Handle null case for orderHistory
+            ),
+          ),
         );
       },
     );
