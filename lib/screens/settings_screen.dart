@@ -556,7 +556,7 @@ class _SettingsState extends State<Settings> {
                               ),
                               SettingListComponent(
                                 icons: "assets/icons/settingicon11.svg",
-                                title: "How to use Absher",
+                                title: "How to use",
                                 showDivider: true,
                                 callBack: () {
                                   //dummy link
