@@ -128,12 +128,20 @@ class _EditProfileState extends State<EditProfile> {
         builder: (context, userProvider, child) {
       return SafeArea(
         child: Scaffold(
-          appBar: const CustomAppBar(title: 'Edit Profile'),
           backgroundColor: AppColors.screenBackground,
           body: Stack(
             children: [
               Column(
                 children: [
+                  SizedBox(
+                    height: DeviceDimensions.screenHeight(context) * 0.0001,
+                  ),
+                  AbsherAppBar(
+                    title: 'Edit Profile',
+                  ),
+                  SizedBox(
+                      height: DeviceDimensions.screenHeight(context) * 0.020),
+                  // SizedBox(
                   Expanded(
                     child: SingleChildScrollView(
                       child: Center(

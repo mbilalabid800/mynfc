@@ -61,370 +61,410 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.screenBackground,
-        appBar: const CustomAppBar(title: "Order"),
-        body: SingleChildScrollView(
-          child: Consumer<ShippingAddressProvider>(
-              builder: (context, provider, child) {
-            return Center(
-              child: Column(
-                children: [
-                  Container(
-                    width: DeviceDimensions.screenWidth(context) * 0.90,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 17),
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              "Delivery Method",
-                              style: TextStyle(
-                                  fontFamily: 'Barlow-Bold',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.055,
-                                  color: AppColors.textColorBlue),
+        body: Column(
+          children: [
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.0001,
+            ),
+            AbsherAppBar(title: 'Order'),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            Flexible(
+              child: SingleChildScrollView(
+                child: Consumer<ShippingAddressProvider>(
+                    builder: (context, provider, child) {
+                  return Center(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: DeviceDimensions.screenWidth(context) * 0.90,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 17),
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    "Delivery Method",
+                                    style: TextStyle(
+                                        fontFamily: 'Barlow-Bold',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.055,
+                                        color: AppColors.textColorBlue),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height:
+                                        DeviceDimensions.screenHeight(context) *
+                                            0.005),
+                                Text(
+                                  "Add your shippment method as per your ease and choose whether deliver to machine nearby or delivery at doorstep.",
+                                  style: TextStyle(
+                                    fontFamily: 'Barlow-Regular',
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.033,
+                                    color: const Color(0xFF727272),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height:
+                                        DeviceDimensions.screenHeight(context) *
+                                            0.025),
+                                Column(
+                                  children: [
+                                    // deliveryMethod(context,
+                                    //     'Pick from nearby machine', provider),
+                                    // SizedBox(
+                                    //     height:
+                                    //         DeviceDimensions.screenHeight(context) *
+                                    //             0.015),
+                                    deliveryMethod(
+                                        context,
+                                        'Deliver to shipping address',
+                                        provider),
+                                  ],
+                                ),
+                                SizedBox(
+                                    height:
+                                        DeviceDimensions.screenHeight(context) *
+                                            0.015),
+                              ],
                             ),
                           ),
-                          SizedBox(
-                              height: DeviceDimensions.screenHeight(context) *
-                                  0.005),
-                          Text(
-                            "Add your shippment method as per your ease and choose whether deliver to machine nearby or delivery at doorstep.",
-                            style: TextStyle(
-                              fontFamily: 'Barlow-Regular',
-                              fontWeight: FontWeight.w600,
-                              fontSize:
-                                  DeviceDimensions.responsiveSize(context) *
-                                      0.033,
-                              color: const Color(0xFF727272),
-                            ),
+                        ),
+                        if (provider.selectedMethod ==
+                            'Deliver to shipping address')
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: DeviceDimensions.screenHeight(context) *
+                                    0.020),
+                            child: deliveryAddressContainer(context),
                           ),
-                          SizedBox(
-                              height: DeviceDimensions.screenHeight(context) *
-                                  0.025),
-                          Column(
-                            children: [
-                              // deliveryMethod(context,
-                              //     'Pick from nearby machine', provider),
-                              // SizedBox(
-                              //     height:
-                              //         DeviceDimensions.screenHeight(context) *
-                              //             0.015),
-                              deliveryMethod(context,
-                                  'Deliver to shipping address', provider),
-                            ],
+                        // else if (provider.selectedMethod ==
+                        //     'Pick from nearby machine')
+                        //comment out if the pick up from machine is required
+                        // Padding(
+                        //   padding: EdgeInsets.only(
+                        //       top: DeviceDimensions.screenHeight(context) * 0.020),
+                        //   child: chooseMachineContainer(context),
+                        // ),
+                        SizedBox(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.025),
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          width: DeviceDimensions.screenWidth(context) * 0.90,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
                           ),
-                          SizedBox(
-                              height: DeviceDimensions.screenHeight(context) *
-                                  0.015),
-                        ],
-                      ),
-                    ),
-                  ),
-                  if (provider.selectedMethod == 'Deliver to shipping address')
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: DeviceDimensions.screenHeight(context) * 0.020),
-                      child: deliveryAddressContainer(context),
-                    ),
-                  // else if (provider.selectedMethod ==
-                  //     'Pick from nearby machine')
-                  //comment out if the pick up from machine is required
-                  // Padding(
-                  //   padding: EdgeInsets.only(
-                  //       top: DeviceDimensions.screenHeight(context) * 0.020),
-                  //   child: chooseMachineContainer(context),
-                  // ),
-                  SizedBox(
-                      height: DeviceDimensions.screenHeight(context) * 0.025),
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    width: DeviceDimensions.screenWidth(context) * 0.90,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 17),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Order Summary",
-                                style: TextStyle(
-                                  fontFamily: 'Barlow-Bold',
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.textColorBlue,
-                                  fontSize:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.055,
-                                ),
-                              ),
-                              const Spacer(),
-                              if (_showDetails)
-                                Padding(
-                                  padding: const EdgeInsets.only(),
-                                  child: SvgPicture.asset(
-                                    "assets/icons/more5.svg",
-                                    height: 23,
-                                  ),
-                                )
-                              else
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 5.0),
-                                  child: SvgPicture.asset(
-                                    "assets/icons/more.svg",
-                                    height: 15,
-                                  ),
-                                ),
-                            ],
-                          ),
-                          SizedBox(
-                              height: DeviceDimensions.screenHeight(context) *
-                                  0.010),
-                          Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xFFD9D9D9),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 6.0, right: 6, top: 6),
-                                  child: SizedBox(
-                                    height: 70,
-                                    width: 80,
-                                    child: Image.network(
-                                      selectedCard.cardImages[colorIndex],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                  width: DeviceDimensions.screenWidth(context) *
-                                      0.030),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.51,
-                                    child: Text(
-                                      "FURSA NFC Black Classic Card - Custom Embossed",
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 17),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Order Summary",
                                       style: TextStyle(
                                         fontFamily: 'Barlow-Bold',
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.bold,
                                         color: AppColors.textColorBlue,
                                         fontSize:
                                             DeviceDimensions.responsiveSize(
                                                     context) *
-                                                0.038,
+                                                0.055,
                                       ),
-                                      maxLines: 2,
+                                    ),
+                                    const Spacer(),
+                                    if (_showDetails)
+                                      Padding(
+                                        padding: const EdgeInsets.only(),
+                                        child: SvgPicture.asset(
+                                          "assets/icons/more5.svg",
+                                          height: 23,
+                                        ),
+                                      )
+                                    else
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 5.0),
+                                        child: SvgPicture.asset(
+                                          "assets/icons/more.svg",
+                                          height: 15,
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                                SizedBox(
+                                    height:
+                                        DeviceDimensions.screenHeight(context) *
+                                            0.010),
+                                Row(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: const Color(0xFFD9D9D9),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 6.0, right: 6, top: 6),
+                                        child: SizedBox(
+                                          height: 70,
+                                          width: 80,
+                                          child: Image.network(
+                                            selectedCard.cardImages[colorIndex],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        width: DeviceDimensions.screenWidth(
+                                                context) *
+                                            0.030),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.51,
+                                          child: Text(
+                                            "FURSA NFC Black Classic Card - Custom Embossed",
+                                            style: TextStyle(
+                                              fontFamily: 'Barlow-Bold',
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColors.textColorBlue,
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.038,
+                                            ),
+                                            maxLines: 2,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                            height:
+                                                DeviceDimensions.screenHeight(
+                                                        context) *
+                                                    0.020),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Price:",
+                                              style: TextStyle(
+                                                fontFamily: 'Barlow-Regular',
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.textColorBlue,
+                                                fontSize: DeviceDimensions
+                                                        .responsiveSize(
+                                                            context) *
+                                                    0.042,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                width: DeviceDimensions
+                                                        .screenWidth(context) *
+                                                    0.085),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      const Color(0xFFD9D9D9),
+                                                  borderRadius:
+                                                      BorderRadius.circular(5)),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 8,
+                                                  vertical: 4,
+                                                ),
+                                                child: Text(
+                                                  "${selectedCard.cardPrice}0  OMR",
+                                                  style: TextStyle(
+                                                    color:
+                                                        AppColors.textColorBlue,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.030,
+                                ),
+                                if (provider.selectedMethod.isNotEmpty) ...[
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _showDetails = !_showDetails;
+                                      });
+                                    },
+                                    child: Text(
+                                      _showDetails
+                                          ? "Hide order details"
+                                          : "Show order details",
+                                      style: TextStyle(
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.038,
+                                        fontFamily: 'Barlow-Regular',
+                                        fontWeight: FontWeight.w500,
+                                        decoration: TextDecoration.underline,
+                                      ),
                                     ),
                                   ),
+                                ],
+                                if (_showDetails) ...[
                                   SizedBox(
                                       height: DeviceDimensions.screenHeight(
                                               context) *
                                           0.020),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Price:",
-                                        style: TextStyle(
-                                          fontFamily: 'Barlow-Regular',
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.textColorBlue,
-                                          fontSize:
-                                              DeviceDimensions.responsiveSize(
-                                                      context) *
-                                                  0.042,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                          width: DeviceDimensions.screenWidth(
-                                                  context) *
-                                              0.085),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: const Color(0xFFD9D9D9),
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 8,
-                                            vertical: 4,
-                                          ),
-                                          child: Text(
-                                            "${selectedCard.cardPrice}0  OMR",
-                                            style: TextStyle(
-                                              color: AppColors.textColorBlue,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  orderInfo(context, "Your Name:",
+                                      selectedCard.cardName),
+                                  orderInfo(context, "Title (optional):",
+                                      "Business Cards"),
+                                  orderInfo(context, "Subtotal:",
+                                      "${selectedCard.cardPrice * employeeCount}0  OMR"),
+                                  orderInfo(
+                                      context,
+                                      "Date:",
+                                      DateFormat('yyyy-MM-dd')
+                                          .format(DateTime.now())),
+                                  orderInfo(context, "Delivery Method:",
+                                      provider.selectedMethod),
+                                  orderInfo(context, "Total:",
+                                      "${selectedCard.cardPrice * employeeCount}0  OMR"),
+                                ]
+                              ],
+                            ),
                           ),
-                          SizedBox(
+                        ),
+                        SizedBox(
                             height:
-                                DeviceDimensions.screenHeight(context) * 0.030,
-                          ),
-                          if (provider.selectedMethod.isNotEmpty) ...[
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _showDetails = !_showDetails;
-                                });
-                              },
-                              child: Text(
-                                _showDetails
-                                    ? "Hide order details"
-                                    : "Show order details",
-                                style: TextStyle(
-                                  fontSize:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.038,
-                                  fontFamily: 'Barlow-Regular',
-                                  fontWeight: FontWeight.w500,
-                                  decoration: TextDecoration.underline,
-                                ),
+                                DeviceDimensions.screenHeight(context) * 0.045),
+                        SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.058,
+                          width: DeviceDimensions.screenWidth(context) * 0.85,
+                          child: ElevatedButton(
+                            onPressed: provider.selectedMethod.isEmpty
+                                ? null
+                                : () {
+                                    ConfirmOrder confirmOrder =
+                                        const ConfirmOrder();
+                                    ShippingAddressModel? shippingDetails;
+                                    if (provider.selectedMethod ==
+                                        'Deliver to shipping address') {
+                                      shippingDetails =
+                                          provider.selectedShippingAddress;
+                                    } else if (provider.selectedMethod ==
+                                        'Pick from nearby machine') {
+                                      shippingDetails = shippingDetails =
+                                          provider.selectedShippingAddress;
+                                    }
+                                    confirmOrder.showConfirmOrderDialog(
+                                        context,
+                                        employeeCount,
+                                        selectedCard,
+                                        selectedColorOption,
+                                        colorIndex,
+                                        provider.selectedMethod,
+                                        shippingDetails!);
+                                  },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.appBlueColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                          ],
-                          if (_showDetails) ...[
-                            SizedBox(
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.020),
-                            orderInfo(
-                                context, "Your Name:", selectedCard.cardName),
-                            orderInfo(
-                                context, "Title (optional):", "Business Cards"),
-                            orderInfo(context, "Subtotal:",
-                                "${selectedCard.cardPrice * employeeCount}0  OMR"),
-                            orderInfo(
-                                context,
-                                "Date:",
-                                DateFormat('yyyy-MM-dd')
-                                    .format(DateTime.now())),
-                            orderInfo(context, "Delivery Method:",
-                                provider.selectedMethod),
-                            orderInfo(context, "Total:",
-                                "${selectedCard.cardPrice * employeeCount}0  OMR"),
-                          ]
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                      height: DeviceDimensions.screenHeight(context) * 0.045),
-                  SizedBox(
-                    height: DeviceDimensions.screenHeight(context) * 0.058,
-                    width: DeviceDimensions.screenWidth(context) * 0.85,
-                    child: ElevatedButton(
-                      onPressed: provider.selectedMethod.isEmpty
-                          ? null
-                          : () {
-                              ConfirmOrder confirmOrder = const ConfirmOrder();
-                              ShippingAddressModel? shippingDetails;
-                              if (provider.selectedMethod ==
-                                  'Deliver to shipping address') {
-                                shippingDetails =
-                                    provider.selectedShippingAddress;
-                              } else if (provider.selectedMethod ==
-                                  'Pick from nearby machine') {
-                                shippingDetails = shippingDetails =
-                                    provider.selectedShippingAddress;
-                              }
-                              confirmOrder.showConfirmOrderDialog(
-                                  context,
-                                  employeeCount,
-                                  selectedCard,
-                                  selectedColorOption,
-                                  colorIndex,
-                                  provider.selectedMethod,
-                                  shippingDetails!);
-                            },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.appBlueColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Text(
-                        "Checkout",
-                        style: TextStyle(
-                          fontSize:
-                              DeviceDimensions.responsiveSize(context) * 0.048,
-                          fontFamily: 'Barlow-Regular',
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 1,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                      height: DeviceDimensions.screenHeight(context) * 0.045),
-                  Container(
-                    width: DeviceDimensions.screenWidth(context) * 0.85,
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 251, 243, 205),
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(left: 8, top: 8.0),
-                            child: Row(children: [
-                              Icon(
-                                Icons.info_outline_rounded,
-                                color: Colors.amberAccent,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 8.0),
-                                child: Text('Note',
-                                    style: TextStyle(
-                                      color: AppColors.textColorBlue,
-                                    )),
-                              )
-                            ]),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              'Please check and confirm your delivery method before checkout and payment. Place your order according to delivery method easily & quickly.',
+                              "Checkout",
                               style: TextStyle(
-                                  color:
-                                      const Color.fromARGB(255, 114, 114, 114),
-                                  fontSize:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.03),
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.048,
+                                fontFamily: 'Barlow-Regular',
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.045),
+                        Container(
+                          width: DeviceDimensions.screenWidth(context) * 0.85,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 251, 243, 205),
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(left: 8, top: 8.0),
+                                  child: Row(children: [
+                                    Icon(
+                                      Icons.info_outline_rounded,
+                                      color: Colors.amberAccent,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 8.0),
+                                      child: Text('Note',
+                                          style: TextStyle(
+                                            color: AppColors.textColorBlue,
+                                          )),
+                                    )
+                                  ]),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    'Please check and confirm your delivery method before checkout and payment. Place your order according to delivery method easily & quickly.',
+                                    style: TextStyle(
+                                        color: const Color.fromARGB(
+                                            255, 114, 114, 114),
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.03),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.030),
+                      ],
                     ),
-                  ),
-                  SizedBox(
-                      height: DeviceDimensions.screenHeight(context) * 0.030),
-                ],
+                  );
+                }),
               ),
-            );
-          }),
+            ),
+          ],
         ),
       ),
     );

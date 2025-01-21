@@ -237,141 +237,158 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.screenBackground,
-      appBar: const CustomAppBar(title: "Shipping address"),
-      body: Center(
-        child: Container(
-          width: DeviceDimensions.screenWidth(context) * 0.95,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Form(
-                  key: _formKey,
-                  child: Column(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.screenBackground,
+        body: Column(
+          children: [
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.0001,
+            ),
+            AbsherAppBar(title: 'Shipping Address'),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            Flexible(
+              child: Center(
+                child: Container(
+                  width: DeviceDimensions.screenWidth(context) * 0.95,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Stack(
                     children: [
-                      SizedBox(
-                          height:
-                              DeviceDimensions.screenHeight(context) * 0.010),
-                      textfield(
-                        context,
-                        "*First name",
-                        _firstNameController,
-                        firstNameError,
-                      ),
-                      textfield(
-                        context,
-                        "*Last name",
-                        _lastNameController,
-                        lastNameError,
-                      ),
-                      textfield(
-                        context,
-                        "*Location e.g. Home, Office",
-                        _locationNameController,
-                        locationNameError,
-                      ),
-                      textfield(
-                        context,
-                        "Company (optional)",
-                        _companyController,
-                        null,
-                        optional: true,
-                      ),
-                      textfield(
-                        context,
-                        "*Phone",
-                        _phoneController,
-                        phoneError,
-                      ),
-                      textfield(
-                        context,
-                        "*Country",
-                        _countryController,
-                        countryError,
-                      ),
-                      textfield(
-                        context,
-                        "*Street address",
-                        _streetAddressController,
-                        streetAddressError,
-                      ),
-                      textfield(
-                        context,
-                        "Apartment, suite, unit, etc (optional)",
-                        _apartmentController,
-                        null,
-                        optional: true,
-                      ),
-                      textfield(
-                        context,
-                        "*City / Town",
-                        _cityController,
-                        cityError,
-                      ),
-                      textfield(
-                        context,
-                        "*State",
-                        _stateController,
-                        stateError,
-                      ),
-                      textfield(
-                        context,
-                        "*Zip code",
-                        _zipCodeController,
-                        zipCodeError,
-                      ),
-                      SizedBox(
-                          height:
-                              DeviceDimensions.screenHeight(context) * 0.040),
-                      SizedBox(
-                        height: DeviceDimensions.screenHeight(context) * 0.058,
-                        width: DeviceDimensions.screenWidth(context) * 0.85,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            await _saveShippingAddress(); // Call your save method
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.appBlueColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: Text(
-                            "Save shipping address",
-                            style: TextStyle(
-                              fontSize:
-                                  DeviceDimensions.responsiveSize(context) *
-                                      0.048,
-                              fontFamily: 'Barlow-Regular',
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 1,
-                              color: Colors.white,
-                            ),
+                      SingleChildScrollView(
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.010),
+                              textfield(
+                                context,
+                                "*First name",
+                                _firstNameController,
+                                firstNameError,
+                              ),
+                              textfield(
+                                context,
+                                "*Last name",
+                                _lastNameController,
+                                lastNameError,
+                              ),
+                              textfield(
+                                context,
+                                "*Location e.g. Home, Office",
+                                _locationNameController,
+                                locationNameError,
+                              ),
+                              textfield(
+                                context,
+                                "Company (optional)",
+                                _companyController,
+                                null,
+                                optional: true,
+                              ),
+                              textfield(
+                                context,
+                                "*Phone",
+                                _phoneController,
+                                phoneError,
+                              ),
+                              textfield(
+                                context,
+                                "*Country",
+                                _countryController,
+                                countryError,
+                              ),
+                              textfield(
+                                context,
+                                "*Street address",
+                                _streetAddressController,
+                                streetAddressError,
+                              ),
+                              textfield(
+                                context,
+                                "Apartment, suite, unit, etc (optional)",
+                                _apartmentController,
+                                null,
+                                optional: true,
+                              ),
+                              textfield(
+                                context,
+                                "*City / Town",
+                                _cityController,
+                                cityError,
+                              ),
+                              textfield(
+                                context,
+                                "*State",
+                                _stateController,
+                                stateError,
+                              ),
+                              textfield(
+                                context,
+                                "*Zip code",
+                                _zipCodeController,
+                                zipCodeError,
+                              ),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.040),
+                              SizedBox(
+                                height: DeviceDimensions.screenHeight(context) *
+                                    0.058,
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.85,
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    await _saveShippingAddress(); // Call your save method
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.appBlueColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "Save shipping address",
+                                    style: TextStyle(
+                                      fontSize: DeviceDimensions.responsiveSize(
+                                              context) *
+                                          0.048,
+                                      fontFamily: 'Barlow-Regular',
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.030),
+                            ],
                           ),
                         ),
                       ),
-                      SizedBox(
-                          height:
-                              DeviceDimensions.screenHeight(context) * 0.030),
+                      if (isLoading)
+                        // Show loader on top when loading
+                        Container(
+                          color: Colors.white54,
+                          child: const Center(
+                            child: DualRingLoader(),
+                          ),
+                        ),
                     ],
                   ),
                 ),
               ),
-              if (isLoading)
-                // Show loader on top when loading
-                Container(
-                  color: Colors.white54,
-                  child: const Center(
-                    child: DualRingLoader(),
-                  ),
-                ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -143,13 +143,12 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            //appBar: const CustomAppBar(title: 'Add New'),
             backgroundColor: AppColors.screenBackground,
             body: Column(children: [
               SizedBox(
                 height: DeviceDimensions.screenHeight(context) * 0.0001,
               ),
-              AbsherAppBar(title: 'Add Product'),
+              AbsherAppBar(title: 'Add New'),
               //SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
               Center(
                 child: Column(

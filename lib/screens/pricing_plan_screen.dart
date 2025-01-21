@@ -38,75 +38,87 @@ class _PricingPlanState extends State<PricingPlan>
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.screenBackground,
-        appBar: const CustomAppBar(title: "Pricing Plan"),
         body: Column(
           children: [
-            // SizedBox(height: DeviceDimensions.screenHeight(context) * 0.032),
-            Container(
-              height: DeviceDimensions.screenHeight(context) * 0.065,
-              width: DeviceDimensions.screenWidth(context) * 0.895,
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 239, 239, 239),
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: TabBar(
-                  controller: _tabController,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  indicator: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  labelColor: const Color(0xFF202020),
-                  labelStyle: TextStyle(
-                      fontSize:
-                          DeviceDimensions.responsiveSize(context) * 0.045,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1),
-                  unselectedLabelColor: const Color(0xFF727272),
-                  unselectedLabelStyle: TextStyle(
-                    fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
-                    fontWeight: FontWeight.normal,
-                  ),
-                  tabs: const [
-                    Tab(
-                      child: Text(
-                        "Individual",
-                        style: TextStyle(fontFamily: 'Barlow-Regular'),
-                      ),
-                    ),
-                    Tab(
-                      child: Text(
-                        "Teams",
-                        style: TextStyle(fontFamily: 'Barlow-Regular'),
-                      ),
-                    ),
-                  ],
-                  dividerColor: Colors.transparent,
-                ),
-              ),
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            Expanded(
-              child: AnimatedSwitcher(
-                duration: _animationDuration,
-                transitionBuilder: (Widget child, Animation<double> animation) {
-                  final slideAnimation = Tween<Offset>(
-                    begin: const Offset(0, 1.0),
-                    end: Offset.zero,
-                  ).animate(animation);
-
-                  return SlideTransition(
-                    position: slideAnimation,
-                    child: FadeTransition(
-                      opacity: animation,
-                      child: child,
+            AbsherAppBar(title: 'Pricing Plan'),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            Flexible(
+              child: Column(
+                children: [
+                  // SizedBox(height: DeviceDimensions.screenHeight(context) * 0.032),
+                  Container(
+                    height: DeviceDimensions.screenHeight(context) * 0.065,
+                    width: DeviceDimensions.screenWidth(context) * 0.895,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 239, 239, 239),
+                      borderRadius: BorderRadius.circular(25),
                     ),
-                  );
-                },
-                child: _tabController.index == 0
-                    ? const Individual(key: ValueKey<int>(0))
-                    : const Teams(key: ValueKey<int>(1)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: TabBar(
+                        controller: _tabController,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        indicator: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        labelColor: const Color(0xFF202020),
+                        labelStyle: TextStyle(
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.045,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1),
+                        unselectedLabelColor: const Color(0xFF727272),
+                        unselectedLabelStyle: TextStyle(
+                          fontSize:
+                              DeviceDimensions.responsiveSize(context) * 0.045,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        tabs: const [
+                          Tab(
+                            child: Text(
+                              "Individual",
+                              style: TextStyle(fontFamily: 'Barlow-Regular'),
+                            ),
+                          ),
+                          Tab(
+                            child: Text(
+                              "Teams",
+                              style: TextStyle(fontFamily: 'Barlow-Regular'),
+                            ),
+                          ),
+                        ],
+                        dividerColor: Colors.transparent,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: AnimatedSwitcher(
+                      duration: _animationDuration,
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                        final slideAnimation = Tween<Offset>(
+                          begin: const Offset(0, 1.0),
+                          end: Offset.zero,
+                        ).animate(animation);
+
+                        return SlideTransition(
+                          position: slideAnimation,
+                          child: FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          ),
+                        );
+                      },
+                      child: _tabController.index == 0
+                          ? const Individual(key: ValueKey<int>(0))
+                          : const Teams(key: ValueKey<int>(1)),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
