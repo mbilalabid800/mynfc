@@ -13,185 +13,229 @@ class ChooseShippingAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.screenBackground,
-      appBar: const CustomAppBar(title: "Shipping Address"),
-      body: Center(
-        child: Consumer<ShippingAddressProvider>(
-          builder: (context, provider, child) {
-            bool isLoading = provider.isLoading;
-            return Stack(
-              children: [
-                Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: provider.shippingAddress.length,
-                        itemBuilder: (context, index) {
-                          final address = provider.shippingAddress[index];
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.screenBackground,
+        body: Column(
+          children: [
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.0001,
+            ),
+            AbsherAppBar(title: 'Shipping Address'),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            Flexible(
+              child: SingleChildScrollView(
+                child: Center(
+                  child: Consumer<ShippingAddressProvider>(
+                    builder: (context, provider, child) {
+                      bool isLoading = provider.isLoading;
+                      return Stack(
+                        children: [
+                          Column(
+                            children: [
+                              Expanded(
+                                child: ListView.builder(
+                                  itemCount: provider.shippingAddress.length,
+                                  itemBuilder: (context, index) {
+                                    final address =
+                                        provider.shippingAddress[index];
 
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5.0, horizontal: 15),
-                            child: GestureDetector(
-                              onTap: () {
-                                provider.updateShippingAddress(address);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                    width: 1.5,
-                                    color: provider.selectedShippingAddress ==
-                                            address
-                                        ? AppColors.appBlueColor
-                                        : const Color(0xFFD7D9DD),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 15),
-                                  child: Row(
-                                    children: [
-                                      Radio(
-                                        activeColor: AppColors.appBlueColor,
-                                        value: address,
-                                        groupValue:
-                                            provider.selectedShippingAddress,
-                                        onChanged:
-                                            (ShippingAddressModel? value) {
-                                          if (value != null) {
-                                            provider
-                                                .updateShippingAddress(value);
-                                          }
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5.0, horizontal: 15),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          provider
+                                              .updateShippingAddress(address);
                                         },
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 15.0, horizontal: 5),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              address.locationName,
-                                              style: TextStyle(
-                                                fontFamily: 'Barlow-Regular',
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: DeviceDimensions
-                                                        .responsiveSize(
-                                                            context) *
-                                                    0.047,
-                                              ),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            border: Border.all(
+                                              width: 1.5,
+                                              color:
+                                                  provider.selectedShippingAddress ==
+                                                          address
+                                                      ? AppColors.appBlueColor
+                                                      : const Color(0xFFD7D9DD),
                                             ),
-                                            Text(
-                                              address.streetAddress,
-                                              style: TextStyle(
-                                                fontFamily: 'Barlow-Regular',
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: DeviceDimensions
-                                                        .responsiveSize(
-                                                            context) *
-                                                    0.037,
-                                              ),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 15),
+                                            child: Row(
+                                              children: [
+                                                Radio(
+                                                  activeColor:
+                                                      AppColors.appBlueColor,
+                                                  value: address,
+                                                  groupValue: provider
+                                                      .selectedShippingAddress,
+                                                  onChanged:
+                                                      (ShippingAddressModel?
+                                                          value) {
+                                                    if (value != null) {
+                                                      provider
+                                                          .updateShippingAddress(
+                                                              value);
+                                                    }
+                                                  },
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      vertical: 15.0,
+                                                      horizontal: 5),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        address.locationName,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Barlow-Regular',
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: DeviceDimensions
+                                                                  .responsiveSize(
+                                                                      context) *
+                                                              0.047,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        address.streetAddress,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Barlow-Regular',
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: DeviceDimensions
+                                                                  .responsiveSize(
+                                                                      context) *
+                                                              0.037,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                const Spacer(),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.pushNamed(context,
+                                                        "/add-shipping-address",
+                                                        arguments: provider
+                                                                .shippingAddress[
+                                                            index]);
+                                                  },
+                                                  child: SvgPicture.asset(
+                                                      "assets/icons/editfield.svg",
+                                                      height: 23,
+                                                      color: AppColors
+                                                          .appBlueColor),
+                                                ),
+                                                SizedBox(
+                                                    width: DeviceDimensions
+                                                            .screenWidth(
+                                                                context) *
+                                                        0.025),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    provider
+                                                        .deleteShippingAddress(
+                                                            address);
+                                                  },
+                                                  child: const Icon(
+                                                      Icons
+                                                          .delete_outline_outlined,
+                                                      size: 28,
+                                                      color: AppColors
+                                                          .appBlueColor),
+                                                )
+                                              ],
                                             ),
-                                          ],
+                                          ),
                                         ),
                                       ),
-                                      const Spacer(),
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                              context, "/add-shipping-address",
-                                              arguments: provider
-                                                  .shippingAddress[index]);
-                                        },
-                                        child: SvgPicture.asset(
-                                            "assets/icons/editfield.svg",
-                                            height: 23,
-                                            color: AppColors.appBlueColor),
+                                    );
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.020),
+                              SizedBox(
+                                height: DeviceDimensions.screenHeight(context) *
+                                    0.057,
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.80,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, "/add-shipping-address");
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.buttonColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    padding: EdgeInsets.zero,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        "assets/icons/location.svg",
+                                        height: 20,
+                                        // ignore: deprecated_member_use
+                                        color: Colors.white,
                                       ),
                                       SizedBox(
                                           width: DeviceDimensions.screenWidth(
                                                   context) *
-                                              0.025),
-                                      GestureDetector(
-                                        onTap: () {
-                                          provider
-                                              .deleteShippingAddress(address);
-                                        },
-                                        child: const Icon(
-                                            Icons.delete_outline_outlined,
-                                            size: 28,
-                                            color: AppColors.appBlueColor),
-                                      )
+                                              0.020),
+                                      Text(
+                                        "Add New Address",
+                                        style: TextStyle(
+                                          fontSize:
+                                              DeviceDimensions.responsiveSize(
+                                                      context) *
+                                                  0.042,
+                                          fontFamily: 'Barlow-Regular',
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1,
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    SizedBox(
-                        height: DeviceDimensions.screenHeight(context) * 0.020),
-                    SizedBox(
-                      height: DeviceDimensions.screenHeight(context) * 0.057,
-                      width: DeviceDimensions.screenWidth(context) * 0.80,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, "/add-shipping-address");
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.buttonColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.025)
+                            ],
                           ),
-                          padding: EdgeInsets.zero,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              "assets/icons/location.svg",
-                              height: 20,
-                              // ignore: deprecated_member_use
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                                width: DeviceDimensions.screenWidth(context) *
-                                    0.020),
-                            Text(
-                              "Add New Address",
-                              style: TextStyle(
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.042,
-                                fontFamily: 'Barlow-Regular',
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1,
-                                color: Colors.white,
+                          if (isLoading)
+                            Container(
+                              color: Colors.white54,
+                              child: const Center(
+                                child: DualRingLoader(),
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                        height: DeviceDimensions.screenHeight(context) * 0.025)
-                  ],
-                ),
-                if (isLoading)
-                  Container(
-                    color: Colors.white54,
-                    child: const Center(
-                      child: DualRingLoader(),
-                    ),
+                        ],
+                      );
+                    },
                   ),
-              ],
-            );
-          },
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -29,13 +29,17 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: const CustomAppBar(title: "Privacy Policy"),
         backgroundColor: AppColors.screenBackground,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(
+                height: DeviceDimensions.screenHeight(context) * 0.0001,
+              ),
+              AbsherAppBar(title: 'Privacy Policy'),
+              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
               Expanded(
                 child: provider.isLoading
                     ? const Center(child: BigThreeBounceLoader()

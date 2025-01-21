@@ -266,7 +266,7 @@ class AbsherAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 12, right: 12, top: 12),
+      padding: const EdgeInsets.only(left: 12, right: 12, top: 25),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

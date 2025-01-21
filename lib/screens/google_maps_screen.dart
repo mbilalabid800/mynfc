@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nfc_app/constants/appColors.dart';
+import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 
 class GoogleMapsScreen extends StatefulWidget {
@@ -21,31 +22,42 @@ class _GoogleMapsScreenState extends State<GoogleMapsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: CustomAppBar(title: 'Choose on Map'),
-        backgroundColor: AppColors.screenBackground,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Text('Select Your Pickup Point'),
-                Text(
-                    'Set your exact pickup point  on map with machine name for order delivery as per your ease and conveniently nearby your location.'),
-                GoogleMap(
-                  initialCameraPosition: CameraPosition(
-                    target: _initialPosition,
-                    zoom: 10.0,
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: AppColors.screenBackground,
+          body: Column(
+            children: [
+              SizedBox(
+                height: DeviceDimensions.screenHeight(context) * 0.0001,
+              ),
+              AbsherAppBar(title: 'Choose on Map'),
+              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+              // SizedBox(
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Text('Select Your Pickup Point'),
+                      Text(
+                          'Set your exact pickup point  on map with machine name for order delivery as per your ease and conveniently nearby your location.'),
+                      GoogleMap(
+                        initialCameraPosition: CameraPosition(
+                          target: _initialPosition,
+                          zoom: 10.0,
+                        ),
+                        onMapCreated: (GoogleMapController controller) {
+                          _controller = controller;
+                        },
+                        markers: _markers,
+                        onTap: _handleTap,
+                      )
+                    ],
                   ),
-                  onMapCreated: (GoogleMapController controller) {
-                    _controller = controller;
-                  },
-                  markers: _markers,
-                  onTap: _handleTap,
-                )
-              ],
-            ),
-          ),
-        ));
+                ),
+              ),
+            ],
+          )),
+    );
   }
 
   void _handleTap(LatLng tappedPoint) {

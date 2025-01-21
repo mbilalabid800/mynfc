@@ -46,34 +46,32 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
           title: 'Order History',
           tabController: _tabController,
         ),
-        body: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: Consumer<OrderProvider>(
-                  builder: (context, orderProvider, _) {
-                    if (orderProvider.isLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    if (orderProvider.orders.isEmpty) {
-                      return const Center(child: Text('No orderx found.'));
-                    }
-                    return TabBarView(
-                      controller: _tabController,
-                      children: [
-                        _buildOrderList(orderProvider.orders, 'active'),
-                        _buildOrderList(orderProvider.orders, 'completed'),
-                        _buildOrderList(orderProvider.orders, 'cancelled'),
-                      ],
-                    );
-                  },
-                ),
+        body: Column(
+          children: [
+            Expanded(
+              child: Consumer<OrderProvider>(
+                builder: (context, orderProvider, _) {
+                  if (orderProvider.isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (orderProvider.orders.isEmpty) {
+                    return const Center(child: Text('No orderx found.'));
+                  }
+                  return TabBarView(
+                    controller: _tabController,
+                    children: [
+                      _buildOrderList(orderProvider.orders, 'active'),
+                      _buildOrderList(orderProvider.orders, 'completed'),
+                      _buildOrderList(orderProvider.orders, 'cancelled'),
+                    ],
+                  );
+                },
               ),
-              SizedBox(
-                height: DeviceDimensions.screenHeight(context) * 0.02,
-              ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.02,
+            ),
+          ],
         ),
       ),
     );

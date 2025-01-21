@@ -34,29 +34,40 @@ class _FaqScreenState extends State<FaqScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.screenBackground,
-        appBar: const CustomAppBar(
-          title: "FAQs",
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Flexible(child: Image.asset('assets/icons/faqimage.png'))
-                ],
+        body: Column(
+          children: [
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.0001,
+            ),
+            AbsherAppBar(title: 'FAQs'),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            // SizedBox(
+            Flexible(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                            child: Image.asset('assets/icons/faqimage.png'))
+                      ],
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: faqs.length,
+                      itemBuilder: (context, index) {
+                        return _buildFaqTile(faqs[index], index);
+                      },
+                    ),
+                    SizedBox(
+                        height: DeviceDimensions.screenHeight(context) * 0.03)
+                  ],
+                ),
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: faqs.length,
-                itemBuilder: (context, index) {
-                  return _buildFaqTile(faqs[index], index);
-                },
-              ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.03)
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

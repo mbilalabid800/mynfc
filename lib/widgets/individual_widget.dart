@@ -41,7 +41,7 @@ class _IndividualState extends State<Individual> {
                 Navigator.pushNamed(context, '/privacy-policy');
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF202020),
+                backgroundColor: AppColors.appBlueColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),
