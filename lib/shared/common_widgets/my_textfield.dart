@@ -31,7 +31,7 @@ class MyTextfield extends StatelessWidget {
         passwordVisibilityNotifier ?? ValueNotifier(false);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
+      padding: const EdgeInsets.symmetric(horizontal: 23),
       child: ValueListenableBuilder<bool>(
         valueListenable: passwordVisibility,
         builder: (context, isPasswordVisible, _) {
