@@ -19,8 +19,11 @@ class AuthenticateProvider with ChangeNotifier {
   final TextEditingController registerEmailController = TextEditingController();
   final TextEditingController registerPasswordController =
       TextEditingController();
+  final TextEditingController forgetPasswordEmailController =
+      TextEditingController();
   final GlobalKey<FormState> signinFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> forgetPassowrdFormKey = GlobalKey<FormState>();
 
   // Private variables
   bool _isLoading = false;
@@ -222,6 +225,24 @@ class AuthenticateProvider with ChangeNotifier {
       } catch (e) {
         // Handle any exceptions during registration
         CustomSnackbar().snakBarError(context, "Registration failed: $e");
+      } finally {
+        setIsLoading = false;
+      }
+    }
+  }
+
+  // Method to reset password
+  Future<void> resetPassword(BuildContext context) async {
+    if (forgetPassowrdFormKey.currentState!.validate()) {
+      setIsLoading = true;
+      try {
+        final email = forgetPasswordEmailController.text.trim();
+
+        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+        CustomSnackbar().snakBarMessage(context, 'Password reset email sent!');
+        Navigator.pop(context);
+      } catch (e) {
+        CustomSnackbar().snakBarError(context, "An error occurred");
       } finally {
         setIsLoading = false;
       }
