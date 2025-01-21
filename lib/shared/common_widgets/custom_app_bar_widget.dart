@@ -266,25 +266,11 @@ class AbsherAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 12, right: 12, top: 25),
+      padding: const EdgeInsets.only(left: 12, right: 12, top: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           leftButton ?? SizedBox.shrink(),
-          // GestureDetector(
-          //   onTap: () {
-          //     Navigator.pushNamed(context, "/profile-preview");
-          //   },
-          //   child: Container(
-          //     padding:
-          //         const EdgeInsets.symmetric(horizontal: 12.0, vertical: 9),
-          //     decoration: const BoxDecoration(
-          //       color: Color(0xFFFFFFFF),
-          //       shape: BoxShape.circle,
-          //     ),
-          //     child: SvgPicture.asset('assets/icons/eye2.svg', width: 20),
-          //   ),
-          // ),
           Text(
             title,
             style: TextStyle(
@@ -295,23 +281,6 @@ class AbsherAppBar extends StatelessWidget {
             ),
           ),
           rightButton ?? SizedBox.shrink()
-          // GestureDetector(
-          //   onTap: () {
-          //     Navigator.pushNamed(context, '/add-employees');
-          //   },
-          //   child: Container(
-          //     padding:
-          //         const EdgeInsets.symmetric(horizontal: 12.0, vertical: 9),
-          //     decoration: const BoxDecoration(
-          //       color: Color(0xFFFFFFFF),
-          //       shape: BoxShape.circle,
-          //     ),
-          //     child: SvgPicture.asset(
-          //       'assets/icons/cut2.svg',
-          //       width: 20,
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
