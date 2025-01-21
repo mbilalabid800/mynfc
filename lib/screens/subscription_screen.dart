@@ -20,34 +20,44 @@ class PricingPlansScreen extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: const CustomAppBar(title: "Select Your Plan"),
         backgroundColor: AppColors.screenBackground,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Swiper(
-                itemCount: plans.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return PricingCard(plan: plans[index]);
-                },
-                //pagination: const SwiperPagination(),
-                //control: const SwiperControl(),
-                viewportFraction: 0.8,
-                itemWidth: DeviceDimensions.screenWidth(context) *
-                    0.8, // Define width for cards
-                itemHeight: DeviceDimensions.screenHeight(context) *
-                    0.85, // Define height for cards
-                scale: 0.8,
-                loop: false,
-                layout: SwiperLayout.STACK,
-                scrollDirection: Axis.horizontal,
-                axisDirection: AxisDirection.right,
+        body: Column(
+          children: [
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.0001,
+            ),
+            AbsherAppBar(title: 'Select Your Plan'),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            Flexible(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Swiper(
+                      itemCount: plans.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return PricingCard(plan: plans[index]);
+                      },
+                      //pagination: const SwiperPagination(),
+                      //control: const SwiperControl(),
+                      viewportFraction: 0.8,
+                      itemWidth: DeviceDimensions.screenWidth(context) *
+                          0.8, // Define width for cards
+                      itemHeight: DeviceDimensions.screenHeight(context) *
+                          0.85, // Define height for cards
+                      scale: 0.8,
+                      loop: false,
+                      layout: SwiperLayout.STACK,
+                      scrollDirection: Axis.horizontal,
+                      axisDirection: AxisDirection.right,
+                    ),
+                    SizedBox(
+                      height: DeviceDimensions.screenHeight(context) * 0.05,
+                    )
+                  ],
+                ),
               ),
-              SizedBox(
-                height: DeviceDimensions.screenHeight(context) * 0.05,
-              )
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
