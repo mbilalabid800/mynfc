@@ -241,6 +241,7 @@ class AuthenticateProvider with ChangeNotifier {
         await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
         CustomSnackbar().snakBarMessage(context, 'Password reset email sent!');
         Navigator.pop(context);
+        forgetPasswordEmailController.clear();
       } catch (e) {
         CustomSnackbar().snakBarError(context, "An error occurred");
       } finally {
