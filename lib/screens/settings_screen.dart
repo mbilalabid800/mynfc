@@ -14,6 +14,7 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:nfc_app/services/firestore_service/faq_service.dart';
 import 'package:nfc_app/services/nfc_service/nfc_service.dart';
+import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/widgets/change_password.dart';
 import 'package:nfc_app/widgets/custom_profile_container_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
@@ -115,52 +116,39 @@ class _SettingsState extends State<Settings> {
                 SizedBox(
                   height: DeviceDimensions.screenHeight(context) * 0.0001,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 12, right: 12, top: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, "/profile-preview");
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12.0, vertical: 9),
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFFFFFFF),
-                            shape: BoxShape.circle,
-                          ),
-                          child: SvgPicture.asset('assets/icons/eye2.svg',
-                              width: 20),
-                        ),
+                AbsherAppBar(
+                  title: 'Settings',
+                  leftButton: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, "/profile-preview");
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 9),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFFFFFFF),
+                        shape: BoxShape.circle,
                       ),
-                      const Text(
-                        "Setting",
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.textColorBlue,
-                        ),
+                      child:
+                          SvgPicture.asset('assets/icons/eye2.svg', width: 20),
+                    ),
+                  ),
+                  rightButton: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/add-employees');
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 9),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFFFFFFF),
+                        shape: BoxShape.circle,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/add-employees');
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12.0, vertical: 9),
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFFFFFFF),
-                            shape: BoxShape.circle,
-                          ),
-                          child: SvgPicture.asset(
-                            'assets/icons/cut2.svg',
-                            width: 20,
-                          ),
-                        ),
+                      child: SvgPicture.asset(
+                        'assets/icons/cut2.svg',
+                        width: 20,
                       ),
-                    ],
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -733,3 +721,63 @@ class _SettingsState extends State<Settings> {
     );
   }
 }
+
+// class appbar extends StatelessWidget {
+//   const appbar({
+//     super.key,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.only(left: 12, right: 12, top: 25),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: [
+//           GestureDetector(
+//             onTap: () {
+//               Navigator.pushNamed(context, "/profile-preview");
+//             },
+//             child: Container(
+//               padding: const EdgeInsets.symmetric(
+//                   horizontal: 12.0, vertical: 9),
+//               decoration: const BoxDecoration(
+//                 color: Color(0xFFFFFFFF),
+//                 shape: BoxShape.circle,
+//               ),
+//               child: SvgPicture.asset('assets/icons/eye2.svg',
+//                   width: 20),
+//             ),
+//           ),
+//           Text(
+//             "Setting",
+//             style: TextStyle(
+//               fontFamily: 'Barlow-Regular',
+//               fontSize:
+//                   DeviceDimensions.responsiveSize(context) * 0.055,
+//               fontWeight: FontWeight.w600,
+//               color: AppColors.appBlueColor,
+//             ),
+//           ),
+//           GestureDetector(
+//             onTap: () {
+//               Navigator.pushNamed(context, '/add-employees');
+//             },
+//             child: Container(
+//               padding: const EdgeInsets.symmetric(
+//                   horizontal: 12.0, vertical: 9),
+//               decoration: const BoxDecoration(
+//                 color: Color(0xFFFFFFFF),
+//                 shape: BoxShape.circle,
+//               ),
+//               child: SvgPicture.asset(
+//                 'assets/icons/cut2.svg',
+//                 width: 20,
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
