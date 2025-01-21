@@ -765,10 +765,10 @@ class AddedConnectionChart extends StatelessWidget {
   }
 }
 
-class SocialAppBarChart extends StatelessWidget {
+class SocialApp_BarChart extends StatelessWidget {
   final String uid;
 
-  const SocialAppBarChart({super.key, required this.uid});
+  const SocialApp_BarChart({super.key, required this.uid});
 
   @override
   Widget build(BuildContext context) {

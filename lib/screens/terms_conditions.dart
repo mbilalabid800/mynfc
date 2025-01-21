@@ -31,10 +31,14 @@ class _TermsConditionsState extends State<TermsConditions> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: const CustomAppBar(title: "Terms & Conditions"),
         backgroundColor: AppColors.screenBackground,
         body: Column(
           children: [
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.0001,
+            ),
+            AbsherAppBar(title: 'Terms & Conditions'),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
             Expanded(
               child: Center(
                 child: Container(

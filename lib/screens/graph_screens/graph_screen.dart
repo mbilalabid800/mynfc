@@ -1186,7 +1186,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                           0.25,
                                   width: DeviceDimensions.screenWidth(context) *
                                       0.7,
-                                  child: SocialAppBarChart(uid: widget.uid),
+                                  child: SocialApp_BarChart(uid: widget.uid),
                                 ),
                               ),
                             ),
