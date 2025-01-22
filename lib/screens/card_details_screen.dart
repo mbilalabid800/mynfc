@@ -438,13 +438,16 @@ class _CardDetailsState extends State<CardDetails> {
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.pushNamed(
-                                  context, "/place-order-screen",
-                                  arguments: {
-                                    'selectedCard':
-                                        cardDetailsProvider.selectedCard,
-                                    'selectedColorOption':
-                                        cardDetailsProvider.selectedColorOption,
-                                  });
+                                context,
+                                // "/place-order-screen",
+                                "/subscription-screen",
+                                arguments: {
+                                  'selectedCard':
+                                      cardDetailsProvider.selectedCard,
+                                  'selectedColorOption':
+                                      cardDetailsProvider.selectedColorOption,
+                                },
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.buttonColor,

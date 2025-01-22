@@ -29,9 +29,15 @@ class PricingPlanService {
           'CRM Integrations (Hubspot, Zapier, Pipedrive)'
         ],
         buttonText: 'Order NFC Card',
-        buttonAction: (context) {
-          //dummy link
-          Navigator.pushNamed(context, '/privacy-policy');
+        buttonAction: (context, selectedCard, selectedColorOption) {
+          Navigator.pushNamed(
+            context,
+            '/place-order-screen',
+            arguments: {
+              'selectedCard': selectedCard,
+              'selectedColorOption': selectedColorOption,
+            },
+          );
         },
       ),
       PricingPlan(
@@ -56,9 +62,15 @@ class PricingPlanService {
         ],
         nofeatures: [],
         buttonText: 'Book a Demo',
-        buttonAction: (context) {
-          //dummy link
-          Navigator.pushNamed(context, '/privacy-policy');
+        buttonAction: (context, selectedCard, selectedColorOption) {
+          Navigator.pushNamed(
+            context,
+            '/place-order-screen',
+            arguments: {
+              'selectedCard': selectedCard,
+              'selectedColorOption': selectedColorOption,
+            },
+          );
         },
       ),
       PricingPlan(
@@ -83,9 +95,11 @@ class PricingPlanService {
         ],
         nofeatures: [],
         buttonText: 'Talk to Sale',
-        buttonAction: (context) {
-          //dummy link
-          Navigator.pushNamed(context, '/privacy-policy');
+        buttonAction: (context, selectedCard, selectedColorOption) {
+          Navigator.pushNamed(
+            context,
+            '//contact-us-screen',
+          );
         },
       ),
     ];

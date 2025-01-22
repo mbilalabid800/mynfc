@@ -5,8 +5,15 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 
 class PricingCard extends StatelessWidget {
   final PricingPlan plan;
+  final dynamic selectedCard;
+  final dynamic selectedColorOption;
 
-  const PricingCard({super.key, required this.plan});
+  const PricingCard({
+    super.key,
+    required this.plan,
+    this.selectedCard,
+    this.selectedColorOption,
+  });
 
   Color _getTitleBackgroundColor(String category) {
     if (category.toLowerCase() == 'individuals') {
@@ -153,21 +160,29 @@ class PricingCard extends StatelessWidget {
                   .toList(),
             ),
             SizedBox(height: DeviceDimensions.screenHeight(context) * 0.02),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: _getTitleBackgroundColor(plan.category),
-              ),
-              width: DeviceDimensions.screenWidth(context) * 0.45,
-              height: DeviceDimensions.screenHeight(context) * 0.06,
-              child: Center(
-                child: Text(
-                  plan.buttonText,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: DeviceDimensions.responsiveSize(context) * 0.04,
-                      fontWeight: FontWeight.w500),
+            InkWell(
+              onTap: () => plan.buttonAction(
+                context,
+                selectedCard,
+                selectedColorOption,
+              ), // Trigger buttonAction
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: _getTitleBackgroundColor(plan.category),
+                ),
+                width: DeviceDimensions.screenWidth(context) * 0.45,
+                height: DeviceDimensions.screenHeight(context) * 0.06,
+                child: Center(
+                  child: Text(
+                    plan.buttonText,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize:
+                            DeviceDimensions.responsiveSize(context) * 0.04,
+                        fontWeight: FontWeight.w500),
+                  ),
                 ),
               ),
             ),

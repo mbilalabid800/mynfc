@@ -11,11 +11,15 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 
 class PricingPlansScreen extends StatelessWidget {
   final PricingPlanService pricingPlanService = PricingPlanService();
-
   PricingPlansScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Retrieve card arguments
+    final Map<String, dynamic>? args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final selectedCard = args?['selectedCard'];
+    final selectedColorOption = args?['selectedColorOption'];
     final List<PricingPlan> plans = pricingPlanService.getPlans();
 
     return SafeArea(
@@ -35,7 +39,11 @@ class PricingPlansScreen extends StatelessWidget {
                     Swiper(
                       itemCount: plans.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return PricingCard(plan: plans[index]);
+                        return PricingCard(
+                          plan: plans[index],
+                          selectedCard: selectedCard,
+                          selectedColorOption: selectedColorOption,
+                        );
                       },
                       //pagination: const SwiperPagination(),
                       //control: const SwiperControl(),

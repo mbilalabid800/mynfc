@@ -9,7 +9,8 @@ class PricingPlan {
   final List<String> features;
   final List<String>? nofeatures;
   final String buttonText; // Text for the button
-  final void Function(BuildContext context) buttonAction;
+  final void Function(BuildContext context, dynamic selectedCard,
+      dynamic selectedColorOption) buttonAction;
   final String assetImagePath;
   final IconData icon; // Add the IconData field
 
