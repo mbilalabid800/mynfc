@@ -198,13 +198,16 @@ class AbsherAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           leftButton ?? SizedBox.shrink(),
-          Text(
-            title,
-            style: TextStyle(
-              fontFamily: 'Barlow-Regular',
-              fontSize: DeviceDimensions.responsiveSize(context) * 0.055,
-              fontWeight: FontWeight.w600,
-              color: AppColors.appBlueColor,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontFamily: 'Barlow-Regular',
+                fontSize: DeviceDimensions.responsiveSize(context) * 0.055,
+                fontWeight: FontWeight.w600,
+                color: AppColors.appBlueColor,
+              ),
             ),
           ),
           rightButton ?? SizedBox.shrink()
