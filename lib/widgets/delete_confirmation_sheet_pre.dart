@@ -81,7 +81,7 @@ class DeleteConfirmationSheetPre {
                     horizontal: DeviceDimensions.screenWidth(context) * 0.18,
                     vertical: 9,
                   ),
-                  backgroundColor: const Color(0xFFF86F6B),
+                  backgroundColor: AppColors.errorColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
@@ -110,7 +110,7 @@ class DeleteConfirmationSheetPre {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                     side: const BorderSide(
-                      color: Color(0xFFF86F6B),
+                      color: AppColors.errorColor,
                       width: 1,
                     ),
                   ),
@@ -121,7 +121,7 @@ class DeleteConfirmationSheetPre {
                     fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
                     fontFamily: 'Barlow-Regular',
                     fontWeight: FontWeight.w500,
-                    color: const Color(0xFFF86F68),
+                    color: AppColors.errorColor,
                   ),
                 ),
               ),

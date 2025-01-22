@@ -293,7 +293,7 @@ class _DeleteConfirmationSheetState extends State<DeleteConfirmationSheet> {
                             DeviceDimensions.screenWidth(context) * 0.32,
                         vertical: 11,
                       ),
-                      backgroundColor: const Color(0xFFF86F6B),
+                      backgroundColor: AppColors.errorColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
@@ -326,7 +326,7 @@ class _DeleteConfirmationSheetState extends State<DeleteConfirmationSheet> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                         side: const BorderSide(
-                          color: Color(0xFFF86F6B),
+                          color: AppColors.errorColor,
                           width: 1,
                         ),
                       ),
@@ -338,7 +338,7 @@ class _DeleteConfirmationSheetState extends State<DeleteConfirmationSheet> {
                             DeviceDimensions.responsiveSize(context) * 0.045,
                         fontFamily: 'Barlow-Regular',
                         fontWeight: FontWeight.w500,
-                        color: const Color(0xFFF86F68),
+                        color: AppColors.errorColor,
                       ),
                     ),
                   ),
