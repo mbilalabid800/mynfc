@@ -38,13 +38,16 @@ class _RecentConnectedListState extends State<RecentConnectedList> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.screenBackground,
+        //appBar: CustomAppBar(title: 'Recent Connections'),
         body: Column(
           children: [
-            SizedBox(
-              height: DeviceDimensions.screenHeight(context) * 0.0001,
-            ),
-            AbsherAppBar(title: 'Recent Connections'),
-            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            // SizedBox(
+            //   height: DeviceDimensions.screenHeight(context) * 0.0001,
+            // ),
+            // AbsherAppBar(title: 'Recent Connections'),
+            // SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            //
+            //
             Flexible(
               child: SingleChildScrollView(
                 child: Center(
