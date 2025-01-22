@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:nfc_app/services/shared_preferences_service/shared_preferences_services.dart';
@@ -239,8 +240,38 @@ class AuthenticateProvider with ChangeNotifier {
         final email = forgetPasswordEmailController.text.trim();
 
         await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-        CustomSnackbar().snakBarMessage(context, 'Password reset email sent!');
-        Navigator.pop(context);
+
+        // Show success dialog
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            backgroundColor: AppColors.screenBackground,
+            title: const Text("Success"),
+            content: const Text(
+                "Password reset email sent successfully. Please check email!."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.pop(context);
+                },
+                child: Container(
+                    decoration: BoxDecoration(
+                        color: AppColors.appBlueColor,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 7),
+                      child: Text(
+                        "OK",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )),
+              ),
+            ],
+          ),
+        );
+
         forgetPasswordEmailController.clear();
       } catch (e) {
         CustomSnackbar().snakBarError(context, "An error occurred");
