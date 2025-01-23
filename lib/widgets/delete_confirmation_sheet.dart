@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
+import 'package:nfc_app/provider/clear_app_data_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
@@ -59,7 +60,9 @@ class _DeleteConfirmationSheetState extends State<DeleteConfirmationSheet> {
           if (mounted) {
             CustomSnackbar().snakBarMessage(
                 context, "Success, Account deleted. Best of Luck!");
-            Navigator.pushReplacementNamed(context, '/login-screen');
+            ClearAppData.clearAppData(context);
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/login-screen', (Route<dynamic> route) => false);
           }
         } else {
           _showAlertDialog("Failed", "Invalid password.");
@@ -149,7 +152,7 @@ class _DeleteConfirmationSheetState extends State<DeleteConfirmationSheet> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Enter email and password to confirm and delete your account.",
+                        "Enter password to confirm and delete your account.",
                         style: TextStyle(
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.040,

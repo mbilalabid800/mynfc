@@ -4,8 +4,6 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 
 class LogoutAlertWidget {
-  final AuthService _authService = AuthService();
-
   static void showLogoutAlertDialog(BuildContext context) {
     showDialog(
       context: context,

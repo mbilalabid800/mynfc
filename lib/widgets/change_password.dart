@@ -20,7 +20,7 @@ class ChangePassword extends StatefulWidget {
 
 class _ChangePasswordState extends State<ChangePassword> {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final AuthService _authService = AuthService();
+  final AuthService authService = AuthService();
 
   final TextEditingController oldPasswordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
@@ -92,7 +92,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             CustomSnackbar()
                 .snakBarMessage(context, "Password updated successfully");
 
-            await _authService.signOut(context);
+            await authService.signOut(context);
           }
         } on FirebaseAuthException catch (e) {
           if (context.mounted) {

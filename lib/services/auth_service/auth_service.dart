@@ -48,13 +48,13 @@ class AuthService {
       //sign out of google id
       final GoogleSignIn googleSignIn = GoogleSignIn();
       await googleSignIn.signOut();
+      await ClearAppData.clearAppData(context);
+
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const LoginScreen()),
           (Route<dynamic> route) => false);
-      Future.delayed(const Duration(milliseconds: 200), () async {
-        await ClearAppData.clearAppData(context);
-      });
+      Future.delayed(const Duration(milliseconds: 200), () async {});
     } catch (e) {
       debugPrint(e.toString());
       return;

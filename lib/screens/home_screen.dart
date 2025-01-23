@@ -604,10 +604,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 SvgPicture.asset(
-                                                    "assets/icons/diamond.svg"),
+                                                    "assets/icons/orderCard.svg"),
                                                 const SizedBox(width: 10),
                                                 const Text(
-                                                  "Order Card",
+                                                  "Order NFC Card",
                                                   style: TextStyle(
                                                       fontFamily: 'Barlow-Bold',
                                                       fontWeight:

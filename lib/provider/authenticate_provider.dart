@@ -330,4 +330,26 @@ class AuthenticateProvider with ChangeNotifier {
       return false;
     }
   }
+
+  void clear() {
+    // Reset text controllers
+    signinEmailController.clear();
+    signinPasswordController.clear();
+    registerEmailController.clear();
+    registerPasswordController.clear();
+    forgetPasswordEmailController.clear();
+
+    // Reset form keys
+    signinFormKey.currentState?.reset();
+    registerFormKey.currentState?.reset();
+    forgetPassowrdFormKey.currentState?.reset();
+
+    // Reset private variables
+    _isLoading = false;
+    _isObscure = true;
+    _rememberMe = false;
+
+    // Notify listeners to rebuild UI
+    notifyListeners();
+  }
 }

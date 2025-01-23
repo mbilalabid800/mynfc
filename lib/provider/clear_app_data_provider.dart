@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nfc_app/provider/authenticate_provider.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/loading_state_provider.dart';
@@ -14,6 +15,7 @@ class ClearAppData {
   }
 
   static void _clearProviders(BuildContext context) {
+    Provider.of<AuthenticateProvider>(context, listen: false).clear();
     Provider.of<UserInfoFormStateProvider>(context, listen: false).clear();
     Provider.of<ConnectionDetailsProvider>(context, listen: false).clear();
     Provider.of<ConnectionProvider>(context, listen: false).clear();

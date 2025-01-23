@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
+import 'package:nfc_app/provider/authenticate_provider.dart';
 import 'package:nfc_app/provider/resent_email.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
@@ -195,6 +196,9 @@ class _EmailVerifyState extends State<EmailVerify> {
                           onTap: () {
                             Navigator.pushReplacementNamed(
                                 context, "/login-screen");
+                            Provider.of<AuthenticateProvider>(context,
+                                    listen: false)
+                                .clear();
                           },
                           child: Text(
                             "click here",
