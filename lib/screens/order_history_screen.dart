@@ -60,7 +60,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                     return const Center(child: CircularProgressIndicator());
                   }
                   if (orderProvider.orders.isEmpty) {
-                    return const Center(child: Text('No orderx found.'));
+                    return const Center(child: Text('No order found.'));
                   }
                   return TabBarView(
                     controller: _tabController,

@@ -10,7 +10,6 @@ import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:nfc_app/services/firestore_service/firestore_service.dart';
-import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:nfc_app/widgets/blocked_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/horizontal_scroll_app_list_widget.dart';
@@ -606,10 +605,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                               children: [
                                                 SvgPicture.asset(
                                                     "assets/icons/diamond.svg"),
-                                                // Image.asset("assets/images/upgrade.png"),
                                                 const SizedBox(width: 10),
                                                 const Text(
-                                                  "Order Absher Card",
+                                                  "Order Card",
                                                   style: TextStyle(
                                                       fontFamily: 'Barlow-Bold',
                                                       fontWeight:
