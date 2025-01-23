@@ -28,7 +28,7 @@ class PasswordValidationProvider with ChangeNotifier {
 
   void checkPasswordStrength(String password) {
     if (password.isEmpty) {
-      unmetCriterionMessage = 'Password cannot be empty';
+      unmetCriterionMessage = null;
     } else {
       passwordCriteria = evaluatePasswordCriteria(password.trim());
       passwordStrength = evaluatePasswordStrength(passwordCriteria);
@@ -44,11 +44,11 @@ class PasswordValidationProvider with ChangeNotifier {
 
   void checkConfirmPassword(String password, String confirmPassword) {
     if (password.isEmpty || confirmPassword.isEmpty) {
-      confirmPasswordErrorMessage = 'Confirm password cannot be empty';
+      confirmPasswordErrorMessage = null;
     } else if (password != confirmPassword) {
       confirmPasswordErrorMessage = 'Passwords do not match';
     } else {
-      confirmPasswordErrorMessage = null; // Set to null when valid
+      confirmPasswordErrorMessage = null;
     }
     notifyListeners();
   }

@@ -109,54 +109,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                               }
                               return userProvider.emailError;
                             }),
-                        // child: TextFormField(
-                        //   controller:
-                        //       authProvider.forgetPasswordEmailController,
-                        //   keyboardType: TextInputType.emailAddress,
-                        //   decoration: InputDecoration(
-                        //     hintText: "Email",
-                        //     hintStyle: const TextStyle(
-                        //       color: Color(0xFFA9A9A9),
-                        //       fontFamily: 'Barlow-Regular',
-                        //       fontWeight: FontWeight.w500,
-                        //     ),
-                        //     prefixIcon: Padding(
-                        //       padding: const EdgeInsets.only(
-                        //           top: 12.0, bottom: 12, left: 20, right: 10),
-                        //       child: SvgPicture.asset(
-                        //         "assets/icons/email.svg",
-                        //         height: 17,
-                        //         width: 17,
-                        //         fit: BoxFit.contain,
-                        //       ),
-                        //     ),
-                        //     filled: true,
-                        //     fillColor: Colors.white,
-                        //     contentPadding: const EdgeInsets.symmetric(
-                        //         vertical: 10, horizontal: 10),
-                        //     enabledBorder: OutlineInputBorder(
-                        //       borderRadius: BorderRadius.circular(15),
-                        //       borderSide:
-                        //           const BorderSide(color: Color(0xFFA9A9A9)),
-                        //     ),
-                        //     focusedBorder: OutlineInputBorder(
-                        //       borderRadius: BorderRadius.circular(15),
-                        //       borderSide:
-                        //           const BorderSide(color: Color(0xFFA9A9A9)),
-                        //     ),
-                        //   ),
-                        //   validator: (value) {
-                        //     if (value!.isEmpty) {
-                        //       return 'Please enter your email';
-                        //     }
-                        //     final emailPattern =
-                        //         RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                        //     if (!emailPattern.hasMatch(value)) {
-                        //       return 'Please enter a valid email address';
-                        //     }
-                        //     return null;
-                        //   },
-                        // ),
                       ),
                       SizedBox(
                           height:
