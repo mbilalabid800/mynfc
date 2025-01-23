@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  userProvider.selectedItem ??
+                                                  userProvider.profileType ??
                                                       'Not Select',
                                                   style: TextStyle(
                                                     fontFamily: 'Barlow-Bold',

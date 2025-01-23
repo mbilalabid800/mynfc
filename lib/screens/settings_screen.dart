@@ -185,7 +185,7 @@ class _SettingsState extends State<Settings> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "${userProvider.selectedItem}",
+                                            "${userProvider.profileType}",
                                             style: TextStyle(
                                               fontSize: DeviceDimensions
                                                       .responsiveSize(context) *
@@ -421,7 +421,7 @@ class _SettingsState extends State<Settings> {
                                       context, '/order-history-screen');
                                 },
                               ),
-                              if (userProvider.selectedItem != 'Individual')
+                              if (userProvider.profileType != 'Individual')
                                 SettingListComponent(
                                   icons: "assets/icons/settingicon5.svg",
                                   title: "Add Employees",

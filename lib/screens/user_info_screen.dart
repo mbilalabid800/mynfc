@@ -839,7 +839,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                           fontSize:
                               DeviceDimensions.responsiveSize(context) * 0.03),
                     ),
-                    value: formState.selectedItem,
+                    value: formState.profileType,
                     onChanged: (String? newValue) {
                       formState.updateSelectedItem(newValue);
                     },

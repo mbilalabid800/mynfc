@@ -1,7 +1,10 @@
 // services/pricing_plan_service.dart
 
 import 'package:flutter/material.dart';
+import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/pricing_plan_model.dart';
+import 'package:nfc_app/provider/user_info_form_state_provider.dart';
+import 'package:provider/provider.dart';
 
 class PricingPlanService {
   List<PricingPlan> getPlans() {
@@ -63,12 +66,65 @@ class PricingPlanService {
         nofeatures: [],
         buttonText: 'Book a Demo',
         buttonAction: (context, selectedCard, selectedColorOption) {
-          Navigator.pushNamed(
-            context,
-            '/place-order-screen',
-            arguments: {
-              'selectedCard': selectedCard,
-              'selectedColorOption': selectedColorOption,
+          showDialog(
+            context: context,
+            builder: (BuildContext dialogContext) {
+              return AlertDialog(
+                backgroundColor: AppColors.screenBackground,
+                title: const Text('Confirm Change'),
+                content: const Text(
+                    'You are switching from "Individual" to "Business". Do you want to proceed?'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(
+                          dialogContext); // Close the dialog and stay on the same screen
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: AppColors.errorColor,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 7),
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () async {
+                      Navigator.pop(dialogContext); // Close the dialog
+                      Navigator.pushNamed(
+                        context,
+                        '/add-employees',
+                        arguments: {
+                          'selectedCard': selectedCard,
+                          'selectedColorOption': selectedColorOption,
+                        },
+                      );
+                      await Provider.of<UserInfoFormStateProvider>(context,
+                              listen: false)
+                          .updateProfileType("Business");
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: AppColors.appBlueColor,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 7),
+                        child: Text(
+                          "Confirm",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
             },
           );
         },

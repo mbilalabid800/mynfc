@@ -16,7 +16,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String _contact = '';
   String _countryCode = '';
   String _city = '';
-  String? _selectedItem;
+  String? _profileType;
   String _companyName = '';
   String _designation = '';
   String _websiteLink = '';
@@ -49,7 +49,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String get email => _email;
   String get uid => _uid;
   String get city => _city;
-  String? get selectedItem => _selectedItem;
+  String? get profileType => _profileType;
   String get companyName => _companyName;
   String get designation => _designation;
   String get websiteLink => _websiteLink;
@@ -96,8 +96,8 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateSelectedItem(String? selectedItem) {
-    _selectedItem = selectedItem;
+  void updateSelectedItem(String? profileType) {
+    _profileType = profileType;
     notifyListeners();
   }
 
@@ -303,6 +303,18 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateProfileType(String profileType) async {
+    notifyListeners();
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      await FirebaseFirestore.instance.collection("users").doc(uid).update({
+        'profile_type': profileType,
+      });
+    }
+    _profileType = profileType;
+    notifyListeners();
+  }
+
   void updateProfileViews(int viewCount) {
     _totalViews = totalViews;
     notifyListeners();
@@ -351,7 +363,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'designation': _designation,
           'website_link': _websiteLink,
           'image_url': _imageUrl,
-          'profile_type': _selectedItem,
+          'profile_type': _profileType,
           'bio': _bio,
           'isPrivate': _isPrivate,
           'timeStamp': Timestamp.now(),
@@ -456,7 +468,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           _imageUrl =
               userData.profileImage.isEmpty ? '' : userData.profileImage;
           _contact = userData.contactNumber;
-          _selectedItem = userData.businessType;
+          _profileType = userData.businessType;
           _countryName =
               userData.countryName.isEmpty ? '' : userData.countryName;
           _bio =
@@ -507,7 +519,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     _contact = '';
     _countryCode = '';
     _city = '';
-    _selectedItem = '';
+    _profileType = '';
     _companyName = '';
     _designation = '';
     _websiteLink = '';

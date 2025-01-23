@@ -142,7 +142,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                                 width: DeviceDimensions.screenWidth(context) *
                                     0.015),
                             Text(
-                              "${userProvider.selectedItem}",
+                              "${userProvider.profileType}",
                               style: TextStyle(
                                   fontSize:
                                       DeviceDimensions.responsiveSize(context) *

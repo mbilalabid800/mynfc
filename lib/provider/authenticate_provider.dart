@@ -256,17 +256,18 @@ class AuthenticateProvider with ChangeNotifier {
                   Navigator.pop(context);
                 },
                 child: Container(
-                    decoration: BoxDecoration(
-                        color: AppColors.appBlueColor,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 7),
-                      child: Text(
-                        "OK",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    )),
+                  decoration: BoxDecoration(
+                      color: AppColors.appBlueColor,
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 7),
+                    child: Text(
+                      "OK",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
