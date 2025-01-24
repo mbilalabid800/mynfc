@@ -219,6 +219,9 @@ class AuthenticateProvider with ChangeNotifier {
           SharedPreferencesServices prefsService = SharedPreferencesServices();
           await prefsService.saveEmail(email);
 
+          Provider.of<UserInfoFormStateProvider>(context, listen: false)
+              .setEmail(email);
+
           // Navigate to the next screen
           Navigator.pushReplacementNamed(context, '/user-info');
         } else {

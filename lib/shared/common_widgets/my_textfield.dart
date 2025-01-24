@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
@@ -12,6 +13,8 @@ class MyTextfield extends StatelessWidget {
   final bool isPasswordField;
   final ValueNotifier<bool>? passwordVisibilityNotifier;
   final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
 
   const MyTextfield({
     super.key,
@@ -23,6 +26,8 @@ class MyTextfield extends StatelessWidget {
     this.isPasswordField = false,
     this.passwordVisibilityNotifier,
     this.validator,
+    this.keyboardType,
+    this.inputFormatters,
   });
 
   @override
@@ -41,6 +46,8 @@ class MyTextfield extends StatelessWidget {
             style: TextStyle(
               height: DeviceDimensions.screenHeight(context) * 0.0026,
             ),
+            keyboardType: keyboardType,
+            inputFormatters: inputFormatters,
             decoration: InputDecoration(
               hintText: hintText,
               hintStyle: const TextStyle(

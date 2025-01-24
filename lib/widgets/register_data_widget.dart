@@ -69,7 +69,7 @@ class _RegisterFormState extends State<RegisterData> {
                                     },
                                     validator: (value) {
                                       if (value?.isEmpty ?? true) {
-                                        return 'Please enter an email address';
+                                        return 'Enter a valid email address';
                                       }
                                       return userInfoFormStateProvider
                                           .emailError;
@@ -95,7 +95,7 @@ class _RegisterFormState extends State<RegisterData> {
                                   },
                                   validator: (value) {
                                     if (value?.isEmpty ?? true) {
-                                      return 'Please enter an password';
+                                      return 'Password is required';
                                     }
                                     return passwordValidationProvider
                                         .unmetCriterionMessage;
@@ -126,7 +126,7 @@ class _RegisterFormState extends State<RegisterData> {
                                   },
                                   validator: (value) {
                                     if (value?.isEmpty ?? true) {
-                                      return 'Please enter confirm password';
+                                      return 'Confirm password is required';
                                     }
                                     return passwordValidationProvider
                                         .confirmPasswordErrorMessage;
