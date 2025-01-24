@@ -135,7 +135,7 @@ class _SettingsState extends State<Settings> {
                   ),
                   rightButton: GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/add-employees');
+                      //Navigator.pushNamed(context, '/add-employees');
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(

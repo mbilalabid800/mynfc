@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/screens/order_details.dart';
 
 class PaymentSuccessful {
   const PaymentSuccessful();
@@ -58,8 +59,14 @@ class PaymentSuccessful {
                       width: DeviceDimensions.screenWidth(context) * 0.50,
                       child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, "/order-details");
+                            // Navigator.pushReplacementNamed(
+                            //     context, "/order-details");
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              '/order-details',
+                              (route) =>
+                                  false, // This removes all previous routes
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.appBlueColor,

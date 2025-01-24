@@ -14,7 +14,7 @@ class PricingPlanService {
         title: 'For Individuals',
         category: 'Individuals',
         price: '7.00 ',
-        assetImagePath: 'assets/icons/cardpopular.png',
+        assetImagePath: 'assets/icons/cardindividual.png',
         currency: 'OMR',
         description: 'per card, one-time payment',
         features: [
@@ -49,7 +49,7 @@ class PricingPlanService {
         category: 'Teams',
         price: '6.00 ',
         currency: 'OMR',
-        assetImagePath: 'assets/icons/cardpopular.png',
+        assetImagePath: 'assets/icons/cardteam.png',
         description: 'per user, per year',
         features: [
           'Custom NFC Card',
@@ -65,68 +65,82 @@ class PricingPlanService {
         ],
         nofeatures: [],
         buttonText: 'Book a Demo',
-        buttonAction: (context, selectedCard, selectedColorOption) {
-          showDialog(
-            context: context,
-            builder: (BuildContext dialogContext) {
-              return AlertDialog(
-                backgroundColor: AppColors.screenBackground,
-                title: const Text('Confirm Change'),
-                content: const Text(
-                    'You are switching from "Individual" to "Business". Do you want to proceed?'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(
-                          dialogContext); // Close the dialog and stay on the same screen
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: AppColors.errorColor,
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 7),
-                        child: Text(
-                          "Cancel",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+        buttonAction: (context, selectedCard, selectedColorOption) async {
+          String? currentProfileType =
+              Provider.of<UserInfoFormStateProvider>(context, listen: false)
+                  .profileType;
+          if (currentProfileType == "Business") {
+            Navigator.pushNamed(
+              context,
+              '/add-employees',
+              arguments: {
+                'selectedCard': selectedCard,
+                'selectedColorOption': selectedColorOption,
+              },
+            );
+          } else {
+            showDialog(
+              context: context,
+              builder: (BuildContext dialogContext) {
+                return AlertDialog(
+                  backgroundColor: AppColors.screenBackground,
+                  title: const Text('Confirm Change'),
+                  content: const Text(
+                      'You are switching from "Individual" to "Business". Do you want to proceed?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(
+                            dialogContext); // Close the dialog and stay on the same screen
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: AppColors.errorColor,
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 7),
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      Navigator.pop(dialogContext); // Close the dialog
-                      Navigator.pushNamed(
-                        context,
-                        '/add-employees',
-                        arguments: {
-                          'selectedCard': selectedCard,
-                          'selectedColorOption': selectedColorOption,
-                        },
-                      );
-                      await Provider.of<UserInfoFormStateProvider>(context,
-                              listen: false)
-                          .updateProfileType("Business");
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: AppColors.appBlueColor,
-                          borderRadius: BorderRadius.circular(12)),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 7),
-                        child: Text(
-                          "Confirm",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
+                    TextButton(
+                      onPressed: () async {
+                        Navigator.pop(dialogContext); // Close the dialog
+                        Navigator.pushNamed(
+                          context,
+                          '/add-employees',
+                          arguments: {
+                            'selectedCard': selectedCard,
+                            'selectedColorOption': selectedColorOption,
+                          },
+                        );
+                        await Provider.of<UserInfoFormStateProvider>(context,
+                                listen: false)
+                            .updateProfileType("Business");
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: AppColors.appBlueColor,
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 7),
+                          child: Text(
+                            "Confirm",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              );
-            },
-          );
+                  ],
+                );
+              },
+            );
+          }
         },
       ),
       PricingPlan(
@@ -135,7 +149,7 @@ class PricingPlanService {
         category: 'Companies',
         price: '5.50 ',
         currency: 'OMR',
-        assetImagePath: 'assets/icons/cardpopular.png',
+        assetImagePath: 'assets/icons/cardcompanies.png',
         description: '100+ users',
         features: [
           'Custom NFC Card',
@@ -154,7 +168,7 @@ class PricingPlanService {
         buttonAction: (context, selectedCard, selectedColorOption) {
           Navigator.pushNamed(
             context,
-            '//contact-us-screen',
+            '/contact-us-screen',
           );
         },
       ),
