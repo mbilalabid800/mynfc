@@ -103,7 +103,7 @@ class _SigninDataState extends State<SigninData> {
                               ),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Please enter your email';
+                                  return 'Enter a valid email address';
                                 }
                                 final emailPattern =
                                     RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,5}$');
@@ -187,7 +187,7 @@ class _SigninDataState extends State<SigninData> {
                               ),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Please enter Password';
+                                  return 'Password is required';
                                 }
                                 return null;
                               },
