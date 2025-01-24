@@ -178,7 +178,10 @@ class AuthenticateProvider with ChangeNotifier {
               '/user-info', (Route<dynamic> route) => false);
         } else {
           Navigator.of(context).pushNamedAndRemoveUntil(
-              '/email-verify', (Route<dynamic> route) => false);
+            '/email-verify',
+            (Route<dynamic> route) => false,
+            arguments: {'email': signinEmailController.text},
+          );
         }
       }
     } catch (e) {
