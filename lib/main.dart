@@ -135,7 +135,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        // Return false to prevent back button functionality
         return false;
       },
       child: MediaQuery(
@@ -144,7 +143,6 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Absher',
           debugShowCheckedModeBanner: false,
-
           theme: ThemeData(
             //colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
             useMaterial3: true,
@@ -172,7 +170,6 @@ final Map<String, WidgetBuilder> _webRoutes = {
   '/new-splash': (context) => const ErrorScreen(
         message: 'Page not found',
       ),
-  // Add other web-specific routes
 };
 
 final Map<String, WidgetBuilder> _appRoutes = {
