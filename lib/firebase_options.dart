@@ -67,9 +67,11 @@ class DefaultFirebaseOptions {
     projectId: 'nfc-project-21b56',
     databaseURL: 'https://nfc-project-21b56-default-rtdb.firebaseio.com',
     storageBucket: 'nfc-project-21b56.appspot.com',
-    androidClientId: '165128879718-jpueeqj4hamlhhi5cah147cfe44fn8hr.apps.googleusercontent.com',
-    iosClientId: '165128879718-ojncng6qgpuqqkvsnr26rb7vn0dce9jb.apps.googleusercontent.com',
-    iosBundleId: 'com.sahab.absherb',
+    androidClientId:
+        '165128879718-jpueeqj4hamlhhi5cah147cfe44fn8hr.apps.googleusercontent.com',
+    iosClientId:
+        '165128879718-ojncng6qgpuqqkvsnr26rb7vn0dce9jb.apps.googleusercontent.com',
+    iosBundleId: 'com.sahabit.absherb',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -79,9 +81,11 @@ class DefaultFirebaseOptions {
     projectId: 'nfc-project-21b56',
     databaseURL: 'https://nfc-project-21b56-default-rtdb.firebaseio.com',
     storageBucket: 'nfc-project-21b56.appspot.com',
-    androidClientId: '165128879718-jpueeqj4hamlhhi5cah147cfe44fn8hr.apps.googleusercontent.com',
-    iosClientId: '165128879718-ljsft8v6upnqs7c8qlorj15ju5f380bg.apps.googleusercontent.com',
-    iosBundleId: 'com.sahab.absher',
+    androidClientId:
+        '165128879718-jpueeqj4hamlhhi5cah147cfe44fn8hr.apps.googleusercontent.com',
+    iosClientId:
+        '165128879718-ljsft8v6upnqs7c8qlorj15ju5f380bg.apps.googleusercontent.com',
+    iosBundleId: 'com.sahabit.absher',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
@@ -94,5 +98,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'nfc-project-21b56.appspot.com',
     measurementId: 'G-3T3V1Q874L',
   );
-
 }

@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>165128879718-ojncng6qgpuqqkvsnr26rb7vn0dce9jb.apps.googleusercontent.com</string>
+	<string>165128879718-ff4l884u011r8j28ov3sijt0adc608ei.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.165128879718-ojncng6qgpuqqkvsnr26rb7vn0dce9jb</string>
+	<string>com.googleusercontent.apps.165128879718-ff4l884u011r8j28ov3sijt0adc608ei</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>165128879718-jpueeqj4hamlhhi5cah147cfe44fn8hr.apps.googleusercontent.com</string>
+	<string>165128879718-g2f1ilioaim80qb3fg9k8je01jao20sv.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAXSK45P_OQdR9OgkXPMlO7lw_zYt2m2o4</string>
 	<key>GCM_SENDER_ID</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.sahab.absherb</string>
+	<string>com.sahabit.absher</string>
 	<key>PROJECT_ID</key>
 	<string>nfc-project-21b56</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:165128879718:ios:3f37aef66b6b982299f7a7</string>
+	<string>1:165128879718:ios:e7360d02d68459c499f7a7</string>
 	<key>DATABASE_URL</key>
 	<string>https://nfc-project-21b56-default-rtdb.firebaseio.com</string>
 </dict>
