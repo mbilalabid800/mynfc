@@ -56,6 +56,11 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                     child:
                         Icon(Icons.arrow_back, color: AppColors.appBlueColor)),
               ),
+              rightButton: Align(
+                alignment: Alignment.centerRight,
+                child: SizedBox(
+                    width: DeviceDimensions.screenWidth(context) * 0.035),
+              ),
             ),
             SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
             Flexible(
@@ -77,7 +82,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                             ),
                             Positioned(
                               right: 30,
-                              top: 58,
+                              top: 28,
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(
