@@ -30,6 +30,7 @@ import 'package:nfc_app/screens/auth/email_verified.dart';
 import 'package:nfc_app/screens/auth/email_verify.dart';
 import 'package:nfc_app/screens/auth/forget_password.dart';
 import 'package:nfc_app/screens/auth/login_screen.dart';
+import 'package:nfc_app/screens/billing_screen.dart';
 import 'package:nfc_app/screens/card_details_screen.dart';
 import 'package:nfc_app/screens/choose_machine.dart';
 import 'package:nfc_app/screens/choose_shipping_address.dart';
@@ -220,6 +221,7 @@ final Map<String, WidgetBuilder> _appRoutes = {
   '/chat-screen': (context) => ChatScreen(),
   '/chat-screen2': (context) => ChatScreen2(),
   '/connections-request': (context) => ConnectionsRequest(),
+  '/billing-screen': (context) => BillingScreen(),
 };
 
 Route<dynamic>? _onGenerateRoute(RouteSettings settings) {

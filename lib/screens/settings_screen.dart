@@ -529,7 +529,7 @@ class _SettingsState extends State<Settings> {
                                 callBack: () {
                                   //dummy link
                                   Navigator.pushNamed(
-                                      context, '/privacy-policy');
+                                      context, '/billing-screen');
                                 },
                               ),
                               SettingListComponent(
