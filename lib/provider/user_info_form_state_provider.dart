@@ -108,7 +108,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     if (firstName.startsWith(' ')) {
       _firstNameError = 'Spaces are not allowed. Please enter a valid name.';
     } else if (trimmedFirstName.isEmpty) {
-      _firstNameError = 'First name cannot be empty';
+      _firstNameError = 'Enter your first name';
     } else if (trimmedFirstName.length < 2) {
       _firstNameError = 'First name must be at least 2 characters';
     } else if (trimmedFirstName.length > 20) {
@@ -132,7 +132,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     if (lastName.startsWith(' ')) {
       _lastNameError = 'Spaces are not allowed. Please enter a valid name.';
     } else if (trimmedLastName.isEmpty) {
-      _lastNameError = 'Last name cannot be empty';
+      _lastNameError = 'Enter your last name';
     } else if (trimmedLastName.length < 2) {
       _lastNameError = 'Last name must be at least 2 characters';
     } else if (trimmedLastName.length > 20) {
@@ -167,9 +167,9 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     final regex = RegExp(r'^[0-9]+$'); // Regex to validate numbers
 
     if (contact.startsWith(' ')) {
-      _contactError = 'Contact cannot start with a space';
+      _contactError = 'Spaces are not allowed, Enter your phone number';
     } else if (contact.isEmpty) {
-      _contactError = 'Contact cannot be empty';
+      _contactError = 'Enter your phone number';
     } else if (!regex.hasMatch(contact)) {
       _contactError = 'Contact must be numbers only';
     }
@@ -192,9 +192,9 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     // Validation: Ensure the first name is between 2-20 chars and only contains letters
     final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
     if (city.startsWith(' ')) {
-      _cityNameError = 'City name cannot start with a space';
+      _cityNameError = 'Spaces are not allowed, Enter your city name';
     } else if (trimmedCityName.isEmpty) {
-      _cityNameError = 'City name cannot be empty';
+      _cityNameError = 'Enter your city name';
     } else if (trimmedCityName.length < 2) {
       _cityNameError = 'City name must be at least 2 characters';
     } else if (trimmedCityName.length > 20) {
@@ -217,9 +217,9 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
     final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
     if (companyName.startsWith(' ')) {
-      _companyNameError = 'Company name cannot start with a space';
+      _companyNameError = 'Spaces are not allowed, Enter your company name';
     } else if (trimmedCompanyName.isEmpty) {
-      _companyNameError = 'Company name cannot be empty';
+      _companyNameError = 'Enter your company name';
     } else if (trimmedCompanyName.length < 2) {
       _companyNameError = 'Company name must be at least 2 characters';
     } else if (trimmedCompanyName.length > 20) {
@@ -242,9 +242,9 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
     final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
     if (designation.startsWith(' ')) {
-      _designationError = 'Designation cannot start with a space';
+      _designationError = 'Spaces are not allowed, Enter your designation';
     } else if (trimmedDesignation.isEmpty) {
-      _designationError = 'Designation cannot be empty';
+      _designationError = 'Enter your designation';
     } else if (trimmedDesignation.length < 2) {
       _designationError = 'Designation must be at least 2 characters';
     } else if (trimmedDesignation.length > 20) {
@@ -268,7 +268,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
         r'(\/[a-zA-Z0-9\-_\/]*)?$'); // Optional path (note the ? at the end)
 
     if (!regex.hasMatch(websiteLink)) {
-      _websiteLinkError = 'Please enter a valid website URL';
+      _websiteLinkError = 'Enter your valid website';
     } else {
       _websiteLinkError = null; // Clear error if input is valid
       _websiteLink = websiteLink;

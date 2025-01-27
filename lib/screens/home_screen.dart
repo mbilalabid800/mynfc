@@ -642,7 +642,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 5, top: 07, bottom: 4),
+                                                left: 5, top: 07),
                                             child: Center(
                                               child: Text(
                                                 "Recent Connections",
@@ -657,6 +657,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       AppColors.textColorBlue,
                                                 ),
                                               ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 8.0),
+                                            child: Divider(
+                                              color: AppColors.greyText,
                                             ),
                                           ),
                                           Expanded(

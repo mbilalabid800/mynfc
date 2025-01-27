@@ -34,7 +34,7 @@ class _IndividualState extends State<Individual> {
           alignment: Alignment.bottomCenter,
           child: SizedBox(
             width: DeviceDimensions.screenWidth(context) * 0.8,
-            height: DeviceDimensions.screenHeight(context) * 0.057,
+            height: 49,
             child: ElevatedButton(
               onPressed: () {
                 //dummy link
@@ -277,8 +277,7 @@ class _IndividualState extends State<Individual> {
           color: Colors.white,
           border: Border.all(
             width: 2,
-            color:
-                selected ? AppColors.appOrangeColor : const Color(0xFFD9D9D9),
+            color: selected ? AppColors.appBlueColor : const Color(0xFFD9D9D9),
           ),
         ),
         child: Padding(
@@ -303,7 +302,7 @@ class _IndividualState extends State<Individual> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: selected
-                          ? AppColors.appOrangeColor
+                          ? AppColors.appBlueColor
                           : Colors.transparent,
                       border: Border.all(
                         color: const Color(0xFF000000),
