@@ -1,4 +1,6 @@
 // ignore_for_file: avoid_print, depend_on_referenced_packages, unused_import
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -87,8 +89,10 @@ void main() async {
   } catch (e) {
     debugPrint('Firebase initialization error: $e');
   }
-  final permissionHandler = PermissionHandler();
-  await permissionHandler.requestPermission();
+  // if (Platform.isAndroid || Platform.isIOS) {
+  //   final permissionHandler = PermissionHandler();
+  //   await permissionHandler.requestPermission();
+  // }
 
   SystemChrome.setPreferredOrientations(
     [

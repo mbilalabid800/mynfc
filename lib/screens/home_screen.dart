@@ -104,10 +104,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     Colors.black.withOpacity(0.5),
                     BlendMode.darken,
                   ),
-                  child: Image.asset(
-                    "assets/images/homebackground.png",
-                    height: DeviceDimensions.screenHeight(context) * 1.5,
-                    fit: BoxFit.cover,
+                  child: Transform.scale(
+                    scale: 1.2,
+                    child: Image.asset(
+                      "assets/images/homebackground.png",
+                      height: DeviceDimensions.screenHeight(context) * 1.5,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 Stack(
