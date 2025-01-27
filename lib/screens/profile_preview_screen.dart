@@ -40,7 +40,23 @@ class _ProfilePreviewState extends State<ProfilePreview> {
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(title: 'Profile'),
+            AbsherAppBar(
+              title: 'Profile',
+              leftButton: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 9),
+                    decoration: const BoxDecoration(
+                        //color: Color(0xFFFFFFFF),
+                        //shape: BoxShape.circle,
+                        ),
+                    child:
+                        Icon(Icons.arrow_back, color: AppColors.appBlueColor)),
+              ),
+            ),
             SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
             Flexible(
               child: SingleChildScrollView(
