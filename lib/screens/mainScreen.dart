@@ -31,6 +31,7 @@ class MainScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
+      // backgroundColor: Colors.transparent,
       body: pages[provider.selectedIndex],
       bottomNavigationBar: CustomCurvedNavigationBar(
         initialIndex: provider.selectedIndex,
