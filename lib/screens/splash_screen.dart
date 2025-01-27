@@ -16,11 +16,10 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  late AnimationController _containerAnimationController;
-  late Animation<Offset> _containerSlideAnimation;
   late AnimationController _imageAnimationController;
-  late Animation<Offset> _imageSlideAnimation;
-  late Animation<double> _fadeAnimation;
+  late AnimationController _containerAnimationController;
+  late Animation<double> _scaleAnimation;
+  late Animation<Offset> _containerSlideAnimation;
 
   final List<String> splashTexts = [
     "Smart is your\nDigital Business\nCard",
@@ -39,24 +38,21 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     enableImmersiveStickyMode();
 
-    _imageAnimationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
-
-    _imageSlideAnimation = Tween<Offset>(
-      begin: const Offset(1.0, 0.0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-        parent: _imageAnimationController, curve: Curves.easeOut));
-
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-            parent: _imageAnimationController, curve: Curves.easeOut));
-
-    _imageAnimationController.forward();
+    _imageAnimationController = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
 
     _containerAnimationController = AnimationController(
       duration: const Duration(seconds: 2), // Shorter duration for smoothness
       vsync: this,
+    );
+
+    _scaleAnimation = Tween<double>(begin: 1.1, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _imageAnimationController,
+        curve: Curves.easeOut,
+      ),
     );
 
     _containerSlideAnimation = Tween<Offset>(
@@ -64,187 +60,168 @@ class _SplashScreenState extends State<SplashScreen>
       end: Offset.zero, // Slide into position
     ).animate(CurvedAnimation(
       parent: _containerAnimationController,
-      curve: Curves.easeInCubic,
+      curve: Curves.easeInOut,
     ));
 
     // Start the animations
     _containerAnimationController.forward();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      //_imageAnimationController.forward();
+      _imageAnimationController.forward();
     });
   }
 
   @override
   void dispose() {
-    //_imageAnimationController.dispose();
+    _imageAnimationController.dispose();
     _containerAnimationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.screenBackground,
-        body: Stack(
-          children: [
-            // Background images with animations
-            Consumer<SplashScreenProvider>(
-              builder: (context, provider, child) {
-                return PageView.builder(
-                  controller: provider.pageController,
-                  itemCount: splashImages.length,
-                  physics: ClampingScrollPhysics(),
-                  onPageChanged: (index) {
-                    provider.setPage(index);
-                    _imageAnimationController.reset();
-                    _imageAnimationController.forward();
-                  },
-                  itemBuilder: (context, index) {
-                    return FadeTransition(
-                      opacity: AlwaysStoppedAnimation(1.0),
-                      child: SizedBox(
-                        height: DeviceDimensions.screenHeight(context),
-                        width: DeviceDimensions.screenWidth(context),
-                        child: Image.asset(
-                          splashImages[index],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                    // return AnimatedBuilder(
-                    //   animation: _imageAnimationController,
-                    //   builder: (context, child) {
-                    //     return Transform.scale(
-                    //       scale: _scaleAnimation.value,
-                    //       child: SizedBox(
-                    //         height: DeviceDimensions.screenHeight(context),
-                    //         width: DeviceDimensions.screenWidth(context),
-                    //         child: Image.asset(
-                    //           splashImages[index],
-                    //           fit: BoxFit.cover,
-                    //         ),
-                    //       ),
-                    //     );
-                    //   },
-                    // );
-                  },
-                );
-              },
-            ),
-            // Sliding container
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: SlideTransition(
-                position: _containerSlideAnimation,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 12, right: 12, bottom: 20),
-                  child: Consumer<SplashScreenProvider>(
-                    builder: (context, provider, child) {
-                      return Container(
-                        height: DeviceDimensions.screenHeight(context) * 0.40,
-                        width: DeviceDimensions.screenWidth(context),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 10,
-                              offset: Offset(0, 5),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.022),
-                            // Dots Indicator
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: List.generate(
-                                splashTexts.length,
-                                (index) {
-                                  return AnimatedContainer(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 5.0),
-                                    duration: const Duration(milliseconds: 500),
-                                    width: provider.currentDot == index
-                                        ? DeviceDimensions.screenHeight(
-                                                context) *
-                                            0.050
-                                        : DeviceDimensions.screenHeight(
-                                                context) *
-                                            0.010,
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.010,
-                                    decoration: BoxDecoration(
-                                      color: provider.currentDot == index
-                                          ? AppColors.appBlueColor
-                                          : Colors.grey,
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.050),
-                            // Animated Text
-                            WidgetAnimator(
-                              incomingEffect: WidgetTransitionEffects
-                                  .incomingSlideInFromRight(
-                                duration: const Duration(milliseconds: 400),
-                                curve: Curves.easeIn,
-                              ),
-                              outgoingEffect: WidgetTransitionEffects
-                                  .outgoingSlideOutToLeft(
-                                duration: const Duration(milliseconds: 400),
-                                curve: Curves.easeOut,
-                              ),
-                              child: Text(
-                                key: ValueKey<int>(provider.currentDot),
-                                splashTexts[provider.currentDot],
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.080,
-                                  fontFamily: "Barlow-Bold",
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.textColorBlue,
-                                ),
-                              ),
-                            ),
-                            const Spacer(),
-                            // Get Started Button
-                            MyButton(
-                              text: 'Get Started',
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed('/login-screen');
-                              },
-                              width:
-                                  DeviceDimensions.screenWidth(context) * 0.75,
-                            ),
-                            SizedBox(
-                              height: DeviceDimensions.screenHeight(context) *
-                                  0.043,
-                            ),
-                          ],
+    return Scaffold(
+      backgroundColor: AppColors.screenBackground,
+      body: Stack(
+        children: [
+          // Background images with animations
+          Consumer<SplashScreenProvider>(
+            builder: (context, provider, child) {
+              return PageView.builder(
+                controller: provider.pageController,
+                itemCount: splashImages.length,
+                onPageChanged: (index) {
+                  provider.setPage(index);
+                  _imageAnimationController.reset();
+                  _imageAnimationController.forward();
+                },
+                itemBuilder: (context, index) {
+                  return AnimatedBuilder(
+                    animation: _imageAnimationController,
+                    builder: (context, child) {
+                      return Transform.scale(
+                        scale: _scaleAnimation.value,
+                        child: SizedBox(
+                          height: DeviceDimensions.screenHeight(context),
+                          width: DeviceDimensions.screenWidth(context),
+                          child: Image.asset(
+                            splashImages[index],
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       );
                     },
-                  ),
+                  );
+                },
+              );
+            },
+          ),
+          // Sliding container
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SlideTransition(
+              position: _containerSlideAnimation,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 12, right: 12, bottom: 20),
+                child: Consumer<SplashScreenProvider>(
+                  builder: (context, provider, child) {
+                    return Container(
+                      height: DeviceDimensions.screenHeight(context) * 0.40,
+                      width: DeviceDimensions.screenWidth(context),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black26,
+                            blurRadius: 10,
+                            offset: Offset(0, 5),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                              height: DeviceDimensions.screenHeight(context) *
+                                  0.022),
+                          // Dots Indicator
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(
+                              splashTexts.length,
+                              (index) {
+                                return AnimatedContainer(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 5.0),
+                                  duration: const Duration(milliseconds: 500),
+                                  width: provider.currentDot == index
+                                      ? DeviceDimensions.screenHeight(context) *
+                                          0.050
+                                      : DeviceDimensions.screenHeight(context) *
+                                          0.010,
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.010,
+                                  decoration: BoxDecoration(
+                                    color: provider.currentDot == index
+                                        ? AppColors.appBlueColor
+                                        : Colors.grey,
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                              height: DeviceDimensions.screenHeight(context) *
+                                  0.050),
+                          // Animated Text
+                          WidgetAnimator(
+                            incomingEffect: WidgetTransitionEffects
+                                .incomingSlideInFromRight(
+                              duration: const Duration(milliseconds: 400),
+                              curve: Curves.easeInOut,
+                            ),
+                            outgoingEffect:
+                                WidgetTransitionEffects.outgoingSlideOutToLeft(
+                              duration: const Duration(milliseconds: 400),
+                              curve: Curves.easeInOut,
+                            ),
+                            child: Text(
+                              key: ValueKey<int>(provider.currentDot),
+                              splashTexts[provider.currentDot],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.080,
+                                fontFamily: "Barlow-Bold",
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.textColorBlue,
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          // Get Started Button
+                          MyButton(
+                            text: 'Get Started',
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/login-screen');
+                            },
+                            width: DeviceDimensions.screenWidth(context) * 0.75,
+                          ),
+                          SizedBox(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.043,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
