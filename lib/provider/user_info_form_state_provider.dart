@@ -108,7 +108,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     if (firstName.startsWith(' ')) {
       _firstNameError = 'Spaces are not allowed. Please enter a valid name.';
     } else if (trimmedFirstName.isEmpty) {
-      _firstNameError = 'First name cannot be empty';
+      _firstNameError = 'Enter your first name';
     } else if (trimmedFirstName.length < 2) {
       _firstNameError = 'First name must be at least 2 characters';
     } else if (trimmedFirstName.length > 20) {
@@ -132,7 +132,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     if (lastName.startsWith(' ')) {
       _lastNameError = 'Spaces are not allowed. Please enter a valid name.';
     } else if (trimmedLastName.isEmpty) {
-      _lastNameError = 'Last name cannot be empty';
+      _lastNameError = 'Enter your last name';
     } else if (trimmedLastName.length < 2) {
       _lastNameError = 'Last name must be at least 2 characters';
     } else if (trimmedLastName.length > 20) {
@@ -169,7 +169,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     if (contact.startsWith(' ')) {
       _contactError = 'Contact cannot start with a space';
     } else if (contact.isEmpty) {
-      _contactError = 'Contact cannot be empty';
+      _contactError = 'Enter your phone number';
     } else if (!regex.hasMatch(contact)) {
       _contactError = 'Contact must be numbers only';
     }
