@@ -76,6 +76,10 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, dynamic>? args =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final selectedCard = args?['selectedCard'];
+    final selectedColorOption = args?['selectedColorOption'];
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.screenBackground,
@@ -367,11 +371,23 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/card-details');
-                            },
+                            onPressed: addedEmployees.isNotEmpty
+                                ? () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/place-order-screen',
+                                      arguments: {
+                                        'selectedCard': selectedCard,
+                                        'selectedColorOption':
+                                            selectedColorOption,
+                                      },
+                                    );
+                                  }
+                                : null, //Disable the button if no employees added
                             style: TextButton.styleFrom(
-                              backgroundColor: Colors.green,
+                              backgroundColor: addedEmployees.isNotEmpty
+                                  ? Colors.green
+                                  : Colors.grey,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
