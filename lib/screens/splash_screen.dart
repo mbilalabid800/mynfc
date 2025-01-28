@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen>
     enableImmersiveStickyMode();
 
     _mainAnimationController = AnimationController(
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
 
@@ -80,6 +80,7 @@ class _SplashScreenState extends State<SplashScreen>
             builder: (context, provider, child) {
               return PageView.builder(
                 controller: provider.pageController,
+                //physics: NeverScrollableScrollPhysics(),
                 itemCount: splashImages.length, // No dummy pages needed
                 onPageChanged: (index) {
                   provider.handlePageChange(index);
@@ -118,104 +119,134 @@ class _SplashScreenState extends State<SplashScreen>
                         const EdgeInsets.only(left: 12, right: 12, bottom: 20),
                     child: Consumer<SplashScreenProvider>(
                       builder: (context, provider, child) {
-                        return Container(
-                          height: DeviceDimensions.screenHeight(context) * 0.40,
-                          width: DeviceDimensions.screenWidth(context),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white,
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 10,
-                                offset: Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                  height:
-                                      DeviceDimensions.screenHeight(context) *
-                                          0.022),
-                              // Dots Indicator
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: List.generate(
-                                  splashTexts.length,
-                                  (index) {
-                                    return AnimatedContainer(
-                                      margin: const EdgeInsets.symmetric(
-                                          horizontal: 5.0),
-                                      duration:
-                                          const Duration(milliseconds: 500),
-                                      width: provider.currentDot == index
-                                          ? DeviceDimensions.screenHeight(
-                                                  context) *
-                                              0.050
-                                          : DeviceDimensions.screenHeight(
-                                                  context) *
-                                              0.010,
-                                      height: DeviceDimensions.screenHeight(
-                                              context) *
-                                          0.010,
-                                      decoration: BoxDecoration(
-                                        color: provider.currentDot == index
-                                            ? AppColors.appBlueColor
-                                            : Colors.grey,
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                    );
-                                  },
+                        return GestureDetector(
+                          onHorizontalDragUpdate: (details) {
+                            // Update the page controller's offset when dragging horizontally
+                            provider.pageController.position.moveTo(
+                              provider.pageController.offset -
+                                  details.delta.dx, // Move based on drag
+                            );
+                          },
+                          onHorizontalDragEnd: (details) {
+                            // Handle the snapping to the next page
+                            double velocity =
+                                details.velocity.pixelsPerSecond.dx;
+
+                            if (velocity > 0) {
+                              // Swipe right
+                              provider.pageController.previousPage(
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.easeInOut,
+                              );
+                            } else if (velocity < 0) {
+                              // Swipe left
+                              provider.pageController.nextPage(
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.easeInOut,
+                              );
+                            }
+                          },
+                          child: Container(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.40,
+                            width: DeviceDimensions.screenWidth(context),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white,
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  blurRadius: 10,
+                                  offset: Offset(0, 5),
                                 ),
-                              ),
-                              SizedBox(
-                                  height:
-                                      DeviceDimensions.screenHeight(context) *
-                                          0.050),
-                              // Animated Text
-                              WidgetAnimator(
-                                incomingEffect: WidgetTransitionEffects
-                                    .incomingSlideInFromRight(
-                                  duration: const Duration(milliseconds: 400),
-                                  curve: Curves.easeInOut,
-                                ),
-                                outgoingEffect: WidgetTransitionEffects
-                                    .outgoingSlideOutToLeft(
-                                  duration: const Duration(milliseconds: 400),
-                                  curve: Curves.easeInOut,
-                                ),
-                                child: Text(
-                                  key: ValueKey<int>(provider.currentDot),
-                                  splashTexts[provider.currentDot],
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.080,
-                                    fontFamily: "Barlow-Bold",
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.textColorBlue,
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                    height:
+                                        DeviceDimensions.screenHeight(context) *
+                                            0.022),
+                                // Dots Indicator
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: List.generate(
+                                    splashTexts.length,
+                                    (index) {
+                                      return AnimatedContainer(
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 5.0),
+                                        duration:
+                                            const Duration(milliseconds: 500),
+                                        width: provider.currentDot == index
+                                            ? DeviceDimensions.screenHeight(
+                                                    context) *
+                                                0.050
+                                            : DeviceDimensions.screenHeight(
+                                                    context) *
+                                                0.010,
+                                        height: DeviceDimensions.screenHeight(
+                                                context) *
+                                            0.010,
+                                        decoration: BoxDecoration(
+                                          color: provider.currentDot == index
+                                              ? AppColors.appBlueColor
+                                              : Colors.grey,
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
-                              ),
-                              const Spacer(),
-                              // Get Started Button
-                              MyButton(
-                                text: 'Get Started',
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pushNamed('/login-screen');
-                                },
-                                width: DeviceDimensions.screenWidth(context) *
-                                    0.75,
-                              ),
-                              SizedBox(
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.043,
-                              ),
-                            ],
+                                SizedBox(
+                                    height:
+                                        DeviceDimensions.screenHeight(context) *
+                                            0.050),
+                                // Animated Text
+                                WidgetAnimator(
+                                  incomingEffect: WidgetTransitionEffects
+                                      .incomingSlideInFromRight(
+                                    duration: const Duration(milliseconds: 400),
+                                    curve: Curves.easeInOut,
+                                  ),
+                                  outgoingEffect: WidgetTransitionEffects
+                                      .outgoingSlideOutToLeft(
+                                    duration: const Duration(milliseconds: 400),
+                                    curve: Curves.easeInOut,
+                                  ),
+                                  child: Text(
+                                    key: ValueKey<int>(provider.currentDot),
+                                    splashTexts[provider.currentDot],
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: DeviceDimensions.responsiveSize(
+                                              context) *
+                                          0.080,
+                                      fontFamily: "Barlow-Bold",
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.textColorBlue,
+                                    ),
+                                  ),
+                                ),
+                                const Spacer(),
+                                // Get Started Button
+                                MyButton(
+                                  text: 'Get Started',
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pushNamed('/login-screen');
+                                  },
+                                  width: DeviceDimensions.screenWidth(context) *
+                                      0.75,
+                                ),
+                                SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.043,
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
