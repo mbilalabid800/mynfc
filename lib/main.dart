@@ -106,7 +106,12 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => InternetCheckerProvider()),
-      ChangeNotifierProvider(create: (_) => SplashScreenProvider()),
+      ChangeNotifierProvider(
+          create: (_) => SplashScreenProvider(splashImages: [
+                "assets/images/splash1.png",
+                "assets/images/splash2.png",
+                "assets/images/splash3.jpeg",
+              ])),
       ChangeNotifierProvider(create: (_) => AuthenticateProvider()),
       ChangeNotifierProvider(create: (_) => PasswordValidationProvider()),
       ChangeNotifierProvider(create: (_) => UserInfoProgressProvider()),
