@@ -28,7 +28,6 @@ class CardDetailsProvider extends ChangeNotifier {
   Future<void> fetchCardsFromFirestore(BuildContext context) async {
     _isLoading = true; // Start loader
     notifyListeners();
-
     try {
       // Fetch data from Firestore
       final snapshot = await _firestore.collection('cards').get();

@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
-                                  left: 12, right: 12, top: 25),
+                                  left: 12, right: 12, top: 20),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         horizontal: 10.0, vertical: 4.5),
                                     decoration: BoxDecoration(
                                       color: const Color(0xFFFFFFFF),
-                                      borderRadius: BorderRadius.circular(15.0),
+                                      borderRadius: BorderRadius.circular(12.0),
                                     ),
                                     child: const Text(
                                       "Home",
@@ -461,7 +461,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               width:
                                   DeviceDimensions.screenWidth(context) * 0.92,
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
+                                color: Colors.white.withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(25),
                               ),
                               child: Row(
@@ -539,7 +539,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       SizedBox(
                                           height: DeviceDimensions.screenHeight(
                                                   context) *
-                                              0.020),
+                                              0.030),
                                       //upgrade now
                                       if (userProvider.isCardOrdered)
                                         InkWell(
@@ -630,7 +630,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           context, '/recent-connected');
                                     },
                                     child: Container(
-                                      height: 195,
+                                      height: 205,
                                       width: DeviceDimensions.screenWidth(
                                               context) *
                                           0.41,
@@ -644,7 +644,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 5, top: 07),
+                                                left: 3, top: 07),
                                             child: Center(
                                               child: Text(
                                                 "Recent Connections",
