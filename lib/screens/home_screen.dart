@@ -661,9 +661,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                             ),
                                           ),
-                                          Divider(
-                                            color: AppColors.greyText,
-                                          ),
+                                          Divider(color: AppColors.greyText),
                                           Expanded(
                                             child: connectionProvider.isLoading
                                                 ? const SmallThreeBounceLoader()
