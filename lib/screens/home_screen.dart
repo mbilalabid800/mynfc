@@ -661,13 +661,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               ),
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8.0),
-                                            child: Divider(
-                                              color: AppColors.greyText,
-                                            ),
-                                          ),
+                                          Divider(color: AppColors.greyText),
                                           Expanded(
                                             child: connectionProvider.isLoading
                                                 ? const SmallThreeBounceLoader()

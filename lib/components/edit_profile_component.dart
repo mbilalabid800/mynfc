@@ -57,137 +57,134 @@ class _EditProfileComponentState extends State<EditProfileComponent> {
   @override
   Widget build(BuildContext context) {
     bool isEditing = widget.currentEditingField == widget.fieldKey;
-    if (isEditing) {
-      _focusNode.requestFocus(); // Automatically focus the text field
-    }
-    return GestureDetector(
-      onTap: _closeKeyboard, // Close the keyboard when tapping outside
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 7),
-        child: InkWell(
-          onTap: () {
-            _closeKeyboard(); // Close keyboard before calling callback
-            widget.callBack();
-          },
-          child: Container(
-            width: DeviceDimensions.screenWidth(context) * 0.82,
-            decoration: BoxDecoration(
-              color: const Color(0xFFEFEFEF),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.012),
-                        Text(
-                          widget.title1,
-                          style: TextStyle(
-                            fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.032,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xFF909091),
-                          ),
+    // if (isEditing) {
+    //   _focusNode.requestFocus(); // Automatically focus the text field
+    // }
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 7),
+      child: InkWell(
+        onTap: () {
+          _closeKeyboard(); // Close keyboard before calling callback
+          widget.callBack();
+        },
+        child: Container(
+          width: DeviceDimensions.screenWidth(context) * 0.82,
+          decoration: BoxDecoration(
+            color: const Color(0xFFEFEFEF),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.012),
+                      Text(
+                        widget.title1,
+                        style: TextStyle(
+                          fontSize:
+                              DeviceDimensions.responsiveSize(context) * 0.032,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xFF909091),
                         ),
-                        SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.004),
-                        isEditing
-                            ? TextField(
-                                controller: widget.controller,
-                                focusNode: _focusNode,
-                                style: TextStyle(
-                                  fontSize:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.037,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.textColorBlue,
-                                ),
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                ),
-                                autofocus: true,
-                                onChanged: (newValue) {
-                                  if (widget.fieldKey == "first_name") {
-                                    Provider.of<UserInfoFormStateProvider>(
-                                            context,
-                                            listen: false)
-                                        .updateFirstName(newValue);
-                                    //_focusNode.unfocus();
-                                  } else if (widget.fieldKey == "last_name") {
-                                    Provider.of<UserInfoFormStateProvider>(
-                                            context,
-                                            listen: false)
-                                        .updateLastName(newValue);
-                                    //_focusNode.unfocus();
-                                  } else if (widget.fieldKey == "company") {
-                                    Provider.of<UserInfoFormStateProvider>(
-                                            context,
-                                            listen: false)
-                                        .updateCompanyName(newValue);
-                                    //_focusNode.unfocus();
-                                  } else if (widget.fieldKey == "designation") {
-                                    Provider.of<UserInfoFormStateProvider>(
-                                            context,
-                                            listen: false)
-                                        .updateDesignation(newValue);
-                                    //_focusNode.unfocus();
-                                  } else if (widget.fieldKey == "bio") {
-                                    Provider.of<UserInfoFormStateProvider>(
-                                            context,
-                                            listen: false)
-                                        .updateBio(newValue);
-                                    //_focusNode.unfocus();
-                                  } else if (widget.fieldKey == "country") {
-                                    Provider.of<UserInfoFormStateProvider>(
-                                            context,
-                                            listen: false)
-                                        .updateCountryName(newValue);
-                                    //_focusNode.unfocus();
-                                  }
-                                },
-                                textInputAction: TextInputAction
-                                    .done, // Arrow button behavior
-                                onSubmitted: (value) {
-                                  _focusNode.unfocus();
-                                  _closeKeyboard(); // Close keyboard on arrow press
-                                },
-                                onEditingComplete: () {
-                                  _focusNode
-                                      .unfocus(); // Optionally unfocus when editing is complete
-                                },
-                              )
-                            : Text(
-                                widget.title2,
-                                style: TextStyle(
-                                  fontSize:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.037,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.textColorBlue,
-                                ),
+                      ),
+                      SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.004),
+                      isEditing
+                          ? TextField(
+                              controller: widget.controller,
+                              focusNode: _focusNode,
+                              style: TextStyle(
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.037,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.textColorBlue,
                               ),
-                        SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.012),
-                      ],
-                    ),
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                              autofocus: true,
+                              onChanged: (newValue) {
+                                if (widget.fieldKey == "first_name") {
+                                  Provider.of<UserInfoFormStateProvider>(
+                                          context,
+                                          listen: false)
+                                      .updateFirstName(newValue);
+                                  //_focusNode.unfocus();
+                                } else if (widget.fieldKey == "last_name") {
+                                  Provider.of<UserInfoFormStateProvider>(
+                                          context,
+                                          listen: false)
+                                      .updateLastName(newValue);
+                                  //_focusNode.unfocus();
+                                } else if (widget.fieldKey == "company") {
+                                  Provider.of<UserInfoFormStateProvider>(
+                                          context,
+                                          listen: false)
+                                      .updateCompanyName(newValue);
+                                  //_focusNode.unfocus();
+                                } else if (widget.fieldKey == "designation") {
+                                  Provider.of<UserInfoFormStateProvider>(
+                                          context,
+                                          listen: false)
+                                      .updateDesignation(newValue);
+                                  //_focusNode.unfocus();
+                                } else if (widget.fieldKey == "bio") {
+                                  Provider.of<UserInfoFormStateProvider>(
+                                          context,
+                                          listen: false)
+                                      .updateBio(newValue);
+                                  //_focusNode.unfocus();
+                                } else if (widget.fieldKey == "country") {
+                                  Provider.of<UserInfoFormStateProvider>(
+                                          context,
+                                          listen: false)
+                                      .updateCountryName(newValue);
+                                  //_focusNode.unfocus();
+                                }
+                              },
+                              textInputAction:
+                                  TextInputAction.done, // Arrow button behavior
+                              onSubmitted: (value) {
+                                _focusNode.unfocus();
+                                _closeKeyboard(); // Close keyboard on arrow press
+                              },
+                              onEditingComplete: () {
+                                _focusNode
+                                    .unfocus(); // Optionally unfocus when editing is complete
+                              },
+                            )
+                          : Text(
+                              widget.title2,
+                              style: TextStyle(
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.037,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.textColorBlue,
+                              ),
+                            ),
+                      SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.012),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 5),
-                    child: SvgPicture.asset(
-                      widget.icons,
-                      height: 18,
-                    ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: SvgPicture.asset(
+                    widget.icons,
+                    height: 18,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
