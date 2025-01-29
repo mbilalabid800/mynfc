@@ -57,71 +57,79 @@ class DeleteConfirmationSheetPre {
                 ),
               ),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.085),
-              ElevatedButton(
-                onPressed: () {
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    context: context,
-                    builder: (context) {
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          bottom: MediaQuery.of(context).viewInsets.bottom,
-                        ),
-                        child: const Wrap(
-                          children: [
-                            DeleteConfirmationSheet(),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: DeviceDimensions.screenWidth(context) * 0.18,
-                    vertical: 9,
+              SizedBox(
+                height: 49,
+                child: ElevatedButton(
+                  onPressed: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (context) {
+                        return Padding(
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                          ),
+                          child: const Wrap(
+                            children: [
+                              DeleteConfirmationSheet(),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: DeviceDimensions.screenWidth(context) * 0.18,
+                      vertical: 9,
+                    ),
+                    backgroundColor: AppColors.errorColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
                   ),
-                  backgroundColor: AppColors.errorColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                ),
-                child: Text(
-                  "Yes, I want to delete",
-                  style: TextStyle(
-                    fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
-                    fontFamily: 'Barlow-Regular',
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.015),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: DeviceDimensions.screenWidth(context) * 0.308,
-                    vertical: 9,
-                  ),
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                    side: const BorderSide(
-                      color: AppColors.errorColor,
-                      width: 1,
+                  child: Text(
+                    "Yes, I want to delete",
+                    style: TextStyle(
+                      fontSize:
+                          DeviceDimensions.responsiveSize(context) * 0.045,
+                      fontFamily: 'Barlow-Regular',
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
                     ),
                   ),
                 ),
-                child: Text(
-                  "Cancel",
-                  style: TextStyle(
-                    fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
-                    fontFamily: 'Barlow-Regular',
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.errorColor,
+              ),
+              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.018),
+              SizedBox(
+                height: 49,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: DeviceDimensions.screenWidth(context) * 0.308,
+                      vertical: 9,
+                    ),
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      side: const BorderSide(
+                        color: AppColors.errorColor,
+                        width: 1,
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    "Cancel",
+                    style: TextStyle(
+                      fontSize:
+                          DeviceDimensions.responsiveSize(context) * 0.045,
+                      fontFamily: 'Barlow-Regular',
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.errorColor,
+                    ),
                   ),
                 ),
               ),

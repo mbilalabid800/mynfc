@@ -127,7 +127,7 @@ class _NameStepState extends State<NameStep> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.textFieldBorder,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -180,7 +180,7 @@ class _NameStepState extends State<NameStep> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.textFieldBorder,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -223,7 +223,7 @@ class _NameStepState extends State<NameStep> {
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: AppColors.textFieldBorderColor,
+                          color: AppColors.textFieldBorder,
                         ),
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -269,7 +269,8 @@ class _NameStepState extends State<NameStep> {
             ),
             SizedBox(
               width: DeviceDimensions.screenWidth(context) * 0.8,
-              height: DeviceDimensions.screenHeight(context) * 0.07,
+              // height: DeviceDimensions.screenHeight(context) * 0.07,
+              height: 49,
               child: Consumer<UserInfoFormStateProvider>(
                   builder: (context, formState, child) {
                 return ElevatedButton(
@@ -333,7 +334,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                 height: DeviceDimensions.screenHeight(context) * 0.065,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: AppColors.textFieldBorderColor,
+                    color: AppColors.textFieldBorder,
                   ),
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -368,7 +369,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                               color: AppColors.appBlueColor,
                               fontSize:
                                   DeviceDimensions.responsiveSize(context) *
-                                      0.03,
+                                      0.035,
                               fontFamily: 'Barlow-Regular'),
                         ),
                       );
@@ -387,7 +388,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.textFieldBorder,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -423,7 +424,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.textFieldBorder,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -458,7 +459,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.textFieldBorder,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -494,7 +495,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: AppColors.textFieldBorderColor,
+                        color: AppColors.textFieldBorder,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -568,7 +569,8 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
             ),
             SizedBox(
               width: DeviceDimensions.screenWidth(context) * 0.8,
-              height: DeviceDimensions.screenHeight(context) * 0.07,
+              height: 49,
+              //height: DeviceDimensions.screenHeight(context) * 0.07,
               child: Consumer<UserInfoFormStateProvider>(
                   builder: (context, formState, child) {
                 return ElevatedButton(
@@ -692,7 +694,8 @@ class ImageStep extends StatelessWidget {
             SizedBox(height: DeviceDimensions.screenHeight(context) * 0.05),
             SizedBox(
               width: DeviceDimensions.screenWidth(context) * 0.8,
-              height: DeviceDimensions.screenHeight(context) * 0.055,
+              //height: DeviceDimensions.screenHeight(context) * 0.055,
+              height: 49,
               child: ElevatedButton(
                 onPressed: () {
                   imageProvider.pickImage(context);
@@ -716,7 +719,8 @@ class ImageStep extends StatelessWidget {
             ),
             SizedBox(
               width: DeviceDimensions.screenWidth(context) * 0.8,
-              height: DeviceDimensions.screenHeight(context) * 0.055,
+              // height: DeviceDimensions.screenHeight(context) * 0.055,
+              height: 49,
               child: ElevatedButton(
                 onPressed: imageProvider.hasImage
                     ? () async {
