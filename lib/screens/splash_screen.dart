@@ -81,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen>
               return PageView.builder(
                 controller: provider.pageController,
                 //physics: NeverScrollableScrollPhysics(),
-                itemCount: splashImages.length, // No dummy pages needed
+                itemCount: splashImages.length * 4, // No dummy pages needed
                 onPageChanged: (index) {
                   provider.handlePageChange(index);
                 },
@@ -95,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen>
                           height: DeviceDimensions.screenHeight(context),
                           width: DeviceDimensions.screenWidth(context),
                           child: Image.asset(
-                            splashImages[index],
+                            splashImages[index % splashImages.length],
                             fit: BoxFit.cover,
                           ),
                         ),
