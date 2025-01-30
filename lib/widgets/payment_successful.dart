@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/screens/order_details.dart';
 
 class PaymentSuccessful {
   const PaymentSuccessful();
