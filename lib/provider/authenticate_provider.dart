@@ -24,7 +24,7 @@ class AuthenticateProvider with ChangeNotifier {
       TextEditingController();
   final GlobalKey<FormState> signinFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> forgetPassowrdFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> forgetPasswordFormKey = GlobalKey<FormState>();
 
   // Private variables
   bool _isLoading = false;
@@ -240,48 +240,70 @@ class AuthenticateProvider with ChangeNotifier {
 
   // Method to reset password
   Future<void> resetPassword(BuildContext context) async {
-    if (forgetPassowrdFormKey.currentState!.validate()) {
+    if (forgetPasswordFormKey.currentState!.validate()) {
       setIsLoading = true;
       try {
         final email = forgetPasswordEmailController.text.trim();
 
-        await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+        // Check if the email exists in Firebase Auth
+        final auth = FirebaseAuth.instance;
+        final methods = await auth.fetchSignInMethodsForEmail(email);
 
-        // Show success dialog
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            backgroundColor: AppColors.screenBackground,
-            title: const Text("Success"),
-            content: const Text(
-                "Password reset email sent successfully. Please check email!."),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: AppColors.appBlueColor,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 7),
-                    child: Text(
-                      "OK",
-                      style: TextStyle(color: Colors.white),
+        if (methods.isNotEmpty) {
+          // Email exists, send the password reset email
+          await auth.sendPasswordResetEmail(email: email);
+
+          // Show success dialog
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              backgroundColor: AppColors.screenBackground,
+              title: const Text("Success"),
+              content: const Text(
+                  "Password reset email sent successfully. Please check your email!"),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: AppColors.appBlueColor,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 7),
+                      child: Text(
+                        "OK",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
+              ],
+            ),
+          );
 
-        forgetPasswordEmailController.clear();
+          forgetPasswordEmailController.clear();
+        } else {
+          // Email does not exist
+          CustomSnackbar().snakBarError(
+              context, "Email not found. Please check your email address.");
+        }
+      } on FirebaseAuthException catch (e) {
+        // Handle Firebase-specific errors
+        String errorMessage = "An error occurred. Please try again.";
+        if (e.code == 'user-not-found') {
+          errorMessage = "Email not found. Please check your email address.";
+        } else if (e.code == 'invalid-email') {
+          errorMessage = "Invalid email address. Please enter a valid email.";
+        }
+        CustomSnackbar().snakBarError(context, errorMessage);
       } catch (e) {
-        CustomSnackbar().snakBarError(context, "An error occurred");
+        // Handle other errors
+        CustomSnackbar().snakBarError(
+            context, "An unexpected error occurred. Please try again.");
       } finally {
         setIsLoading = false;
       }
@@ -349,7 +371,7 @@ class AuthenticateProvider with ChangeNotifier {
     // Reset form keys
     signinFormKey.currentState?.reset();
     registerFormKey.currentState?.reset();
-    forgetPassowrdFormKey.currentState?.reset();
+    forgetPasswordFormKey.currentState?.reset();
 
     // Reset private variables
     _isLoading = false;
