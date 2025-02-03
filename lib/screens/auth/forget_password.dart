@@ -93,7 +93,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                           height:
                               DeviceDimensions.screenHeight(context) * 0.050),
                       Form(
-                        key: authProvider.forgetPassowrdFormKey,
+                        key: authProvider.forgetPasswordFormKey,
                         child: MyTextfield(
                             controller:
                                 authProvider.forgetPasswordEmailController,

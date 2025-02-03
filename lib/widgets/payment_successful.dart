@@ -57,35 +57,35 @@ class PaymentSuccessful {
                       height: DeviceDimensions.screenHeight(context) * 0.050,
                       width: DeviceDimensions.screenWidth(context) * 0.50,
                       child: ElevatedButton(
-                          onPressed: () {
-                            // Navigator.pushReplacementNamed(
-                            //     context, "/order-details");
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              '/order-details',
-                              (route) =>
-                                  false, // This removes all previous routes
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.appBlueColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            padding: EdgeInsets.zero,
+                        onPressed: () {
+                          // Navigator.pushReplacementNamed(
+                          //     context, "/order-details");
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            '/order-details',
+                            (route) =>
+                                false, // This removes all previous routes
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.appBlueColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          child: Text(
-                            "View Order details",
-                            style: TextStyle(
-                              fontSize:
-                                  DeviceDimensions.responsiveSize(context) *
-                                      0.040,
-                              fontFamily: 'Barlow-Regular',
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 1,
-                              color: Colors.white,
-                            ),
-                          )),
+                          padding: EdgeInsets.zero,
+                        ),
+                        child: Text(
+                          "View Order details",
+                          style: TextStyle(
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.040,
+                            fontFamily: 'Barlow-Regular',
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

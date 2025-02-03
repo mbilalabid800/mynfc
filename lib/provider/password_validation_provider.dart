@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:nfc_app/shared/utils/password_strength_helper.dart';
 
 class PasswordValidationProvider with ChangeNotifier {
-  bool isObscurePassword = true;
-  bool isObscureConfirmPassword = true;
+  bool isObscurePassword = false;
+  bool isObscureConfirmPassword = false;
   String passwordStrength = '';
   String? unmetCriterionMessage;
   String? confirmPasswordErrorMessage;
