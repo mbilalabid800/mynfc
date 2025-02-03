@@ -37,18 +37,24 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     enableImmersiveStickyMode();
 
+    // 1) Loop the animation continuously in both directions:
     _mainAnimationController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
-    );
+    )..repeat(reverse: true); // <-- repeat with reverse.
 
-    _scaleAnimation = Tween<double>(begin: 1.1, end: 1.0).animate(
+    // 2) Start from a “near 1.0” scale to 1.05 so it gently pulses.
+    _scaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: 1.05,
+    ).animate(
       CurvedAnimation(
         parent: _mainAnimationController,
-        curve: Curves.easeOut,
+        curve: Curves.easeInOut,
       ),
     );
 
+    // 3) You can still slide the container if desired, also repeating if needed.
     _containerSlideAnimation = Tween<Offset>(
       begin: const Offset(0, 1),
       end: Offset.zero,
@@ -59,8 +65,8 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    // Start the animations
-    _mainAnimationController.forward();
+    // Remove _mainAnimationController.forward() to avoid resetting the animation
+    // _mainAnimationController.forward();
   }
 
   @override
@@ -75,16 +81,12 @@ class _SplashScreenState extends State<SplashScreen>
       backgroundColor: AppColors.screenBackground,
       body: Stack(
         children: [
-          // Background images with animations
           Consumer<SplashScreenProvider>(
             builder: (context, provider, child) {
               return PageView.builder(
                 controller: provider.pageController,
-                //physics: NeverScrollableScrollPhysics(),
-                itemCount: splashImages.length * 4, // No dummy pages needed
-                onPageChanged: (index) {
-                  provider.handlePageChange(index);
-                },
+                itemCount: splashImages.length * 4,
+                onPageChanged: provider.handlePageChange,
                 itemBuilder: (context, index) {
                   return AnimatedBuilder(
                     animation: _mainAnimationController,
@@ -106,7 +108,6 @@ class _SplashScreenState extends State<SplashScreen>
               );
             },
           ),
-          // Sliding container (remains the same)
           Align(
             alignment: Alignment.bottomCenter,
             child: AnimatedBuilder(
@@ -121,25 +122,19 @@ class _SplashScreenState extends State<SplashScreen>
                       builder: (context, provider, child) {
                         return GestureDetector(
                           onHorizontalDragUpdate: (details) {
-                            // Update the page controller's offset when dragging horizontally
                             provider.pageController.position.moveTo(
-                              provider.pageController.offset -
-                                  details.delta.dx, // Move based on drag
+                              provider.pageController.offset - details.delta.dx,
                             );
                           },
                           onHorizontalDragEnd: (details) {
-                            // Handle the snapping to the next page
                             double velocity =
                                 details.velocity.pixelsPerSecond.dx;
-
                             if (velocity > 0) {
-                              // Swipe right
                               provider.pageController.previousPage(
                                 duration: const Duration(milliseconds: 400),
                                 curve: Curves.easeInOut,
                               );
                             } else if (velocity < 0) {
-                              // Swipe left
                               provider.pageController.nextPage(
                                 duration: const Duration(milliseconds: 400),
                                 curve: Curves.easeInOut,
@@ -164,10 +159,11 @@ class _SplashScreenState extends State<SplashScreen>
                             child: Column(
                               children: [
                                 SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.022),
-                                // Dots Indicator
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.022,
+                                ),
+                                // Dots row
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: List.generate(
@@ -175,7 +171,8 @@ class _SplashScreenState extends State<SplashScreen>
                                     (index) {
                                       return AnimatedContainer(
                                         margin: const EdgeInsets.symmetric(
-                                            horizontal: 5.0),
+                                          horizontal: 5.0,
+                                        ),
                                         duration:
                                             const Duration(milliseconds: 500),
                                         width: provider.currentDot == index
@@ -200,10 +197,11 @@ class _SplashScreenState extends State<SplashScreen>
                                   ),
                                 ),
                                 SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.050),
-                                // Animated Text
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.050,
+                                ),
+                                // Animating text
                                 WidgetAnimator(
                                   incomingEffect: WidgetTransitionEffects
                                       .incomingSlideInFromRight(
@@ -230,7 +228,6 @@ class _SplashScreenState extends State<SplashScreen>
                                   ),
                                 ),
                                 const Spacer(),
-                                // Get Started Button
                                 MyButton(
                                   text: 'Get Started',
                                   onPressed: () {
