@@ -15,17 +15,23 @@ import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:provider/provider.dart';
 
-class UserScreen extends StatelessWidget {
+class UserScreen extends StatefulWidget {
   const UserScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final PageController pageController = PageController();
+  State<UserScreen> createState() => _UserScreenState();
+}
 
+class _UserScreenState extends State<UserScreen> {
+  final PageController pageController = PageController();
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-        //backgroundColor: Colors.white,
-        backgroundColor: AppColors.screenBackground,
-        body: Column(children: [
+      //backgroundColor: Colors.white,
+      backgroundColor: AppColors.screenBackground,
+      body: Column(
+        children: [
           const SizedBox(height: 50),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +66,15 @@ class UserScreen extends StatelessWidget {
           SizedBox(
             height: DeviceDimensions.screenHeight(context) * 0.02,
           )
-        ]));
+        ],
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
   }
 }
 
