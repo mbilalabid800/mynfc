@@ -8,7 +8,7 @@ class CardDetailsModel {
   final double cardPrice;
   final String cardFinish;
   final String cardWeight;
-  final String cardDimension;
+  final String CardDimension;
   final String cardPrinting;
 
   CardDetailsModel({
@@ -19,7 +19,7 @@ class CardDetailsModel {
     required this.cardPrice,
     required this.cardFinish,
     required this.cardWeight,
-    required this.cardDimension,
+    required this.CardDimension,
     required this.cardPrinting,
   });
 
@@ -37,24 +37,24 @@ class CardDetailsModel {
       cardPrice: (data['cardPrice'] as num?)?.toDouble() ?? 0.0,
       cardFinish: data['cardFinish'],
       cardWeight: data['cardWeight'],
-      cardDimension: data['cardDimension'],
+      CardDimension: data['CardDimension'],
       cardPrinting: data['cardPrinting'],
     );
   }
 }
 
 class CardColorOption {
-  final String colorName;
-  final String colorImage;
+  final String type;
+  final String url;
 
   CardColorOption({
-    required this.colorName,
-    required this.colorImage,
+    required this.type,
+    required this.url,
   });
   factory CardColorOption.fromMap(Map<String, dynamic> map) {
     return CardColorOption(
-      colorName: map['colorName'] as String,
-      colorImage: map['colorImage'] as String,
+      type: map['type'] as String,
+      url: map['url'] as String,
     );
   }
 }

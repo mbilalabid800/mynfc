@@ -178,8 +178,7 @@ class ConfirmOrder {
 
     CardPicturesLinks cardLink = CardPicturesLinks();
     String makeCardLink =
-        "${selectedCard.cardName}_${selectedColorOption.colorName}"
-            .toLowerCase();
+        "${selectedCard.cardName}_${selectedColorOption.type}".toLowerCase();
     String cardImageUrl = cardLink.getCardUrl(makeCardLink);
 
     OrderModel newOrder = OrderModel(
@@ -193,7 +192,7 @@ class ConfirmOrder {
         deliveryDate: deliveryDate,
         orderDateTime: orderDate,
         cardName: selectedCard.cardName,
-        cardColor: selectedColorOption.colorName,
+        cardColor: selectedColorOption.type,
         cardImage: cardImageUrl,
         cardQuantity: employeeCount,
         userEmail: userProvider.email,

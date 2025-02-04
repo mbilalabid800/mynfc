@@ -163,7 +163,7 @@ class _CardDetailsState extends State<CardDetails> {
                                                   ),
                                                 ),
                                                 child: Image.network(
-                                                  colorOption.colorImage,
+                                                  colorOption.url,
                                                   height: 25,
                                                 ),
                                               ),
@@ -407,7 +407,7 @@ class _CardDetailsState extends State<CardDetails> {
                                                     "Dimensions",
                                                     cardDetailsProvider
                                                         .cards[index]
-                                                        .cardDimension,
+                                                        .CardDimension,
                                                   ),
                                                   _buildDetailRow(
                                                     context,

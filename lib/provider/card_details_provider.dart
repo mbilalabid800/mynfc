@@ -92,7 +92,7 @@ class CardDetailsProvider extends ChangeNotifier {
     _selectedColorOption = colorOption;
     _filteredCardImages = _selectedCard?.cardImages.firstWhere(
           (image) =>
-              image.toLowerCase().contains(colorOption.colorName.toLowerCase()),
+              image.toLowerCase().contains(colorOption.type.toLowerCase()),
           orElse: () => '',
         ) ??
         '';
