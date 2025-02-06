@@ -169,7 +169,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                             child: Text(
                               provider.isButtonEnabled
                                   ? 'Resend it'
-                                  : '00 : ${provider.countdown} sec',
+                                  : 'Resend in ${provider.countdown} sec',
                               style: TextStyle(
                                   fontSize:
                                       DeviceDimensions.responsiveSize(context) *
