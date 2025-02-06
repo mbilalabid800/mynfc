@@ -139,7 +139,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.0473,
+                                0.050,
                             fontFamily: 'Barlow-Regular',
                             color: AppColors.textColorBlue),
                       );
@@ -148,6 +148,7 @@ class _EmailVerifyState extends State<EmailVerify> {
                         height: DeviceDimensions.screenHeight(context) * 0.025),
                     SizedBox(
                       width: DeviceDimensions.screenWidth(context) * 0.8,
+                      height: 47,
                       child: Consumer<ResentButtonProvider>(
                         builder: (context, provider, child) {
                           return ElevatedButton(
@@ -166,7 +167,9 @@ class _EmailVerifyState extends State<EmailVerify> {
                               ),
                             ),
                             child: Text(
-                              'Resend it',
+                              provider.isButtonEnabled
+                                  ? 'Resend it'
+                                  : '00 : ${provider.countdown} sec',
                               style: TextStyle(
                                   fontSize:
                                       DeviceDimensions.responsiveSize(context) *
