@@ -36,7 +36,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                 child: Consumer<UserInfoFormStateProvider>(
                   builder: (context, userProvider, child) {
                     String profileLink =
-                        'https://myabsher.com/#/profile/${userProvider.uid}';
+                        'https://website.myabsher.com/#/profile/${userProvider.uid}';
                     return Column(
                       children: [
                         Container(

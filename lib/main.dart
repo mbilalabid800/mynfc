@@ -90,8 +90,8 @@ void main() async {
     debugPrint('Firebase initialization error: $e');
   }
 
-  final permissionHandler = PermissionHandler();
-  await permissionHandler.requestPermission();
+  // final permissionHandler = PermissionHandler();
+  // await permissionHandler.requestPermission();
 
   SystemChrome.setPreferredOrientations(
     [
@@ -236,7 +236,7 @@ Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
   // Parse the route name into a URI object
   final Uri uri = Uri.tryParse(settings.name ?? '') ?? Uri();
 
-  // Handle fragment-based URLs like "https://www.myabsher.com/#/profile/12345"
+  // Handle fragment-based URLs like "https://www.website.myabsher.com/#/profile/12345"
   if (uri.fragment.isNotEmpty) {
     final Uri fragmentUri = Uri.parse(uri.fragment); // Parse the fragment part
 

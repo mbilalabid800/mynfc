@@ -46,7 +46,7 @@ class ErrorScreen extends StatelessWidget {
                 onPressed: () {
                   // Replace with your Play Store app link
                   const playStoreUrl =
-                      "https://play.google.com/store/apps/details?id=com.example.app";
+                      "https://play.google.com/store/apps/details?id=com.sahabit.absher";
                   _launchURL(playStoreUrl);
                 },
                 style: ElevatedButton.styleFrom(
