@@ -12,6 +12,7 @@ import 'package:nfc_app/provider/app_data_provider.dart';
 import 'package:nfc_app/provider/authenticate_provider.dart';
 import 'package:nfc_app/provider/biometric_handler_provider.dart';
 import 'package:nfc_app/provider/card_details_provider.dart';
+import 'package:nfc_app/provider/chat_provider.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/employee_provider.dart';
@@ -129,7 +130,8 @@ void main() async {
       ChangeNotifierProvider(create: (_) => EmployeeProvider()),
       ChangeNotifierProvider(create: (_) => BiometricHandlerProvider()),
       ChangeNotifierProvider(create: (_) => FormValidationProvider()),
-      ChangeNotifierProvider(create: (_) => AppDataProvider())
+      ChangeNotifierProvider(create: (_) => AppDataProvider()),
+      ChangeNotifierProvider(create: (_) => ChatProvider())
     ],
     child: InternetStatusHandler(
       child: const MyApp(),
@@ -227,7 +229,8 @@ final Map<String, WidgetBuilder> _appRoutes = {
   '/share-profile': (context) => ShareProfileScreen(),
   '/add-employees': (context) => AddEmployeeScreen(),
   '/chat-screen': (context) => ChatScreen(),
-  '/chat-screen2': (context) => ChatScreen2(),
+  //'/chat-screen2': (context) => Chatting(),
+
   '/connections-request': (context) => ConnectionsRequest(),
   '/billing-screen': (context) => BillingScreen(),
 };

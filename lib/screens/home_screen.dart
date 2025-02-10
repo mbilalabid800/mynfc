@@ -28,6 +28,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final FirestoreService _firestoreService = FirestoreService();
   final AuthService _authService = AuthService();
+  final ScrollController _scrollController = ScrollController();
   // bool direct = true;
 
   @override
@@ -44,6 +45,13 @@ class _HomeScreenState extends State<HomeScreen> {
         Provider.of<LoadingStateProvider>(context, listen: false);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
       if (!loadingState.dataFetched) {
         loadingState.setLoading(true);
         await userInfoProvider.loadUserData();
@@ -85,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     // Example: Cancel any stream subscriptions or timers
     //_streamSubscription?.cancel();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -666,6 +675,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             child: connectionProvider.isLoading
                                                 ? const SmallThreeBounceLoader()
                                                 : ListView.builder(
+                                                    controller:
+                                                        _scrollController,
                                                     physics:
                                                         const NeverScrollableScrollPhysics(),
                                                     itemCount: connectionProvider

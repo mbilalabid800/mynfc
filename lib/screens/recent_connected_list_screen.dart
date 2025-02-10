@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:nfc_app/chat/chat_screen2.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/screens/connection_profile_preview_screen.dart';
@@ -215,10 +216,23 @@ class _RecentConnectedListState extends State<RecentConnectedList> {
                                         ),
                                         trailing: GestureDetector(
                                           onTap: () {
-                                            Navigator.pushNamed(
-                                              context,
-                                              '/chat-screen2',
-                                            );
+                                            // Navigator.pushNamed(
+                                            //   context,
+                                            //   '/chat-screen2',
+                                            // );
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Chatting(
+                                                          userId:
+                                                              connection.uid,
+                                                          userName:
+                                                              "${connection.firstName} ${connection.lastName}",
+                                                          profileImage:
+                                                              connection
+                                                                  .profileImage,
+                                                        )));
                                           },
                                           child: SvgPicture.asset(
                                               "assets/icons/chat.svg",
