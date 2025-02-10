@@ -242,18 +242,25 @@ class AuthenticateProvider with ChangeNotifier {
   Future<void> resetPassword(BuildContext context) async {
     if (forgetPasswordFormKey.currentState!.validate()) {
       setIsLoading = true;
+
       try {
         final email = forgetPasswordEmailController.text.trim();
-
-        // Check if the email exists in Firebase Auth
         final auth = FirebaseAuth.instance;
-        final methods = await auth.fetchSignInMethodsForEmail(email);
+        final firestore = FirebaseFirestore.instance;
 
-        if (methods.isNotEmpty) {
-          // Email exists, send the password reset email
+        // First, check Firestore if email exists
+        final querySnapshot = await firestore
+            .collection("users")
+            .where("email", isEqualTo: email)
+            .limit(1)
+            .get();
+
+        if (querySnapshot.docs.isNotEmpty) {
+          // Email found in Firestore, now proceed with Firebase Auth
           await auth.sendPasswordResetEmail(email: email);
 
-          // Show success dialog
+          if (!context.mounted) return;
+
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -265,15 +272,16 @@ class AuthenticateProvider with ChangeNotifier {
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
-                    Navigator.pop(context);
+                    if (context.mounted) Navigator.pop(context);
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        color: AppColors.appBlueColor,
-                        borderRadius: BorderRadius.circular(12)),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 7),
+                      color: AppColors.appBlueColor,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 7),
                       child: Text(
                         "OK",
                         style: TextStyle(color: Colors.white),
@@ -287,21 +295,17 @@ class AuthenticateProvider with ChangeNotifier {
 
           forgetPasswordEmailController.clear();
         } else {
-          // Email does not exist
+          // Email not found in Firestore
           CustomSnackbar().snakBarError(
               context, "Email not found. Please check your email address.");
         }
       } on FirebaseAuthException catch (e) {
-        // Handle Firebase-specific errors
         String errorMessage = "An error occurred. Please try again.";
-        if (e.code == 'user-not-found') {
-          errorMessage = "Email not found. Please check your email address.";
-        } else if (e.code == 'invalid-email') {
+        if (e.code == 'invalid-email') {
           errorMessage = "Invalid email address. Please enter a valid email.";
         }
         CustomSnackbar().snakBarError(context, errorMessage);
       } catch (e) {
-        // Handle other errors
         CustomSnackbar().snakBarError(
             context, "An unexpected error occurred. Please try again.");
       } finally {
