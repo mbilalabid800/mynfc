@@ -97,7 +97,7 @@ class _FaqScreenState extends State<FaqScreen> {
   Widget _buildFaqTile(FaqModel faq, int index) {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      elevation: 4,
+      elevation: 2,
       color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),

@@ -692,7 +692,7 @@ class _SettingsState extends State<Settings> {
                                     context, "/terms-conditions");
                               },
                               child: Text(
-                                "Terms of conditions",
+                                "Terms and Conditions",
                                 style: TextStyle(
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *

@@ -48,7 +48,28 @@ class _RecentConnectedListState extends State<RecentConnectedList> {
                 SizedBox(
                   height: DeviceDimensions.screenHeight(context) * 0.0001,
                 ),
-                AbsherAppBar(title: 'Recent Connections'),
+                AbsherAppBar(
+                  title: 'Recent Connected',
+                  leftButton: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12.0, vertical: 9),
+                        decoration: const BoxDecoration(
+                            //color: Color(0xFFFFFFFF),
+                            //shape: BoxShape.circle,
+                            ),
+                        child: Icon(Icons.arrow_back,
+                            color: AppColors.appBlueColor)),
+                  ),
+                  rightButton: Align(
+                    alignment: Alignment.centerRight,
+                    child: SizedBox(
+                        width: DeviceDimensions.screenWidth(context) * 0.035),
+                  ),
+                ),
                 SizedBox(
                     height: DeviceDimensions.screenHeight(context) * 0.020),
                 Flexible(
@@ -114,12 +135,12 @@ class _RecentConnectedListState extends State<RecentConnectedList> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 10),
-                              SvgPicture.asset(
-                                "assets/icons/filter.svg",
-                                height: 42,
-                                width: 42,
-                              ),
+                              // const SizedBox(width: 10),
+                              // SvgPicture.asset(
+                              //   "assets/icons/filter.svg",
+                              //   height: 42,
+                              //   width: 42,
+                              // ),
                             ],
                           ),
                         ),
