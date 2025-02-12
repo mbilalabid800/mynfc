@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
@@ -12,14 +13,29 @@ class LogoutAlertWidget {
           padding: const EdgeInsets.all(8.0),
           child: AlertDialog(
             backgroundColor: AppColors.screenBackground,
-            //title: Text(''),
+            title: Column(
+              children: [
+                Lottie.asset(
+                  'assets/animations/logout_lottie.json',
+                  //height: 120,
+                ),
+                Center(
+                    child: Text('Confirm Logout',
+                        style: TextStyle(
+                            color: AppColors.appBlueColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.05))),
+              ],
+            ),
             content: Text(
               'Do you want to Logout Absher?',
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: AppColors.appBlueColor,
-                  fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
-                  fontWeight: FontWeight.w600),
+                color: AppColors.appBlueColor,
+                fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
+                //fontWeight: FontWeight.w600
+              ),
             ),
             actions: [
               Row(
@@ -28,7 +44,7 @@ class LogoutAlertWidget {
                 children: [
                   Container(
                     height: DeviceDimensions.screenHeight(context) * 0.05,
-                    width: DeviceDimensions.screenWidth(context) * 0.25,
+                    width: DeviceDimensions.screenWidth(context) * 0.3,
                     decoration: BoxDecoration(
                         color: AppColors.greyText,
                         borderRadius: BorderRadius.circular(20)),
@@ -45,10 +61,11 @@ class LogoutAlertWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: DeviceDimensions.screenWidth(context) * 0.1),
+                  Spacer(),
+                  //SizedBox(width: DeviceDimensions.screenWidth(context) * 0.1),
                   Container(
                     height: DeviceDimensions.screenHeight(context) * 0.05,
-                    width: DeviceDimensions.screenWidth(context) * 0.25,
+                    width: DeviceDimensions.screenWidth(context) * 0.30,
                     decoration: BoxDecoration(
                         color: AppColors.errorColor,
                         borderRadius: BorderRadius.circular(20)),
