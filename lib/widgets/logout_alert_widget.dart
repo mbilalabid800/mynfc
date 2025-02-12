@@ -28,13 +28,16 @@ class LogoutAlertWidget {
                                 0.05))),
               ],
             ),
-            content: Text(
-              'Do you want to Logout Absher?',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: AppColors.appBlueColor,
-                fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
-                //fontWeight: FontWeight.w600
+            content: SizedBox(
+              width: DeviceDimensions.screenWidth(context) * 0.95,
+              child: Text(
+                'Do you want to Logout Absher?',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: AppColors.appBlueColor,
+                  fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
+                  //fontWeight: FontWeight.w600
+                ),
               ),
             ),
             actions: [
@@ -44,7 +47,7 @@ class LogoutAlertWidget {
                 children: [
                   Container(
                     height: DeviceDimensions.screenHeight(context) * 0.05,
-                    width: DeviceDimensions.screenWidth(context) * 0.3,
+                    width: DeviceDimensions.screenWidth(context) * 0.28,
                     decoration: BoxDecoration(
                         color: AppColors.greyText,
                         borderRadius: BorderRadius.circular(20)),
@@ -65,7 +68,7 @@ class LogoutAlertWidget {
                   //SizedBox(width: DeviceDimensions.screenWidth(context) * 0.1),
                   Container(
                     height: DeviceDimensions.screenHeight(context) * 0.05,
-                    width: DeviceDimensions.screenWidth(context) * 0.30,
+                    width: DeviceDimensions.screenWidth(context) * 0.28,
                     decoration: BoxDecoration(
                         color: AppColors.errorColor,
                         borderRadius: BorderRadius.circular(20)),
