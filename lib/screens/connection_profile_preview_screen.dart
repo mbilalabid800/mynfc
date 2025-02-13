@@ -260,7 +260,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                 padding: const EdgeInsets.only(
                                     left: 17.0, right: 17),
                                 child: Text(
-                                  "What Software Quality Assurance Engineers and Testers Do. Design test plans, scenarios, scripts, or procedures. Document software defects, using a bug tracking system, and report defects to software developers. Identify, analyze, and document problems with program function, output, online screen, or content.",
+                                  "No bio added yet",
                                   style: TextStyle(
                                     color: const Color(0xFF909091),
                                     fontSize: DeviceDimensions.responsiveSize(

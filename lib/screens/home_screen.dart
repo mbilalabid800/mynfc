@@ -177,8 +177,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Navigator.pushNamed(
-                                          context, '/add-employees');
+                                      // Navigator.pushNamed(
+                                      //     context, '/add-employees');
                                     },
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
@@ -188,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         shape: BoxShape.circle,
                                       ),
                                       child: SvgPicture.asset(
-                                          'assets/icons/cut2.svg',
+                                          'assets/icons/bell.svg',
                                           width: 20,
                                           color: AppColors.appBlueColor),
                                     ),

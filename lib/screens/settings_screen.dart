@@ -145,7 +145,7 @@ class _SettingsState extends State<Settings> {
                         shape: BoxShape.circle,
                       ),
                       child: SvgPicture.asset(
-                        'assets/icons/cut2.svg',
+                        'assets/icons/bell.svg',
                         width: 20,
                       ),
                     ),
@@ -431,15 +431,15 @@ class _SettingsState extends State<Settings> {
                                         context, '/add-employees');
                                   },
                                 ),
-                              SettingListComponent(
-                                icons: "assets/icons/settingicon8.svg",
-                                title: "Manage Subscriptions",
-                                showDivider: true,
-                                callBack: () {
-                                  Navigator.pushNamed(
-                                      context, '/subscription-screen');
-                                },
-                              ),
+                              // SettingListComponent(
+                              //   icons: "assets/icons/settingicon8.svg",
+                              //   title: "Manage Subscriptions",
+                              //   showDivider: true,
+                              //   callBack: () {
+                              //     Navigator.pushNamed(
+                              //         context, '/subscription-screen');
+                              //   },
+                              // ),
                               SettingListComponent(
                                 icons: "assets/icons/settingicon6.svg",
                                 title: "Write NFC",

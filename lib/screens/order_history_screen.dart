@@ -194,23 +194,28 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 16.0),
-                    child: Container(
-                      width: DeviceDimensions.screenWidth(context) * 0.2,
-                      height: DeviceDimensions.screenHeight(context) * 0.04,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.appOrangeColor),
-                          borderRadius: BorderRadius.circular(12),
-                          color: AppColors.appOrangeColor),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text('Track',
-                              textAlign: TextAlign.right,
-                              style: TextStyle(
-                                  fontSize:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.03,
-                                  color: Colors.white)),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/order-details');
+                      },
+                      child: Container(
+                        width: DeviceDimensions.screenWidth(context) * 0.2,
+                        height: DeviceDimensions.screenHeight(context) * 0.04,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: AppColors.appOrangeColor),
+                            borderRadius: BorderRadius.circular(12),
+                            color: AppColors.appOrangeColor),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('Track',
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.03,
+                                    color: Colors.white)),
+                          ),
                         ),
                       ),
                     ),

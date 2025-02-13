@@ -30,139 +30,135 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.screenBackground,
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: DeviceDimensions.screenHeight(context) * 0.0001,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.0001,
+            ),
+            AbsherAppBar(
+              title: 'Privacy Policy',
+              leftButton: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 9),
+                    decoration: const BoxDecoration(
+                        //color: Color(0xFFFFFFFF),
+                        //shape: BoxShape.circle,
+                        ),
+                    child:
+                        Icon(Icons.arrow_back, color: AppColors.appBlueColor)),
               ),
-              AbsherAppBar(
-                title: 'Privacy Policy',
-                leftButton: GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12.0, vertical: 9),
-                      decoration: const BoxDecoration(
-                          //color: Color(0xFFFFFFFF),
-                          //shape: BoxShape.circle,
+              rightButton: Align(
+                alignment: Alignment.centerRight,
+                child: SizedBox(
+                    width: DeviceDimensions.screenWidth(context) * 0.035),
+              ),
+            ),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            Expanded(
+              child: provider.isLoading
+                  ? const Center(child: BigThreeBounceLoader()
+                      //HourGlassLoader()
+                      )
+                  : provider.privacyPolicy.isEmpty
+                      ? Container(
+                          width: DeviceDimensions.screenWidth(context) * 0.90,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                      child: Icon(Icons.arrow_back,
-                          color: AppColors.appBlueColor)),
-                ),
-                rightButton: Align(
-                  alignment: Alignment.centerRight,
-                  child: SizedBox(
-                      width: DeviceDimensions.screenWidth(context) * 0.035),
-                ),
-              ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-              Expanded(
-                child: provider.isLoading
-                    ? const Center(child: BigThreeBounceLoader()
-                        //HourGlassLoader()
+                          child: const Center(
+                            child: Text(
+                              "No Privacy Policy available.",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
                         )
-                    : provider.privacyPolicy.isEmpty
-                        ? Container(
-                            width: DeviceDimensions.screenWidth(context) * 0.90,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: const Center(
-                              child: Text(
-                                "No Privacy Policy available.",
-                                style: TextStyle(fontSize: 16),
+                      : SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 20.0),
+                            child: Container(
+                              width:
+                                  DeviceDimensions.screenWidth(context) * 0.90,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                            ),
-                          )
-                        : SingleChildScrollView(
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 20.0),
-                              child: Container(
-                                width: DeviceDimensions.screenWidth(context) *
-                                    0.90,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                        height: DeviceDimensions.screenHeight(
-                                                context) *
-                                            0.015),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 12.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: provider.privacyPolicy
-                                            .asMap()
-                                            .entries
-                                            .map(
-                                          (entry) {
-                                            final index =
-                                                entry.key + 1; // 1-based index
-                                            final policy = entry.value;
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.015),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: provider.privacyPolicy
+                                          .asMap()
+                                          .entries
+                                          .map(
+                                        (entry) {
+                                          final index =
+                                              entry.key + 1; // 1-based index
+                                          final policy = entry.value;
 
-                                            return Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "$index. ${policy['title'] ?? 'No Title'}",
-                                                  style: TextStyle(
-                                                    fontSize: DeviceDimensions
-                                                            .responsiveSize(
-                                                                context) *
-                                                        0.048,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'Barlow-Bold',
-                                                  ),
+                                          return Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "$index. ${policy['title'] ?? 'No Title'}",
+                                                style: TextStyle(
+                                                  fontSize: DeviceDimensions
+                                                          .responsiveSize(
+                                                              context) *
+                                                      0.048,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontFamily: 'Barlow-Bold',
                                                 ),
-                                                SizedBox(
-                                                    height: DeviceDimensions
-                                                            .screenHeight(
-                                                                context) *
-                                                        0.010),
-                                                Text(
-                                                  policy['content'] ??
-                                                      'No Description',
-                                                  style: TextStyle(
-                                                    fontSize: DeviceDimensions
-                                                            .responsiveSize(
-                                                                context) *
-                                                        0.035,
-                                                    fontFamily:
-                                                        'Barlow-Regular',
-                                                  ),
-                                                  textAlign: TextAlign.justify,
+                                              ),
+                                              SizedBox(
+                                                  height: DeviceDimensions
+                                                          .screenHeight(
+                                                              context) *
+                                                      0.010),
+                                              Text(
+                                                policy['content'] ??
+                                                    'No Description',
+                                                style: TextStyle(
+                                                  fontSize: DeviceDimensions
+                                                          .responsiveSize(
+                                                              context) *
+                                                      0.035,
+                                                  fontFamily: 'Barlow-Regular',
                                                 ),
-                                                SizedBox(
-                                                    height: DeviceDimensions
-                                                            .screenHeight(
-                                                                context) *
-                                                        0.020),
-                                              ],
-                                            );
-                                          },
-                                        ).toList(),
-                                      ),
+                                                textAlign: TextAlign.justify,
+                                              ),
+                                              SizedBox(
+                                                  height: DeviceDimensions
+                                                          .screenHeight(
+                                                              context) *
+                                                      0.020),
+                                            ],
+                                          );
+                                        },
+                                      ).toList(),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-              ),
-            ],
-          ),
+                        ),
+            ),
+          ],
         ),
       ),
     );

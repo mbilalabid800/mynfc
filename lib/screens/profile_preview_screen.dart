@@ -62,7 +62,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                     width: DeviceDimensions.screenWidth(context) * 0.035),
               ),
             ),
-            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            //SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
             Flexible(
               child: SingleChildScrollView(
                 child: Consumer2<UserInfoFormStateProvider, SocialAppProvider>(
@@ -77,12 +77,12 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                               ),
                               child: Image.asset(
                                 "assets/images/cardimage_graphscreen.png",
-                                height: 250,
+                                height: 280,
                               ),
                             ),
                             Positioned(
                               right: 30,
-                              top: 28,
+                              top: 40,
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(

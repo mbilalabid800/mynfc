@@ -70,7 +70,7 @@ class LogoutAlertWidget {
                     height: DeviceDimensions.screenHeight(context) * 0.05,
                     width: DeviceDimensions.screenWidth(context) * 0.28,
                     decoration: BoxDecoration(
-                        color: AppColors.errorColor,
+                        color: AppColors.appBlueColor,
                         borderRadius: BorderRadius.circular(20)),
                     child: TextButton(
                       onPressed: () async {

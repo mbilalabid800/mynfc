@@ -43,7 +43,28 @@ class _PricingPlanState extends State<PricingPlan>
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(title: 'Pricing Plan'),
+            AbsherAppBar(
+              title: 'Pricing Plan',
+              leftButton: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 9),
+                    decoration: const BoxDecoration(
+                        //color: Color(0xFFFFFFFF),
+                        //shape: BoxShape.circle,
+                        ),
+                    child:
+                        Icon(Icons.arrow_back, color: AppColors.appBlueColor)),
+              ),
+              rightButton: Align(
+                alignment: Alignment.centerRight,
+                child: SizedBox(
+                    width: DeviceDimensions.screenWidth(context) * 0.035),
+              ),
+            ),
             SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
             Flexible(
               child: Column(
@@ -62,16 +83,16 @@ class _PricingPlanState extends State<PricingPlan>
                         controller: _tabController,
                         indicatorSize: TabBarIndicatorSize.tab,
                         indicator: BoxDecoration(
-                          color: Colors.white,
+                          color: AppColors.appBlueColor,
                           borderRadius: BorderRadius.circular(25),
                         ),
-                        labelColor: const Color(0xFF202020),
+                        labelColor: Colors.white,
                         labelStyle: TextStyle(
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.045,
                             fontWeight: FontWeight.w600,
                             letterSpacing: 1),
-                        unselectedLabelColor: const Color(0xFF727272),
+                        unselectedLabelColor: AppColors.appBlueColor,
                         unselectedLabelStyle: TextStyle(
                           fontSize:
                               DeviceDimensions.responsiveSize(context) * 0.045,
@@ -81,13 +102,17 @@ class _PricingPlanState extends State<PricingPlan>
                           Tab(
                             child: Text(
                               "Individual",
-                              style: TextStyle(fontFamily: 'Barlow-Regular'),
+                              style: TextStyle(
+                                fontFamily: 'Barlow-Regular',
+                              ),
                             ),
                           ),
                           Tab(
                             child: Text(
                               "Teams",
-                              style: TextStyle(fontFamily: 'Barlow-Regular'),
+                              style: TextStyle(
+                                fontFamily: 'Barlow-Regular',
+                              ),
                             ),
                           ),
                         ],
