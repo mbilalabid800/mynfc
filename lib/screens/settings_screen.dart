@@ -443,7 +443,7 @@ class _SettingsState extends State<Settings> {
                               SettingListComponent(
                                 icons: "assets/icons/settingicon6.svg",
                                 title: "Write NFC",
-                                showDivider: true,
+                                showDivider: false,
                                 callBack: () async {
                                   final nfcService = NfcService();
 
