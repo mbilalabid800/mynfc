@@ -203,21 +203,21 @@ class _SigninDataState extends State<SigninData> {
                       padding: const EdgeInsets.only(left: 18, right: 30),
                       child: Row(
                         children: [
-                          Checkbox(
-                              value: authProvider.isRememberMe,
-                              activeColor: AppColors.appBlueColor,
-                              onChanged: (value) {
-                                authProvider.setRememberMe = value!;
-                              }),
-                          Text(
-                            "Remember me",
-                            style: TextStyle(
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.0350,
-                                color: const Color(0xFFA9A9A9),
-                                fontFamily: 'Barlow-Regular'),
-                          ),
+                          // Checkbox(
+                          //     value: authProvider.isRememberMe,
+                          //     activeColor: AppColors.appBlueColor,
+                          //     onChanged: (value) {
+                          //       authProvider.setRememberMe = value!;
+                          //     }),
+                          // Text(
+                          //   "Remember me",
+                          //   style: TextStyle(
+                          //       fontSize:
+                          //           DeviceDimensions.responsiveSize(context) *
+                          //               0.0350,
+                          //       color: const Color(0xFFA9A9A9),
+                          //       fontFamily: 'Barlow-Regular'),
+                          // ),
                           const Spacer(),
                           GestureDetector(
                             onTap: () {

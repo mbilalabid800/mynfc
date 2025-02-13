@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'biometric_handler_provider.dart';
+// import 'biometric_handler_provider.dart';
 
 class AuthenticateProvider with ChangeNotifier {
   final AuthService _authService = AuthService();
@@ -54,7 +54,7 @@ class AuthenticateProvider with ChangeNotifier {
 
   Future<void> initializeData(BuildContext context) async {
     await _loadUserData();
-    await triggerFingerprintAuthenticationIfEnabled(context);
+    //await triggerFingerprintAuthenticationIfEnabled(context);
   }
 
   Future<void> _loadUserData() async {
@@ -65,65 +65,65 @@ class AuthenticateProvider with ChangeNotifier {
     }
   }
 
-  Future<void> triggerFingerprintAuthenticationIfEnabled(
-      BuildContext context) async {
-    setIsLoading = true;
+  // Future<void> triggerFingerprintAuthenticationIfEnabled(
+  //     BuildContext context) async {
+  //   setIsLoading = true;
 
-    try {
-      final biometricProvider =
-          Provider.of<BiometricHandlerProvider>(context, listen: false);
+  //   try {
+  //     final biometricProvider =
+  //         Provider.of<BiometricHandlerProvider>(context, listen: false);
 
-      await biometricProvider.loadFingerprintPreference();
+  //     await biometricProvider.loadFingerprintPreference();
 
-      if (biometricProvider.isFingerprintEnabled) {
-        bool isAuthenticated =
-            await biometricProvider.authenticateWithFingerprint();
+  //     if (biometricProvider.isFingerprintEnabled) {
+  //       bool isAuthenticated =
+  //           await biometricProvider.authenticateWithFingerprint();
 
-        if (isAuthenticated) {
-          await _signInUsingFingerprint(context);
-        } else {
-          CustomSnackbar().snakBarError(
-              context, 'Fingerprint authentication failed. Please try again.');
-        }
-      }
-    } catch (e) {
-      debugPrint('Error: $e');
-      CustomSnackbar().snakBarError(
-          context, 'An error occurred during fingerprint authentication.');
-    } finally {
-      setIsLoading = false;
-    }
-  }
+  //       if (isAuthenticated) {
+  //         await _signInUsingFingerprint(context);
+  //       } else {
+  //         CustomSnackbar().snakBarError(
+  //             context, 'Fingerprint authentication failed. Please try again.');
+  //       }
+  //     }
+  //   } catch (e) {
+  //     debugPrint('Error: $e');
+  //     CustomSnackbar().snakBarError(
+  //         context, 'An error occurred during fingerprint authentication.');
+  //   } finally {
+  //     setIsLoading = false;
+  //   }
+  // }
 
-  Future<void> _signInUsingFingerprint(BuildContext context) async {
-    setIsLoading = true;
+  // Future<void> _signInUsingFingerprint(BuildContext context) async {
+  //   setIsLoading = true;
 
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? email = prefs.getString('email');
-      String? password = prefs.getString('password');
+  //   try {
+  //     SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     String? email = prefs.getString('email');
+  //     String? password = prefs.getString('password');
 
-      if (password != null) {
-        final user =
-            await _authService.signInWithEmailPassword(email!, password);
-        if (user != null) {
-          await _navigateBasedOnUserStatus(context, user);
-        } else {
-          CustomSnackbar().snakBarError(
-              context, 'Fingerprint login failed: Invalid stored credentials.');
-        }
-      } else {
-        CustomSnackbar().snakBarError(
-            context, 'No saved credentials found. Please log in manually.');
-      }
-    } catch (e) {
-      debugPrint('Error during fingerprint login: $e');
-      CustomSnackbar()
-          .snakBarError(context, 'An error occurred during fingerprint login.');
-    } finally {
-      setIsLoading = false;
-    }
-  }
+  //     if (password != null) {
+  //       final user =
+  //           await _authService.signInWithEmailPassword(email!, password);
+  //       if (user != null) {
+  //         await _navigateBasedOnUserStatus(context, user);
+  //       } else {
+  //         CustomSnackbar().snakBarError(
+  //             context, 'Fingerprint login failed: Invalid stored credentials.');
+  //       }
+  //     } else {
+  //       CustomSnackbar().snakBarError(
+  //           context, 'No saved credentials found. Please log in manually.');
+  //     }
+  //   } catch (e) {
+  //     debugPrint('Error during fingerprint login: $e');
+  //     CustomSnackbar()
+  //         .snakBarError(context, 'An error occurred during fingerprint login.');
+  //   } finally {
+  //     setIsLoading = false;
+  //   }
+  // }
 
   Future<void> signInLogic(BuildContext context) async {
     if (signinFormKey.currentState!.validate()) {

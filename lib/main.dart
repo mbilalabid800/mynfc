@@ -128,7 +128,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => ShippingAddressProvider()),
       ChangeNotifierProvider(create: (_) => OrderProvider()),
       ChangeNotifierProvider(create: (_) => EmployeeProvider()),
-      ChangeNotifierProvider(create: (_) => BiometricHandlerProvider()),
+      //ChangeNotifierProvider(create: (_) => BiometricHandlerProvider()),
       ChangeNotifierProvider(create: (_) => FormValidationProvider()),
       ChangeNotifierProvider(create: (_) => AppDataProvider()),
       ChangeNotifierProvider(create: (_) => ChatProvider())

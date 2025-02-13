@@ -43,8 +43,8 @@ class _SettingsState extends State<Settings> {
   void initState() {
     super.initState();
     _loadFaqs();
-    Provider.of<BiometricHandlerProvider>(context, listen: false)
-        .loadFingerprintPreference();
+    // Provider.of<BiometricHandlerProvider>(context, listen: false)
+    //     .loadFingerprintPreference();
   }
 
   void _loadFaqs() async {
@@ -105,7 +105,7 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    final biometricProvider = Provider.of<BiometricHandlerProvider>(context);
+    //final biometricProvider = Provider.of<BiometricHandlerProvider>(context);
     return Consumer<UserInfoFormStateProvider>(
       builder: (context, userProvider, child) {
         return SafeArea(
@@ -461,31 +461,31 @@ class _SettingsState extends State<Settings> {
                                   //     FirebaseAuth.instance.currentUser?.uid;
                                 },
                               ),
-                              SettingListComponent(
-                                icons: "assets/icons/settingicon8.svg",
-                                title: "Enable Fingureprint",
-                                trailing: SizedBox(
-                                  height: 34,
-                                  width: 45,
-                                  child: FittedBox(
-                                    fit: BoxFit.fill,
-                                    child: Switch(
-                                      activeTrackColor:
-                                          AppColors.appOrangeColor,
-                                      inactiveTrackColor: Colors.grey.shade200,
-                                      inactiveThumbColor:
-                                          AppColors.appBlueColor,
-                                      value: biometricProvider
-                                          .isFingerprintEnabled,
-                                      onChanged: (value) async {
-                                        await biometricProvider
-                                            .toggleFingerprint(value, context);
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                callBack: () {},
-                              ),
+                              // SettingListComponent(
+                              //   icons: "assets/icons/settingicon8.svg",
+                              //   title: "Enable Fingureprint",
+                              //   trailing: SizedBox(
+                              //     height: 34,
+                              //     width: 45,
+                              //     child: FittedBox(
+                              //       fit: BoxFit.fill,
+                              //       child: Switch(
+                              //         activeTrackColor:
+                              //             AppColors.appOrangeColor,
+                              //         inactiveTrackColor: Colors.grey.shade200,
+                              //         inactiveThumbColor:
+                              //             AppColors.appBlueColor,
+                              //         value: biometricProvider
+                              //             .isFingerprintEnabled,
+                              //         onChanged: (value) async {
+                              //           await biometricProvider
+                              //               .toggleFingerprint(value, context);
+                              //         },
+                              //       ),
+                              //     ),
+                              //   ),
+                              //   callBack: () {},
+                              // ),
                               const SizedBox(height: 8),
                             ],
                           ),
