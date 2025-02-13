@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/services/nfc_service/nfc_service.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ActiveProductScreen extends StatefulWidget {
   const ActiveProductScreen({super.key});
@@ -12,6 +15,26 @@ class ActiveProductScreen extends StatefulWidget {
 }
 
 class _ActiveProductScreenState extends State<ActiveProductScreen> {
+  Future<String> generateProfileLink() async {
+    // Get the current user's UID from Firebase Authentication
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      String uid = user.uid;
+      // Generate the deep link
+      // String userProfileLink = 'https://myabsher.com/profile/$uid?source=nfc';
+      String userProfileLink = 'https://website.myabsher.com/#/profile/$uid';
+      return userProfileLink;
+    } else {
+      throw Exception('User not logged in');
+    }
+  }
+
+  Future<void> saveProfileLink(String userProfileLink) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userProfileLink', userProfileLink);
+  }
+
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -92,42 +115,57 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
               SizedBox(
                 height: DeviceDimensions.screenHeight(context) * 0.006,
               ),
-              Container(
-                width: DeviceDimensions.screenWidth(context) * 0.85,
-                height: DeviceDimensions.screenHeight(context) * 0.08,
-                decoration: BoxDecoration(
-                    color: AppColors.screenBackground,
-                    borderRadius: BorderRadius.circular(12)),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: SvgPicture.asset(
-                          'assets/icons/nfc.svg',
-                          width: 25,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 18.0),
-                        child: Text(
-                          'Activate by NFC',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.textColorBlue,
+              InkWell(
+                onTap: () async {
+                  final nfcService = NfcService();
+                  print('clicked');
+
+                  // Generate the deep link with UID
+                  String userprofileLink = await generateProfileLink();
+
+                  // Save the link in SharedPreferences
+                  await saveProfileLink(userprofileLink);
+
+                  // Write the link to the NFC card via NfcService
+                  await nfcService.writeProfileToNfc(context, userprofileLink);
+                },
+                child: Container(
+                  width: DeviceDimensions.screenWidth(context) * 0.85,
+                  height: DeviceDimensions.screenHeight(context) * 0.08,
+                  decoration: BoxDecoration(
+                      color: AppColors.screenBackground,
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: SvgPicture.asset(
+                            'assets/icons/nfc.svg',
+                            width: 25,
                           ),
                         ),
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12.0),
-                        child: SvgPicture.asset(
-                          'assets/icons/more4.svg',
-                          width: 8,
+                        const Padding(
+                          padding: EdgeInsets.only(left: 18.0),
+                          child: Text(
+                            'Activate by NFC',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.textColorBlue,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 12.0),
+                          child: SvgPicture.asset(
+                            'assets/icons/more4.svg',
+                            width: 8,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
