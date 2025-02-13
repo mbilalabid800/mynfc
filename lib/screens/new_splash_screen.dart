@@ -51,7 +51,7 @@ class _NewSplashScreenState extends State<NewSplashScreen>
     if (user == null) {
       Navigator.pushReplacementNamed(context, '/splash');
     } else {
-      Navigator.pushReplacementNamed(context, '/login-screen');
+      Navigator.pushReplacementNamed(context, '/mainNav-screen');
     }
   }
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:nfc_app/services/firestore_service/pricing_plan_service.dart';
-import 'package:nfc_app/services/pricing_plan_service.dart';
 
 class PlanDetailsScreen extends StatefulWidget {
   final String
       planType; // "For Individual", "For Companies", "For bigger organization"
 
-  PlanDetailsScreen({required this.planType});
+  const PlanDetailsScreen({super.key, required this.planType});
 
   @override
+  // ignore: library_private_types_in_public_api
   _PlanDetailsScreenState createState() => _PlanDetailsScreenState();
 }
 
