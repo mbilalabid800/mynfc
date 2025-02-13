@@ -177,7 +177,8 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                                               color: AppColors.textColorBlue,
                                               fontWeight: FontWeight.w600)),
                                       const Spacer(),
-                                      SvgPicture.asset('assets/icons/code.svg')
+                                      SvgPicture.asset(
+                                          'assets/icons/add_user.svg')
                                     ],
                                   ),
                                 ),
@@ -194,7 +195,7 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                                     borderRadius: BorderRadius.circular(35),
                                     image: const DecorationImage(
                                       image: AssetImage(
-                                        'assets/images/Subtract.png',
+                                        'assets/icons/add_connections.png',
                                       ),
                                       fit: BoxFit.cover,
                                     ),
