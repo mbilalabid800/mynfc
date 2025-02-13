@@ -33,6 +33,38 @@ class _EditProfileState extends State<EditProfile> {
   bool isLoading = false;
   // final FocusNode _focusNode = FocusNode();
 
+  late String _tempFirstName;
+  late String _tempLastName;
+  late String _tempCompanyName;
+  late String _tempDesignation;
+  late String _tempBio;
+  late String _tempCountry;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      final userProvider =
+          Provider.of<UserInfoFormStateProvider>(context, listen: false);
+      userProvider.loadUserData();
+
+      // Store initial values separately
+      _tempFirstName = userProvider.firstName;
+      _tempLastName = userProvider.lastName;
+      _tempCompanyName = userProvider.companyName;
+      _tempDesignation = userProvider.designation;
+      _tempBio = userProvider.bio;
+      _tempCountry = userProvider.countryName;
+
+      firstNameController.text = _tempFirstName;
+      lastNameController.text = _tempLastName;
+      companyNameController.text = _tempCompanyName;
+      designationController.text = _tempDesignation;
+      bioController.text = _tempBio;
+      countryController.text = _tempCountry;
+    });
+  }
+
   Future<void> _pickImage() async {
     final imagePicker =
         Provider.of<ImagePickerProvider>(context, listen: false);
@@ -105,8 +137,17 @@ class _EditProfileState extends State<EditProfile> {
   void _saveProfile() async {
     final userProvider =
         Provider.of<UserInfoFormStateProvider>(context, listen: false);
+
+    // Update provider with the latest values from controllers
+    userProvider.updateFirstName(firstNameController.text);
+    userProvider.updateLastName(lastNameController.text);
+    userProvider.updateCompanyName(companyNameController.text);
+    userProvider.updateDesignation(designationController.text);
+    userProvider.updateBio(bioController.text);
+    userProvider.updateCountryName(countryController.text);
+
     await userProvider.updateUserData();
-    userProvider.clearEditingField(); // Clear the current editing field
+    userProvider.clearEditingField();
     CustomSnackbar().snakBarMessage(context, "Records updated!!");
   }
 
@@ -140,6 +181,13 @@ class _EditProfileState extends State<EditProfile> {
                     title: 'Edit Profile',
                     leftButton: GestureDetector(
                       onTap: () {
+// Reset unsaved changes on back press
+                        firstNameController.text = _tempFirstName;
+                        lastNameController.text = _tempLastName;
+                        companyNameController.text = _tempCompanyName;
+                        designationController.text = _tempDesignation;
+                        bioController.text = _tempBio;
+                        countryController.text = _tempCountry;
                         Navigator.pop(context);
                       },
                       child: Container(
