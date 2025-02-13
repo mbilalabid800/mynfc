@@ -82,7 +82,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                             ),
                             Positioned(
                               right: 30,
-                              top: 40,
+                              top: 55,
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.pushNamed(

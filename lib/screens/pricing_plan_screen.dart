@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/widgets/individual_widget.dart';
-import 'package:nfc_app/widgets/teams_widget.dart';
 
 import '../responsive/device_dimensions.dart';
 
@@ -74,7 +73,7 @@ class _PricingPlanState extends State<PricingPlan>
                     height: DeviceDimensions.screenHeight(context) * 0.065,
                     width: DeviceDimensions.screenWidth(context) * 0.895,
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 239, 239, 239),
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Padding(
@@ -122,26 +121,25 @@ class _PricingPlanState extends State<PricingPlan>
                   ),
                   Expanded(
                     child: AnimatedSwitcher(
-                      duration: _animationDuration,
-                      transitionBuilder:
-                          (Widget child, Animation<double> animation) {
-                        final slideAnimation = Tween<Offset>(
-                          begin: const Offset(0, 1.0),
-                          end: Offset.zero,
-                        ).animate(animation);
+                        duration: _animationDuration,
+                        transitionBuilder:
+                            (Widget child, Animation<double> animation) {
+                          final slideAnimation = Tween<Offset>(
+                            begin: const Offset(0, 1.0),
+                            end: Offset.zero,
+                          ).animate(animation);
 
-                        return SlideTransition(
-                          position: slideAnimation,
-                          child: FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          ),
-                        );
-                      },
-                      child: _tabController.index == 0
-                          ? const Individual(key: ValueKey<int>(0))
-                          : const Teams(key: ValueKey<int>(1)),
-                    ),
+                          return SlideTransition(
+                            position: slideAnimation,
+                            child: FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            ),
+                          );
+                        },
+                        child: _tabController.index == 0
+                            ? const Individual(key: ValueKey<int>(0))
+                            : const Individual(key: ValueKey<int>(1))),
                   ),
                 ],
               ),

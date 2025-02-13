@@ -38,7 +38,7 @@ class _IndividualState extends State<Individual> {
             child: ElevatedButton(
               onPressed: () {
                 //dummy link
-                Navigator.pushNamed(context, '/privacy-policy');
+                Navigator.pushNamed(context, '/settings');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.appBlueColor,

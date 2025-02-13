@@ -20,8 +20,8 @@ class PricingPlansScreen extends StatelessWidget {
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     final selectedCard = args?['selectedCard'];
     final selectedColorOption = args?['selectedColorOption'];
-    final Future<List<PricingPlan>> plans =
-        pricingPlanService.getPlans(context);
+    // final Future<List<PricingPlan>> plans =
+    //     pricingPlanService.getPlans(context);
 
     return SafeArea(
       child: Scaffold(
