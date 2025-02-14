@@ -333,7 +333,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 _orderStatusTimeline(context,
                                                     title: "Delivered",
                                                     date:
-                                                        "July 20, 2025  |  12:33 AM",
+                                                        "Feb 20, 2025  |  12:33 AM",
                                                     icon:
                                                         "assets/icons/delivered.svg",
                                                     isComplete: false,
