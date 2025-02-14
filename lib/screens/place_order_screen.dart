@@ -72,7 +72,28 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(title: 'Order'),
+            AbsherAppBar(
+              title: 'Order',
+              leftButton: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 9),
+                    decoration: const BoxDecoration(
+                        //color: Color(0xFFFFFFFF),
+                        //shape: BoxShape.circle,
+                        ),
+                    child:
+                        Icon(Icons.arrow_back, color: AppColors.appBlueColor)),
+              ),
+              rightButton: Align(
+                alignment: Alignment.centerRight,
+                child: SizedBox(
+                    width: DeviceDimensions.screenWidth(context) * 0.035),
+              ),
+            ),
             SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
             Flexible(
               child: SingleChildScrollView(
@@ -249,7 +270,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                   .width *
                                               0.51,
                                           child: Text(
-                                            "FURSA NFC Black Classic Card - Custom Embossed",
+                                            "Absher NFC Black Classic Card - Custom Embossed",
                                             style: TextStyle(
                                               fontFamily: 'Barlow-Bold',
                                               fontWeight: FontWeight.w500,
@@ -348,17 +369,17 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                       "${userProvider.firstName} ${userProvider.lastName}"),
                                   orderInfo(context, "Title (optional):",
                                       "Business Cards"),
-                                  orderInfo(
-                                      context, "Expected Date:", deliveryDate),
                                   orderInfo(context, "Delivery Method:",
                                       provider.selectedMethod),
                                   orderInfo(context, "Payment Method:",
                                       "Cash on Delivery"),
                                   orderInfo(context, "Order Date:", orderDate),
+                                  orderInfo(context, "Expected Delivery Date:",
+                                      deliveryDate),
                                   orderInfo(context, "Subtotal:",
                                       "${selectedCard.cardPrice * employeeCount}0  OMR"),
                                   orderInfo(
-                                      context, "Shipping Cost:", "2.00  OMR"),
+                                      context, "Shipping Charges", "2.00  OMR"),
                                   orderInfo(context, "Total:",
                                       "${selectedCard.cardPrice * employeeCount + 2}0  OMR"),
                                 ]

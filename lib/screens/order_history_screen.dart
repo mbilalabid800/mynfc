@@ -147,22 +147,22 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(
-                          width:
-                              DeviceDimensions.responsiveSize(context) * 0.22,
-                          height:
-                              DeviceDimensions.responsiveSize(context) * 0.24,
-                          child: order.cardImage != null
-                              ? Image.network(
-                                  order.cardImage,
-                                  width:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.1,
-                                  height:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.1,
-                                  fit: BoxFit.fitWidth,
-                                )
-                              : SmallThreeBounceLoader()),
+                        width: DeviceDimensions.responsiveSize(context) * 0.22,
+                        height: DeviceDimensions.responsiveSize(context) * 0.24,
+                        child: Image.asset('assets/images/dummycard.png'),
+                      ),
+                      // child: order.cardImage != null
+                      //     ? Image.network(
+                      //         order.cardImage,
+                      //         width:
+                      //             DeviceDimensions.responsiveSize(context) *
+                      //                 0.1,
+                      //         height:
+                      //             DeviceDimensions.responsiveSize(context) *
+                      //                 0.1,
+                      //         fit: BoxFit.fitWidth,
+                      //       )
+                      //     : SmallThreeBounceLoader()),
                       //Spacer(),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -174,7 +174,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                                 style: TextStyle(
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
-                                        0.045)),
+                                        0.035)),
                             Text(' Price : ${order.orderPrice.toString()}',
                                 style: TextStyle(
                                     fontSize: DeviceDimensions.responsiveSize(

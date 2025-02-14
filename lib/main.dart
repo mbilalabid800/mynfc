@@ -144,6 +144,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey =
+        GlobalKey<ScaffoldMessengerState>();
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -152,6 +154,7 @@ class MyApp extends StatelessWidget {
         data:
             MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
         child: MaterialApp(
+          scaffoldMessengerKey: _scaffoldMessengerKey,
           title: 'Absher',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
