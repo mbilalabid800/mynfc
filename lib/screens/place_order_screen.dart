@@ -357,6 +357,8 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                   orderInfo(context, "Order Date:", orderDate),
                                   orderInfo(context, "Subtotal:",
                                       "${selectedCard.cardPrice * employeeCount}0  OMR"),
+                                  orderInfo(
+                                      context, "Shipping Cost:", "2.00  OMR"),
                                   orderInfo(context, "Total:",
                                       "${selectedCard.cardPrice * employeeCount + 2}0  OMR"),
                                 ]
