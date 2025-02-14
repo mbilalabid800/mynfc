@@ -181,7 +181,7 @@ class _EditProfileState extends State<EditProfile> {
                     title: 'Edit Profile',
                     leftButton: GestureDetector(
                       onTap: () {
-// Reset unsaved changes on back press
+                        // Reset unsaved changes on back press
                         firstNameController.text = _tempFirstName;
                         lastNameController.text = _tempLastName;
                         companyNameController.text = _tempCompanyName;

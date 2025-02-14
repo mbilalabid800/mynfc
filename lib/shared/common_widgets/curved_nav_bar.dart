@@ -36,7 +36,7 @@ class _CustomCurvedNavigationBarState extends State<CustomCurvedNavigationBar> {
     return CurvedNavigationBar(
       index: _selectedIndex,
       // height: 50.0,
-      height: 55.0,
+      height: 54.0,
 
       items: <Widget>[
         _buildNavBarItem("assets/icons/home.svg", 0),
@@ -64,8 +64,8 @@ class _CustomCurvedNavigationBarState extends State<CustomCurvedNavigationBar> {
     return SvgPicture.asset(
       asset,
       color: _selectedIndex == index ? Colors.white : AppColors.appBlueColor,
-      height: _selectedIndex == index ? 40.0 : 35.0,
-      width: _selectedIndex == index ? 40.0 : 35.0,
+      height: _selectedIndex == index ? 32.0 : 35.0,
+      width: _selectedIndex == index ? 32.0 : 35.0,
     );
   }
 }
