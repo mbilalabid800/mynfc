@@ -64,8 +64,8 @@ class _CustomCurvedNavigationBarState extends State<CustomCurvedNavigationBar> {
     return SvgPicture.asset(
       asset,
       color: _selectedIndex == index ? Colors.white : AppColors.appBlueColor,
-      height: _selectedIndex == index ? 40.0 : 35.0,
-      width: _selectedIndex == index ? 40.0 : 35.0,
+      height: _selectedIndex == index ? 32.0 : 32.0,
+      width: _selectedIndex == index ? 32.0 : 32.0,
     );
   }
 }

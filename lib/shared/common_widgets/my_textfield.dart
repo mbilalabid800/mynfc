@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 
-class MyTextfield extends StatelessWidget {
+class MyTextfield extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final String? errorText;
@@ -31,25 +31,43 @@ class MyTextfield extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final passwordVisibility =
-        passwordVisibilityNotifier ?? ValueNotifier(false);
+  State<MyTextfield> createState() => _MyTextfieldState();
+}
 
+class _MyTextfieldState extends State<MyTextfield> {
+  late ValueNotifier<bool> _passwordVisibilityNotifier;
+  @override
+  void initState() {
+    super.initState();
+    _passwordVisibilityNotifier =
+        widget.passwordVisibilityNotifier ?? ValueNotifier(false);
+  }
+
+  @override
+  void dispose() {
+    if (widget.passwordVisibilityNotifier == null) {
+      _passwordVisibilityNotifier.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 23),
       child: ValueListenableBuilder<bool>(
-        valueListenable: passwordVisibility,
+        valueListenable: _passwordVisibilityNotifier,
         builder: (context, isPasswordVisible, _) {
           return TextFormField(
-            controller: controller,
-            obscureText: isPasswordField && !isPasswordVisible,
+            controller: widget.controller,
+            obscureText: widget.isPasswordField && !isPasswordVisible,
             style: TextStyle(
               height: DeviceDimensions.screenHeight(context) * 0.0026,
             ),
-            keyboardType: keyboardType,
-            inputFormatters: inputFormatters,
+            keyboardType: widget.keyboardType,
+            inputFormatters: widget.inputFormatters,
             decoration: InputDecoration(
-              hintText: hintText,
+              hintText: widget.hintText,
               hintStyle: const TextStyle(
                 color: Color(0xFFA9A9A9),
                 fontFamily: 'Barlow-Regular',
@@ -57,9 +75,9 @@ class MyTextfield extends StatelessWidget {
               ),
               prefixIcon: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: SvgPicture.asset(iconPath),
+                child: SvgPicture.asset(widget.iconPath),
               ),
-              suffixIcon: isPasswordField
+              suffixIcon: widget.isPasswordField
                   ? IconButton(
                       icon: Icon(
                         isPasswordVisible
@@ -68,11 +86,12 @@ class MyTextfield extends StatelessWidget {
                         color: Colors.grey,
                       ),
                       onPressed: () {
-                        passwordVisibility.value = !isPasswordVisible;
+                        _passwordVisibilityNotifier.value =
+                            !_passwordVisibilityNotifier.value;
                       },
                     )
                   : null,
-              errorText: errorText,
+              errorText: widget.errorText,
               errorStyle: const TextStyle(
                 color: AppColors.errorColor,
                 fontSize: 14.0,
@@ -86,7 +105,7 @@ class MyTextfield extends StatelessWidget {
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(
-                  color: errorText != null
+                  color: widget.errorText != null
                       ? AppColors.errorFieldBorderColor
                       : AppColors.textFieldBorder,
                 ),
@@ -106,8 +125,8 @@ class MyTextfield extends StatelessWidget {
                     const BorderSide(color: AppColors.errorFieldBorderColor),
               ),
             ),
-            onChanged: onChanged,
-            validator: validator,
+            onChanged: widget.onChanged,
+            validator: widget.validator,
           );
         },
       ),
