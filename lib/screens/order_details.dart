@@ -43,7 +43,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                 title: 'Order Details',
                 leftButton: GestureDetector(
                   onTap: () {
-                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/mainNav-screen');
+                    // Navigator.pop(context);
                   },
                   child: Container(
                       padding: const EdgeInsets.symmetric(
