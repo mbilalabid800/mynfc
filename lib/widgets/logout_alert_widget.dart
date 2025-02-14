@@ -15,8 +15,18 @@ class LogoutAlertWidget {
             backgroundColor: AppColors.screenBackground,
             title: Column(
               children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Icon(Icons.cancel, color: AppColors.appBlueColor)),
+                ),
                 Lottie.asset(
                   'assets/animations/logout_lottie.json',
+                  height: DeviceDimensions.screenHeight(context) * 0.08,
+
                   //height: 120,
                 ),
                 Center(
@@ -41,16 +51,17 @@ class LogoutAlertWidget {
               ),
             ),
             actions: [
-              Row(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: DeviceDimensions.screenHeight(context) * 0.05,
-                    width: DeviceDimensions.screenWidth(context) * 0.28,
+                    height: DeviceDimensions.screenHeight(context) * 0.06,
+                    width: DeviceDimensions.screenWidth(context) * 0.8,
                     decoration: BoxDecoration(
-                        color: AppColors.greyText,
-                        borderRadius: BorderRadius.circular(20)),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25),
+                        border: Border.all(color: AppColors.appBlueColor)),
                     child: TextButton(
                       onPressed: () {
                         Navigator.of(context).pop(); // Close the dialog
@@ -58,20 +69,20 @@ class LogoutAlertWidget {
                       child: Text(
                         'Cancel',
                         style: TextStyle(
-                            color: AppColors.screenBackground,
+                            color: AppColors.appBlueColor,
                             fontSize: DeviceDimensions.responsiveSize(context) *
                                 0.035),
                       ),
                     ),
                   ),
-                  Spacer(),
-                  //SizedBox(width: DeviceDimensions.screenWidth(context) * 0.1),
+                  SizedBox(
+                      height: DeviceDimensions.screenWidth(context) * 0.03),
                   Container(
-                    height: DeviceDimensions.screenHeight(context) * 0.05,
-                    width: DeviceDimensions.screenWidth(context) * 0.28,
+                    height: DeviceDimensions.screenHeight(context) * 0.06,
+                    width: DeviceDimensions.screenWidth(context) * 0.8,
                     decoration: BoxDecoration(
                         color: AppColors.appBlueColor,
-                        borderRadius: BorderRadius.circular(20)),
+                        borderRadius: BorderRadius.circular(25)),
                     child: TextButton(
                       onPressed: () async {
                         // Perform some action

@@ -15,6 +15,7 @@ class ActiveProductScreen extends StatefulWidget {
 }
 
 class _ActiveProductScreenState extends State<ActiveProductScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   Future<String> generateProfileLink() async {
     // Get the current user's UID from Firebase Authentication
     User? user = FirebaseAuth.instance.currentUser;
@@ -115,60 +116,84 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
               SizedBox(
                 height: DeviceDimensions.screenHeight(context) * 0.006,
               ),
-              InkWell(
-                onTap: () async {
-                  final nfcService = NfcService();
-                  print('clicked');
+              Builder(builder: (BuildContext newContext) {
+                return InkWell(
+                  onTap: () async {
+                    final nfcService = NfcService();
+                    debugPrint('clicked');
+                    try {
+                      // Generate the deep link with UID
+                      String userprofileLink = await generateProfileLink();
 
-                  // Generate the deep link with UID
-                  String userprofileLink = await generateProfileLink();
+                      // Save the link in SharedPreferences
+                      await saveProfileLink(userprofileLink);
 
-                  // Save the link in SharedPreferences
-                  await saveProfileLink(userprofileLink);
+                      // Write the link to the NFC card via NfcService
+                      await nfcService.writeProfileToNfc(
+                          newContext, userprofileLink);
 
-                  // Write the link to the NFC card via NfcService
-                  await nfcService.writeProfileToNfc(context, userprofileLink);
-                },
-                child: Container(
-                  width: DeviceDimensions.screenWidth(context) * 0.85,
-                  height: DeviceDimensions.screenHeight(context) * 0.08,
-                  decoration: BoxDecoration(
-                      color: AppColors.screenBackground,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10.0),
-                          child: SvgPicture.asset(
-                            'assets/icons/nfc.svg',
-                            width: 25,
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 18.0),
-                          child: Text(
-                            'Activate by NFC',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.textColorBlue,
+                      // Show success message using ScaffoldMessenger
+                      // ScaffoldMessenger.of(newContext).showSnackBar(
+                      //   SnackBar(
+                      //       content: Text('NFC card successfully written!')),
+                      // );
+                    } catch (e) {
+                      // Show error message using ScaffoldMessenger
+                      ScaffoldMessenger.of(newContext).showSnackBar(
+                        SnackBar(
+                            content: Text('No NFC card detected. Try again!')),
+                      );
+                    }
+                    // // Generate the deep link with UID
+                    // String userprofileLink = await generateProfileLink();
+
+                    // // Save the link in SharedPreferences
+                    // await saveProfileLink(userprofileLink);
+
+                    // // Write the link to the NFC card via NfcService
+                    // await nfcService.writeProfileToNfc(context, userprofileLink);
+                  },
+                  child: Container(
+                    width: DeviceDimensions.screenWidth(context) * 0.85,
+                    height: DeviceDimensions.screenHeight(context) * 0.08,
+                    decoration: BoxDecoration(
+                        color: AppColors.screenBackground,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: SvgPicture.asset(
+                              'assets/icons/nfc.svg',
+                              width: 25,
                             ),
                           ),
-                        ),
-                        const Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 12.0),
-                          child: SvgPicture.asset(
-                            'assets/icons/more4.svg',
-                            width: 8,
+                          const Padding(
+                            padding: EdgeInsets.only(left: 18.0),
+                            child: Text(
+                              'Activate by NFC',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.textColorBlue,
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12.0),
+                            child: SvgPicture.asset(
+                              'assets/icons/more4.svg',
+                              width: 8,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ),
+                );
+              }),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.02)
             ],
           ),
@@ -181,6 +206,7 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+            key: _scaffoldKey,
             backgroundColor: AppColors.screenBackground,
             body: Column(children: [
               SizedBox(
