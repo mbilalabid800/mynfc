@@ -104,14 +104,16 @@ class _OrderDetailsState extends State<OrderDetails> {
                                             child: SizedBox(
                                               height: 70,
                                               width: 80,
-                                              child: CachedNetworkImage(
-                                                  imageUrl: provider
-                                                      .currentOrder!.cardImage,
-                                                  placeholder: (context, url) =>
-                                                      SmallThreeBounceLoader(),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Icon(Icons.error)),
+                                              child: Image.asset(
+                                                  'assets/images/dummycard.png'),
+                                              // child: CachedNetworkImage(
+                                              //     imageUrl: provider
+                                              //         .currentOrder!.cardImage,
+                                              //     placeholder: (context, url) =>
+                                              //         SmallThreeBounceLoader(),
+                                              //     errorWidget:
+                                              //         (context, url, error) =>
+                                              //             Icon(Icons.error)),
                                             ),
                                           ),
                                         ),
@@ -129,7 +131,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                       .width *
                                                   0.51,
                                               child: Text(
-                                                "FURSA NFC Black Classic Card - Custom Embossed",
+                                                "Absher NFC Black Classic Card - Custom Embossed",
                                                 style: TextStyle(
                                                   fontFamily: 'Barlow-Bold',
                                                   fontWeight: FontWeight.w500,
