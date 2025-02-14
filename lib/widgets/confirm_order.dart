@@ -183,7 +183,7 @@ class ConfirmOrder {
 
     OrderModel newOrder = OrderModel(
         orderId: orderId,
-        orderPrice: "${selectedCard.cardPrice * employeeCount}0 OMR",
+        orderPrice: "${selectedCard.cardPrice * employeeCount + 2}0 OMR",
         orderStatus: "Pending",
         shippingMethod: shippingMethod,
         orderHistory: "active",
