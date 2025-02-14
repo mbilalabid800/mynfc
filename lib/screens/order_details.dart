@@ -309,7 +309,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                   context,
                                                   title: "Order Placed",
                                                   date:
-                                                      "July 14, 2024  |  11:33 AM",
+                                                      "Feb 17, 2025  |  11:33 AM",
                                                   icon:
                                                       "assets/icons/orderplaced.svg",
                                                   isComplete: true,
@@ -318,14 +318,14 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 _orderStatusTimeline(context,
                                                     title: "In  Progress",
                                                     date:
-                                                        "July 15, 2024  |  08:33 PM",
+                                                        "Feb 18, 2025  |  08:33 PM",
                                                     icon:
                                                         "assets/icons/inprogress.svg",
                                                     isComplete: false),
                                                 _orderStatusTimeline(context,
                                                     title: "Shipped",
                                                     date:
-                                                        "July 16, 2024  |  01:33 AM",
+                                                        "Feb 19, 2025  |  01:33 AM",
                                                     icon:
                                                         "assets/icons/shipped.svg",
                                                     isComplete: false,
@@ -333,7 +333,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 _orderStatusTimeline(context,
                                                     title: "Delivered",
                                                     date:
-                                                        "July 17, 2024  |  12:33 AM",
+                                                        "July 20, 2025  |  12:33 AM",
                                                     icon:
                                                         "assets/icons/delivered.svg",
                                                     isComplete: false,
