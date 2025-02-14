@@ -6,6 +6,7 @@ import 'package:nfc_app/models/card_details_model.dart';
 import 'package:nfc_app/models/shipping_address_model.dart';
 import 'package:nfc_app/provider/employee_provider.dart';
 import 'package:nfc_app/provider/shipping_address_provider.dart';
+import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/widgets/confirm_order.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
@@ -57,6 +58,11 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     final CardColorOption selectedColorOption = args['selectedColorOption'];
     final colorIndex =
         selectedCard.cardColorOptions.indexOf(selectedColorOption);
+    final userProvider =
+        Provider.of<UserInfoFormStateProvider>(context, listen: false);
+    String orderDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    String deliveryDate = DateFormat('yyyy-MM-dd')
+        .format(DateTime.now().add(const Duration(days: 7)));
 
     return SafeArea(
       child: Scaffold(
@@ -339,20 +345,20 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                               context) *
                                           0.020),
                                   orderInfo(context, "Your Name:",
-                                      selectedCard.cardName),
+                                      "${userProvider.firstName} ${userProvider.lastName}"),
                                   orderInfo(context, "Title (optional):",
                                       "Business Cards"),
-                                  orderInfo(context, "Subtotal:",
-                                      "${selectedCard.cardPrice * employeeCount}0  OMR"),
                                   orderInfo(
-                                      context,
-                                      "Date:",
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(DateTime.now())),
+                                      context, "Expected Date:", deliveryDate),
                                   orderInfo(context, "Delivery Method:",
                                       provider.selectedMethod),
-                                  orderInfo(context, "Total:",
+                                  orderInfo(context, "Payment Method:",
+                                      "Cash on Delivery"),
+                                  orderInfo(context, "Order Date:", orderDate),
+                                  orderInfo(context, "Subtotal:",
                                       "${selectedCard.cardPrice * employeeCount}0  OMR"),
+                                  orderInfo(context, "Total:",
+                                      "${selectedCard.cardPrice * employeeCount + 2}0  OMR"),
                                 ]
                               ],
                             ),
