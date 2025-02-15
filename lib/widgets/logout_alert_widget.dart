@@ -55,26 +55,26 @@ class LogoutAlertWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: DeviceDimensions.screenHeight(context) * 0.06,
-                    width: DeviceDimensions.screenWidth(context) * 0.8,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25),
-                        border: Border.all(color: AppColors.appBlueColor)),
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(); // Close the dialog
-                      },
-                      child: Text(
-                        'Cancel',
-                        style: TextStyle(
-                            color: AppColors.appBlueColor,
-                            fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.035),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   height: DeviceDimensions.screenHeight(context) * 0.06,
+                  //   width: DeviceDimensions.screenWidth(context) * 0.8,
+                  //   decoration: BoxDecoration(
+                  //       color: Colors.white,
+                  //       borderRadius: BorderRadius.circular(25),
+                  //       border: Border.all(color: AppColors.appBlueColor)),
+                  //   child: TextButton(
+                  //     onPressed: () {
+                  //       Navigator.of(context).pop(); // Close the dialog
+                  //     },
+                  //     child: Text(
+                  //       'Cancel',
+                  //       style: TextStyle(
+                  //           color: AppColors.appBlueColor,
+                  //           fontSize: DeviceDimensions.responsiveSize(context) *
+                  //               0.035),
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(
                       height: DeviceDimensions.screenWidth(context) * 0.03),
                   Container(

@@ -270,7 +270,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                   .width *
                                               0.51,
                                           child: Text(
-                                            "Absher NFC Black Classic Card - Custom Embossed",
+                                            selectedCard.cardName,
                                             style: TextStyle(
                                               fontFamily: 'Barlow-Bold',
                                               fontWeight: FontWeight.w500,

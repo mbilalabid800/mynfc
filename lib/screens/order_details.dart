@@ -146,7 +146,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                                 .width *
                                                             0.51,
                                                     child: Text(
-                                                      "Absher NFC Black Classic Card - Custom Embossed",
+                                                      provider.currentOrder!
+                                                          .cardName,
                                                       style: TextStyle(
                                                         fontFamily:
                                                             'Barlow-Bold',
@@ -170,7 +171,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                                   context) *
                                                           0.003),
                                                   Text(
-                                                    "Business Card |  Classic Black",
+                                                    provider.currentOrder!
+                                                        .cardColor,
                                                     style: TextStyle(
                                                       fontFamily:
                                                           'Barlow-Regular',

@@ -175,6 +175,11 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
                                         0.035)),
+                            Text(' Color : ${order.cardColor}',
+                                style: TextStyle(
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.03)),
                             Text(' Price : ${order.orderPrice.toString()}',
                                 style: TextStyle(
                                     fontSize: DeviceDimensions.responsiveSize(
