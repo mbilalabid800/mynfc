@@ -59,8 +59,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               title: 'Order Details',
               leftButton: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, '/order-history-screen', (route) => false);
+                  Navigator.pushNamed(context, '/order-history-screen');
                   // Navigator.pop(context);
                 },
                 child: Container(
