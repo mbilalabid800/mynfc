@@ -117,16 +117,35 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                   child: SizedBox(
                                                     height: 70,
                                                     width: 80,
-                                                    child: CachedNetworkImage(
-                                                        imageUrl: provider
-                                                            .currentOrder!
-                                                            .cardImage,
-                                                        placeholder: (context,
-                                                                url) =>
-                                                            SmallThreeBounceLoader(),
-                                                        errorWidget: (context,
-                                                                url, error) =>
-                                                            Icon(Icons.error)),
+                                                    child: provider.currentOrder ==
+                                                                null ||
+                                                            provider.currentOrder!
+                                                                    .cardImage ==
+                                                                null
+                                                        ? SmallThreeBounceLoader() // Show a loader or placeholder if currentOrder or cardImage is null
+                                                        : CachedNetworkImage(
+                                                            imageUrl: provider
+                                                                .currentOrder!
+                                                                .cardImage!,
+                                                            placeholder: (context,
+                                                                    url) =>
+                                                                SmallThreeBounceLoader(),
+                                                            errorWidget:
+                                                                (context, url,
+                                                                        error) =>
+                                                                    Icon(Icons
+                                                                        .error),
+                                                          ),
+                                                    // child: CachedNetworkImage(
+                                                    //     imageUrl: provider
+                                                    //         .currentOrder!
+                                                    //         .cardImage,
+                                                    //     placeholder: (context,
+                                                    //             url) =>
+                                                    //         SmallThreeBounceLoader(),
+                                                    //     errorWidget: (context,
+                                                    //             url, error) =>
+                                                    //         Icon(Icons.error)),
                                                   ),
                                                 ),
                                               ),
@@ -310,8 +329,8 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 _orderStatusTimeline(
                                                   context,
                                                   title: "Order Placed",
-                                                  date:
-                                                      "Feb 17, 2025  |  11:33 AM",
+                                                  date: provider.currentOrder!
+                                                      .orderDateTime,
                                                   icon:
                                                       "assets/icons/orderplaced.svg",
                                                   isComplete: true,
@@ -319,23 +338,20 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 ),
                                                 _orderStatusTimeline(context,
                                                     title: "In  Progress",
-                                                    date:
-                                                        "Feb 18, 2025  |  08:33 PM",
+                                                    date: "Pending",
                                                     icon:
                                                         "assets/icons/inprogress.svg",
                                                     isComplete: false),
                                                 _orderStatusTimeline(context,
                                                     title: "Shipped",
-                                                    date:
-                                                        "Feb 19, 2025  |  01:33 AM",
+                                                    date: "Pending",
                                                     icon:
                                                         "assets/icons/shipped.svg",
                                                     isComplete: false,
                                                     isBeforeLast: true),
                                                 _orderStatusTimeline(context,
                                                     title: "Delivered",
-                                                    date:
-                                                        "Feb 20, 2025  |  12:33 AM",
+                                                    date: "Pending",
                                                     icon:
                                                         "assets/icons/delivered.svg",
                                                     isComplete: false,

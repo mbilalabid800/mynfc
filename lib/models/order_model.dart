@@ -7,6 +7,7 @@ class OrderModel {
   final String address;
   final String deliveryDate;
   final String orderDateTime;
+
   final String cardName;
   final String cardColor;
   final String cardImage;
