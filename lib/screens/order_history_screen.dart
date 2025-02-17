@@ -132,16 +132,16 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      Text('Order ID: ${order.orderId}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize:
-                                  DeviceDimensions.responsiveSize(context) *
-                                      0.038)),
-                    ],
-                  ),
+                  Text('Order ID: ${order.orderId}',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: DeviceDimensions.responsiveSize(context) *
+                              0.038)),
+                  Text('Date: ${order.orderDateTime}',
+                      style: TextStyle(
+                          //fontWeight: FontWeight.bold,
+                          fontSize: DeviceDimensions.responsiveSize(context) *
+                              0.030)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
