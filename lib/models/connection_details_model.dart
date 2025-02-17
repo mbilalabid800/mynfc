@@ -10,6 +10,7 @@ class ConnectionDetailsModel {
   String firstName;
   String lastName;
   String businessType;
+  String? bio;
   String companyName;
   String designation;
   String website;
@@ -26,6 +27,7 @@ class ConnectionDetailsModel {
     required this.firstName,
     required this.lastName,
     required this.businessType,
+    this.bio,
     required this.companyName,
     required this.designation,
     required this.website,
@@ -45,6 +47,7 @@ class ConnectionDetailsModel {
       firstName: data['first_name'] ?? '',
       lastName: data['last_name'] ?? '',
       businessType: data['profile_type'] ?? '',
+      bio: data['bio'] ?? 'Write about yourself ...',
       companyName: data['company_name'] ?? '',
       designation: data['designation'] ?? '',
       website: data['website_link'] ?? '',
@@ -68,6 +71,7 @@ class ConnectionDetailsModel {
       firstName: firstName,
       lastName: lastName,
       businessType: businessType,
+      bio: bio,
       companyName: companyName,
       designation: designation,
       website: website,

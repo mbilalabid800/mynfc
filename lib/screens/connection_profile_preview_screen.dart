@@ -260,7 +260,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                 padding: const EdgeInsets.only(
                                     left: 17.0, right: 17),
                                 child: Text(
-                                  "No bio added yet",
+                                  "${connectionDetails.bio}",
                                   style: TextStyle(
                                     color: const Color(0xFF909091),
                                     fontSize: DeviceDimensions.responsiveSize(
@@ -447,8 +447,17 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                           if (isAdded) {
                                             provider
                                                 .removeConnection(connection);
+                                            CustomSnackbar().snakBarError(
+                                              context,
+                                              '${connection.firstName} disconnected successfully!',
+                                            );
                                           } else {
                                             provider.addConnection(connection);
+                                            CustomSnackbar()
+                                                .snakBarMessageShort(
+                                              context,
+                                              '${connection.firstName} connected successfully!',
+                                            );
                                           }
                                         },
                                         style: ElevatedButton.styleFrom(

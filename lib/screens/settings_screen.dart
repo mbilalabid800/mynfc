@@ -404,6 +404,15 @@ class _SettingsState extends State<Settings> {
                               ),
                               SettingListComponent(
                                 icons: "assets/icons/settingicon3.svg",
+                                title: "NFC Card",
+                                showDivider: true,
+                                callBack: () {
+                                  //dummy link
+                                  Navigator.pushNamed(context, '/card-details');
+                                },
+                              ),
+                              SettingListComponent(
+                                icons: "assets/icons/settingicon3.svg",
                                 title: "Order NFC Card",
                                 showDivider: true,
                                 callBack: () {
@@ -411,6 +420,7 @@ class _SettingsState extends State<Settings> {
                                   Navigator.pushNamed(context, '/card-details');
                                 },
                               ),
+
                               SettingListComponent(
                                 icons: "assets/icons/settingicon4.svg",
                                 title: "Order History",
