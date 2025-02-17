@@ -121,4 +121,24 @@ class OrderProvider with ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+  Future<void> fetchOrderById(String id) async {
+    isLoading = true;
+    notifyListeners();
+    try {
+      DocumentSnapshot doc =
+          await FirebaseFirestore.instance.collection("orders").doc(id).get();
+      if (doc.exists) {
+        _currentOrder =
+            OrderModel.fromFirestore(doc.data() as Map<String, dynamic>);
+      } else {
+        debugPrint("Order not found");
+        _currentOrder = null;
+      }
+    } catch (e) {
+      debugPrint("Failed to fetch order by ID: $e");
+    }
+    isLoading = false;
+    notifyListeners();
+  }
 }

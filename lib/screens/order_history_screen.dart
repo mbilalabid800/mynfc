@@ -6,7 +6,6 @@ import 'package:nfc_app/models/order_model.dart';
 import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
-import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:provider/provider.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
@@ -150,21 +149,8 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                       SizedBox(
                         width: DeviceDimensions.responsiveSize(context) * 0.22,
                         height: DeviceDimensions.responsiveSize(context) * 0.24,
-                        child: Image.asset('assets/images/dummycard.png'),
+                        child: Image.network(order.cardImage),
                       ),
-                      // child: order.cardImage != null
-                      //     ? Image.network(
-                      //         order.cardImage,
-                      //         width:
-                      //             DeviceDimensions.responsiveSize(context) *
-                      //                 0.1,
-                      //         height:
-                      //             DeviceDimensions.responsiveSize(context) *
-                      //                 0.1,
-                      //         fit: BoxFit.fitWidth,
-                      //       )
-                      //     : SmallThreeBounceLoader()),
-                      //Spacer(),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -202,7 +188,8 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                     padding: const EdgeInsets.only(top: 16.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/order-details');
+                        Navigator.pushNamed(context, '/order-details',
+                            arguments: order.orderId);
                       },
                       child: Container(
                         width: DeviceDimensions.screenWidth(context) * 0.2,
