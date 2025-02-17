@@ -109,7 +109,7 @@ class _GraphScreenState extends State<GraphScreen> {
                             backgroundImage: AssetImage(
                               'assets/icons/cardorder.png',
                             ),
-                            radius: 28,
+                            radius: 25,
                           ),
                         ),
                         Column(
@@ -126,7 +126,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                   fontFamily: 'Barlow-Bold'),
                             ),
                             Text(
-                              "Activation Date: 19/11/2022",
+                              "Activation Date: 19/02/2025",
                               style: TextStyle(
                                   fontSize:
                                       DeviceDimensions.responsiveSize(context) *
@@ -147,23 +147,13 @@ class _GraphScreenState extends State<GraphScreen> {
                                   color: AppColors.appBlueColor,
                                   borderRadius: BorderRadius.circular(20)),
                               child: Center(
-                                // child: Text(
-                                //   "Personal",
-                                //   style: TextStyle(
-                                //       fontFamily: 'Barlow-Regular',
-                                //       fontWeight: FontWeight.w500,
-                                //       fontSize: DeviceDimensions.responsiveSize(
-                                //               context) *
-                                //           0.04,
-                                //       color: Colors.white),
-                                // ),
                                 child: Text(
                                   userProvider.profileType ?? 'Not Select',
                                   style: TextStyle(
                                     //fontFamily: 'Barlow-Bold',
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
-                                        0.039,
+                                        0.035,
                                     color: Colors.white,
                                   ),
                                 ),
@@ -184,14 +174,39 @@ class _GraphScreenState extends State<GraphScreen> {
                     width: DeviceDimensions.screenWidth(context) * 0.9,
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 25),
-                          child: Image.asset(
-                              'assets/images/cardimage_graphscreen.png',
-                              width:
-                                  DeviceDimensions.screenWidth(context) * 0.7),
-                        ),
+                        Stack(children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 25),
+                            child: Image.asset(
+                                'assets/images/cardimage_graphscreen.png',
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.8),
+                          ),
+                          Positioned(
+                            top:
+                                110, // Adjust this value to position the text vertically
+                            left: 0,
+                            right:
+                                0, // This makes the text centered horizontally
+                            child: Text(
+                              "${userProvider.firstName} ${userProvider.lastName} ",
+                              softWrap: true,
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.047,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Barlow-Bold',
+                                //backgroundColor: Colors.black.withOpacity(
+                                // 0.4), // Optional for readability
+                              ),
+                            ),
+                          ),
+                        ]),
                       ],
                     ),
                   ),
