@@ -107,7 +107,7 @@ class _GraphScreenState extends State<GraphScreen> {
                           child: const CircleAvatar(
                             backgroundColor: AppColors.appBlueColor,
                             backgroundImage: AssetImage(
-                              'assets/icons/cardprofile.png',
+                              'assets/icons/cardorder.png',
                             ),
                             radius: 28,
                           ),
@@ -147,15 +147,25 @@ class _GraphScreenState extends State<GraphScreen> {
                                   color: AppColors.appBlueColor,
                                   borderRadius: BorderRadius.circular(20)),
                               child: Center(
+                                // child: Text(
+                                //   "Personal",
+                                //   style: TextStyle(
+                                //       fontFamily: 'Barlow-Regular',
+                                //       fontWeight: FontWeight.w500,
+                                //       fontSize: DeviceDimensions.responsiveSize(
+                                //               context) *
+                                //           0.04,
+                                //       color: Colors.white),
+                                // ),
                                 child: Text(
-                                  "Personal",
+                                  userProvider.profileType ?? 'Not Select',
                                   style: TextStyle(
-                                      fontFamily: 'Barlow-Regular',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.04,
-                                      color: Colors.white),
+                                    //fontFamily: 'Barlow-Bold',
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.039,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
