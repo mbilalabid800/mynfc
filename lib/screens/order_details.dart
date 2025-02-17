@@ -117,16 +117,14 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                   child: SizedBox(
                                                     height: 70,
                                                     width: 80,
-                                                    child: provider.currentOrder ==
-                                                                null ||
-                                                            provider.currentOrder!
-                                                                    .cardImage ==
-                                                                null
+                                                    child: provider
+                                                                .currentOrder ==
+                                                            null
                                                         ? SmallThreeBounceLoader() // Show a loader or placeholder if currentOrder or cardImage is null
                                                         : CachedNetworkImage(
                                                             imageUrl: provider
                                                                 .currentOrder!
-                                                                .cardImage!,
+                                                                .cardImage,
                                                             placeholder: (context,
                                                                     url) =>
                                                                 SmallThreeBounceLoader(),

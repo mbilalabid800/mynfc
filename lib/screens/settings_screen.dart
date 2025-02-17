@@ -404,7 +404,7 @@ class _SettingsState extends State<Settings> {
                               ),
                               SettingListComponent(
                                 icons: "assets/icons/settingicon3.svg",
-                                title: "NFC Card",
+                                title: "NFC Cards",
                                 showDivider: true,
                                 callBack: () {
                                   //dummy link

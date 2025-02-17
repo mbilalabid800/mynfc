@@ -1,6 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
@@ -12,21 +10,14 @@ import 'package:nfc_app/provider/employee_provider.dart';
 import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/services/firestore_service/card_pictures_links.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/utils/order_id.dart';
 import 'package:nfc_app/widgets/payment_successful.dart';
 import 'package:provider/provider.dart';
 
 class ConfirmOrder {
   const ConfirmOrder();
-  String generateOrderId() {
-    var randno = Random();
-    int randonPart = randno.nextInt(200000) + 100000;
-    int timestampPart = DateTime.now().millisecondsSinceEpoch % 1000000000;
-    return '$timestampPart$randonPart';
-  }
-
   void showConfirmOrderDialog(
       BuildContext context,
       int employeeCount,
@@ -86,8 +77,8 @@ class ConfirmOrder {
                       height: DeviceDimensions.screenHeight(context) * 0.048,
                       width: DeviceDimensions.screenWidth(context) * 0.62,
                       child: ElevatedButton(
-                        onPressed: () {
-                          String orderId = generateOrderId();
+                        onPressed: () async {
+                          String orderId = await generateOrderId();
                           // PaymentSuccessful()
                           //     .showPaymentSuccessfulDialog(context, orderId);
                           orderPlaced(
@@ -176,10 +167,10 @@ class ConfirmOrder {
     String deliveryDate = DateFormat('yyyy-MM-dd')
         .format(DateTime.now().add(const Duration(days: 7)));
 
-    CardPicturesLinks cardLink = CardPicturesLinks();
-    String makeCardLink =
-        "${selectedCard.cardName}_${selectedColorOption.type}".toLowerCase();
-    String cardImageUrl = cardLink.getCardUrl(makeCardLink);
+    // CardPicturesLinks cardLink = CardPicturesLinks();
+    // String makeCardLink =
+    //     "${selectedCard.cardName}_${selectedColorOption.type}".toLowerCase();
+    // String cardImageUrl = cardLink.getCardUrl(makeCardLink);
 
     OrderModel newOrder = OrderModel(
         orderId: orderId,
@@ -193,7 +184,7 @@ class ConfirmOrder {
         orderDateTime: orderDate,
         cardName: selectedCard.cardName,
         cardColor: selectedColorOption.type,
-        cardImage: cardImageUrl,
+        cardImage: selectedCard.cardImages.first,
         cardQuantity: employeeCount,
         userEmail: userProvider.email,
         userUid: userProvider.uid);
