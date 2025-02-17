@@ -89,6 +89,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
           orderHistory; // Compare with the passed orderHistory
     }).toList();
 
+    filteredOrders.sort((a, b) => b.orderDateTime.compareTo(a.orderDateTime));
     if (filteredOrders.isEmpty) {
       debugPrint('No $orderHistory orders found for');
 
