@@ -60,11 +60,11 @@ class PaymentSuccessful {
                         onPressed: () {
                           // Navigator.pushReplacementNamed(
                           //     context, "/order-details");
-                          Navigator.pushNamedAndRemoveUntil(
+                          Navigator.pushReplacementNamed(
                             context,
                             '/order-details',
-                            (route) =>
-                                false, // This removes all previous routes
+                            // (route) =>
+                            //     false, // This removes all previous routes
                           );
                         },
                         style: ElevatedButton.styleFrom(
