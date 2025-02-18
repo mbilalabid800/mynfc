@@ -20,6 +20,8 @@ class _CardDetailsState extends State<CardDetails> {
   bool _showDetails = false;
   int _currentPage = 0;
   late ScrollController _scrollController;
+  String screenType = "Order NFC Card";
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +32,15 @@ class _CardDetailsState extends State<CardDetails> {
       cardProvider.fetchCardsFromFirestore(context);
     });
     _scrollController = ScrollController();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final args = ModalRoute.of(context)!.settings.arguments;
+    if (args is Map<String, dynamic>) {
+      screenType = args['screenType'] ?? "Order NFC Card";
+    }
   }
 
   @override
@@ -48,7 +59,9 @@ class _CardDetailsState extends State<CardDetails> {
             return Column(
               children: [
                 AbsherAppBar(
-                  title: "Select Your Card",
+                  title: screenType == "NFC Cards"
+                      ? "NFC Cards"
+                      : "Select Your Card",
                   leftButton: GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
@@ -467,45 +480,53 @@ class _CardDetailsState extends State<CardDetails> {
                               height: DeviceDimensions.screenHeight(context) *
                                   0.030,
                             ),
-                            Center(
-                              child: SizedBox(
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.058,
-                                width: DeviceDimensions.screenWidth(context) *
-                                    0.40,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, "/place-order-screen",
-                                        arguments: {
-                                          'selectedCard':
-                                              cardDetailsProvider.selectedCard,
-                                          'selectedColorOption':
-                                              cardDetailsProvider
-                                                  .selectedColorOption,
-                                        });
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.buttonColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "Order",
-                                    style: TextStyle(
-                                      fontSize: DeviceDimensions.responsiveSize(
+                            screenType == "NFC Cards"
+                                ? SizedBox.shrink()
+                                : Center(
+                                    child: SizedBox(
+                                      height: DeviceDimensions.screenHeight(
                                               context) *
-                                          0.050,
-                                      fontFamily: 'Barlow-Regular',
-                                      fontWeight: FontWeight.w600,
-                                      letterSpacing: 1.5,
-                                      color: Colors.white,
+                                          0.058,
+                                      width: DeviceDimensions.screenWidth(
+                                              context) *
+                                          0.40,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, "/place-order-screen",
+                                              arguments: {
+                                                'selectedCard':
+                                                    cardDetailsProvider
+                                                        .selectedCard,
+                                                'selectedColorOption':
+                                                    cardDetailsProvider
+                                                        .selectedColorOption,
+                                              });
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              AppColors.buttonColor,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "Order",
+                                          style: TextStyle(
+                                            fontSize:
+                                                DeviceDimensions.responsiveSize(
+                                                        context) *
+                                                    0.050,
+                                            fontFamily: 'Barlow-Regular',
+                                            fontWeight: FontWeight.w600,
+                                            letterSpacing: 1.5,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            ),
                             SizedBox(
                               height: DeviceDimensions.screenHeight(context) *
                                   0.035,

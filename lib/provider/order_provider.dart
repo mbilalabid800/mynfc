@@ -122,7 +122,7 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchOrderById(String id) async {
+  Future<void> fetchOrderById(String? id) async {
     isLoading = true;
     notifyListeners();
     try {

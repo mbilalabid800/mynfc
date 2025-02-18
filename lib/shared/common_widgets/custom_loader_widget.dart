@@ -12,7 +12,7 @@ class DualRingLoader2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Lottie.asset(
-        'assets/animations/loader.json', // Path to your Lottie JSON file
+        'assets/animations/loader_render.json', // Path to your Lottie JSON file
         width: 100, // Adjust the width as needed
         height: 100, // Adjust the height as needed
         fit: BoxFit.contain, // Fit the animation in the container

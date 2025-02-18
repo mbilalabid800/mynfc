@@ -214,7 +214,7 @@ class _RecentConnectedState extends State<RecentConnected> {
                                             borderRadius:
                                                 BorderRadius.circular(30),
                                           ),
-                                          child: GestureDetector(
+                                          child: InkWell(
                                             onTap: () {
                                               // Navigator.pushNamed(context, '/profile',
                                               //     arguments: addedConnection.uid);

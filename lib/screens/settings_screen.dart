@@ -408,7 +408,11 @@ class _SettingsState extends State<Settings> {
                                 showDivider: true,
                                 callBack: () {
                                   //dummy link
-                                  Navigator.pushNamed(context, '/card-details');
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/card-details',
+                                    arguments: {'screenType': 'NFC Cards'},
+                                  );
                                 },
                               ),
                               SettingListComponent(
@@ -417,7 +421,11 @@ class _SettingsState extends State<Settings> {
                                 showDivider: true,
                                 callBack: () {
                                   //dummy link
-                                  Navigator.pushNamed(context, '/card-details');
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/card-details',
+                                    arguments: {'screenType': 'Order NFC Card'},
+                                  );
                                 },
                               ),
 
