@@ -2,6 +2,7 @@ class OrderModel {
   final String orderId;
   final String orderPrice;
   final String orderStatus;
+
   final String orderHistory;
   final String shippingMethod;
   final String address;

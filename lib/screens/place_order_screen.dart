@@ -5,6 +5,7 @@ import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/card_details_model.dart';
 import 'package:nfc_app/models/shipping_address_model.dart';
 import 'package:nfc_app/provider/employee_provider.dart';
+import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/provider/shipping_address_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
@@ -30,6 +31,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final orderProvider =
           Provider.of<ShippingAddressProvider>(context, listen: false);
+
       orderProvider.loadShippingAddress();
       await loadAddedEmployees();
     });
@@ -401,6 +403,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                     ConfirmOrder confirmOrder =
                                         const ConfirmOrder();
                                     ShippingAddressModel? shippingDetails;
+
                                     if (provider.selectedMethod ==
                                         'Deliver to shipping address') {
                                       shippingDetails =
@@ -410,6 +413,9 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                       shippingDetails = shippingDetails =
                                           provider.selectedShippingAddress;
                                     }
+                                    // final orderProvider = Provider.of<OrderProvider>(context, listen: false);
+                                    //  String selectedPlan = orderProvider.selectedPlan;
+
                                     confirmOrder.showConfirmOrderDialog(
                                         context,
                                         employeeCount,

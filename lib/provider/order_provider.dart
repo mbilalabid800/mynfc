@@ -12,6 +12,7 @@ class OrderProvider with ChangeNotifier {
   // bool _isNfcCardOrdered = false;
 
   // List to store fetched orders
+
   List<OrderModel> _orders = [];
   List<OrderModel> get orders => _orders;
   // bool get isNfcCardOrdered => _isNfcCardOrdered;
@@ -20,6 +21,7 @@ class OrderProvider with ChangeNotifier {
   //   _isNfcCardOrdered = status;
   //   notifyListeners();
   // }
+// Setter to update selectedPlan
 
   Future<void> placeOrder(OrderModel order) async {
     isLoading = true;

@@ -153,14 +153,15 @@ class ConfirmOrder {
   }
 
   Future<void> orderPlaced(
-      BuildContext context,
-      int employeeCount,
-      String orderId,
-      CardDetailsModel selectedCard,
-      CardColorOption selectedColorOption,
-      int colorIndex,
-      String shippingMethod,
-      ShippingAddressModel shippingDetails) async {
+    BuildContext context,
+    int employeeCount,
+    String orderId,
+    CardDetailsModel selectedCard,
+    CardColorOption selectedColorOption,
+    int colorIndex,
+    String shippingMethod,
+    ShippingAddressModel shippingDetails,
+  ) async {
     final userProvider =
         Provider.of<UserInfoFormStateProvider>(context, listen: false);
     String orderDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());

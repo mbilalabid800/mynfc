@@ -17,8 +17,9 @@ class Individual extends StatefulWidget {
 
 class _IndividualState extends State<Individual> {
   int? selectedContainer;
+  // Default selected plan
 
-  void _selectContainer(int index) {
+  void _selectContainer(int index, String planName) {
     setState(() {
       selectedContainer = index;
     });
@@ -66,28 +67,34 @@ class _IndividualState extends State<Individual> {
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
               _buildPricingContainer(
                 index: 0,
-                title: "Monthly",
-                oldPrice: "1632.00 OMR",
-                newPrice: "1032.00 OMR",
+                title: "Free",
+                oldPrice: "",
+                newPrice: "0",
                 features: [
                   PriceFeatureModel(
                       iconPath: 'assets/icons/monthly1.svg',
-                      description: 'All in PRO'),
+                      description: '20 Card Scans per month'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/monthly2.svg',
-                      description: 'Up to 5 profiles'),
+                      description: 'Contact Sharing'),
+                  // PriceFeatureModel(
+                  //     iconPath: 'assets/icons/monthly3.svg',
+                  //     description: 'Analytics & Insights'),
+                  // PriceFeatureModel(
+                  //     iconPath: 'assets/icons/monthly4.svg',
+                  //     description: 'Private Profile'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly3.svg',
-                      description: 'Add to digital wallets'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly4.svg',
-                      description: 'Tailored Exchange'),
+                      iconPath: 'assets/icons/monthly2.svg',
+                      description: '10 Connections allowed'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/monthly5.svg',
-                      description: 'Exclusive Link Types'),
+                      description: '3 Card Templates'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/monthly3.svg',
+                      description: '5 Card Writes'),
                 ],
                 selected: selectedContainer == 0,
-                onTap: () => _selectContainer(0),
+                onTap: () => _selectContainer(0, "Free"),
                 onLearnMore: () => showModalBottomSheet(
                   context: context,
                   backgroundColor: Colors.white,
@@ -115,40 +122,89 @@ class _IndividualState extends State<Individual> {
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
               _buildPricingContainer(
                 index: 1,
+                title: "Monthly",
+                oldPrice: "1632.00 OMR",
+                newPrice: "1032.00 OMR",
+                features: [
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/monthly1.svg',
+                      description: '20 Card Scans per month'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/monthly2.svg',
+                      description: 'Contact Sharing'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/monthly3.svg',
+                      description: 'Analytics & Insights'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/monthly4.svg',
+                      description: 'Private Profile'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/monthly2.svg',
+                      description: '10 Connections allowed'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/monthly5.svg',
+                      description: '3 Card Templates'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/monthly3.svg',
+                      description: '5 Card Writes'),
+                ],
+                selected: selectedContainer == 1,
+                onTap: () => _selectContainer(1, "Monthly"),
+                onLearnMore: () => showModalBottomSheet(
+                  context: context,
+                  backgroundColor: Colors.white,
+                  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(25)),
+                  ),
+                  builder: (context) {
+                    return DraggableScrollableSheet(
+                      expand: false,
+                      initialChildSize: 0.9,
+                      minChildSize: 0.5,
+                      maxChildSize: 0.9,
+                      builder: (context, scrollController) {
+                        return Container(
+                          padding: const EdgeInsets.all(15),
+                          child: const MonthlySubscriptionPlanWidget(),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+              _buildPricingContainer(
+                index: 2,
                 title: "3 Months",
                 oldPrice: "6025.00 OMR",
                 newPrice: "5503.00 OMR",
                 features: [
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly1.svg',
-                      description: 'Custom QR code'),
+                      iconPath: 'assets/icons/monthly1.svg',
+                      description: '100 Card Scans per month'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly2.svg',
-                      description: 'Business Card Scanner'),
+                      iconPath: 'assets/icons/monthly2.svg',
+                      description: 'Contact Sharing'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly3.svg',
-                      description: 'Personal & Business Profiles'),
+                      iconPath: 'assets/icons/monthly3.svg',
+                      description: 'Detailed Analytics & Insights'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly4.svg',
-                      description: 'Unlimited Pro Links'),
+                      iconPath: 'assets/icons/monthly4.svg',
+                      description: 'Private Profile'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly5.svg',
-                      description: 'Offline Sharing Mode'),
+                      iconPath: 'assets/icons/monthly2.svg',
+                      description: '30 Connections allowed'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly6.svg',
-                      description: 'Color Customization'),
+                      iconPath: 'assets/icons/monthly5.svg',
+                      description: '20 Card Templates'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly7.svg',
-                      description: 'Home screen widget'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly8.svg',
-                      description: 'Track Your Performance'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly9.svg',
-                      description: 'Verified Account'),
+                      iconPath: 'assets/icons/monthly3.svg',
+                      description: '20 Card Writes'),
                 ],
-                selected: selectedContainer == 1,
-                onTap: () => _selectContainer(1),
+                selected: selectedContainer == 2,
+                onTap: () => _selectContainer(2, "3 Monthly"),
                 onLearnMore: () => showModalBottomSheet(
                   context: context,
                   backgroundColor: Colors.white,
@@ -175,56 +231,41 @@ class _IndividualState extends State<Individual> {
               ),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
               _buildPricingContainer(
-                index: 2,
+                index: 3,
                 title: "Yearly",
                 oldPrice: "14025.00 OMR",
                 newPrice: "12025.00 OMR",
                 features: [
                   PriceFeatureModel(
                       iconPath: 'assets/icons/monthly1.svg',
-                      description: 'All in PRO'),
+                      description: 'Unlimited Card Scans per month'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/monthly2.svg',
-                      description: 'Up to 5 profiles'),
+                      description: 'Contact Sharing'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/monthly3.svg',
                       description: 'Add to digital wallets'),
                   PriceFeatureModel(
+                      iconPath: 'assets/icons/monthly3.svg',
+                      description: 'Detailed Analytics & Insights'),
+                  PriceFeatureModel(
                       iconPath: 'assets/icons/monthly4.svg',
-                      description: 'Tailored Exchange'),
+                      description: 'Private Profile'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/monthly2.svg',
+                      description: 'Unlimited Connections allowed'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/monthly5.svg',
-                      description: 'Exclusive Link Types'),
+                      description: 'Unlimited Card Templates'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly1.svg',
-                      description: 'Custom QR code'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly2.svg',
-                      description: 'Business Card Scanner'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly3.svg',
-                      description: 'Personal & Business Profiles'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly4.svg',
-                      description: 'Unlimited Pro Links'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly5.svg',
-                      description: 'Offline Sharing Mode'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly6.svg',
-                      description: 'Color Customization'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly7.svg',
-                      description: 'Home screen widget'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly8.svg',
-                      description: 'Track Your Performance'),
+                      iconPath: 'assets/icons/monthly3.svg',
+                      description: 'Unlimited Card Writes'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/3monthly9.svg',
                       description: 'Verified Account'),
                 ],
-                selected: selectedContainer == 2,
-                onTap: () => _selectContainer(2),
+                selected: selectedContainer == 3,
+                onTap: () => _selectContainer(3, "Yearly"),
                 onLearnMore: () => showModalBottomSheet(
                   context: context,
                   backgroundColor: Colors.white,
