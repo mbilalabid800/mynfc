@@ -19,17 +19,17 @@ class _PlanDetailsScreenState extends State<PlanDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    loadPlanDetails();
+    //loadPlanDetails();
   }
 
-  Future<void> loadPlanDetails() async {
-    SubscriptionService service = SubscriptionService();
-    var details = await service.fetchPlanDetails(widget.planType);
-    setState(() {
-      planDetails = details;
-      isLoading = false;
-    });
-  }
+  // Future<void> loadPlanDetails() async {
+  //   SubscriptionService service = SubscriptionService();
+  //   var details = await service.fetchPlanDetails(widget.planType);
+  //   setState(() {
+  //     planDetails = details;
+  //     isLoading = false;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

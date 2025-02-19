@@ -41,6 +41,15 @@ class _OrderDetailsState extends State<OrderDetails> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments;
+// Ensure args is a Map before casting
+    Map<String, dynamic>? arguments;
+    if (args is Map<String, dynamic>) {
+      arguments = args;
+    }
+
+    bool fromOrderPlacement = arguments?['fromOrderPlacement'] ?? false;
+
     final userProvider =
         Provider.of<UserInfoFormStateProvider>(context, listen: false);
     return SafeArea(
@@ -57,12 +66,21 @@ class _OrderDetailsState extends State<OrderDetails> {
                 onTap: () {
                   // Navigator.pushNamed(context, '/order-history-screen');
                   //Navigator.pop(context);
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    '/mainNav-screen', // Replace with your target screen
-                    (Route<dynamic> route) =>
-                        false, // This removes all previous routes
-                  );
+                  // Navigator.pushNamedAndRemoveUntil(
+                  //   context,
+                  //   '/mainNav-screen', // Replace with your target screen
+                  //   (Route<dynamic> route) =>
+                  //       false, // This removes all previous routes
+                  // );
+                  if (fromOrderPlacement) {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      '/settings',
+                      (Route<dynamic> route) => false,
+                    );
+                  } else {
+                    Navigator.pop(context);
+                  }
                 },
                 child: Container(
                     padding: const EdgeInsets.symmetric(
