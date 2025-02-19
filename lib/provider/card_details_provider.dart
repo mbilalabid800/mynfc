@@ -89,13 +89,10 @@ class CardDetailsProvider extends ChangeNotifier {
 
   /// Set the selected color option
   void setSelectedColor(CardColorOption colorOption) {
+    int colorIndex = _selectedCard!.cardColorOptions.indexOf(colorOption);
+
     _selectedColorOption = colorOption;
-    _filteredCardImages = _selectedCard?.cardImages.firstWhere(
-          (image) =>
-              image.toLowerCase().contains(colorOption.type.toLowerCase()),
-          orElse: () => '',
-        ) ??
-        '';
+    _filteredCardImages = _selectedCard!.cardImages[colorIndex];
     notifyListeners();
   }
 
