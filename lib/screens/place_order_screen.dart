@@ -5,6 +5,7 @@ import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/card_details_model.dart';
 import 'package:nfc_app/models/shipping_address_model.dart';
 import 'package:nfc_app/provider/employee_provider.dart';
+import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/provider/shipping_address_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
@@ -149,12 +150,6 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                             0.025),
                                 Column(
                                   children: [
-                                    // deliveryMethod(context,
-                                    //     'Pick from nearby machine', provider),
-                                    // SizedBox(
-                                    //     height:
-                                    //         DeviceDimensions.screenHeight(context) *
-                                    //             0.015),
                                     Padding(
                                       padding:
                                           const EdgeInsets.only(right: 15.0),
