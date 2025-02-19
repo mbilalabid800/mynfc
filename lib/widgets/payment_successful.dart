@@ -61,11 +61,11 @@ class PaymentSuccessful {
                           // Navigator.pushReplacementNamed(
                           //     context, "/order-details");
                           Navigator.pushReplacementNamed(
-                            context,
-                            '/order-details',
-                            // (route) =>
-                            //     false, // This removes all previous routes
-                          );
+                              context, '/order-details',
+                              arguments: {'fromOrderPlacement': true}
+                              // (route) =>
+                              //     false, // This removes all previous routes
+                              );
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.appBlueColor,
