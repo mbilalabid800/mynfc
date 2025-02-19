@@ -42,7 +42,7 @@ class _IndividualSubscriptionWidgetState
             child: ElevatedButton(
               onPressed: () {
                 //dummy link
-                Navigator.pushNamed(context, '/card-details');
+                Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.appBlueColor,
