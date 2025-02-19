@@ -2,7 +2,7 @@ class OrderModel {
   final String orderId;
   final String orderPrice;
   final String orderStatus;
-
+  final String selectedPlan;
   final String orderHistory;
   final String shippingMethod;
   final String address;
@@ -19,6 +19,7 @@ class OrderModel {
     required this.orderId,
     required this.orderPrice,
     required this.orderStatus,
+    required this.selectedPlan,
     required this.orderHistory,
     required this.shippingMethod,
     required this.address,
@@ -38,6 +39,7 @@ class OrderModel {
       'orderPrice': orderPrice,
       'orderHistory': orderHistory,
       'orderStatus': orderStatus,
+      'selectedPlan': selectedPlan,
       'shippingMethod': shippingMethod,
       'address': address,
       'deliveryDate': deliveryDate,
@@ -56,6 +58,7 @@ class OrderModel {
         orderId: data['orderId'] ?? 'Unknown',
         orderPrice: data['orderPrice'] ?? '0.00',
         orderStatus: data['orderStatus'] ?? 'Unknown',
+        selectedPlan: data['selectedPlan'] ?? 'Default',
         shippingMethod: data['shippingMethod'] ?? 'Unknown',
         address: data['address'] ?? 'Unknown',
         orderHistory: data['orderHistory'] ?? 'Unknown',

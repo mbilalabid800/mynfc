@@ -65,7 +65,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     String orderDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
     String deliveryDate = DateFormat('yyyy-MM-dd')
         .format(DateTime.now().add(const Duration(days: 7)));
-
+    String selectedPlan = 'Freee';
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColors.screenBackground,
@@ -423,7 +423,8 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                         selectedColorOption,
                                         colorIndex,
                                         provider.selectedMethod,
-                                        shippingDetails!);
+                                        shippingDetails!,
+                                        selectedPlan);
                                   },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.appBlueColor,

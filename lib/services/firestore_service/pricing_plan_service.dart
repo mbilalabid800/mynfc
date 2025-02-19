@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SubscriptionService {
+  String selectedPlan = 'Freee';
   // final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<Map<String, dynamic>?> fetchPlanDetails(String planType) async {
