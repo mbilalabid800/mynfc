@@ -25,7 +25,8 @@ class ConfirmOrder {
       CardColorOption selectedColorOption,
       int colorIndex,
       String shippingMethod,
-      ShippingAddressModel shippingDetails) {
+      ShippingAddressModel shippingDetails,
+      String selectedPlan) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -89,7 +90,8 @@ class ConfirmOrder {
                               selectedColorOption,
                               colorIndex,
                               shippingMethod,
-                              shippingDetails);
+                              shippingDetails,
+                              selectedPlan);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.appBlueColor,
@@ -160,7 +162,8 @@ class ConfirmOrder {
       CardColorOption selectedColorOption,
       int colorIndex,
       String shippingMethod,
-      ShippingAddressModel shippingDetails) async {
+      ShippingAddressModel shippingDetails,
+      String selectedPlan) async {
     final userProvider =
         Provider.of<UserInfoFormStateProvider>(context, listen: false);
     String orderDate = DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now());
@@ -178,6 +181,7 @@ class ConfirmOrder {
         orderStatus: "Pending",
         shippingMethod: shippingMethod,
         orderHistory: "active",
+        selectedPlan: selectedPlan,
         address:
             "${shippingDetails.streetAddress} ${shippingDetails.city} ${shippingDetails.state} ${shippingDetails.country}",
         deliveryDate: deliveryDate,

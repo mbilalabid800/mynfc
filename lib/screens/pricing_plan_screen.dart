@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
-import 'package:nfc_app/widgets/individual_widget.dart';
+import 'package:nfc_app/widgets/subscription_widget.dart';
 
 import '../responsive/device_dimensions.dart';
 
@@ -138,8 +138,10 @@ class _PricingPlanState extends State<PricingPlan>
                           );
                         },
                         child: _tabController.index == 0
-                            ? const Individual(key: ValueKey<int>(0))
-                            : const Individual(key: ValueKey<int>(1))),
+                            ? const IndividualSubscriptionWidget(
+                                key: ValueKey<int>(0))
+                            : const IndividualSubscriptionWidget(
+                                key: ValueKey<int>(1))),
                   ),
                 ],
               ),

@@ -127,98 +127,114 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
             //             )
             //           : SmallThreeBounceLoader()),
             // )
-            child: ListTile(
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Order ID: ${order.orderId}',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: DeviceDimensions.responsiveSize(context) *
-                              0.038)),
-                  Text('Date: ${order.orderDateTime}',
-                      style: TextStyle(
-                          //fontWeight: FontWeight.bold,
-                          fontSize: DeviceDimensions.responsiveSize(context) *
-                              0.030)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: DeviceDimensions.responsiveSize(context) * 0.22,
-                        height: DeviceDimensions.responsiveSize(context) * 0.24,
-                        child: Image.network(order.cardImage),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(' Name : ${order.cardName}',
-                                style: TextStyle(
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.035)),
-                            Text(' Color : ${order.cardColor}',
-                                style: TextStyle(
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.03)),
-                            Text(' Price : ${order.orderPrice.toString()}',
-                                style: TextStyle(
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.03)),
-                          ],
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/order-details',
+                    arguments: order.orderId);
+              },
+              child: ListTile(
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Order ID: ${order.orderId}',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.038)),
+                        Text('Date: ${order.orderDateTime}',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.030)),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width:
+                              DeviceDimensions.responsiveSize(context) * 0.22,
+                          height:
+                              DeviceDimensions.responsiveSize(context) * 0.24,
+                          child: Image.network(order.cardImage),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ), // Handle null case for orderId
-
-              trailing: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, '/order-details',
-                            arguments: order.orderId);
-                      },
-                      child: Container(
-                        width: DeviceDimensions.screenWidth(context) * 0.2,
-                        height: DeviceDimensions.screenHeight(context) * 0.04,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.appOrangeColor),
-                            borderRadius: BorderRadius.circular(12),
-                            color: AppColors.appOrangeColor),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('Track',
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.03,
-                                    color: Colors.white)),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(' Name : ${order.cardName}',
+                                  style: TextStyle(
+                                      fontSize: DeviceDimensions.responsiveSize(
+                                              context) *
+                                          0.035)),
+                              Text(' Color : ${order.cardColor}',
+                                  style: TextStyle(
+                                      fontSize: DeviceDimensions.responsiveSize(
+                                              context) *
+                                          0.03)),
+                              Text(' Price : ${order.orderPrice.toString()}',
+                                  style: TextStyle(
+                                      fontSize: DeviceDimensions.responsiveSize(
+                                              context) *
+                                          0.03)),
+                            ],
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                  ),
-                  // Text('Status: ${order.orderHistory}',
-                  //     style: TextStyle(
-                  //         fontSize: DeviceDimensions.responsiveSize(context) *
-                  //             0.026)),
-                ],
-              ), // Handle null case for orderHistory
+                  ],
+                ), // Handle null case for orderId
+
+                // trailing: Column(
+                //   crossAxisAlignment: CrossAxisAlignment.end,
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Padding(
+                //       padding: const EdgeInsets.only(top: 16.0),
+                //       child: GestureDetector(
+                //         onTap: () {
+                //           Navigator.pushNamed(context, '/order-details',
+                //               arguments: order.orderId);
+                //         },
+                //         child: Container(
+                //           width: DeviceDimensions.screenWidth(context) * 0.2,
+                //           height: DeviceDimensions.screenHeight(context) * 0.04,
+                //           decoration: BoxDecoration(
+                //               border: Border.all(color: AppColors.appOrangeColor),
+                //               borderRadius: BorderRadius.circular(12),
+                //               color: AppColors.appOrangeColor),
+                //           child: Center(
+                //             child: Padding(
+                //               padding: const EdgeInsets.all(8.0),
+                //               child: Text('Track',
+                //                   textAlign: TextAlign.right,
+                //                   style: TextStyle(
+                //                       fontSize: DeviceDimensions.responsiveSize(
+                //                               context) *
+                //                           0.03,
+                //                       color: Colors.white)),
+                //             ),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     // Text('Status: ${order.orderHistory}',
+                //     //     style: TextStyle(
+                //     //         fontSize: DeviceDimensions.responsiveSize(context) *
+                //     //             0.026)),
+                //   ],
+                // ), // Handle null case for orderHistory
+              ),
             ),
           ),
         );

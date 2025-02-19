@@ -6,6 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/screens/mainScreen.dart';
+import 'package:nfc_app/screens/settings_screen.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +56,13 @@ class _OrderDetailsState extends State<OrderDetails> {
               leftButton: GestureDetector(
                 onTap: () {
                   // Navigator.pushNamed(context, '/order-history-screen');
-                  Navigator.pop(context);
+                  //Navigator.pop(context);
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/mainNav-screen', // Replace with your target screen
+                    (Route<dynamic> route) =>
+                        false, // This removes all previous routes
+                  );
                 },
                 child: Container(
                     padding: const EdgeInsets.symmetric(
