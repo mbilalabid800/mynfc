@@ -8,14 +8,16 @@ import 'package:nfc_app/widgets/yearly_subscription_plan_widget.dart';
 
 import '../models/price_feature_model.dart';
 
-class Individual extends StatefulWidget {
-  const Individual({super.key});
+class IndividualSubscriptionWidget extends StatefulWidget {
+  const IndividualSubscriptionWidget({super.key});
 
   @override
-  State<Individual> createState() => _IndividualState();
+  State<IndividualSubscriptionWidget> createState() =>
+      _IndividualSubscriptionWidgetState();
 }
 
-class _IndividualState extends State<Individual> {
+class _IndividualSubscriptionWidgetState
+    extends State<IndividualSubscriptionWidget> {
   int? selectedContainer;
 
   // Default selected plan

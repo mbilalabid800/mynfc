@@ -233,7 +233,6 @@ final Map<String, WidgetBuilder> _appRoutes = {
   '/add-employees': (context) => AddEmployeeScreen(),
   '/chat-screen': (context) => ChatScreen(),
   //'/chat-screen2': (context) => Chatting(),
-
   '/connections-request': (context) => ConnectionsRequest(),
   '/billing-screen': (context) => BillingScreen(),
 };
