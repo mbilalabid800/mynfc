@@ -141,15 +141,33 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Order ID: ${order.orderId}',
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Order No. ',
+                                style: TextStyle(
+                                  fontSize:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.038,
+                                ),
+                              ),
+                              TextSpan(
+                                text: order.orderId.toString(),
+                                style: TextStyle(
+                                  fontWeight:
+                                      FontWeight.bold, // Make "Status:" bold
+                                  fontSize:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.038,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Text(order.orderDateTime,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.038)),
-                        Text('Date: ${order.orderDateTime}',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                // fontWeight: FontWeight.bold,
                                 fontSize:
                                     DeviceDimensions.responsiveSize(context) *
                                         0.030)),
@@ -157,7 +175,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
                           width:
@@ -172,22 +190,112 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(' Name : ${order.cardName}',
-                                  style: TextStyle(
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.035)),
-                              Text(' Color : ${order.cardColor}',
-                                  style: TextStyle(
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.03)),
-                              Text(' Price : ${order.orderPrice.toString()}',
-                                  style: TextStyle(
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.03)),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Name: ',
+                                      style: TextStyle(
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.032,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: order.cardName.toString(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight
+                                            .bold, // Make "Status:" bold
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.032,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Color: ',
+                                      style: TextStyle(
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.032,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: order.cardColor.toString(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight
+                                            .bold, // Make "Status:" bold
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.032,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Price: ',
+                                      style: TextStyle(
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.032,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: order.orderPrice.toString(),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight
+                                            .bold, // Make "Status:" bold
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.032,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Status: ',
+                                  style: TextStyle(
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.03,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: order.orderStatus.toString(),
+                                  style: TextStyle(
+                                    fontWeight:
+                                        FontWeight.bold, // Make "Status:" bold
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.03,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            textAlign: TextAlign.right,
                           ),
                         ),
                       ],
