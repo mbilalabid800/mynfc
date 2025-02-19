@@ -9,7 +9,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class NfcService {
-  bool _isWriting = false; // Prevents read while writing
+  bool _hasDetectedTag = false; // ✅ Ensures one tap per session
 
   Future<void> writeProfileToNfc(
       BuildContext context, String profileLink) async {
@@ -19,9 +19,9 @@ class NfcService {
       return;
     }
 
-    _isWriting = true; // ✅ Disable NFC reading while writing
+    _hasDetectedTag = false; // Reset for a new session
 
-    // 🚨 Stop any active NFC session to avoid interference
+    // 🚨 Stop any active NFC session to avoid unwanted reads
     try {
       await NfcManager.instance.stopSession();
     } catch (e) {
@@ -30,58 +30,40 @@ class NfcService {
 
     _showLoadingDialog(context);
 
-    Completer<void> completer = Completer();
-    Timer? timeoutTimer;
-
     NfcManager.instance.startSession(
       onDiscovered: (NfcTag tag) async {
-        if (!_isWriting) return; // ✅ Prevent accidental read
+        if (_hasDetectedTag) return; // ✅ Ignore multiple taps
+        _hasDetectedTag =
+            true; // ✅ Mark as detected to prevent multiple triggers
 
         var ndef = Ndef.from(tag);
         if (ndef != null && ndef.isWritable) {
-          NdefMessage message = NdefMessage([
-            NdefRecord.createUri(Uri.parse(profileLink)),
-          ]);
           try {
-            await ndef.write(message);
+            await ndef.write(NdefMessage([
+              NdefRecord.createUri(Uri.parse(profileLink)),
+            ]));
             await NfcManager.instance.stopSession();
-            _isWriting = false; // ✅ Allow reading after completion
-            timeoutTimer?.cancel();
-            completer.complete();
+            Navigator.of(context).pop(); // Close loading dialog
+            _showSuccess(context);
           } catch (e) {
             await NfcManager.instance.stopSession(errorMessage: e.toString());
-            completer.completeError(e);
-            timeoutTimer?.cancel();
+            Navigator.of(context).pop();
+            CustomSnackbar()
+                .snakBarError(context, 'Failed to write NFC tag: $e');
           }
         } else {
           await NfcManager.instance
               .stopSession(errorMessage: "Tag is not writable.");
-          completer.completeError("Tag is not writable.");
-          timeoutTimer?.cancel();
+          Navigator.of(context).pop();
+          CustomSnackbar().snakBarError(context, "Tag is not writable.");
         }
       },
       onError: (error) async {
         await NfcManager.instance.stopSession(errorMessage: error.message);
-        completer.completeError(error.message);
-        timeoutTimer?.cancel();
+        Navigator.of(context).pop();
+        CustomSnackbar().snakBarError(context, error.message);
       },
     );
-
-    timeoutTimer = Timer(const Duration(seconds: 10), () async {
-      await NfcManager.instance.stopSession();
-      completer.completeError('NFC scan timed out after 10 seconds');
-    });
-
-    try {
-      await completer.future;
-      Navigator.of(context).pop(); // Close loading dialog
-      _showSuccess(context);
-    } catch (e) {
-      Navigator.of(context).pop();
-      Future.delayed(const Duration(milliseconds: 200), () {
-        CustomSnackbar().snakBarError(context, 'Failed to write NFC tag: $e');
-      });
-    }
   }
 
   void _showLoadingDialog(BuildContext context) {
@@ -106,21 +88,22 @@ class NfcService {
             GestureDetector(
               onTap: () async {
                 await NfcManager.instance.stopSession();
-                _isWriting = false; // ✅ Allow reading again
                 Navigator.of(context).pop();
               },
               child: Container(
-                  width: DeviceDimensions.screenWidth(context) * 0.9,
-                  height: DeviceDimensions.screenHeight(context) * 0.055,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    color: AppColors.appBlueColor,
-                  ),
-                  child: const Center(
-                      child: Text('Cancel',
-                          style: TextStyle(
-                            color: Colors.white,
-                          )))),
+                width: DeviceDimensions.screenWidth(context) * 0.9,
+                height: DeviceDimensions.screenHeight(context) * 0.055,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: AppColors.appBlueColor,
+                ),
+                child: const Center(
+                  child: Text('Cancel',
+                      style: TextStyle(
+                        color: Colors.white,
+                      )),
+                ),
+              ),
             ),
           ],
         );
@@ -151,16 +134,6 @@ class NfcService {
             GestureDetector(
               onTap: () async {
                 Navigator.of(context).pop();
-
-                // ✅ Restart NFC reading only after clicking "Done"
-                await NfcManager.instance.startSession(
-                  onDiscovered: (NfcTag tag) async {
-                    CustomSnackbar()
-                        .snakBarMessage(context, "NFC Tag Detected!");
-                  },
-                );
-
-                _isWriting = false; // ✅ Allow NFC reading again
               },
               child: Container(
                 width: DeviceDimensions.screenWidth(context) * 0.9,
