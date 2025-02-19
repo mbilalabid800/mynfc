@@ -16,7 +16,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String _contact = '';
   String _countryCode = '';
   String _city = '';
-  String? _profileType;
+  String _profileType = '';
   String _companyName = '';
   String _designation = '';
   String _websiteLink = '';
@@ -49,7 +49,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String get email => _email;
   String get uid => _uid;
   String get city => _city;
-  String? get profileType => _profileType;
+  String get profileType => _profileType;
   String get companyName => _companyName;
   String get designation => _designation;
   String get websiteLink => _websiteLink;
@@ -96,7 +96,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateSelectedItem(String? profileType) {
+  void updateSelectedItem(String profileType) {
     _profileType = profileType;
     notifyListeners();
   }

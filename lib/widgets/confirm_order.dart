@@ -170,11 +170,6 @@ class ConfirmOrder {
     String deliveryDate = DateFormat('yyyy-MM-dd')
         .format(DateTime.now().add(const Duration(days: 7)));
 
-    // CardPicturesLinks cardLink = CardPicturesLinks();
-    // String makeCardLink =
-    //     "${selectedCard.cardName}_${selectedColorOption.type}".toLowerCase();
-    // String cardImageUrl = cardLink.getCardUrl(makeCardLink);
-
     OrderModel newOrder = OrderModel(
         orderId: orderId,
         orderPrice: "${selectedCard.cardPrice * employeeCount + 2}0 OMR",
@@ -191,6 +186,7 @@ class ConfirmOrder {
         cardImage: selectedCard.cardImages.first,
         cardQuantity: employeeCount,
         userEmail: userProvider.email,
+        profileType: userProvider.profileType,
         userUid: userProvider.uid);
 
     final orderProvider = Provider.of<OrderProvider>(context, listen: false);

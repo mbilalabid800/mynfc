@@ -13,6 +13,7 @@ class OrderModel {
   final String cardImage;
   final int cardQuantity;
   final String userEmail;
+  final String profileType;
   final String userUid;
 
   OrderModel({
@@ -30,6 +31,7 @@ class OrderModel {
     required this.cardImage,
     required this.cardQuantity,
     required this.userEmail,
+    required this.profileType,
     required this.userUid,
   });
 
@@ -49,6 +51,7 @@ class OrderModel {
       'cardImage': cardImage,
       'quantity': cardQuantity,
       'userEmail': userEmail,
+      'profileType': profileType,
       'userUid': userUid,
     };
   }
@@ -69,6 +72,7 @@ class OrderModel {
         cardImage: data['cardImage'] ?? 'Unknown',
         cardQuantity: data['quantity'] ?? 'Unknown',
         userEmail: data['userEmail'] ?? 'Unknown',
+        profileType: data['profileType'] ?? 'Unknown',
         userUid: data['userUid'] ?? 'Unknown');
   }
 }

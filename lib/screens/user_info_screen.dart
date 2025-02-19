@@ -372,7 +372,7 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     ),
                     value: formState.profileType,
                     onChanged: (String? newValue) {
-                      formState.updateSelectedItem(newValue);
+                      formState.updateSelectedItem(newValue!);
                     },
                     items: _items.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
