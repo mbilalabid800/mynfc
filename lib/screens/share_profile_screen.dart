@@ -200,41 +200,41 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.020),
-                        Container(
-                          width: DeviceDimensions.screenWidth(context) * 0.92,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 18, vertical: 20),
-                            child: Row(
-                              children: [
-                                Image.asset("assets/icons/wallet.png",
-                                    height: 26),
-                                SizedBox(
-                                    width:
-                                        DeviceDimensions.screenWidth(context) *
-                                            0.030),
-                                Text(
-                                  "Add to Google Wallet",
-                                  style: TextStyle(
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.052,
-                                    fontFamily: 'Barlow-Regular',
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.textColorBlue,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                        // SizedBox(
+                        //     height:
+                        //         DeviceDimensions.screenHeight(context) * 0.020),
+                        // Container(
+                        //   width: DeviceDimensions.screenWidth(context) * 0.92,
+                        //   decoration: BoxDecoration(
+                        //     color: Colors.white,
+                        //     borderRadius: BorderRadius.circular(20),
+                        //   ),
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.symmetric(
+                        //         horizontal: 18, vertical: 20),
+                        //     child: Row(
+                        //       children: [
+                        //         Image.asset("assets/icons/wallet.png",
+                        //             height: 26),
+                        //         SizedBox(
+                        //             width:
+                        //                 DeviceDimensions.screenWidth(context) *
+                        //                     0.030),
+                        //         Text(
+                        //           "Add to Google Wallet",
+                        //           style: TextStyle(
+                        //             fontSize: DeviceDimensions.responsiveSize(
+                        //                     context) *
+                        //                 0.052,
+                        //             fontFamily: 'Barlow-Regular',
+                        //             fontWeight: FontWeight.w600,
+                        //             color: AppColors.textColorBlue,
+                        //           ),
+                        //         )
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     );
                   },
