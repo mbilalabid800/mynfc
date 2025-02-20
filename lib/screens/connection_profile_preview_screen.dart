@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/connections_model.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
