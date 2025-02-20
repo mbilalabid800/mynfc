@@ -6,6 +6,7 @@ import 'package:nfc_app/models/order_model.dart';
 import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:provider/provider.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
@@ -56,7 +57,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
               child: Consumer<OrderProvider>(
                 builder: (context, orderProvider, _) {
                   if (orderProvider.isLoading) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(child: SmallThreeBounceLoader());
                   }
                   if (orderProvider.orders.isEmpty) {
                     return const Center(child: Text('No order found.'));
