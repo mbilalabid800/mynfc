@@ -183,7 +183,7 @@ class ConfirmOrder {
         orderDateTime: orderDate,
         cardName: selectedCard.cardName,
         cardColor: selectedColorOption.type,
-        cardImage: selectedCard.cardImages.first,
+        cardImage: selectedCard.cardImages[colorIndex],
         cardQuantity: employeeCount,
         userEmail: userProvider.email,
         profileType: userProvider.profileType,
