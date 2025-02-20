@@ -111,24 +111,38 @@ class _CustomAppBarTwoState extends State<CustomAppBarTwo>
 
 class AbsherAppBar extends StatelessWidget {
   final String title;
-  final Widget? leftButton;
+  //final Widget? leftButton;
+  final VoidCallback? onLeftButtonTap;
   final Widget? rightButton;
+
   const AbsherAppBar(
-      {super.key, required this.title, this.leftButton, this.rightButton});
+      {super.key,
+      required this.title,
+      //this.leftButton,
+      this.onLeftButtonTap,
+      this.rightButton});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 12,
-        right: 12,
-        top: 10,
-        bottom: 10,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 10,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          leftButton ?? SizedBox.shrink(),
+          onLeftButtonTap != null
+              ? GestureDetector(
+                  onTap: onLeftButtonTap,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 9),
+                    child:
+                        Icon(Icons.arrow_back, color: AppColors.appBlueColor),
+                  ),
+                )
+              : SizedBox.shrink(),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(

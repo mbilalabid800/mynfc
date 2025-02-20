@@ -179,27 +179,16 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   AbsherAppBar(
                     title: 'Edit Profile',
-                    leftButton: GestureDetector(
-                      onTap: () {
-                        // Reset unsaved changes on back press
-                        firstNameController.text = _tempFirstName;
-                        lastNameController.text = _tempLastName;
-                        companyNameController.text = _tempCompanyName;
-                        designationController.text = _tempDesignation;
-                        bioController.text = _tempBio;
-                        countryController.text = _tempCountry;
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12.0, vertical: 9),
-                          decoration: const BoxDecoration(
-                              //color: Color(0xFFFFFFFF),
-                              //shape: BoxShape.circle,
-                              ),
-                          child: Icon(Icons.arrow_back,
-                              color: AppColors.appBlueColor)),
-                    ),
+                    onLeftButtonTap: () {
+                      // Reset unsaved changes on back press
+                      firstNameController.text = _tempFirstName;
+                      lastNameController.text = _tempLastName;
+                      companyNameController.text = _tempCompanyName;
+                      designationController.text = _tempDesignation;
+                      bioController.text = _tempBio;
+                      countryController.text = _tempCountry;
+                      Navigator.pop(context);
+                    },
                     rightButton: Align(
                       alignment: Alignment.centerRight,
                       child: SizedBox(

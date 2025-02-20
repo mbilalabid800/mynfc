@@ -90,20 +90,9 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
             ),
             AbsherAppBar(
               title: 'Add Your Company Employee',
-              leftButton: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 9),
-                    decoration: const BoxDecoration(
-                        //color: Color(0xFFFFFFFF),
-                        //shape: BoxShape.circle,
-                        ),
-                    child:
-                        Icon(Icons.arrow_back, color: AppColors.appBlueColor)),
-              ),
+              onLeftButtonTap: () {
+                Navigator.pop(context);
+              },
               rightButton: Align(
                 alignment: Alignment.centerRight,
                 child: SizedBox(

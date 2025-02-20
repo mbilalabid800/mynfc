@@ -95,16 +95,9 @@ class PricingPlansScreen extends StatelessWidget {
             SizedBox(height: DeviceDimensions.screenHeight(context) * 0.0001),
             AbsherAppBar(
               title: 'Select Your Plan',
-              leftButton: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 9),
-                    child:
-                        Icon(Icons.arrow_back, color: AppColors.appBlueColor)),
-              ),
+              onLeftButtonTap: () {
+                Navigator.pop(context);
+              },
               rightButton: Align(
                 alignment: Alignment.centerRight,
                 child: SizedBox(
