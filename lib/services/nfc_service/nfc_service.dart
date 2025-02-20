@@ -143,10 +143,12 @@ class NfcService {
                   color: AppColors.appBlueColor,
                 ),
                 child: const Center(
-                  child: Text('Done',
-                      style: TextStyle(
-                        color: Colors.white,
-                      )),
+                  child: Text(
+                    'Done',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ),
