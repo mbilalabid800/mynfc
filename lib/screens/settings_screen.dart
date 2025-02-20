@@ -20,6 +20,7 @@ import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/delete_confirmation_sheet_pre.dart';
 import 'package:nfc_app/widgets/change_language.dart';
 import 'package:nfc_app/widgets/logout_alert_widget.dart';
+import 'package:nfc_app/widgets/switch_profile_type_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -448,7 +449,7 @@ class _SettingsState extends State<Settings> {
                               SettingListComponent(
                                 icons: "assets/icons/settingicon6.svg",
                                 title: "Write NFC",
-                                showDivider: false,
+                                showDivider: true,
                                 callBack: () async {
                                   final nfcService = NfcService();
 
@@ -464,6 +465,16 @@ class _SettingsState extends State<Settings> {
                                       context, userprofileLink);
                                   // String? userId =
                                   //     FirebaseAuth.instance.currentUser?.uid;
+                                },
+                              ),
+                              SettingListComponent(
+                                icons: "assets/icons/settingicon3.svg",
+                                title: "Switch Profile",
+                                showDivider: false,
+                                callBack: () {
+                                  SwitchProfileTypeWidget
+                                      .showSwitchProfileTypeAlertDialog(
+                                          context);
                                 },
                               ),
                               // SettingListComponent(
