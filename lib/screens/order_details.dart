@@ -60,33 +60,25 @@ class _OrderDetailsState extends State<OrderDetails> {
             ),
             AbsherAppBar(
               title: 'Order Details',
-              leftButton: GestureDetector(
-                onTap: () {
-                  // Navigator.pushNamed(context, '/order-history-screen');
-                  //Navigator.pop(context);
-                  // Navigator.pushNamedAndRemoveUntil(
-                  //   context,
-                  //   '/mainNav-screen', // Replace with your target screen
-                  //   (Route<dynamic> route) =>
-                  //       false, // This removes all previous routes
-                  // );
-                  if (fromOrderPlacement) {
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      '/settings',
-                      (Route<dynamic> route) => false,
-                    );
-                  } else {
-                    Navigator.pop(context);
-                  }
-                },
-                child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 9),
-                    decoration: const BoxDecoration(),
-                    child:
-                        Icon(Icons.arrow_back, color: AppColors.appBlueColor)),
-              ),
+              onLeftButtonTap: () {
+                // Navigator.pushNamed(context, '/order-history-screen');
+                //Navigator.pop(context);
+                // Navigator.pushNamedAndRemoveUntil(
+                //   context,
+                //   '/mainNav-screen', // Replace with your target screen
+                //   (Route<dynamic> route) =>
+                //       false, // This removes all previous routes
+                // );
+                if (fromOrderPlacement) {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/settings',
+                    (Route<dynamic> route) => false,
+                  );
+                } else {
+                  Navigator.pop(context);
+                }
+              },
               rightButton: Align(
                 alignment: Alignment.centerRight,
                 child: SizedBox(

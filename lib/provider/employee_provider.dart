@@ -14,7 +14,7 @@ class EmployeeProvider extends ChangeNotifier {
     final employeesJson = prefs.getStringList('employees') ?? [];
     employeesJson.add(jsonEncode(employee.toFirestore()));
     await prefs.setStringList('employees', employeesJson);
-    debugPrint("Employee saved locally: ${employee.email}");
+    debugPrint("Employee saved successfully: ${employee.email}");
     notifyListeners();
   }
 

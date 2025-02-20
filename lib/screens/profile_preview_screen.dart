@@ -37,92 +37,84 @@ class _ProfilePreviewState extends State<ProfilePreview> {
         backgroundColor: AppColors.screenBackground,
         body: Column(
           children: [
-            SizedBox(
-              height: DeviceDimensions.screenHeight(context) * 0.0001,
-            ),
             AbsherAppBar(
               title: 'Profile',
-              leftButton: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 9),
-                    decoration: const BoxDecoration(
-                        //color: Color(0xFFFFFFFF),
-                        //shape: BoxShape.circle,
-                        ),
-                    child:
-                        Icon(Icons.arrow_back, color: AppColors.appBlueColor)),
-              ),
+              onLeftButtonTap: () {
+                Navigator.pop(context);
+              },
+              // onLeftButtonTap: null,
+
               rightButton: Align(
                 alignment: Alignment.centerRight,
                 child: SizedBox(
                     width: DeviceDimensions.screenWidth(context) * 0.035),
               ),
             ),
-            //SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            // //SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
             Flexible(
               child: SingleChildScrollView(
                 child: Consumer2<UserInfoFormStateProvider, SocialAppProvider>(
                   builder: (context, userProvider, socialAppProvider, child) {
                     return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Stack(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12.0,
+                        Container(
+                          height: DeviceDimensions.screenHeight(context) * 0.27,
+                          color: AppColors.screenBackground,
+                          child: Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 15.0,
+                                ),
+                                child: Image.asset(
+                                  "assets/images/cardimage_graphscreen.png",
+                                ),
                               ),
-                              child: Image.asset(
-                                "assets/images/cardimage_graphscreen.png",
-                                height: 280,
+                              Positioned(
+                                right: 30,
+                                top: 18,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, '/share-profile');
+                                  },
+                                  child: SvgPicture.asset(
+                                      "assets/icons/share.svg",
+                                      height: DeviceDimensions.responsiveSize(
+                                              context) *
+                                          0.10),
+                                ),
                               ),
-                            ),
-                            Positioned(
-                              right: 30,
-                              top: 55,
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, '/share-profile');
-                                },
-                                child: SvgPicture.asset(
-                                    "assets/icons/share.svg",
-                                    height: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.10),
-                              ),
-                            ),
-                            Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              child: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                radius: 60,
+                              Positioned(
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
                                 child: CircleAvatar(
-                                  radius: 56,
-                                  backgroundColor: AppColors.appBlueColor,
-                                  child: CachedNetworkImage(
-                                    imageUrl: userProvider.imageUrl,
-                                    imageBuilder: (context, imageProvider) =>
-                                        CircleAvatar(
-                                      radius: 60,
-                                      backgroundImage: imageProvider,
+                                  backgroundColor: Colors.white,
+                                  radius: 60,
+                                  child: CircleAvatar(
+                                    radius: 56,
+                                    backgroundColor: AppColors.appBlueColor,
+                                    child: CachedNetworkImage(
+                                      imageUrl: userProvider.imageUrl,
+                                      imageBuilder: (context, imageProvider) =>
+                                          CircleAvatar(
+                                        radius: 60,
+                                        backgroundImage: imageProvider,
+                                      ),
+                                      placeholder: (context, url) => Center(
+                                        child: SmallThreeBounceLoader(),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset(
+                                              'assets/images/default_profile.jpg'),
                                     ),
-                                    placeholder: (context, url) => Center(
-                                      child: SmallThreeBounceLoader(),
-                                    ),
-                                    errorWidget: (context, url, error) =>
-                                        Image.asset(
-                                            'assets/images/default_profile.jpg'),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         Text(
                           "${userProvider.firstName} ${userProvider.lastName}",

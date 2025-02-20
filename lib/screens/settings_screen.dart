@@ -117,21 +117,9 @@ class _SettingsState extends State<Settings> {
                 ),
                 AbsherAppBar(
                   title: 'Settings',
-                  leftButton: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, "/profile-preview");
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12.0, vertical: 9),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFFFFFFF),
-                        shape: BoxShape.circle,
-                      ),
-                      child:
-                          SvgPicture.asset('assets/icons/eye2.svg', width: 20),
-                    ),
-                  ),
+                  onLeftButtonTap: () {
+                    Navigator.pop(context);
+                  },
                   rightButton: GestureDetector(
                     onTap: () {
                       //Navigator.pushNamed(context, '/add-employees');

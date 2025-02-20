@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nfc_app/services/firestore_service/pricing_plan_service.dart';
 
 class PlanDetailsScreen extends StatefulWidget {
   final String
