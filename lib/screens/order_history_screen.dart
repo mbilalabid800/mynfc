@@ -89,7 +89,9 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
           orderHistory; // Compare with the passed orderHistory
     }).toList();
 
-    filteredOrders.sort((a, b) => b.orderDateTime.compareTo(a.orderDateTime));
+    filteredOrders.sort((a, b) => b.orderStatus[0]['updatedAt'].compareTo(
+          a.orderStatus[0]['updatedAt'],
+        ));
     if (filteredOrders.isEmpty) {
       debugPrint('No $orderHistory orders found for');
 
@@ -166,7 +168,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                             ],
                           ),
                         ),
-                        Text(order.orderDateTime,
+                        Text(order.orderStatus[0]['updatedAt'],
                             style: TextStyle(
                                 // fontWeight: FontWeight.bold,
                                 fontSize:
@@ -285,7 +287,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                                   ),
                                 ),
                                 TextSpan(
-                                  text: order.orderStatus.toString(),
+                                  text: order.orderStatus.last['status'],
                                   style: TextStyle(
                                     fontWeight:
                                         FontWeight.bold, // Make "Status:" bold

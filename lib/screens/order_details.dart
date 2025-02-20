@@ -249,8 +249,12 @@ class _OrderDetailsState extends State<OrderDetails> {
                                     provider.currentOrder!.address),
                                 orderInfo(context, "Payment Method:",
                                     "Cash on Delivery"),
-                                orderInfo(context, "Order Date:",
-                                    provider.currentOrder!.orderDateTime),
+                                orderInfo(
+                                  context,
+                                  "Order Date:",
+                                  provider.currentOrder!.orderStatus[0]
+                                      ['updatedAt'],
+                                ),
                                 orderInfo(context, "Expected Delivery Date:",
                                     provider.currentOrder!.deliveryDate),
                                 orderInfo(context, "Order Price:",
@@ -289,28 +293,57 @@ class _OrderDetailsState extends State<OrderDetails> {
                                       _orderStatusTimeline(
                                         context,
                                         title: "Order Placed",
-                                        date: provider
-                                            .currentOrder!.orderDateTime,
+                                        date: provider.currentOrder!.orderStatus
+                                                .isNotEmpty
+                                            ? provider.currentOrder!
+                                                .orderStatus[0]['updatedAt']
+                                            : "Pending",
                                         icon: "assets/icons/orderplaced.svg",
-                                        isComplete: true,
+                                        isComplete: provider.currentOrder!
+                                            .orderStatus.isNotEmpty,
                                         isFirst: true,
                                       ),
-                                      _orderStatusTimeline(context,
-                                          title: "In  Progress",
-                                          date: "Pending",
-                                          icon: "assets/icons/inprogress.svg",
-                                          isComplete: false),
-                                      _orderStatusTimeline(context,
-                                          title: "Shipped",
-                                          date: "Pending",
-                                          icon: "assets/icons/shipped.svg",
-                                          isComplete: false,
-                                          isBeforeLast: true),
+                                      _orderStatusTimeline(
+                                        context,
+                                        title: "In  Progress",
+                                        date: provider.currentOrder!.orderStatus
+                                                    .length >
+                                                1
+                                            ? provider.currentOrder!
+                                                .orderStatus[1]['updatedAt']
+                                            : "Pending",
+                                        icon: "assets/icons/inprogress.svg",
+                                        isComplete: provider.currentOrder!
+                                                .orderStatus.length >
+                                            1,
+                                      ),
+                                      _orderStatusTimeline(
+                                        context,
+                                        title: "Shipped",
+                                        date: provider.currentOrder!.orderStatus
+                                                    .length >
+                                                2
+                                            ? provider.currentOrder!
+                                                .orderStatus[2]['updatedAt']
+                                            : "Pending",
+                                        icon: "assets/icons/shipped.svg",
+                                        isComplete: provider.currentOrder!
+                                                .orderStatus.length >
+                                            2,
+                                        isBeforeLast: false,
+                                      ),
                                       _orderStatusTimeline(context,
                                           title: "Delivered",
-                                          date: "Pending",
+                                          date: provider.currentOrder!
+                                                      .orderStatus.length >
+                                                  3
+                                              ? provider.currentOrder!
+                                                  .orderStatus[3]['updatedAt']
+                                              : "Pending",
                                           icon: "assets/icons/delivered.svg",
-                                          isComplete: false,
+                                          isComplete: provider.currentOrder!
+                                                  .orderStatus.length >
+                                              3,
                                           isLast: true),
                                     ],
                                   ),
