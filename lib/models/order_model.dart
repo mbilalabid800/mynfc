@@ -1,13 +1,15 @@
+import 'package:intl/intl.dart';
+
 class OrderModel {
   final String orderId;
   final String orderPrice;
-  final String orderStatus;
+  final List<Map<String, dynamic>> orderStatus;
   final String selectedPlan;
   final String orderHistory;
   final String shippingMethod;
   final String address;
   final String deliveryDate;
-  final String orderDateTime;
+  // final String orderDateTime;
   final String cardName;
   final String cardColor;
   final String cardImage;
@@ -25,7 +27,7 @@ class OrderModel {
     required this.shippingMethod,
     required this.address,
     required this.deliveryDate,
-    required this.orderDateTime,
+    // required this.orderDateTime,
     required this.cardName,
     required this.cardColor,
     required this.cardImage,
@@ -40,12 +42,12 @@ class OrderModel {
       'orderId': orderId,
       'orderPrice': orderPrice,
       'orderHistory': orderHistory,
-      'orderStatus': orderStatus,
+      'order_status': orderStatus,
       'selectedPlan': selectedPlan,
       'shippingMethod': shippingMethod,
       'address': address,
       'deliveryDate': deliveryDate,
-      'orderDateTime': orderDateTime,
+      // 'orderDateTime': orderDateTime,
       'cardName': cardName,
       'cardColor': cardColor,
       'cardImage': cardImage,
@@ -60,13 +62,20 @@ class OrderModel {
     return OrderModel(
         orderId: data['orderId'] ?? 'Unknown',
         orderPrice: data['orderPrice'] ?? '0.00',
-        orderStatus: data['orderStatus'] ?? 'Unknown',
+        orderStatus: (data['order_status'] as List<dynamic>?)
+                ?.map((status) => {
+                      'status': status['status'] ?? 'unknown',
+                      'updatedAt': (DateFormat('yyyy-MM-dd HH:mm:ss').format(
+                          DateTime.parse(status['updatedAt']).toLocal()))
+                    })
+                .toList() ??
+            [],
         selectedPlan: data['selectedPlan'] ?? 'Default',
         shippingMethod: data['shippingMethod'] ?? 'Unknown',
         address: data['address'] ?? 'Unknown',
         orderHistory: data['orderHistory'] ?? 'Unknown',
         deliveryDate: data['deliveryDate'] ?? 'Unknown',
-        orderDateTime: data['orderDateTime'] ?? 'Unknown',
+        // orderDateTime: data['orderDateTime'] ?? 'Unknown',
         cardName: data['cardName'] ?? 'Unknown',
         cardColor: data['cardColor'] ?? 'Unknown',
         cardImage: data['cardImage'] ?? 'Unknown',

@@ -173,14 +173,18 @@ class ConfirmOrder {
     OrderModel newOrder = OrderModel(
         orderId: orderId,
         orderPrice: "${selectedCard.cardPrice * employeeCount + 2}0 OMR",
-        orderStatus: "Pending",
+        orderStatus: [
+          {
+            "status": "Pending",
+            "updatedAt": orderDate,
+          }
+        ],
         shippingMethod: shippingMethod,
         orderHistory: "active",
         selectedPlan: selectedPlan,
         address:
             "${shippingDetails.streetAddress} ${shippingDetails.city} ${shippingDetails.state} ${shippingDetails.country}",
         deliveryDate: deliveryDate,
-        orderDateTime: orderDate,
         cardName: selectedCard.cardName,
         cardColor: selectedColorOption.type,
         cardImage: selectedCard.cardImages[colorIndex],
