@@ -85,7 +85,9 @@ class _CardDetailsState extends State<CardDetails> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 18.0),
                               child: Text(
-                                "Select your customizable cards and choose according to the options suit to your needs.",
+                                screenType == "NFC Cards"
+                                    ? "Discover Our Global Portfolio of Premium NFC Card Templates, Expertly Crafted to Represent Your Brand with Distinction"
+                                    : "Select your customizable cards and choose according to the options suit to your needs.",
                                 style: TextStyle(
                                   fontFamily: 'Barlow-Regular',
                                   fontWeight: FontWeight.bold,
