@@ -148,7 +148,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                   borderRadius: BorderRadius.circular(20)),
                               child: Center(
                                 child: Text(
-                                  userProvider.profileType ?? 'Not Select',
+                                  userProvider.profileType,
                                   style: TextStyle(
                                     //fontFamily: 'Barlow-Bold',
                                     fontSize: DeviceDimensions.responsiveSize(

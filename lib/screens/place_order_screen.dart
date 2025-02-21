@@ -164,14 +164,103 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.015),
                               ],
                             ),
                           ),
                         ),
+                        userProvider.profileType == "Business"
+                            ? SizedBox(
+                                height: DeviceDimensions.screenHeight(context) *
+                                    0.025)
+                            : SizedBox.shrink(),
+                        userProvider.profileType == "Business"
+                            ? Container(
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.90,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 17),
+                                  child: Column(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "Add Employees",
+                                          style: TextStyle(
+                                              fontFamily: 'Barlow-Bold',
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.055,
+                                              color: AppColors.textColorBlue),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height: DeviceDimensions.screenHeight(
+                                                  context) *
+                                              0.005),
+                                      Text(
+                                        "Add your employees according to your plan and manage your team seamlessly.",
+                                        style: TextStyle(
+                                          fontFamily: 'Barlow-Regular',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize:
+                                              DeviceDimensions.responsiveSize(
+                                                      context) *
+                                                  0.033,
+                                          color: const Color(0xFF727272),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height: DeviceDimensions.screenHeight(
+                                                  context) *
+                                              0.025),
+                                      Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 15.0),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  "/add-employees",
+                                                  arguments: {
+                                                    'selectedCard':
+                                                        selectedCard,
+                                                    'selectedColorOption':
+                                                        selectedColorOption,
+                                                  },
+                                                );
+                                              },
+                                              child: Text(
+                                                "Add Employees",
+                                                style: TextStyle(
+                                                  fontFamily: 'Barlow-Regular',
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: DeviceDimensions
+                                                          .responsiveSize(
+                                                              context) *
+                                                      0.040,
+                                                  color:
+                                                      AppColors.textColorBlue,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : SizedBox.shrink(),
                         SizedBox(
                             height:
                                 DeviceDimensions.screenHeight(context) * 0.025),
@@ -450,6 +539,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                   orderInfo(context, "Order Date:", orderDate),
                                   orderInfo(context, "Expected Delivery Date:",
                                       deliveryDate),
+                                  Divider(),
                                   orderInfo(context, "Subtotal:",
                                       "${selectedCard.cardPrice * employeeCount}0  OMR"),
                                   orderInfo(
