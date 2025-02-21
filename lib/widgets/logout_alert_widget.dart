@@ -94,7 +94,7 @@ class LogoutAlertWidget {
                         style: TextStyle(
                             color: AppColors.screenBackground,
                             fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.035),
+                                0.04),
                       ),
                     ),
                   ),

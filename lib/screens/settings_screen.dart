@@ -118,9 +118,7 @@ class _SettingsState extends State<Settings> {
                 ),
                 AbsherAppBar(
                   title: 'Settings',
-                  onLeftButtonTap: () {
-                    Navigator.pop(context);
-                  },
+                  onLeftButtonTap: null,
                   rightButton: GestureDetector(
                     onTap: () {
                       //Navigator.pushNamed(context, '/add-employees');
@@ -449,7 +447,7 @@ class _SettingsState extends State<Settings> {
                               SettingListComponent(
                                 icons: "assets/icons/settingicon6.svg",
                                 title: "Write NFC",
-                                showDivider: true,
+                                showDivider: false,
                                 callBack: () async {
                                   final nfcService = NfcService();
 
@@ -467,16 +465,16 @@ class _SettingsState extends State<Settings> {
                                   //     FirebaseAuth.instance.currentUser?.uid;
                                 },
                               ),
-                              SettingListComponent(
-                                icons: "assets/icons/settingicon3.svg",
-                                title: "Switch Profile",
-                                showDivider: false,
-                                callBack: () {
-                                  SwitchProfileTypeWidget
-                                      .showSwitchProfileTypeAlertDialog(
-                                          context);
-                                },
-                              ),
+                              // SettingListComponent(
+                              //   icons: "assets/icons/settingicon3.svg",
+                              //   title: "Switch Profile",
+                              //   showDivider: false,
+                              //   callBack: () {
+                              //     SwitchProfileTypeWidget
+                              //         .showSwitchProfileTypeAlertDialog(
+                              //             context);
+                              //   },
+                              // ),
                               // SettingListComponent(
                               //   icons: "assets/icons/settingicon8.svg",
                               //   title: "Enable Fingureprint",
@@ -609,6 +607,32 @@ class _SettingsState extends State<Settings> {
                                           ),
                                         );
                                       });
+                                },
+                              ),
+                              const SizedBox(height: 8),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.035,
+                        ),
+                        Container(
+                          width: DeviceDimensions.screenWidth(context) * 0.90,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 8),
+                              SettingListComponent(
+                                icons: "assets/icons/settingicon14.svg",
+                                title: "Switch Profile",
+                                callBack: () {
+                                  SwitchProfileTypeWidget
+                                      .showSwitchProfileTypeAlertDialog(
+                                          context);
                                 },
                               ),
                               const SizedBox(height: 8),
