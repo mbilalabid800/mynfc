@@ -20,6 +20,7 @@ import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/delete_confirmation_sheet_pre.dart';
 import 'package:nfc_app/widgets/change_language.dart';
 import 'package:nfc_app/widgets/logout_alert_widget.dart';
+import 'package:nfc_app/widgets/switch_profile_type_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -117,9 +118,7 @@ class _SettingsState extends State<Settings> {
                 ),
                 AbsherAppBar(
                   title: 'Settings',
-                  onLeftButtonTap: () {
-                    Navigator.pop(context);
-                  },
+                  onLeftButtonTap: null,
                   rightButton: GestureDetector(
                     onTap: () {
                       //Navigator.pushNamed(context, '/add-employees');
@@ -467,6 +466,16 @@ class _SettingsState extends State<Settings> {
                                 },
                               ),
                               // SettingListComponent(
+                              //   icons: "assets/icons/settingicon3.svg",
+                              //   title: "Switch Profile",
+                              //   showDivider: false,
+                              //   callBack: () {
+                              //     SwitchProfileTypeWidget
+                              //         .showSwitchProfileTypeAlertDialog(
+                              //             context);
+                              //   },
+                              // ),
+                              // SettingListComponent(
                               //   icons: "assets/icons/settingicon8.svg",
                               //   title: "Enable Fingureprint",
                               //   trailing: SizedBox(
@@ -598,6 +607,32 @@ class _SettingsState extends State<Settings> {
                                           ),
                                         );
                                       });
+                                },
+                              ),
+                              const SizedBox(height: 8),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.035,
+                        ),
+                        Container(
+                          width: DeviceDimensions.screenWidth(context) * 0.90,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 8),
+                              SettingListComponent(
+                                icons: "assets/icons/settingicon14.svg",
+                                title: "Switch Profile",
+                                callBack: () {
+                                  SwitchProfileTypeWidget
+                                      .showSwitchProfileTypeAlertDialog(
+                                          context);
                                 },
                               ),
                               const SizedBox(height: 8),
