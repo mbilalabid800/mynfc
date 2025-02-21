@@ -454,7 +454,6 @@ class _SettingsState extends State<Settings> {
                                   // Generate the deep link with UID
                                   String userprofileLink =
                                       await generateProfileLink();
-
                                   // Save the link in SharedPreferences
                                   await saveProfileLink(userprofileLink);
 

@@ -71,30 +71,42 @@ class _IndividualSubscriptionWidgetState
               _buildPricingContainer(
                 index: 0,
                 title: "Free",
-                oldPrice: "",
-                newPrice: "0",
+                oldPrice: '550.00 OMR',
+                newPrice: "0.00  OMR",
                 features: [
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly1.svg',
-                      description: '20 Card Scans per month'),
+                      iconPath: 'assets/icons/nfc_card_scans.svg',
+                      description: '20 NFC Card Read/Scans'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly2.svg',
+                      iconPath: 'assets/icons/credit_card.svg',
+                      description: 'No Credit/Debit Card needed'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/contact_sharing.svg',
                       description: 'Contact Sharing'),
-                  // PriceFeatureModel(
-                  //     iconPath: 'assets/icons/monthly3.svg',
-                  //     description: 'Analytics & Insights'),
-                  // PriceFeatureModel(
-                  //     iconPath: 'assets/icons/monthly4.svg',
-                  //     description: 'Private Profile'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly2.svg',
-                      description: '10 Connections allowed'),
+                      iconPath: 'assets/icons/connection_allowed.svg',
+                      description: '10 Connections Allowed'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly5.svg',
-                      description: '3 Card Templates'),
+                      iconPath: 'assets/icons/social_link_allowed.svg',
+                      description: '10 Social Links Allowed'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly3.svg',
-                      description: '5 Card Writes'),
+                      iconPath: 'assets/icons/nfc_card_template.svg',
+                      description: '3 NFC Card Templates For Each Type'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/nfc_card_scans.svg',
+                      description: '5 NFC Card Writes'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/virtual_profile.svg',
+                      description: 'Virtual Profile'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/no_switch_profile_type.svg',
+                      description: 'No Switch Profile Type'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/no_analytics.svg',
+                      description: 'No Analytics and Insights'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/no_private_profile.svg',
+                      description: 'No Private Profile'),
                 ],
                 selected: selectedContainer == 0,
                 onTap: () => _selectContainer(0, "Free"),
@@ -130,26 +142,39 @@ class _IndividualSubscriptionWidgetState
                 newPrice: "1032.00 OMR",
                 features: [
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly1.svg',
-                      description: '20 Card Scans per month'),
+                      iconPath: 'assets/icons/nfc_card_scans.svg',
+                      description: 'Unlimited NFC Card Read/Scans'),
+                  // PriceFeatureModel(
+                  //     iconPath: 'assets/icons/credit_card.svg',
+                  //     description: 'No Credit/Debit Card needed'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly2.svg',
+                      iconPath: 'assets/icons/contact_sharing.svg',
                       description: 'Contact Sharing'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly3.svg',
-                      description: 'Analytics & Insights'),
+                      iconPath: 'assets/icons/connection_allowed.svg',
+                      description: 'Unlimited Connections Allowed'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly4.svg',
+                      iconPath: 'assets/icons/social_link_allowed.svg',
+                      description: 'Unlimited Social Links Allowed'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/nfc_card_template.svg',
+                      description:
+                          'Unlimited NFC Card Templates For Each Type'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/nfc_card_scans.svg',
+                      description: 'Unlimited NFC Card Writes'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/virtual_profile.svg',
+                      description: 'Virtual Profile'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/switch_profile_type.svg',
+                      description: 'Switch Profile Type'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/analytics.svg',
+                      description: 'Analytics and Insights'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/private_profile.svg',
                       description: 'Private Profile'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly2.svg',
-                      description: '10 Connections allowed'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly5.svg',
-                      description: '3 Card Templates'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly3.svg',
-                      description: '5 Card Writes'),
                 ],
                 selected: selectedContainer == 1,
                 onTap: () => _selectContainer(1, "Monthly"),
@@ -185,26 +210,39 @@ class _IndividualSubscriptionWidgetState
                 newPrice: "5503.00 OMR",
                 features: [
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly1.svg',
-                      description: '100 Card Scans per month'),
+                      iconPath: 'assets/icons/nfc_card_scans.svg',
+                      description: 'Unlimited NFC Card Read/Scans'),
+                  // PriceFeatureModel(
+                  //     iconPath: 'assets/icons/credit_card.svg',
+                  //     description: 'No Credit/Debit Card needed'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly2.svg',
+                      iconPath: 'assets/icons/contact_sharing.svg',
                       description: 'Contact Sharing'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly3.svg',
-                      description: 'Detailed Analytics & Insights'),
+                      iconPath: 'assets/icons/connection_allowed.svg',
+                      description: 'Unlimited Connections Allowed'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly4.svg',
+                      iconPath: 'assets/icons/social_link_allowed.svg',
+                      description: 'Unlimited Social Links Allowed'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/nfc_card_template.svg',
+                      description:
+                          'Unlimited NFC Card Templates For Each Type'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/nfc_card_scans.svg',
+                      description: 'Unlimited NFC Card Writes'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/virtual_profile.svg',
+                      description: 'Virtual Profile'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/switch_profile_type.svg',
+                      description: 'Switch Profile Type'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/analytics.svg',
+                      description: 'Analytics and Insights'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/private_profile.svg',
                       description: 'Private Profile'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly2.svg',
-                      description: '30 Connections allowed'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly5.svg',
-                      description: '20 Card Templates'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly3.svg',
-                      description: '20 Card Writes'),
                 ],
                 selected: selectedContainer == 2,
                 onTap: () => _selectContainer(2, "3 Monthly"),
@@ -240,32 +278,39 @@ class _IndividualSubscriptionWidgetState
                 newPrice: "12025.00 OMR",
                 features: [
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly1.svg',
-                      description: 'Unlimited Card Scans per month'),
+                      iconPath: 'assets/icons/nfc_card_scans.svg',
+                      description: 'Unlimited NFC Card Read/Scans'),
+                  // PriceFeatureModel(
+                  //     iconPath: 'assets/icons/credit_card.svg',
+                  //     description: 'No Credit/Debit Card needed'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly2.svg',
+                      iconPath: 'assets/icons/contact_sharing.svg',
                       description: 'Contact Sharing'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly3.svg',
-                      description: 'Add to digital wallets'),
+                      iconPath: 'assets/icons/connection_allowed.svg',
+                      description: 'Unlimited Connections Allowed'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly3.svg',
-                      description: 'Detailed Analytics & Insights'),
+                      iconPath: 'assets/icons/social_link_allowed.svg',
+                      description: 'Unlimited Social Links Allowed'),
                   PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly4.svg',
+                      iconPath: 'assets/icons/nfc_card_template.svg',
+                      description:
+                          'Unlimited NFC Card Templates For Each Type'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/nfc_card_scans.svg',
+                      description: 'Unlimited NFC Card Writes'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/virtual_profile.svg',
+                      description: 'Virtual Profile'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/switch_profile_type.svg',
+                      description: 'Switch Profile Type'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/analytics.svg',
+                      description: 'Analytics and Insights'),
+                  PriceFeatureModel(
+                      iconPath: 'assets/icons/private_profile.svg',
                       description: 'Private Profile'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly2.svg',
-                      description: 'Unlimited Connections allowed'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly5.svg',
-                      description: 'Unlimited Card Templates'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/monthly3.svg',
-                      description: 'Unlimited Card Writes'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/3monthly9.svg',
-                      description: 'Verified Account'),
                 ],
                 selected: selectedContainer == 3,
                 onTap: () => _selectContainer(3, "Yearly"),
@@ -305,7 +350,7 @@ class _IndividualSubscriptionWidgetState
   Widget _buildPricingContainer({
     required int index,
     required String title,
-    required String oldPrice,
+    String? oldPrice,
     required String newPrice,
     required List<PriceFeatureModel> features,
     required bool selected,
@@ -358,7 +403,7 @@ class _IndividualSubscriptionWidgetState
               ),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.0030),
               Text(
-                oldPrice,
+                oldPrice ?? '',
                 style: TextStyle(
                   fontFamily: 'Barlow-Regular',
                   fontSize: DeviceDimensions.responsiveSize(context) * 0.035,
