@@ -17,8 +17,7 @@ class ChatProvider with ChangeNotifier {
         .listen((snapshot) {
       messages.clear();
       for (var doc in snapshot.docs) {
-        messages.add(
-            Message.fromMap(doc.data() as Map<String, dynamic>, currentUserId));
+        messages.add(Message.fromMap(doc.data(), currentUserId));
       }
       notifyListeners();
     });

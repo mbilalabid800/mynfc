@@ -171,7 +171,7 @@ class _SettingsState extends State<Settings> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            "${userProvider.profileType}",
+                                            userProvider.profileType,
                                             style: TextStyle(
                                               fontSize: DeviceDimensions
                                                       .responsiveSize(context) *
