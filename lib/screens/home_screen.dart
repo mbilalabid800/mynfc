@@ -544,6 +544,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               const HorizontalScrollAppIcons(),
                                         ),
                                       ),
+
                                       SizedBox(
                                           height: DeviceDimensions.screenHeight(
                                                   context) *
@@ -553,7 +554,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         InkWell(
                                           onTap: () {
                                             Navigator.pushNamed(
-                                                context, '/pricing-plan');
+                                                context, '/card-details');
                                           },
                                           child: Container(
                                             height:
