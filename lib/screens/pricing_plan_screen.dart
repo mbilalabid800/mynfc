@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/widgets/subscription_widget.dart';
-
 import '../responsive/device_dimensions.dart';
 
 class PricingPlan extends StatefulWidget {
