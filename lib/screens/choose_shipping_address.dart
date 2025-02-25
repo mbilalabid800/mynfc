@@ -48,7 +48,6 @@ class ChooseShippingAddress extends StatelessWidget {
                                 itemBuilder: (context, index) {
                                   final address =
                                       provider.shippingAddress[index];
-
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 5.0, horizontal: 15),
@@ -91,45 +90,67 @@ class ChooseShippingAddress extends StatelessWidget {
                                                   }
                                                 },
                                               ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 15.0,
-                                                        horizontal: 5),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      address.locationName,
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Barlow-Regular',
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: DeviceDimensions
-                                                                .responsiveSize(
-                                                                    context) *
-                                                            0.047,
+                                              Expanded(
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      vertical: 15.0,
+                                                      horizontal: 5),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        address.locationName,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Barlow-Regular',
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: DeviceDimensions
+                                                                  .responsiveSize(
+                                                                      context) *
+                                                              0.047,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Text(
-                                                      address.streetAddress,
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Barlow-Regular',
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: DeviceDimensions
-                                                                .responsiveSize(
-                                                                    context) *
-                                                            0.037,
-                                                      ),
-                                                    ),
-                                                  ],
+                                                      LayoutBuilder(
+                                                        builder: (context,
+                                                            constraints) {
+                                                          return ConstrainedBox(
+                                                            constraints:
+                                                                BoxConstraints(
+                                                                    maxWidth:
+                                                                        constraints
+                                                                            .maxWidth),
+                                                            child: Text(
+                                                              address
+                                                                  .streetAddress,
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Barlow-Regular',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontSize: DeviceDimensions
+                                                                        .responsiveSize(
+                                                                            context) *
+                                                                    0.037,
+                                                              ),
+                                                              maxLines: 2,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .visible,
+                                                              softWrap: true,
+                                                            ),
+                                                          );
+                                                        },
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                              const Spacer(),
+                                              SizedBox(width: 10),
                                               GestureDetector(
                                                 onTap: () {
                                                   Navigator.pushNamed(context,

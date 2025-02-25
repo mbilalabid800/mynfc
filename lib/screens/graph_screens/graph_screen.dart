@@ -200,7 +200,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                         0.047,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
-                                fontFamily: 'Barlow-Bold',
+                                fontFamily: 'Barlow-Regular',
                                 //backgroundColor: Colors.black.withOpacity(
                                 // 0.4), // Optional for readability
                               ),

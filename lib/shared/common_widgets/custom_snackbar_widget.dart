@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
-import 'package:nfc_app/responsive/device_dimensions.dart';
 
 class CustomSnackbar {
   void snakBarError(BuildContext context, String message) {
@@ -15,8 +14,28 @@ class CustomSnackbar {
     Future.delayed(const Duration(milliseconds: 200), () {
       messenger.showSnackBar(SnackBar(
         content: _buildAnimatedContent(message, context),
-        duration: const Duration(seconds: 3),
+        duration: const Duration(seconds: 2),
         backgroundColor: AppColors.errorColor,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ));
+    });
+  }
+
+  void snakBarMessage(BuildContext context, String message) {
+    final messenger = ScaffoldMessenger.of(context);
+
+    // Hide the current SnackBar
+    messenger.hideCurrentSnackBar(reason: SnackBarClosedReason.dismiss);
+
+    // Show the new SnackBar after a brief delay
+    Future.delayed(const Duration(milliseconds: 200), () {
+      messenger.showSnackBar(SnackBar(
+        content: _buildAnimatedContent(message, context),
+        duration: const Duration(seconds: 2),
+        backgroundColor: AppColors.successColor,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -53,41 +72,41 @@ class CustomSnackbar {
     );
   }
 
-  void snakBarMessage(BuildContext context, String message) {
-    final messenger = ScaffoldMessenger.of(context);
-    messenger.hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(
-        message,
-        style: TextStyle(
-            fontFamily: 'Barlow-Regular',
-            fontWeight: FontWeight.w600,
-            fontSize: DeviceDimensions.responsiveSize(context) * 0.045),
-      ),
-      duration: const Duration(seconds: 3),
-      backgroundColor: AppColors.successColor,
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-    ));
-  }
+  // void snakBarMessage(BuildContext context, String message) {
+  //   final messenger = ScaffoldMessenger.of(context);
+  //   messenger.hideCurrentSnackBar();
+  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //     content: Text(
+  //       message,
+  //       style: TextStyle(
+  //           fontFamily: 'Barlow-Regular',
+  //           fontWeight: FontWeight.w600,
+  //           fontSize: DeviceDimensions.responsiveSize(context) * 0.045),
+  //     ),
+  //     duration: const Duration(seconds: 3),
+  //     backgroundColor: AppColors.successColor,
+  //     behavior: SnackBarBehavior.floating,
+  //     shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.circular(10),
+  //     ),
+  //   ));
+  // }
 
-  void snakBarMessageShort(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(
-        message,
-        style: TextStyle(
-            fontFamily: 'Barlow-Regular',
-            fontWeight: FontWeight.w600,
-            fontSize: DeviceDimensions.responsiveSize(context) * 0.045),
-      ),
-      duration: const Duration(seconds: 1),
-      backgroundColor: AppColors.successColor,
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-    ));
-  }
+  // void snakBarMessageShort(BuildContext context, String message) {
+  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //     content: Text(
+  //       message,
+  //       style: TextStyle(
+  //           fontFamily: 'Barlow-Regular',
+  //           fontWeight: FontWeight.w600,
+  //           fontSize: DeviceDimensions.responsiveSize(context) * 0.045),
+  //     ),
+  //     duration: const Duration(seconds: 1),
+  //     backgroundColor: AppColors.successColor,
+  //     behavior: SnackBarBehavior.floating,
+  //     shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.circular(10),
+  //     ),
+  //   ));
+  // }
 }

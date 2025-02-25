@@ -106,6 +106,7 @@ class ActiveAppsContainer extends StatelessWidget {
                       scale: scale,
                       child: Material(
                         elevation: elevation,
+                        color: AppColors.appBar,
                         child: child,
                       ),
                     );

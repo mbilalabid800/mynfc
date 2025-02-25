@@ -409,7 +409,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                               BorderRadius.circular(10)),
                                       child: Padding(
                                         padding: const EdgeInsets.only(
-                                            left: 6.0, right: 6, top: 6),
+                                            left: 6.0, right: 6, top: 1),
                                         child: SizedBox(
                                           height: 70,
                                           width: 80,
@@ -821,35 +821,48 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                         SizedBox(
                           width: DeviceDimensions.screenWidth(context) * 0.020,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              shippingAddress.locationName,
-                              style: TextStyle(
-                                fontFamily: 'Barlow-Regular',
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.textColorBlue,
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.047,
-                              ),
-                            ),
-                            SizedBox(
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.001),
-                            Text(
-                              shippingAddress.streetAddress,
-                              style: TextStyle(
-                                  color:
-                                      const Color.fromARGB(255, 114, 114, 114),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                shippingAddress.locationName,
+                                style: TextStyle(
+                                  fontFamily: 'Barlow-Regular',
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.textColorBlue,
                                   fontSize:
                                       DeviceDimensions.responsiveSize(context) *
-                                          0.035),
-                            ),
-                          ],
+                                          0.047,
+                                ),
+                              ),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.001),
+                              LayoutBuilder(builder: (context, constraints) {
+                                return ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                      maxWidth: constraints.maxWidth),
+                                  child: Text(
+                                    shippingAddress.streetAddress,
+                                    style: TextStyle(
+                                        color: const Color.fromARGB(
+                                            255, 114, 114, 114),
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.035),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.visible,
+                                    softWrap: true,
+                                  ),
+                                );
+                              }),
+                            ],
+                          ),
                         ),
-                        const Spacer(),
+                        SizedBox(width: 10),
                         Padding(
                           padding: const EdgeInsets.only(right: 15.0),
                           child: GestureDetector(
