@@ -67,7 +67,23 @@ class _IndividualPricingPlanWidgetState
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Text('Individual Pricing Plan'),
+              Container(
+                width: DeviceDimensions.screenWidth(context) * 0.90,
+                height: DeviceDimensions.screenHeight(context) * 0.065,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30)),
+                child: Center(
+                  child: Text(
+                    'Individual Pricing Plan',
+                    style: TextStyle(
+                        color: AppColors.appBlueColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize:
+                            DeviceDimensions.responsiveSize(context) * 0.05),
+                  ),
+                ),
+              ),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
               _buildPricingContainer(
                 index: 0,
@@ -151,6 +167,7 @@ class _IndividualPricingPlanWidgetState
                   PriceFeatureModel(
                       iconPath: 'assets/icons/contact_sharing.svg',
                       description: 'Contact Sharing'),
+
                   PriceFeatureModel(
                       iconPath: 'assets/icons/connection_allowed.svg',
                       description: 'Unlimited Connections Allowed'),
@@ -173,9 +190,14 @@ class _IndividualPricingPlanWidgetState
                   PriceFeatureModel(
                       iconPath: 'assets/icons/analytics.svg',
                       description: 'Analytics and Insights'),
+
                   PriceFeatureModel(
                       iconPath: 'assets/icons/private_profile.svg',
                       description: 'Private Profile'),
+
+                  // PriceFeatureModel(
+                  // iconPath: 'assets/icons/private_profile.svg',
+                  // description: 'Admin Profile'),
                 ],
                 selected: selectedContainer == 1,
                 onTap: () => _selectContainer(1, "Monthly"),

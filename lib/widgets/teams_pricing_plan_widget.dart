@@ -65,10 +65,27 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              Container(
+                width: DeviceDimensions.screenWidth(context) * 0.90,
+                height: DeviceDimensions.screenHeight(context) * 0.065,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30)),
+                child: Center(
+                  child: Text(
+                    'Teams Pricing Plan',
+                    style: TextStyle(
+                        color: AppColors.appBlueColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize:
+                            DeviceDimensions.responsiveSize(context) * 0.05),
+                  ),
+                ),
+              ),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
               _buildPricingContainer(
                 index: 0,
-                title: "Freedd",
+                title: "Free",
                 oldPrice: '550.00 OMR',
                 newPrice: "0.00  OMR",
                 features: [
@@ -82,11 +99,14 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                       iconPath: 'assets/icons/contact_sharing.svg',
                       description: 'Contact Sharing'),
                   PriceFeatureModel(
+                      iconPath: 'assets/icons/admin_panel.svg',
+                      description: 'Admin Panel'),
+                  PriceFeatureModel(
                       iconPath: 'assets/icons/connection_allowed.svg',
-                      description: '10 Connections Allowed'),
+                      description: '5 Connections Allowed per User'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/social_link_allowed.svg',
-                      description: '10 Social Links Allowed'),
+                      description: '10 Social Links Allowed per User'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/nfc_card_template.svg',
                       description: '3 NFC Card Templates For Each Type'),
@@ -101,7 +121,7 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                       description: 'No Switch Profile Type'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/no_analytics.svg',
-                      description: 'No Analytics and Insights'),
+                      description: 'No Analytics and Insights for Teams'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/no_private_profile.svg',
                       description: 'No Private Profile'),
@@ -149,6 +169,9 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                       iconPath: 'assets/icons/contact_sharing.svg',
                       description: 'Contact Sharing'),
                   PriceFeatureModel(
+                      iconPath: 'assets/icons/admin_panel.svg',
+                      description: 'Admin Panel'),
+                  PriceFeatureModel(
                       iconPath: 'assets/icons/connection_allowed.svg',
                       description: 'Unlimited Connections Allowed'),
                   PriceFeatureModel(
@@ -169,7 +192,7 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                       description: 'Switch Profile Type'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/analytics.svg',
-                      description: 'Analytics and Insights'),
+                      description: 'Analytics and Insights for Teams'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/private_profile.svg',
                       description: 'Private Profile'),
@@ -217,8 +240,12 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                       iconPath: 'assets/icons/contact_sharing.svg',
                       description: 'Contact Sharing'),
                   PriceFeatureModel(
+                      iconPath: 'assets/icons/admin_panel.svg',
+                      description: 'Admin Panel'),
+                  PriceFeatureModel(
                       iconPath: 'assets/icons/connection_allowed.svg',
                       description: 'Unlimited Connections Allowed'),
+
                   PriceFeatureModel(
                       iconPath: 'assets/icons/social_link_allowed.svg',
                       description: 'Unlimited Social Links Allowed'),
@@ -237,7 +264,7 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                       description: 'Switch Profile Type'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/analytics.svg',
-                      description: 'Analytics and Insights'),
+                      description: 'Analytics and Insights for Teams'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/private_profile.svg',
                       description: 'Private Profile'),
@@ -285,6 +312,9 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                       iconPath: 'assets/icons/contact_sharing.svg',
                       description: 'Contact Sharing'),
                   PriceFeatureModel(
+                      iconPath: 'assets/icons/admin_panel.svg',
+                      description: 'Admin Panel'),
+                  PriceFeatureModel(
                       iconPath: 'assets/icons/connection_allowed.svg',
                       description: 'Unlimited Connections Allowed'),
                   PriceFeatureModel(
@@ -305,7 +335,7 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                       description: 'Switch Profile Type'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/analytics.svg',
-                      description: 'Analytics and Insights'),
+                      description: 'Analytics and Insights for Teams'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/private_profile.svg',
                       description: 'Private Profile'),
