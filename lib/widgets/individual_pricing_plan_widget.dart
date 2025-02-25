@@ -8,16 +8,16 @@ import 'package:nfc_app/widgets/yearly_subscription_plan_widget.dart';
 
 import '../models/price_feature_model.dart';
 
-class IndividualSubscriptionWidget extends StatefulWidget {
-  const IndividualSubscriptionWidget({super.key});
+class IndividualPricingPlanWidget extends StatefulWidget {
+  const IndividualPricingPlanWidget({super.key});
 
   @override
-  State<IndividualSubscriptionWidget> createState() =>
-      _IndividualSubscriptionWidgetState();
+  State<IndividualPricingPlanWidget> createState() =>
+      _IndividualPricingPlanWidgetState();
 }
 
-class _IndividualSubscriptionWidgetState
-    extends State<IndividualSubscriptionWidget> {
+class _IndividualPricingPlanWidgetState
+    extends State<IndividualPricingPlanWidget> {
   int? selectedContainer;
 
   // Default selected plan
@@ -67,6 +67,7 @@ class _IndividualSubscriptionWidgetState
         child: SingleChildScrollView(
           child: Column(
             children: [
+              Text('Individual Pricing Plan'),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
               _buildPricingContainer(
                 index: 0,
