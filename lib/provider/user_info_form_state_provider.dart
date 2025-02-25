@@ -96,11 +96,6 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateSelectedItem(String profileType) {
-    _profileType = profileType;
-    notifyListeners();
-  }
-
   void updateFirstName(String firstName) {
     final trimmedFirstName = firstName.trim();
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
@@ -312,6 +307,11 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       });
     }
     _profileType = profileType;
+    notifyListeners();
+  }
+
+  void updateSelectedItem(String newValue) {
+    _profileType = newValue;
     notifyListeners();
   }
 

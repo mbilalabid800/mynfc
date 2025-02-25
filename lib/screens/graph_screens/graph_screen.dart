@@ -79,7 +79,7 @@ class _GraphScreenState extends State<GraphScreen> {
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
             AbsherAppBar(
-              title: 'Statistics',
+              title: 'Statisticsx',
             ),
             //SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
             // SizedBox(
