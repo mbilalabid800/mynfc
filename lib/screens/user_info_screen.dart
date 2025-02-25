@@ -370,9 +370,15 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                           fontSize:
                               DeviceDimensions.responsiveSize(context) * 0.03),
                     ),
-                    value: formState.profileType,
+                    value: _items.contains(formState.profileType)
+                        ? formState.profileType
+                        : null,
                     onChanged: (String? newValue) {
-                      formState.updateSelectedItem(newValue!);
+                      // //xyz
+                      // formState.updateSelectedItem(newValue!);
+                      if (newValue != null) {
+                        formState.updateSelectedItem(newValue);
+                      }
                     },
                     items: _items.map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
