@@ -101,7 +101,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                     child: Column(
                       children: [
                         Container(
-                          height: DeviceDimensions.screenHeight(context) * 1.20,
+                          height: DeviceDimensions.screenHeight(context) * 1.25,
                           width: DeviceDimensions.screenWidth(context) * 0.90,
                           decoration: BoxDecoration(
                             color: Colors.white,

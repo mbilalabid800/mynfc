@@ -2,21 +2,32 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<String> generateOrderId() async {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final CollectionReference orders = firestore.collection('orders');
+  final DocumentReference counterRef =
+      firestore.collection('metadata').doc('orderCounter');
 
-  // Get the latest order ID
-  QuerySnapshot querySnapshot =
-      await orders.orderBy('orderId', descending: true).limit(1).get();
+  return await firestore.runTransaction((transaction) async {
+    DocumentSnapshot counterSnapshot = await transaction.get(counterRef);
 
-  int newOrderNumber = 0; // Default if no orders exist
+    int newOrderNumber = 1; // Default if no orders exist
 
-  if (querySnapshot.docs.isNotEmpty) {
-    String lastOrderId = querySnapshot.docs.first['orderId'];
-    newOrderNumber = int.parse(lastOrderId.replaceAll(RegExp(r'\D'), '')) + 1;
-  }
+    if (counterSnapshot.exists && counterSnapshot.data() != null) {
+      var lastOrderNumber = counterSnapshot.get('lastOrderNumber');
 
-  // Format order ID (e.g., ABS#000001)
-  String newOrderId = "ABS#${newOrderNumber.toString().padLeft(6, '0')}";
+      if (lastOrderNumber is int) {
+        newOrderNumber = lastOrderNumber + 1;
+      } else if (lastOrderNumber is String) {
+        newOrderNumber = int.tryParse(lastOrderNumber) ?? 1;
+      }
+    }
 
-  return newOrderId;
+    // ✅ Ensure orderId is always a STRING
+    String newOrderId = "ABS#${newOrderNumber.toString().padLeft(6, '0')}";
+
+    // ✅ Update the counter as an INTEGER
+    transaction.set(counterRef, {'lastOrderNumber': newOrderNumber});
+
+    return newOrderId;
+  }).catchError((error) {
+    throw Exception("Failed to generate order ID: $error");
+  });
 }
