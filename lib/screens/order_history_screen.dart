@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/order_model.dart';
@@ -112,24 +113,6 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
               borderRadius: BorderRadius.circular(12),
               color: Colors.white,
             ),
-            // child: ListTile(
-            //   leading: SizedBox(
-            //       width: DeviceDimensions.responsiveSize(context) * 0.26,
-            //       height: DeviceDimensions.responsiveSize(context) * 0.28,
-            //       child: order.cardImage != null
-            //           ? Align(
-            //               alignment: Alignment.centerLeft,
-            //               child: Image.network(
-            //                 order.cardImage,
-            //                 // width:
-            //                 //     DeviceDimensions.responsiveSize(context) * 0.1,
-            //                 // height:
-            //                 //     DeviceDimensions.responsiveSize(context) * 0.1,
-            //                 // fit: BoxFit.fitWidth,
-            //               ),
-            //             )
-            //           : SmallThreeBounceLoader()),
-            // )
             child: GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, '/order-details',
@@ -185,7 +168,16 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                               DeviceDimensions.responsiveSize(context) * 0.22,
                           height:
                               DeviceDimensions.responsiveSize(context) * 0.24,
-                          child: Image.network(order.cardImage),
+                          child: CachedNetworkImage(
+                            imageUrl: order.cardImage,
+                            placeholder: (context, url) =>
+                                (SmallThreeBounceLoader()),
+                            errorWidget: (context, url, error) => Icon(
+                              Icons.broken_image,
+                              color: Colors.red,
+                              size: 40,
+                            ),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -304,47 +296,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                       ],
                     ),
                   ],
-                ), // Handle null case for orderId
-
-                // trailing: Column(
-                //   crossAxisAlignment: CrossAxisAlignment.end,
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Padding(
-                //       padding: const EdgeInsets.only(top: 16.0),
-                //       child: GestureDetector(
-                //         onTap: () {
-                //           Navigator.pushNamed(context, '/order-details',
-                //               arguments: order.orderId);
-                //         },
-                //         child: Container(
-                //           width: DeviceDimensions.screenWidth(context) * 0.2,
-                //           height: DeviceDimensions.screenHeight(context) * 0.04,
-                //           decoration: BoxDecoration(
-                //               border: Border.all(color: AppColors.appOrangeColor),
-                //               borderRadius: BorderRadius.circular(12),
-                //               color: AppColors.appOrangeColor),
-                //           child: Center(
-                //             child: Padding(
-                //               padding: const EdgeInsets.all(8.0),
-                //               child: Text('Track',
-                //                   textAlign: TextAlign.right,
-                //                   style: TextStyle(
-                //                       fontSize: DeviceDimensions.responsiveSize(
-                //                               context) *
-                //                           0.03,
-                //                       color: Colors.white)),
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //     // Text('Status: ${order.orderHistory}',
-                //     //     style: TextStyle(
-                //     //         fontSize: DeviceDimensions.responsiveSize(context) *
-                //     //             0.026)),
-                //   ],
-                // ), // Handle null case for orderHistory
+                ),
               ),
             ),
           ),

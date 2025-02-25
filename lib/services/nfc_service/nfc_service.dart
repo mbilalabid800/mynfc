@@ -1,15 +1,16 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print
 
-import 'package:lottie/lottie.dart';
+import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:nfc_manager/nfc_manager.dart';
-import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class NfcService {
-  bool _hasDetectedTag = false; // ✅ Ensures one tap per session
+  bool _hasDetectedTag = false;
+  Timer? _timeoutTimer; // ✅ Timer to handle auto-dismiss
 
   Future<void> writeProfileToNfc(
       BuildContext context, String profileLink) async {
@@ -19,9 +20,8 @@ class NfcService {
       return;
     }
 
-    _hasDetectedTag = false; // Reset for a new session
+    _hasDetectedTag = false;
 
-    // 🚨 Stop any active NFC session to avoid unwanted reads
     try {
       await NfcManager.instance.stopSession();
     } catch (e) {
@@ -32,9 +32,9 @@ class NfcService {
 
     NfcManager.instance.startSession(
       onDiscovered: (NfcTag tag) async {
-        if (_hasDetectedTag) return; // ✅ Ignore multiple taps
-        _hasDetectedTag =
-            true; // ✅ Mark as detected to prevent multiple triggers
+        _timeoutTimer?.cancel(); // ✅ Cancel timeout when tag is detected
+        if (_hasDetectedTag) return;
+        _hasDetectedTag = true;
 
         var ndef = Ndef.from(tag);
         if (ndef != null && ndef.isWritable) {
@@ -59,6 +59,7 @@ class NfcService {
         }
       },
       onError: (error) async {
+        _timeoutTimer?.cancel();
         await NfcManager.instance.stopSession(errorMessage: error.message);
         Navigator.of(context).pop();
         CustomSnackbar().snakBarError(context, error.message);
@@ -71,6 +72,14 @@ class NfcService {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext dialogContext) {
+        _timeoutTimer = Timer(const Duration(seconds: 10), () {
+          if (!_hasDetectedTag) {
+            Navigator.of(dialogContext).pop(); // Auto close dialog
+            CustomSnackbar().snakBarError(context, "NFC scan timed out.");
+            NfcManager.instance.stopSession(); // Stop session on timeout
+          }
+        });
+
         return AlertDialog(
           backgroundColor: AppColors.screenBackground,
           title: const Text('Scan your NFC card'),
@@ -87,6 +96,7 @@ class NfcService {
           actions: <Widget>[
             GestureDetector(
               onTap: () async {
+                _timeoutTimer?.cancel();
                 await NfcManager.instance.stopSession();
                 Navigator.of(context).pop();
               },

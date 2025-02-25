@@ -441,8 +441,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                             );
                                           } else {
                                             provider.addConnection(connection);
-                                            CustomSnackbar()
-                                                .snakBarMessageShort(
+                                            CustomSnackbar().snakBarMessage(
                                               context,
                                               '${connection.firstName} connected successfully!',
                                             );

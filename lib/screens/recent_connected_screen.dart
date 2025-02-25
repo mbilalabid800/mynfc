@@ -432,54 +432,63 @@ class _RecentConnectedState extends State<RecentConnected> {
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(30),
                                       ),
-                                      child: ListTile(
-                                        visualDensity:
-                                            const VisualDensity(vertical: -3),
-                                        leading: Container(
-                                          width: 41,
-                                          height: 41,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(35),
-                                            color: Colors.black54,
-                                            image: DecorationImage(
-                                              image: CachedNetworkImageProvider(
-                                                  recommendedConnection
-                                                      .profileImage),
-                                              fit: BoxFit.cover,
+                                      child: InkWell(
+                                        onTap: () {
+                                          CustomSnackbar().snakBarError(context,
+                                              "Kindly add this person as a connection first.");
+                                        },
+                                        child: ListTile(
+                                          visualDensity:
+                                              const VisualDensity(vertical: -3),
+                                          leading: Container(
+                                            width: 41,
+                                            height: 41,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(35),
+                                              color: Colors.black54,
+                                              image: DecorationImage(
+                                                image:
+                                                    CachedNetworkImageProvider(
+                                                        recommendedConnection
+                                                            .profileImage),
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        title: Text(
-                                          "${recommendedConnection.firstName} ${recommendedConnection.lastName}",
-                                          style: TextStyle(
-                                              fontSize: DeviceDimensions
-                                                      .responsiveSize(context) *
-                                                  0.040,
-                                              fontFamily: 'Barlow-Regular',
-                                              color: AppColors.textColorBlue,
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                        subtitle: Text(
-                                          recommendedConnection.designation,
-                                          style: TextStyle(
-                                              fontSize: DeviceDimensions
-                                                      .responsiveSize(context) *
-                                                  0.032,
-                                              fontFamily: 'Barlow-Regular',
-                                              color: const Color(0xFF909091)),
-                                        ),
-                                        trailing: IconButton(
-                                          onPressed: () async {
-                                            connectionProvider.addConnection(
-                                                recommendedConnection);
-                                            CustomSnackbar().snakBarMessageShort(
-                                                context,
-                                                '${recommendedConnection.firstName} added successfully!');
-                                          },
-                                          icon: SvgPicture.asset(
-                                              "assets/icons/addconnections.svg",
-                                              height: 28),
+                                          title: Text(
+                                            "${recommendedConnection.firstName} ${recommendedConnection.lastName}",
+                                            style: TextStyle(
+                                                fontSize: DeviceDimensions
+                                                        .responsiveSize(
+                                                            context) *
+                                                    0.040,
+                                                fontFamily: 'Barlow-Regular',
+                                                color: AppColors.textColorBlue,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          subtitle: Text(
+                                            recommendedConnection.designation,
+                                            style: TextStyle(
+                                                fontSize: DeviceDimensions
+                                                        .responsiveSize(
+                                                            context) *
+                                                    0.032,
+                                                fontFamily: 'Barlow-Regular',
+                                                color: const Color(0xFF909091)),
+                                          ),
+                                          trailing: IconButton(
+                                            onPressed: () async {
+                                              connectionProvider.addConnection(
+                                                  recommendedConnection);
+                                              CustomSnackbar().snakBarMessage(
+                                                  context,
+                                                  '${recommendedConnection.firstName} added successfully!');
+                                            },
+                                            icon: SvgPicture.asset(
+                                                "assets/icons/addconnections.svg",
+                                                height: 28),
+                                          ),
                                         ),
                                       ),
                                     );
