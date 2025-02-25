@@ -158,6 +158,11 @@ import 'package:provider/provider.dart';
 
 class SwitchProfileTypeWidget {
   static void showSwitchProfileTypeAlertDialog(BuildContext context) {
+    final userInfoProvider =
+        Provider.of<UserInfoFormStateProvider>(context, listen: false);
+    String currentProfileType = userInfoProvider.profileType;
+    String newProfileType =
+        currentProfileType == "Business" ? "Individual" : "Business";
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
@@ -189,7 +194,7 @@ class SwitchProfileTypeWidget {
           content: SizedBox(
             width: DeviceDimensions.screenWidth(context) * 0.95,
             child: Text(
-              'Do you want to switch your profile type?',
+              'Do you want to switch your profile type from $currentProfileType to $newProfileType',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.appBlueColor,
@@ -272,7 +277,7 @@ class SwitchProfileTypeWidget {
                                       style: TextStyle(
                                           color: AppColors.appBlueColor))),
                               content: Text(
-                                  "Your profile has been switched to $newProfileType.",
+                                  "Your profile has been switched from $currentProfileType to $newProfileType",
                                   style:
                                       TextStyle(color: AppColors.appBlueColor)),
                               actions: [
