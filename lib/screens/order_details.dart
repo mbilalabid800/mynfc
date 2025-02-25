@@ -72,7 +72,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                 if (fromOrderPlacement) {
                   Navigator.pushNamedAndRemoveUntil(
                     context,
-                    '/settings',
+                    '/mainNav-screen',
                     (Route<dynamic> route) => false,
                   );
                 } else {
