@@ -181,50 +181,48 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(30),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 15, horizontal: 17),
-                                  child: Column(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Text(
-                                          "Add Employees",
-                                          style: TextStyle(
-                                              fontFamily: 'Barlow-Bold',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: DeviceDimensions
-                                                      .responsiveSize(context) *
-                                                  0.055,
-                                              color: AppColors.textColorBlue),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                          height: DeviceDimensions.screenHeight(
-                                                  context) *
-                                              0.005),
-                                      Text(
-                                        "Add your employees according to your plan and manage your team seamlessly.",
-                                        style: TextStyle(
-                                          fontFamily: 'Barlow-Regular',
-                                          fontWeight: FontWeight.w600,
-                                          fontSize:
-                                              DeviceDimensions.responsiveSize(
-                                                      context) *
-                                                  0.033,
-                                          color: const Color(0xFF727272),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                          height: DeviceDimensions.screenHeight(
-                                                  context) *
-                                              0.025),
-                                      Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 15.0),
-                                            child: GestureDetector(
+                                child: employeeCount == 1
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 15, horizontal: 17),
+                                        child: Column(
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Text(
+                                                "Add Employees",
+                                                style: TextStyle(
+                                                    fontFamily: 'Barlow-Bold',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: DeviceDimensions
+                                                            .responsiveSize(
+                                                                context) *
+                                                        0.055,
+                                                    color: AppColors
+                                                        .textColorBlue),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                height: DeviceDimensions
+                                                        .screenHeight(context) *
+                                                    0.005),
+                                            Text(
+                                              "Add your employees according to your plan and manage your team seamlessly.",
+                                              style: TextStyle(
+                                                fontFamily: 'Barlow-Regular',
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: DeviceDimensions
+                                                        .responsiveSize(
+                                                            context) *
+                                                    0.033,
+                                                color: const Color(0xFF727272),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                height: DeviceDimensions
+                                                        .screenHeight(context) *
+                                                    0.025),
+                                            GestureDetector(
                                               onTap: () {
                                                 Navigator.pushNamed(
                                                   context,
@@ -253,12 +251,85 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
+                                      )
+                                    : Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 15, horizontal: 17),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Total added Employees",
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Barlow-Regular',
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: DeviceDimensions
+                                                            .responsiveSize(
+                                                                context) *
+                                                        0.045,
+                                                    color:
+                                                        AppColors.textColorBlue,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "$employeeCount x ${selectedCard.cardPrice}",
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Barlow-Regular',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: DeviceDimensions
+                                                            .responsiveSize(
+                                                                context) *
+                                                        0.045,
+                                                    color:
+                                                        AppColors.textColorBlue,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                                height: DeviceDimensions
+                                                        .screenHeight(context) *
+                                                    0.025),
+                                            GestureDetector(
+                                              onTap: () {
+                                                Navigator.pushNamed(
+                                                  context,
+                                                  "/add-employees",
+                                                  arguments: {
+                                                    'selectedCard':
+                                                        selectedCard,
+                                                    'selectedColorOption':
+                                                        selectedColorOption,
+                                                  },
+                                                );
+                                              },
+                                              child: Text(
+                                                "View Employees",
+                                                style: TextStyle(
+                                                  fontFamily: 'Barlow-Regular',
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: DeviceDimensions
+                                                          .responsiveSize(
+                                                              context) *
+                                                      0.040,
+                                                  color:
+                                                      AppColors.textColorBlue,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ],
-                                  ),
-                                ),
                               )
                             : SizedBox.shrink(),
                         SizedBox(
