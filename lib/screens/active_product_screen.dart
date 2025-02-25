@@ -76,42 +76,44 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                         fontWeight: FontWeight.w400)),
               ),
               //SizedBox(height: 20),
-              Container(
-                width: DeviceDimensions.screenWidth(context) * 0.85,
-                height: DeviceDimensions.screenHeight(context) * 0.08,
-                decoration: BoxDecoration(
-                    color: AppColors.screenBackground,
-                    borderRadius: BorderRadius.circular(12)),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: SvgPicture.asset(
-                          'assets/icons/qrcode.svg',
-                          width: 25,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(left: 18.0),
-                        child: Text(
-                          'Activate by QR Code',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.textColorBlue,
+              GestureDetector(
+                child: Container(
+                  width: DeviceDimensions.screenWidth(context) * 0.85,
+                  height: DeviceDimensions.screenHeight(context) * 0.08,
+                  decoration: BoxDecoration(
+                      color: AppColors.screenBackground,
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: SvgPicture.asset(
+                            'assets/icons/qrcode.svg',
+                            width: 25,
                           ),
                         ),
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12.0),
-                        child: SvgPicture.asset(
-                          'assets/icons/more4.svg',
-                          width: 8,
+                        const Padding(
+                          padding: EdgeInsets.only(left: 18.0),
+                          child: Text(
+                            'Activate by QR Code',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.textColorBlue,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 12.0),
+                          child: SvgPicture.asset(
+                            'assets/icons/more4.svg',
+                            width: 8,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -76,11 +76,12 @@ import 'screens/recent_connected_list_screen.dart';
 import 'screens/user_info_screen.dart';
 // import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
+// List<CameraDescription> cameras = [];
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // setUrlStrategy(
   //     PathUrlStrategy()); // This ensures clean URLs without the '#' symbol.
-
+//cameras = await availableCameras();
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
