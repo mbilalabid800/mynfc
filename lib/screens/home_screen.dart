@@ -251,8 +251,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                     .addedConnections
                                                                     .length <
                                                                 10
-                                                            ? "0${Provider.of<ConnectionProvider>(context).addedConnections.length}+"
-                                                            : "${Provider.of<ConnectionProvider>(context).addedConnections.length}+",
+                                                            ? "0${Provider.of<ConnectionProvider>(context).addedConnections.length}"
+                                                            : "${Provider.of<ConnectionProvider>(context).addedConnections.length}",
                                                         style: const TextStyle(
                                                             fontSize: 20,
                                                             fontWeight:

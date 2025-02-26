@@ -25,24 +25,16 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-
-  List<EmployeeModel> addedEmployees = [];
   final int maxEmployees = 20;
 
   @override
   void initState() {
     super.initState();
-    loadAddedEmployees();
+    Provider.of<EmployeeProvider>(context, listen: false).getLocalEmployees();
   }
 
-  Future<void> loadAddedEmployees() async {
-    final employeeProvider =
-        Provider.of<EmployeeProvider>(context, listen: false);
-    final employees = await employeeProvider.getLocalEmployees();
-    setState(() {
-      addedEmployees = employees;
-    });
-  }
+  List<EmployeeModel> get addedEmployees =>
+      context.watch<EmployeeProvider>().employeesLocal;
 
   void submitForm() async {
     if (formKey.currentState!.validate()) {
@@ -57,9 +49,7 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
       try {
         await Provider.of<EmployeeProvider>(context, listen: false)
             .addEmployeeToLocal(employee);
-        setState(() {
-          addedEmployees.add(employee);
-        });
+        setState(() {});
         CustomSnackbar().snakBarMessage(context, 'Employee added locally!');
 
         // Clear form fields
@@ -99,23 +89,13 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
                     width: DeviceDimensions.screenWidth(context) * 0.035),
               ),
             ),
-            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
             Flexible(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
+                  padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // const Text(
-                      //   ' Add Your Company Employee',
-                      //   style: TextStyle(
-                      //       fontSize: 20,
-                      //       fontWeight: FontWeight.bold,
-                      //       color: AppColors.textColorBlue,
-                      //       fontFamily: 'Barlow-Bold'),
-                      // ),
-                      //const SizedBox(height: 20),
                       Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
@@ -346,31 +326,62 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
                                 ),
                               ),
                               const SizedBox(height: 30),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 8),
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: TextButton(
-                                    onPressed: submitForm,
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: AppColors.buttonColor,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
+                              addedEmployees.length >= maxEmployees
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(right: 8),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: TextButton(
+                                          onPressed: null, // Disable the button
+                                          style: TextButton.styleFrom(
+                                            backgroundColor: Colors
+                                                .grey, // Change color to indicate disabled state
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 15),
+                                            child: Text(
+                                              'Add Employee',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                    child: const Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 15),
-                                      child: Text(
-                                        'Add Employee',
-                                        style: TextStyle(
-                                          color: Colors.white,
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.only(right: 8),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: TextButton(
+                                          onPressed:
+                                              submitForm, // Enable button when condition is met
+                                          style: TextButton.styleFrom(
+                                            backgroundColor:
+                                                AppColors.buttonColor,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 15),
+                                            child: Text(
+                                              'Add Employee',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         ),
