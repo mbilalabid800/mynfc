@@ -29,7 +29,7 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController companyNameController = TextEditingController();
   final TextEditingController designationController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
-  final TextEditingController countryController = TextEditingController();
+  final TextEditingController websiteController = TextEditingController();
   bool isLoading = false;
   // final FocusNode _focusNode = FocusNode();
 
@@ -38,7 +38,7 @@ class _EditProfileState extends State<EditProfile> {
   late String _tempCompanyName;
   late String _tempDesignation;
   late String _tempBio;
-  late String _tempCountry;
+  late String _tempWebsite;
 
   @override
   void initState() {
@@ -54,14 +54,14 @@ class _EditProfileState extends State<EditProfile> {
       _tempCompanyName = userProvider.companyName;
       _tempDesignation = userProvider.designation;
       _tempBio = userProvider.bio;
-      _tempCountry = userProvider.countryName;
+      _tempWebsite = userProvider.websiteLink;
 
       firstNameController.text = _tempFirstName;
       lastNameController.text = _tempLastName;
       companyNameController.text = _tempCompanyName;
       designationController.text = _tempDesignation;
       bioController.text = _tempBio;
-      countryController.text = _tempCountry;
+      websiteController.text = _tempWebsite;
     });
   }
 
@@ -128,8 +128,8 @@ class _EditProfileState extends State<EditProfile> {
     } else if (fieldKey == "bio") {
       bioController.text = userProvider.bio;
       userProvider.setEditingField(fieldKey);
-    } else if (fieldKey == "country") {
-      countryController.text = userProvider.countryName;
+    } else if (fieldKey == "website") {
+      websiteController.text = userProvider.websiteLink;
       userProvider.setEditingField(fieldKey);
     }
   }
@@ -144,7 +144,7 @@ class _EditProfileState extends State<EditProfile> {
     userProvider.updateCompanyName(companyNameController.text);
     userProvider.updateDesignation(designationController.text);
     userProvider.updateBio(bioController.text);
-    userProvider.updateCountryName(countryController.text);
+    userProvider.updateWebsiteLink(websiteController.text);
 
     await userProvider.updateUserData();
     userProvider.clearEditingField();
@@ -158,7 +158,7 @@ class _EditProfileState extends State<EditProfile> {
     companyNameController.dispose();
     designationController.dispose();
     bioController.dispose();
-    countryController.dispose();
+    websiteController.dispose();
 
     super.dispose();
   }
@@ -186,7 +186,7 @@ class _EditProfileState extends State<EditProfile> {
                       companyNameController.text = _tempCompanyName;
                       designationController.text = _tempDesignation;
                       bioController.text = _tempBio;
-                      countryController.text = _tempCountry;
+                      websiteController.text = _tempWebsite;
                       Navigator.pop(context);
                     },
                     rightButton: Align(
@@ -378,16 +378,16 @@ class _EditProfileState extends State<EditProfile> {
                                             "bio",
                                   ),
                                   EditProfileComponent(
-                                    title1: "Country",
-                                    title2: userProvider.countryName,
-                                    callBack: () => _onFieldTap("country"),
+                                    title1: "Website",
+                                    title2: userProvider.websiteLink,
+                                    callBack: () => _onFieldTap("website"),
                                     currentEditingField:
                                         userProvider.currentEditingField,
-                                    fieldKey: "country",
-                                    controller: countryController,
+                                    fieldKey: "website",
+                                    controller: websiteController,
                                     isEditing:
                                         userProvider.currentEditingField ==
-                                            "country",
+                                            "website",
                                   ),
                                   SizedBox(
                                       height: DeviceDimensions.screenHeight(

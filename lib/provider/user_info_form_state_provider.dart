@@ -428,7 +428,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'company_name': _companyName,
           'designation': _designation,
           'bio': _bio,
-          'countryName': _countryName,
+          'website_link': _websiteLink,
         });
 
         debugPrint("User data updated successfully.");

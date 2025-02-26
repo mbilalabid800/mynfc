@@ -142,11 +142,11 @@ class _EditProfileComponentState extends State<EditProfileComponent> {
                                           listen: false)
                                       .updateBio(newValue);
                                   //_focusNode.unfocus();
-                                } else if (widget.fieldKey == "country") {
+                                } else if (widget.fieldKey == "website") {
                                   Provider.of<UserInfoFormStateProvider>(
                                           context,
                                           listen: false)
-                                      .updateCountryName(newValue);
+                                      .updateWebsiteLink(newValue);
                                   //_focusNode.unfocus();
                                 }
                               },
