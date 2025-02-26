@@ -179,7 +179,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                     0.90,
                                 decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30),
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: employeeCount == 1
                                     ? Padding(
@@ -218,10 +218,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                 color: const Color(0xFF727272),
                                               ),
                                             ),
-                                            SizedBox(
-                                                height: DeviceDimensions
-                                                        .screenHeight(context) *
-                                                    0.025),
+                                            Divider(),
                                             GestureDetector(
                                               onTap: () {
                                                 Navigator.pushNamed(
@@ -260,36 +257,101 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                         child: Column(
                                           children: [
                                             Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
                                               children: [
-                                                Text(
-                                                  "Total added Employees",
-                                                  style: TextStyle(
-                                                    fontFamily:
-                                                        'Barlow-Regular',
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: DeviceDimensions
-                                                            .responsiveSize(
-                                                                context) *
-                                                        0.045,
-                                                    color:
-                                                        AppColors.textColorBlue,
+                                                CircleAvatar(
+                                                  backgroundColor:
+                                                      Colors.black12,
+                                                  child: Icon(
+                                                    Icons.people,
+                                                    color: Colors.black,
                                                   ),
                                                 ),
-                                                Text(
-                                                  "$employeeCount x ${selectedCard.cardPrice}",
-                                                  style: TextStyle(
-                                                    fontFamily:
-                                                        'Barlow-Regular',
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: DeviceDimensions
-                                                            .responsiveSize(
-                                                                context) *
-                                                        0.045,
-                                                    color:
-                                                        AppColors.textColorBlue,
+                                                SizedBox(width: 15),
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            "Team",
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Barlow-Bold',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontSize: DeviceDimensions
+                                                                      .responsiveSize(
+                                                                          context) *
+                                                                  0.045,
+                                                              color: AppColors
+                                                                  .textColorBlue,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            "\$${employeeCount * selectedCard.cardPrice}",
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Barlow-Regular',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: DeviceDimensions
+                                                                      .responsiveSize(
+                                                                          context) *
+                                                                  0.045,
+                                                              color: AppColors
+                                                                  .textColorBlue,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            "$employeeCount employees",
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Barlow-Regular',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: DeviceDimensions
+                                                                      .responsiveSize(
+                                                                          context) *
+                                                                  0.045,
+                                                              color: AppColors
+                                                                  .textColorBlue,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            "$employeeCount  *  \$${selectedCard.cardPrice}",
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Barlow-Regular',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: DeviceDimensions
+                                                                      .responsiveSize(
+                                                                          context) *
+                                                                  0.045,
+                                                              color: AppColors
+                                                                  .textColorBlue,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ],
@@ -297,22 +359,17 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                             SizedBox(
                                                 height: DeviceDimensions
                                                         .screenHeight(context) *
-                                                    0.025),
+                                                    0.005),
+                                            Divider(),
                                             GestureDetector(
                                               onTap: () {
                                                 Navigator.pushNamed(
                                                   context,
-                                                  "/add-employees",
-                                                  arguments: {
-                                                    'selectedCard':
-                                                        selectedCard,
-                                                    'selectedColorOption':
-                                                        selectedColorOption,
-                                                  },
+                                                  "/employees-list",
                                                 );
                                               },
                                               child: Text(
-                                                "View Employees",
+                                                "View",
                                                 style: TextStyle(
                                                   fontFamily: 'Barlow-Regular',
                                                   fontWeight: FontWeight.w600,

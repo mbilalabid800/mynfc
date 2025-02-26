@@ -41,6 +41,7 @@ import 'package:nfc_app/screens/connection_profile_preview_screen.dart';
 import 'package:nfc_app/screens/connections_request.dart';
 import 'package:nfc_app/screens/contact_us_screen.dart';
 import 'package:nfc_app/screens/edit_profile_screen.dart';
+import 'package:nfc_app/screens/employee_list.dart';
 import 'package:nfc_app/screens/error-screen.dart';
 import 'package:nfc_app/screens/faq_screen.dart';
 import 'package:nfc_app/screens/google_maps_screen.dart';
@@ -230,6 +231,7 @@ final Map<String, WidgetBuilder> _appRoutes = {
   '/order-history-screen': (context) => const OrderHistoryScreen(),
   '/share-profile': (context) => ShareProfileScreen(),
   '/add-employees': (context) => AddEmployeeScreen(),
+  '/employees-list': (context) => EmployeeListScreen(),
   '/chat-screen': (context) => ChatScreen(),
   //'/chat-screen2': (context) => Chatting(),
   '/connections-request': (context) => ConnectionsRequest(),
