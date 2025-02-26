@@ -203,8 +203,8 @@ class _SettingsState extends State<Settings> {
                                                                 .addedConnections
                                                                 .length <
                                                             10
-                                                        ? "0${Provider.of<ConnectionProvider>(context).addedConnections.length}+"
-                                                        : "${Provider.of<ConnectionProvider>(context).addedConnections.length}+",
+                                                        ? "0${Provider.of<ConnectionProvider>(context).addedConnections.length}"
+                                                        : "${Provider.of<ConnectionProvider>(context).addedConnections.length}",
                                                     style: TextStyle(
                                                       fontSize: DeviceDimensions
                                                               .responsiveSize(
@@ -216,31 +216,8 @@ class _SettingsState extends State<Settings> {
                                                           .textColorBlue,
                                                     ),
                                                   ),
-<<<<<<< HEAD
-                                                )
-                                              : Text(
-                                                  Provider.of<ConnectionProvider>(
-                                                                  context)
-                                                              .addedConnections
-                                                              .length <
-                                                          10
-                                                      ? "0${Provider.of<ConnectionProvider>(context).addedConnections.length}"
-                                                      : "${Provider.of<ConnectionProvider>(context).addedConnections.length}",
-                                                  style: TextStyle(
-                                                    fontSize: DeviceDimensions
-                                                            .responsiveSize(
-                                                                context) *
-                                                        0.04,
-                                                    fontWeight: FontWeight.bold,
-                                                    color:
-                                                        AppColors.textColorBlue,
-                                                  ),
-                                                ),
-                                        ],
-=======
                                           ],
                                         ),
->>>>>>> 46fbcb408323d4f285404608f8dee62760a6aa41
                                       ),
                                       Padding(
                                         padding: EdgeInsets.symmetric(

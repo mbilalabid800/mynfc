@@ -80,65 +80,6 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
               SizedBox(
                 height: DeviceDimensions.screenHeight(context) * 0.0001,
               ),
-<<<<<<< HEAD
-            ),
-            Flexible(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: const Color.fromRGBO(251, 243, 205, 1),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/icons/info-circle.svg',
-                                  // ignore: deprecated_member_use
-                                  color: Colors.orange,
-                                ),
-                                const SizedBox(width: 5),
-                                const Text(
-                                  'Note',
-                                  style: TextStyle(
-                                      color: AppColors.textColorBlue,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Barlow-Bold',
-                                      fontSize: 18),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'You can add up to 20 employees in your account.',
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.grey,
-                                  fontFamily: 'Barlow-Regular'),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(25),
-                          border:
-                              Border.all(width: 1, color: Colors.grey.shade300),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 20),
-=======
               AbsherAppBar(
                 title: 'Add Your Company Employee',
                 onLeftButtonTap: () {
@@ -174,7 +115,6 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
                             color: const Color.fromRGBO(251, 243, 205, 1),
                             borderRadius: BorderRadius.circular(15),
                           ),
->>>>>>> 46fbcb408323d4f285404608f8dee62760a6aa41
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -207,122 +147,6 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
                             ],
                           ),
                         ),
-<<<<<<< HEAD
-                      ),
-                      const SizedBox(height: 20),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(25),
-                          border:
-                              Border.all(width: 1, color: Colors.grey.shade300),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 20),
-                          child: Column(
-                            children: [
-                              const Text(
-                                'Add Your Employees Details',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Barlow-Regular',
-                                    color: AppColors.textColorBlue,
-                                    fontSize: 16),
-                              ),
-                              const SizedBox(height: 5),
-                              const Divider(),
-                              const SizedBox(height: 10),
-                              Form(
-                                key: formKey,
-                                child: Column(
-                                  children: [
-                                    AddEmployeeWidget(
-                                      title: 'First Name',
-                                      errorMessage: 'First Name',
-                                      controller: firstNameController,
-                                    ),
-                                    const SizedBox(height: 20),
-                                    AddEmployeeWidget(
-                                      title: 'Last Name',
-                                      errorMessage: 'Last Name',
-                                      controller: lastNameController,
-                                    ),
-                                    const SizedBox(height: 20),
-                                    AddEmployeeWidget(
-                                      title: 'Designation',
-                                      errorMessage: 'Designation',
-                                      controller: designationController,
-                                    ),
-                                    const SizedBox(height: 20),
-                                    AddEmployeeWidget(
-                                      title: 'Email',
-                                      errorMessage: 'Email',
-                                      controller: emailController,
-                                    ),
-                                    const SizedBox(height: 20),
-                                    AddEmployeeWidget(
-                                      title: 'Contact',
-                                      errorMessage: 'Contact',
-                                      controller: phoneController,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 30),
-                              addedEmployees.length >= maxEmployees
-                                  ? Padding(
-                                      padding: const EdgeInsets.only(right: 8),
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: TextButton(
-                                          onPressed: null, // Disable the button
-                                          style: TextButton.styleFrom(
-                                            backgroundColor: Colors
-                                                .grey, // Change color to indicate disabled state
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                          ),
-                                          child: const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 15),
-                                            child: Text(
-                                              'Add Employee',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.only(right: 8),
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: TextButton(
-                                          onPressed:
-                                              submitForm, // Enable button when condition is met
-                                          style: TextButton.styleFrom(
-                                            backgroundColor:
-                                                AppColors.buttonColor,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                          ),
-                                          child: const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 15),
-                                            child: Text(
-                                              'Add Employee',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-=======
                         const SizedBox(height: 20),
                         Container(
                           decoration: BoxDecoration(
@@ -540,19 +364,14 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
                                           'Add Employee',
                                           style: TextStyle(
                                             color: Colors.white,
->>>>>>> 46fbcb408323d4f285404608f8dee62760a6aa41
                                           ),
                                         ),
                                       ),
                                     ),
-<<<<<<< HEAD
-                            ],
-=======
                                   ),
                                 ),
                               ],
                             ),
->>>>>>> 46fbcb408323d4f285404608f8dee62760a6aa41
                           ),
                         ),
                         const SizedBox(height: 30),
