@@ -4,6 +4,7 @@ import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
+import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:provider/provider.dart';
 
 class ConnectionsRequest extends StatelessWidget {
@@ -12,48 +13,50 @@ class ConnectionsRequest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.screenBackground,
-        //appBar: const CustomAppBar(title: "Connection Requests"),
-        body: Column(
-          children: [
-            SizedBox(
-              height: DeviceDimensions.screenHeight(context) * 0.0001,
-            ),
-            AbsherAppBar(title: 'Connection Requests'),
-            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-            Flexible(
-              child: SingleChildScrollView(
-                child: Consumer<ConnectionProvider>(
-                  builder: (context, connectionProvider, child) {
-                    final connectionRequests =
-                        connectionProvider.recommendedConnections;
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: Column(
-                          children: [
-                            Container(
-                              width:
-                                  DeviceDimensions.screenWidth(context) * 0.92,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(30),
+      child: GlobalBackButtonHandler(
+        child: Scaffold(
+          backgroundColor: AppColors.screenBackground,
+          //appBar: const CustomAppBar(title: "Connection Requests"),
+          body: Column(
+            children: [
+              SizedBox(
+                height: DeviceDimensions.screenHeight(context) * 0.0001,
+              ),
+              AbsherAppBar(title: 'Connection Requests'),
+              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Consumer<ConnectionProvider>(
+                    builder: (context, connectionProvider, child) {
+                      final connectionRequests =
+                          connectionProvider.recommendedConnections;
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.92,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: connectionRequests.isEmpty
+                                    ? _buildNoConnectionsPlaceholder()
+                                    : _buildConnectionList(
+                                        context, connectionRequests),
                               ),
-                              child: connectionRequests.isEmpty
-                                  ? _buildNoConnectionsPlaceholder()
-                                  : _buildConnectionList(
-                                      context, connectionRequests),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

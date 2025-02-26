@@ -8,6 +8,7 @@ import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:provider/provider.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
@@ -41,43 +42,45 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.screenBackground,
-        appBar: CustomAppBarTwo(
-          title: 'Order History',
-          tabController: _tabController,
-        ),
-        body: Column(
-          children: [
-            // SizedBox(
-            //   height: DeviceDimensions.screenHeight(context) * 0.0001,
-            // ),
-            // AbsherAppBar(title: 'Choose Machine'),
-            // SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-            Expanded(
-              child: Consumer<OrderProvider>(
-                builder: (context, orderProvider, _) {
-                  if (orderProvider.isLoading) {
-                    return const Center(child: SmallThreeBounceLoader());
-                  }
-                  if (orderProvider.orders.isEmpty) {
-                    return const Center(child: Text('No order found.'));
-                  }
-                  return TabBarView(
-                    controller: _tabController,
-                    children: [
-                      _buildOrderList(orderProvider.orders, 'active'),
-                      _buildOrderList(orderProvider.orders, 'completed'),
-                      _buildOrderList(orderProvider.orders, 'cancelled'),
-                    ],
-                  );
-                },
+      child: GlobalBackButtonHandler(
+        child: Scaffold(
+          backgroundColor: AppColors.screenBackground,
+          appBar: CustomAppBarTwo(
+            title: 'Order History',
+            tabController: _tabController,
+          ),
+          body: Column(
+            children: [
+              // SizedBox(
+              //   height: DeviceDimensions.screenHeight(context) * 0.0001,
+              // ),
+              // AbsherAppBar(title: 'Choose Machine'),
+              // SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+              Expanded(
+                child: Consumer<OrderProvider>(
+                  builder: (context, orderProvider, _) {
+                    if (orderProvider.isLoading) {
+                      return const Center(child: SmallThreeBounceLoader());
+                    }
+                    if (orderProvider.orders.isEmpty) {
+                      return const Center(child: Text('No order found.'));
+                    }
+                    return TabBarView(
+                      controller: _tabController,
+                      children: [
+                        _buildOrderList(orderProvider.orders, 'active'),
+                        _buildOrderList(orderProvider.orders, 'completed'),
+                        _buildOrderList(orderProvider.orders, 'cancelled'),
+                      ],
+                    );
+                  },
+                ),
               ),
-            ),
-            SizedBox(
-              height: DeviceDimensions.screenHeight(context) * 0.02,
-            ),
-          ],
+              SizedBox(
+                height: DeviceDimensions.screenHeight(context) * 0.02,
+              ),
+            ],
+          ),
         ),
       ),
     );

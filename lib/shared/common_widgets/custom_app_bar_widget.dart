@@ -127,7 +127,7 @@ class AbsherAppBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 12,
-        vertical: 10,
+        vertical: 8,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
