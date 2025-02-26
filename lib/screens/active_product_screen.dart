@@ -76,7 +76,10 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                         fontWeight: FontWeight.w400)),
               ),
               //SizedBox(height: 20),
-              GestureDetector(
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/qr-scanner-screen');
+                },
                 child: Container(
                   width: DeviceDimensions.screenWidth(context) * 0.85,
                   height: DeviceDimensions.screenHeight(context) * 0.08,
