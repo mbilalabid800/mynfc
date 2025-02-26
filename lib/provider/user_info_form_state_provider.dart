@@ -242,8 +242,8 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _designationError = 'Enter your designation';
     } else if (trimmedDesignation.length < 2) {
       _designationError = 'Designation must be at least 2 characters';
-    } else if (trimmedDesignation.length > 20) {
-      _designationError = 'Designation must not exceed 25 characters';
+    } else if (trimmedDesignation.length > 50) {
+      _designationError = 'Designation must not exceed 50 characters';
     } else if (!regex.hasMatch(trimmedDesignation)) {
       _designationError = 'Only letters are allowed';
     } else {

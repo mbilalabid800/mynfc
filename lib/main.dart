@@ -63,6 +63,7 @@ import 'package:nfc_app/screens/pricing_plan_screen.dart';
 import 'package:nfc_app/screens/privacy_policy_screen.dart';
 import 'package:nfc_app/screens/privacy_settings_screen.dart';
 import 'package:nfc_app/screens/profile_preview_screen.dart';
+import 'package:nfc_app/screens/qr_code_scanner_screen.dart';
 import 'package:nfc_app/screens/recent_connected_screen.dart';
 import 'package:nfc_app/screens/settings_screen.dart';
 import 'package:nfc_app/screens/share_profile_screen.dart';
@@ -236,6 +237,7 @@ final Map<String, WidgetBuilder> _appRoutes = {
   //'/chat-screen2': (context) => Chatting(),
   '/connections-request': (context) => ConnectionsRequest(),
   '/billing-screen': (context) => BillingScreen(),
+  '/qr-scanner-screen': (context) => QRScannerScreen()
 };
 
 Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
