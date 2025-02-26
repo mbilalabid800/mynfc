@@ -435,7 +435,7 @@ class _RecentConnectedState extends State<RecentConnected> {
                                       child: InkWell(
                                         onTap: () {
                                           CustomSnackbar().snakBarError(context,
-                                              "Kindly add this person as a connection first.");
+                                              "Kindly add this person as connection to view Profile");
                                         },
                                         child: ListTile(
                                           visualDensity:

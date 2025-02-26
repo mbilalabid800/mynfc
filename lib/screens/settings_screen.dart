@@ -428,11 +428,11 @@ class _SettingsState extends State<Settings> {
                               if (userProvider.profileType != 'Individual')
                                 SettingListComponent(
                                   icons: "assets/icons/settingicon5.svg",
-                                  title: "Add Employees",
+                                  title: "Employees List",
                                   showDivider: true,
                                   callBack: () {
                                     Navigator.pushNamed(
-                                        context, '/add-employees');
+                                        context, '/employees-list');
                                   },
                                 ),
                               // SettingListComponent(
