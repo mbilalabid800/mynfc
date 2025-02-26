@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
@@ -23,15 +25,38 @@ class PlaceOrderScreen extends StatefulWidget {
 
 class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
   bool _showDetails = false;
+  String? planNameDb; // Holds the fetched plan
 
   @override
   void initState() {
     super.initState();
+    fetchSelectedPlan();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final orderProvider =
           Provider.of<ShippingAddressProvider>(context, listen: false);
       orderProvider.loadShippingAddress();
     });
+  }
+
+  /// Function to fetch the selected plan from Firestore
+  Future<void> fetchSelectedPlan() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+        if (userDoc.exists) {
+          setState(() {
+            planNameDb = userDoc['planName'] ?? "No Plan Selected";
+          });
+        }
+      } catch (e) {
+        debugPrint("Error fetching plan: $e");
+      }
+    }
   }
 
   @override
@@ -125,9 +150,10 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                     onTap: () {
                                       Navigator.pushNamed(
                                           context, "/pricing-plan");
+                                      fetchSelectedPlan();
                                     },
                                     child: Text(
-                                      "Select Plan",
+                                      planNameDb ?? "Fetching Plan",
                                       style: TextStyle(
                                         fontFamily: 'Barlow-Regular',
                                         fontWeight: FontWeight.w600,

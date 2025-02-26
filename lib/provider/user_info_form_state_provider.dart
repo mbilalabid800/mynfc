@@ -38,6 +38,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   bool _isBlocked = false;
   final _subscriptionPlan = '';
   bool _isCardOrdered = false;
+  String? _planName;
 
   // Getters
   String get firstName => _firstName;
@@ -67,6 +68,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? get designationError => _designationError;
   String? get cityNameError => _cityNameError;
   int get totalViews => _totalViews;
+  String? get planName => planName;
 
   String? get subscriptionPlan => _subscriptionPlan;
 
@@ -483,6 +485,22 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       } catch (e) {
         debugPrint("Error loading user data: $e");
       }
+    }
+  }
+
+  void _listenToPlanChanges() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .snapshots()
+          .listen((snapshot) {
+        if (snapshot.exists && snapshot.data() != null) {
+          _planName = snapshot.data()?['planName'] ?? "No Plan Selected";
+          notifyListeners(); // Notify UI to update immediately
+        }
+      });
     }
   }
 
