@@ -3,6 +3,7 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class QRScannerScreen extends StatefulWidget {
@@ -16,11 +17,38 @@ class QRScannerScreen extends StatefulWidget {
 class _QRScannerScreenState extends State<QRScannerScreen> {
   MobileScannerController cameraController = MobileScannerController();
   bool isTorchOn = false;
+  bool isProcessing = false;
 
   @override
   void initState() {
     super.initState();
     _requestCameraPermission();
+  }
+
+  void _onQRScanned(String? data) {
+    if (data == null || isProcessing) return;
+
+    setState(() {
+      isProcessing = true;
+    });
+
+    debugPrint('QR Code Found: $data');
+    // CustomSnackbar().snakBarMessage(context, 'Scanned: $data');
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: AppColors.successColor,
+        elevation: 5,
+        content: Text("Scanned: $data"),
+        duration: Duration(seconds: 3), // Show for 3 seconds
+      ),
+    );
+
+    // Reset flag after 3 seconds so user can scan again
+    Future.delayed(Duration(seconds: 3), () {
+      setState(() {
+        isProcessing = false;
+      });
+    });
   }
 
   Future<void> _requestCameraPermission() async {
@@ -72,11 +100,14 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
                     onDetect: (capture) {
                       final List<Barcode> barcodes = capture.barcodes;
                       for (final barcode in barcodes) {
-                        debugPrint('QR Code Found: ${barcode.rawValue}');
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text("Scanned: ${barcode.rawValue}")),
-                        );
+                        _onQRScanned(barcode.rawValue);
+                        // debugPrint('QR Code Found: ${barcode.rawValue}');
+                        // // CustomSnackbar().snakBarMessage(
+                        // //     context, 'Scanned ${barcode.rawValue}');
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //       content: Text("Scanned: ${barcode.rawValue}")),
+                        // );
                       }
                     },
                   ),
@@ -101,7 +132,7 @@ class QRScannerOverlay extends StatelessWidget {
           children: [
             // Dark Overlay with a Transparent Hole
             Container(
-              color: Colors.black.withOpacity(0.5),
+              color: Colors.black.withOpacity(0.4),
             ),
 
             // Clear Scan Area
@@ -109,8 +140,10 @@ class QRScannerOverlay extends StatelessWidget {
               child: ClipPath(
                 clipper: QRScannerClipper(scanBoxSize),
                 child: Container(
-                  width: scanBoxSize,
-                  height: scanBoxSize,
+                  width: DeviceDimensions.responsiveSize(context) * 0.8,
+                  height: DeviceDimensions.responsiveSize(context) * 0.8,
+                  // width: scanBoxSize,
+                  // height: scanBoxSize,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.white, width: 2),
                   ),
