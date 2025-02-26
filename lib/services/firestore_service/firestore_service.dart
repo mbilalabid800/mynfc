@@ -139,9 +139,10 @@ class FirestoreService {
             appCounts[key] = value;
           }
         });
-
+        print('Fetched App Taps: $appCounts'); // Debugging Output
         return appCounts;
       } else {
+        print('No app taps data found.');
         return {};
       }
     } catch (e) {

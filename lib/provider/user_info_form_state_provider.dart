@@ -370,7 +370,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'connectionTypeAll': _connectionTypeAll,
           'isBlocked': _isBlocked,
           'isCardOrdered': _isCardOrdered,
-          'subscriptionPlan': 'Free',
+          'planName': 'Free',
         });
 
         // Second action: Save user's email in the main 'users' collection

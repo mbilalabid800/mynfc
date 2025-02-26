@@ -81,7 +81,7 @@ class _GraphScreenState extends State<GraphScreen> {
                 height: DeviceDimensions.screenHeight(context) * 0.0001,
               ),
               AbsherAppBar(
-                title: 'Statisticsx',
+                title: 'Statistics',
               ),
               //SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
               // SizedBox(
@@ -250,7 +250,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                     Navigator.pushNamed(
                                       context,
                                       '/full-screen-graph',
-                                      arguments: _buildGraph1(),
+                                      arguments: _buildViewsGraph(),
                                     );
                                   },
                                   child: Container(
@@ -504,7 +504,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                           Navigator.pushNamed(
                                             context,
                                             '/full-screen-graph',
-                                            arguments: _buildGraph2(),
+                                            arguments: _buildLinkTapsGraph(),
                                           );
                                         },
                                         child: Container(
@@ -630,7 +630,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                   Navigator.pushNamed(
                                     context,
                                     '/full-screen-graph',
-                                    arguments: _buildGraph3(),
+                                    arguments: _buildCardTapsGraph(),
                                   );
                                 },
                                 child: Container(
@@ -842,7 +842,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                         Navigator.pushNamed(
                                           context,
                                           '/full-screen-graph',
-                                          arguments: _buildGraph4(),
+                                          arguments: _buildNewContactGraph(),
                                         );
                                       },
                                       child: Container(
@@ -977,7 +977,7 @@ class _GraphScreenState extends State<GraphScreen> {
     );
   }
 
-  Widget _buildGraph1() {
+  Widget _buildViewsGraph() {
     return SingleChildScrollView(
       child: Container(
         color: AppColors.screenBackground,
@@ -1140,7 +1140,7 @@ class _GraphScreenState extends State<GraphScreen> {
     );
   }
 
-  Widget _buildGraph2() {
+  Widget _buildLinkTapsGraph() {
     final socialApps = Provider.of<SocialAppProvider>(context, listen: false)
         .filteredSocialApps;
     //final int totalTaps = FirestoreService().tapCounts.values.fold<int>(0, (sum, count) => sum + count);
@@ -1433,7 +1433,7 @@ class _GraphScreenState extends State<GraphScreen> {
         });
   }
 
-  Widget _buildGraph3() {
+  Widget _buildCardTapsGraph() {
     // final List<double> tapsPerDay = [15, 14, 12, 18, 10, 5, 8];
 
     // Calculate the total taps
@@ -1670,7 +1670,7 @@ class _GraphScreenState extends State<GraphScreen> {
     );
   }
 
-  Widget _buildGraph4() {
+  Widget _buildNewContactGraph() {
     final addedConnections =
         Provider.of<ConnectionProvider>(context, listen: false)
             .addedConnections;

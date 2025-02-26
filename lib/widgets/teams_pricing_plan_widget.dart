@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
@@ -18,13 +20,38 @@ class TeamsPricingPlanWidget extends StatefulWidget {
 
 class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
   int? selectedContainer;
+  String? selectedPlanName;
 
   // Default selected plan
 
   void _selectContainer(int index, String planName) {
     setState(() {
       selectedContainer = index;
+      selectedPlanName = planName;
     });
+  }
+
+  Future<void> savePlanToFirebase() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null && selectedPlanName != null) {
+      try {
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set(
+            {
+              'planName': selectedPlanName, // Only updating the plan name
+            },
+            SetOptions(
+                merge: true)); // Merge to prevent overwriting other fields
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("$selectedPlanName plan saved!")),
+        );
+      } catch (e) {
+        debugPrint("Error saving plan: $e");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Failed to save plan. Please try again.")),
+        );
+      }
+    }
   }
 
   @override
@@ -40,9 +67,16 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
               width: DeviceDimensions.screenWidth(context) * 0.8,
               height: 49,
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   //dummy link
-                  Navigator.pop(context);
+                  if (selectedPlanName != null) {
+                    await savePlanToFirebase();
+                    Navigator.pop(context);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Please select a plan first!")),
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.appBlueColor,
