@@ -13,6 +13,7 @@ import 'package:nfc_app/provider/user_info_progress_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:provider/provider.dart';
 
 class UserScreen extends StatefulWidget {
@@ -27,46 +28,48 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //backgroundColor: Colors.white,
-      backgroundColor: AppColors.screenBackground,
-      body: Column(
-        children: [
-          const SizedBox(height: 50),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ProgressRectangle(index: 1),
-              SizedBox(width: DeviceDimensions.screenWidth(context) * 0.015),
-              ProgressRectangle(index: 2),
-              SizedBox(width: DeviceDimensions.screenWidth(context) * 0.015),
-              ProgressRectangle(index: 3),
-            ],
-          ),
-          SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text('Lastly, tell us more about yourself ',
-                style: TextStyle(
-                    fontFamily: 'Barlow-Bold',
-                    fontSize: 30,
-                    color: AppColors.textColorBlue)),
-          ),
-          Expanded(
-            child: PageView(
-              controller: pageController,
-              physics: NeverScrollableScrollPhysics(),
+    return GlobalBackButtonHandler(
+      child: Scaffold(
+        //backgroundColor: Colors.white,
+        backgroundColor: AppColors.screenBackground,
+        body: Column(
+          children: [
+            const SizedBox(height: 50),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                NameStep(pageController: pageController),
-                CompanyInfoStep(pageController: pageController),
-                ImageStep(),
+                ProgressRectangle(index: 1),
+                SizedBox(width: DeviceDimensions.screenWidth(context) * 0.015),
+                ProgressRectangle(index: 2),
+                SizedBox(width: DeviceDimensions.screenWidth(context) * 0.015),
+                ProgressRectangle(index: 3),
               ],
             ),
-          ),
-          SizedBox(
-            height: DeviceDimensions.screenHeight(context) * 0.02,
-          )
-        ],
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text('Lastly, tell us more about yourself ',
+                  style: TextStyle(
+                      fontFamily: 'Barlow-Bold',
+                      fontSize: 30,
+                      color: AppColors.textColorBlue)),
+            ),
+            Expanded(
+              child: PageView(
+                controller: pageController,
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  NameStep(pageController: pageController),
+                  CompanyInfoStep(pageController: pageController),
+                  ImageStep(),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.02,
+            )
+          ],
+        ),
       ),
     );
   }

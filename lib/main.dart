@@ -72,6 +72,7 @@ import 'package:nfc_app/screens/subscription_screen.dart';
 import 'package:nfc_app/screens/terms_conditions.dart';
 import 'package:nfc_app/services/internet_status_handler.dart';
 import 'package:nfc_app/services/permission_handler.dart';
+import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:provider/provider.dart';
 import 'screens/auth/email_verify_forget_password.dart';
 import 'screens/recent_connected_list_screen.dart';
@@ -147,33 +148,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
         GlobalKey<ScaffoldMessengerState>();
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: MediaQuery(
-        data:
-            MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
-        child: MaterialApp(
-          scaffoldMessengerKey: scaffoldMessengerKey,
-          title: 'Absher',
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            //colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
-            useMaterial3: true,
-            splashColor: Colors.grey, // or Colors.black
-            highlightColor: Colors.grey, // or Colors.black
-            hoverColor: Colors.grey,
-            primaryColor: Colors.grey,
-          ),
-          initialRoute: '/new-splash',
-          // initialRoute: '/error',
-          onGenerateRoute: _onGenerateRoute,
-          routes: kIsWeb ? _webRoutes : _appRoutes,
-          onUnknownRoute: (settings) => MaterialPageRoute(
-            builder: (_) => const ErrorScreen(
-              message: 'Page not found',
-            ),
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.0)),
+      child: MaterialApp(
+        scaffoldMessengerKey: scaffoldMessengerKey,
+        title: 'Absher',
+        debugShowCheckedModeBanner: false,
+
+        theme: ThemeData(
+          //colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
+          useMaterial3: true,
+          splashColor: Colors.grey, // or Colors.black
+          highlightColor: Colors.grey, // or Colors.black
+          primaryColor: Colors.grey,
+        ),
+        initialRoute: '/new-splash',
+        // initialRoute: '/error',
+        onGenerateRoute: _onGenerateRoute,
+        routes: kIsWeb ? _webRoutes : _appRoutes,
+        onUnknownRoute: (settings) => MaterialPageRoute(
+          builder: (_) => const ErrorScreen(
+            message: 'Page not found',
           ),
         ),
       ),

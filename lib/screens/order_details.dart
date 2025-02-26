@@ -8,6 +8,7 @@ import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/user_info_form_state_provider.dart';
@@ -51,317 +52,325 @@ class _OrderDetailsState extends State<OrderDetails> {
     final userProvider =
         Provider.of<UserInfoFormStateProvider>(context, listen: false);
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.screenBackground,
-        body: Column(
-          children: [
-            SizedBox(
-              height: DeviceDimensions.screenHeight(context) * 0.0001,
-            ),
-            AbsherAppBar(
-              title: 'Order Details',
-              onLeftButtonTap: () {
-                // Navigator.pushNamed(context, '/order-history-screen');
-                //Navigator.pop(context);
-                // Navigator.pushNamedAndRemoveUntil(
-                //   context,
-                //   '/mainNav-screen', // Replace with your target screen
-                //   (Route<dynamic> route) =>
-                //       false, // This removes all previous routes
-                // );
-                if (fromOrderPlacement) {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    '/mainNav-screen',
-                    (Route<dynamic> route) => false,
-                  );
-                } else {
-                  Navigator.pop(context);
-                }
-              },
-              rightButton: Align(
-                alignment: Alignment.centerRight,
-                child: SizedBox(
-                    width: DeviceDimensions.screenWidth(context) * 0.035),
+      child: GlobalBackButtonHandler(
+        child: Scaffold(
+          backgroundColor: AppColors.screenBackground,
+          body: Column(
+            children: [
+              SizedBox(
+                height: DeviceDimensions.screenHeight(context) * 0.0001,
               ),
-            ),
-            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-            Flexible(
-              child: Consumer<OrderProvider>(
-                builder: (context, provider, child) {
-                  if (provider.isLoading) {
-                    return const Center(
-                      child: DualRingLoader(),
+              AbsherAppBar(
+                title: 'Order Details',
+                onLeftButtonTap: () {
+                  // Navigator.pushNamed(context, '/order-history-screen');
+                  //Navigator.pop(context);
+                  // Navigator.pushNamedAndRemoveUntil(
+                  //   context,
+                  //   '/mainNav-screen', // Replace with your target screen
+                  //   (Route<dynamic> route) =>
+                  //       false, // This removes all previous routes
+                  // );
+                  if (fromOrderPlacement) {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      '/mainNav-screen',
+                      (Route<dynamic> route) => false,
                     );
+                  } else {
+                    Navigator.pop(context);
                   }
-                  if (provider.currentOrder == null) {
-                    return const Center(child: Text("No order details found."));
-                  }
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Container(
-                          height: DeviceDimensions.screenHeight(context) * 1.25,
-                          width: DeviceDimensions.screenWidth(context) * 0.90,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 17),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.020),
-                                Row(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          color: const Color(0xFFD9D9D9),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 6.0,
-                                            right: 7,
-                                            top: 13,
-                                            bottom: 10),
-                                        child: SizedBox(
-                                          height: 70,
-                                          width: 80,
-                                          child: provider.currentOrder == null
-                                              ? SmallThreeBounceLoader() // Show a loader or placeholder if currentOrder or cardImage is null
-                                              : CachedNetworkImage(
-                                                  imageUrl: provider
-                                                      .currentOrder!.cardImage,
-                                                  placeholder: (context, url) =>
-                                                      SmallThreeBounceLoader(),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Icon(Icons.error),
-                                                ),
+                },
+                rightButton: Align(
+                  alignment: Alignment.centerRight,
+                  child: SizedBox(
+                      width: DeviceDimensions.screenWidth(context) * 0.035),
+                ),
+              ),
+              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+              Flexible(
+                child: Consumer<OrderProvider>(
+                  builder: (context, provider, child) {
+                    if (provider.isLoading) {
+                      return const Center(
+                        child: DualRingLoader(),
+                      );
+                    }
+                    if (provider.currentOrder == null) {
+                      return const Center(
+                          child: Text("No order details found."));
+                    }
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Container(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 1.25,
+                            width: DeviceDimensions.screenWidth(context) * 0.90,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 17),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.020),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            color: const Color(0xFFD9D9D9),
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 6.0,
+                                              right: 7,
+                                              top: 13,
+                                              bottom: 10),
+                                          child: SizedBox(
+                                            height: 70,
+                                            width: 80,
+                                            child: provider.currentOrder == null
+                                                ? SmallThreeBounceLoader() // Show a loader or placeholder if currentOrder or cardImage is null
+                                                : CachedNetworkImage(
+                                                    imageUrl: provider
+                                                        .currentOrder!
+                                                        .cardImage,
+                                                    placeholder: (context,
+                                                            url) =>
+                                                        SmallThreeBounceLoader(),
+                                                    errorWidget:
+                                                        (context, url, error) =>
+                                                            Icon(Icons.error),
+                                                  ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                        width: DeviceDimensions.screenWidth(
-                                                context) *
-                                            0.030),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.51,
-                                          child: Text(
-                                            provider.currentOrder!.cardName,
+                                      SizedBox(
+                                          width: DeviceDimensions.screenWidth(
+                                                  context) *
+                                              0.030),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.51,
+                                            child: Text(
+                                              provider.currentOrder!.cardName,
+                                              style: TextStyle(
+                                                fontFamily: 'Barlow-Bold',
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: DeviceDimensions
+                                                        .responsiveSize(
+                                                            context) *
+                                                    0.039,
+                                                color: AppColors.textColorBlue,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                              height:
+                                                  DeviceDimensions.screenHeight(
+                                                          context) *
+                                                      0.003),
+                                          Text(
+                                            provider.currentOrder!.cardColor,
                                             style: TextStyle(
-                                              fontFamily: 'Barlow-Bold',
-                                              fontWeight: FontWeight.w500,
+                                              fontFamily: 'Barlow-Regular',
+                                              fontWeight: FontWeight.w600,
                                               fontSize: DeviceDimensions
                                                       .responsiveSize(context) *
-                                                  0.039,
-                                              color: AppColors.textColorBlue,
+                                                  0.036,
+                                              color: const Color(0xFF727272),
                                             ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 2,
                                           ),
-                                        ),
-                                        SizedBox(
-                                            height:
-                                                DeviceDimensions.screenHeight(
-                                                        context) *
-                                                    0.003),
-                                        Text(
-                                          provider.currentOrder!.cardColor,
-                                          style: TextStyle(
-                                            fontFamily: 'Barlow-Regular',
-                                            fontWeight: FontWeight.w600,
-                                            fontSize:
-                                                DeviceDimensions.responsiveSize(
-                                                        context) *
-                                                    0.036,
-                                            color: const Color(0xFF727272),
+                                          SizedBox(
+                                              height:
+                                                  DeviceDimensions.screenHeight(
+                                                          context) *
+                                                      0.015),
+                                          Text(
+                                            provider.currentOrder!.orderPrice,
+                                            style: TextStyle(
+                                              fontFamily: 'Barlow-Bold',
+                                              fontWeight: FontWeight.w600,
+                                              color: AppColors.textColorBlue,
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.045,
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                            height:
-                                                DeviceDimensions.screenHeight(
-                                                        context) *
-                                                    0.015),
-                                        Text(
-                                          provider.currentOrder!.orderPrice,
-                                          style: TextStyle(
-                                            fontFamily: 'Barlow-Bold',
-                                            fontWeight: FontWeight.w600,
-                                            color: AppColors.textColorBlue,
-                                            fontSize:
-                                                DeviceDimensions.responsiveSize(
-                                                        context) *
-                                                    0.045,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.020),
-                                Divider(),
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.020),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    "Order Details:",
-                                    style: TextStyle(
-                                      fontFamily: 'Barlow-Bold',
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.050,
-                                      color: AppColors.textColorBlue,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.007),
-                                orderInfo(context, "Order ID:",
-                                    provider.currentOrder!.orderId),
-                                orderInfo(context, "Your Name:",
-                                    "${userProvider.firstName} ${userProvider.lastName}"),
-                                orderInfo(context, "Title (optional):",
-                                    "Business Cards"),
-                                orderInfo(context, "Delivery Method:",
-                                    provider.currentOrder!.shippingMethod),
-                                orderInfo(context, "Shipping Address:",
-                                    provider.currentOrder!.address),
-                                orderInfo(context, "Payment Method:",
-                                    "Cash on Delivery"),
-                                orderInfo(
-                                  context,
-                                  "Order Date:",
-                                  provider.currentOrder!.orderStatus[0]
-                                      ['updatedAt'],
-                                ),
-                                orderInfo(context, "Expected Delivery Date:",
-                                    provider.currentOrder!.deliveryDate),
-                                orderInfo(context, "Order Price:",
-                                    provider.currentOrder!.orderPrice),
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.030),
-                                Divider(),
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.020),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    "Order Status:",
-                                    style: TextStyle(
-                                      fontFamily: 'Barlow-Bold',
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.050,
-                                      color: AppColors.textColorBlue,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.020),
-                                Expanded(
-                                  child: ListView(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    children: [
-                                      _orderStatusTimeline(
-                                        context,
-                                        title: "Order Placed",
-                                        date: provider.currentOrder!.orderStatus
-                                                .isNotEmpty
-                                            ? provider.currentOrder!
-                                                .orderStatus[0]['updatedAt']
-                                            : "Pending",
-                                        icon: "assets/icons/orderplaced.svg",
-                                        isComplete: provider.currentOrder!
-                                            .orderStatus.isNotEmpty,
-                                        isFirst: true,
+                                        ],
                                       ),
-                                      _orderStatusTimeline(
-                                        context,
-                                        title: "In  Progress",
-                                        date: provider.currentOrder!.orderStatus
-                                                    .length >
-                                                1
-                                            ? provider.currentOrder!
-                                                .orderStatus[1]['updatedAt']
-                                            : "Pending",
-                                        icon: "assets/icons/inprogress.svg",
-                                        isComplete: provider.currentOrder!
-                                                .orderStatus.length >
-                                            1,
-                                      ),
-                                      _orderStatusTimeline(
-                                        context,
-                                        title: "Shipped",
-                                        date: provider.currentOrder!.orderStatus
-                                                    .length >
-                                                2
-                                            ? provider.currentOrder!
-                                                .orderStatus[2]['updatedAt']
-                                            : "Pending",
-                                        icon: "assets/icons/shipped.svg",
-                                        isComplete: provider.currentOrder!
-                                                .orderStatus.length >
-                                            2,
-                                        isBeforeLast: false,
-                                      ),
-                                      _orderStatusTimeline(context,
-                                          title: "Delivered",
-                                          date: provider.currentOrder!
-                                                      .orderStatus.length >
-                                                  3
-                                              ? provider.currentOrder!
-                                                  .orderStatus[3]['updatedAt']
-                                              : "Pending",
-                                          icon: "assets/icons/delivered.svg",
-                                          isComplete: provider.currentOrder!
-                                                  .orderStatus.length >
-                                              3,
-                                          isLast: true),
                                     ],
                                   ),
-                                ),
-                              ],
+                                  SizedBox(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.020),
+                                  Divider(),
+                                  SizedBox(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.020),
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      "Order Details:",
+                                      style: TextStyle(
+                                        fontFamily: 'Barlow-Bold',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.050,
+                                        color: AppColors.textColorBlue,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.007),
+                                  orderInfo(context, "Order ID:",
+                                      provider.currentOrder!.orderId),
+                                  orderInfo(context, "Your Name:",
+                                      "${userProvider.firstName} ${userProvider.lastName}"),
+                                  orderInfo(context, "Title (optional):",
+                                      "Business Cards"),
+                                  orderInfo(context, "Delivery Method:",
+                                      provider.currentOrder!.shippingMethod),
+                                  orderInfo(context, "Shipping Address:",
+                                      provider.currentOrder!.address),
+                                  orderInfo(context, "Payment Method:",
+                                      "Cash on Delivery"),
+                                  orderInfo(
+                                    context,
+                                    "Order Date:",
+                                    provider.currentOrder!.orderStatus[0]
+                                        ['updatedAt'],
+                                  ),
+                                  orderInfo(context, "Expected Delivery Date:",
+                                      provider.currentOrder!.deliveryDate),
+                                  orderInfo(context, "Order Price:",
+                                      provider.currentOrder!.orderPrice),
+                                  SizedBox(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.030),
+                                  Divider(),
+                                  SizedBox(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.020),
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      "Order Status:",
+                                      style: TextStyle(
+                                        fontFamily: 'Barlow-Bold',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.050,
+                                        color: AppColors.textColorBlue,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.020),
+                                  Expanded(
+                                    child: ListView(
+                                      physics: NeverScrollableScrollPhysics(),
+                                      children: [
+                                        _orderStatusTimeline(
+                                          context,
+                                          title: "Order Placed",
+                                          date: provider.currentOrder!
+                                                  .orderStatus.isNotEmpty
+                                              ? provider.currentOrder!
+                                                  .orderStatus[0]['updatedAt']
+                                              : "Pending",
+                                          icon: "assets/icons/orderplaced.svg",
+                                          isComplete: provider.currentOrder!
+                                              .orderStatus.isNotEmpty,
+                                          isFirst: true,
+                                        ),
+                                        _orderStatusTimeline(
+                                          context,
+                                          title: "In  Progress",
+                                          date: provider.currentOrder!
+                                                      .orderStatus.length >
+                                                  1
+                                              ? provider.currentOrder!
+                                                  .orderStatus[1]['updatedAt']
+                                              : "Pending",
+                                          icon: "assets/icons/inprogress.svg",
+                                          isComplete: provider.currentOrder!
+                                                  .orderStatus.length >
+                                              1,
+                                        ),
+                                        _orderStatusTimeline(
+                                          context,
+                                          title: "Shipped",
+                                          date: provider.currentOrder!
+                                                      .orderStatus.length >
+                                                  2
+                                              ? provider.currentOrder!
+                                                  .orderStatus[2]['updatedAt']
+                                              : "Pending",
+                                          icon: "assets/icons/shipped.svg",
+                                          isComplete: provider.currentOrder!
+                                                  .orderStatus.length >
+                                              2,
+                                          isBeforeLast: false,
+                                        ),
+                                        _orderStatusTimeline(context,
+                                            title: "Delivered",
+                                            date: provider.currentOrder!
+                                                        .orderStatus.length >
+                                                    3
+                                                ? provider.currentOrder!
+                                                    .orderStatus[3]['updatedAt']
+                                                : "Pending",
+                                            icon: "assets/icons/delivered.svg",
+                                            isComplete: provider.currentOrder!
+                                                    .orderStatus.length >
+                                                3,
+                                            isLast: true),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
-                  );
-                },
+                          SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
