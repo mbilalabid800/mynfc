@@ -132,6 +132,150 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               SizedBox(
                                 height: DeviceDimensions.screenHeight(context) *
+<<<<<<< HEAD
+                                    0.028),
+                            Container(
+                              width:
+                                  DeviceDimensions.screenWidth(context) * 0.92,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Stack(
+                                    alignment: Alignment.center,
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 22, right: 36, top: 20),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  userProvider.profileType,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Barlow-Bold',
+                                                    fontSize: DeviceDimensions
+                                                            .responsiveSize(
+                                                                context) *
+                                                        0.049,
+                                                    color:
+                                                        AppColors.textColorBlue,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                                connectionProvider.isLoading
+                                                    ? const Text(
+                                                        "--",
+                                                        style: TextStyle(
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: AppColors
+                                                                .textColorBlue),
+                                                      )
+                                                    : Text(
+                                                        Provider.of<ConnectionProvider>(
+                                                                        context)
+                                                                    .addedConnections
+                                                                    .length <
+                                                                10
+                                                            ? "0${Provider.of<ConnectionProvider>(context).addedConnections.length}"
+                                                            : "${Provider.of<ConnectionProvider>(context).addedConnections.length}",
+                                                        style: const TextStyle(
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: AppColors
+                                                                .textColorBlue),
+                                                      ),
+                                              ],
+                                            ),
+                                          ),
+                                          const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 22),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  "Profile",
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontFamily:
+                                                          'Barlow-Regular',
+                                                      color: AppColors
+                                                          .textColorBlue),
+                                                ),
+                                                Text(
+                                                  "Connected",
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontFamily:
+                                                          'Barlow-Regular',
+                                                      color: AppColors
+                                                          .textColorBlue),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Positioned(
+                                        top: 25,
+                                        child: CircleAvatar(
+                                          radius: 37,
+                                          backgroundColor: Colors.black54,
+                                          child: CachedNetworkImage(
+                                            imageUrl: userProvider.imageUrl,
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    CircleAvatar(
+                                              radius: 37,
+                                              backgroundImage: imageProvider,
+                                            ),
+                                            placeholder: (context, url) =>
+                                                const Center(
+                                              child: SmallThreeBounceLoader(),
+                                            ),
+                                            errorWidget: (context, url,
+                                                    error) =>
+                                                Image.asset(
+                                                    'assets/images/default_profile.jpg'),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.040),
+                                  Text(
+                                    "${userProvider.firstName} ${userProvider.lastName}",
+                                    softWrap: true,
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: DeviceDimensions.responsiveSize(
+                                              context) *
+                                          0.047,
+                                      color: AppColors.textColorBlue,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'Barlow-Bold',
+                                    ),
+                                  ),
+                                  if (userProvider.companyName == '')
+                                    InkWell(
+=======
                                     0.0001,
                               ),
                               Padding(
@@ -142,6 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     GestureDetector(
+>>>>>>> 46fbcb408323d4f285404608f8dee62760a6aa41
                                       onTap: () {
                                         Navigator.pushNamed(
                                             context, "/profile-preview");

@@ -23,7 +23,6 @@ class PlaceOrderScreen extends StatefulWidget {
 
 class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
   bool _showDetails = false;
-  int employeeCount = 0;
 
   @override
   void initState() {
@@ -31,25 +30,8 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final orderProvider =
           Provider.of<ShippingAddressProvider>(context, listen: false);
-
       orderProvider.loadShippingAddress();
-      await loadAddedEmployees();
     });
-  }
-
-  Future<void> loadAddedEmployees() async {
-    final employeeProvider =
-        Provider.of<EmployeeProvider>(context, listen: false);
-    final employees = await employeeProvider.getLocalEmployees();
-    if (employees.isEmpty) {
-      setState(() {
-        employeeCount = 1;
-      });
-    } else {
-      setState(() {
-        employeeCount = employees.length;
-      });
-    }
   }
 
   @override
@@ -66,6 +48,8 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     String deliveryDate = DateFormat('yyyy-MM-dd')
         .format(DateTime.now().add(const Duration(days: 7)));
     String selectedPlan = 'Freee';
+    final employeeProvider = Provider.of<EmployeeProvider>(context);
+    int employeeCount = employeeProvider.employeesLocal.length;
     return SafeArea(
       child: GlobalBackButtonHandler(
         child: Scaffold(
@@ -134,36 +118,27 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                       color: const Color(0xFF727272),
                                     ),
                                   ),
-                                  SizedBox(
-                                      height: DeviceDimensions.screenHeight(
-                                              context) *
-                                          0.025),
-                                  Column(
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 15.0),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                                context, "/pricing-plan");
-                                          },
-                                          child: Text(
-                                            "Select Plan",
-                                            style: TextStyle(
-                                              fontFamily: 'Barlow-Regular',
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: DeviceDimensions
-                                                      .responsiveSize(context) *
-                                                  0.040,
-                                              color: AppColors.textColorBlue,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
-                                          ),
-                                        ),
+                                  SizedBox(height: 3),
+                                  Divider(),
+                                  SizedBox(height: 2),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, "/pricing-plan");
+                                    },
+                                    child: Text(
+                                      "Select Plan",
+                                      style: TextStyle(
+                                        fontFamily: 'Barlow-Regular',
+                                        fontWeight: FontWeight.w600,
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.040,
+                                        color: AppColors.textColorBlue,
+                                        decoration: TextDecoration.underline,
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -183,7 +158,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: employeeCount == 1
+                                  child: employeeCount == 0
                                       ? Padding(
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 15, horizontal: 17),
@@ -223,7 +198,9 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                       const Color(0xFF727272),
                                                 ),
                                               ),
+                                              SizedBox(height: 3),
                                               Divider(),
+                                              SizedBox(height: 2),
                                               GestureDetector(
                                                 onTap: () {
                                                   Navigator.pushNamed(
@@ -285,13 +262,13 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                                   .spaceBetween,
                                                           children: [
                                                             Text(
-                                                              "Team",
+                                                              "$employeeCount employees",
                                                               style: TextStyle(
                                                                 fontFamily:
-                                                                    'Barlow-Bold',
+                                                                    'Barlow-Regular',
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w600,
+                                                                        .w500,
                                                                 fontSize: DeviceDimensions
                                                                         .responsiveSize(
                                                                             context) *
@@ -301,7 +278,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                               ),
                                                             ),
                                                             Text(
-                                                              "\$${employeeCount * selectedCard.cardPrice}",
+                                                              "$employeeCount  *  ${selectedCard.cardPrice} OMR",
                                                               style: TextStyle(
                                                                 fontFamily:
                                                                     'Barlow-Regular',
@@ -324,13 +301,13 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                                   .spaceBetween,
                                                           children: [
                                                             Text(
-                                                              "$employeeCount employees",
+                                                              "Team",
                                                               style: TextStyle(
                                                                 fontFamily:
-                                                                    'Barlow-Regular',
+                                                                    'Barlow-Bold',
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w500,
+                                                                        .w600,
                                                                 fontSize: DeviceDimensions
                                                                         .responsiveSize(
                                                                             context) *
@@ -340,7 +317,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                               ),
                                                             ),
                                                             Text(
-                                                              "$employeeCount  *  \$${selectedCard.cardPrice}",
+                                                              "${employeeCount * selectedCard.cardPrice} OMR",
                                                               style: TextStyle(
                                                                 fontFamily:
                                                                     'Barlow-Regular',
@@ -372,11 +349,17 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                                 onTap: () {
                                                   Navigator.pushNamed(
                                                     context,
-                                                    "/employees-list",
+                                                    "/add-employees",
+                                                    arguments: {
+                                                      'selectedCard':
+                                                          selectedCard,
+                                                      'selectedColorOption':
+                                                          selectedColorOption,
+                                                    },
                                                   );
                                                 },
                                                 child: Text(
-                                                  "View",
+                                                  "Add more",
                                                   style: TextStyle(
                                                     fontFamily:
                                                         'Barlow-Regular',
