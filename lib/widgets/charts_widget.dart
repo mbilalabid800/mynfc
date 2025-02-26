@@ -286,8 +286,12 @@ class LinkTapChart extends StatelessWidget {
         // if (snapshot.connectionState == ConnectionState.waiting) {
         //   return const Center(child: BigThreeBounceLoader());
         // }
-        if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: SmallThreeBounceLoader());
+        if (snapshot.hasError) {
+          return const Center(child: Text('Error loading data'));
+        }
+
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text('No tap data available'));
         }
 
         final appCounts = snapshot.data!;

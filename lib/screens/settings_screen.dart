@@ -203,8 +203,8 @@ class _SettingsState extends State<Settings> {
                                                                 .addedConnections
                                                                 .length <
                                                             10
-                                                        ? "0${Provider.of<ConnectionProvider>(context).addedConnections.length}+"
-                                                        : "${Provider.of<ConnectionProvider>(context).addedConnections.length}+",
+                                                        ? "0${Provider.of<ConnectionProvider>(context).addedConnections.length}"
+                                                        : "${Provider.of<ConnectionProvider>(context).addedConnections.length}",
                                                     style: TextStyle(
                                                       fontSize: DeviceDimensions
                                                               .responsiveSize(
