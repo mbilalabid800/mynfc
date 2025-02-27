@@ -12,16 +12,14 @@ class Teams extends StatefulWidget {
 class _TeamsState extends State<Teams> {
   @override
   Widget build(BuildContext context) {
-    return GlobalBackButtonHandler(
-      child: const Scaffold(
-        backgroundColor: AppColors.screenBackground,
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Text("Coming soon. Stay connected."),
-              ],
-            ),
+    return const Scaffold(
+      backgroundColor: AppColors.screenBackground,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Text("Coming soon. Stay connected."),
+            ],
           ),
         ),
       ),

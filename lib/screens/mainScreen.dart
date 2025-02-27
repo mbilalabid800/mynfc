@@ -30,15 +30,13 @@ class MainScreen extends StatelessWidget {
       const Settings(),
     ];
 
-    return GlobalBackButtonHandler(
-      child: Scaffold(
-        backgroundColor: AppColors.screenBackground,
-        // backgroundColor: Colors.transparent,
-        body: pages[provider.selectedIndex],
-        bottomNavigationBar: CustomCurvedNavigationBar(
-          initialIndex: provider.selectedIndex,
-          onTap: provider.setIndex,
-        ),
+    return Scaffold(
+      backgroundColor: AppColors.screenBackground,
+      // backgroundColor: Colors.transparent,
+      body: pages[provider.selectedIndex],
+      bottomNavigationBar: CustomCurvedNavigationBar(
+        initialIndex: provider.selectedIndex,
+        onTap: provider.setIndex,
       ),
     );
   }

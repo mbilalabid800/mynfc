@@ -23,119 +23,116 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GlobalBackButtonHandler(
-        child: Scaffold(
-          body: Consumer2<AuthenticateProvider, UserInfoFormStateProvider>(
-            builder: (context, authProvider, userProvider, child) => Stack(
-              children: [
-                SizedBox(
-                  height: DeviceDimensions.screenHeight(context) * 0.70,
-                  width: DeviceDimensions.screenWidth(context),
-                  child: Image.asset(
-                    "assets/images/verifyemail2.png",
-                    fit: BoxFit.cover,
-                  ),
+      child: Scaffold(
+        body: Consumer2<AuthenticateProvider, UserInfoFormStateProvider>(
+          builder: (context, authProvider, userProvider, child) => Stack(
+            children: [
+              SizedBox(
+                height: DeviceDimensions.screenHeight(context) * 0.70,
+                width: DeviceDimensions.screenWidth(context),
+                child: Image.asset(
+                  "assets/images/verifyemail2.png",
+                  fit: BoxFit.cover,
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: DeviceDimensions.screenHeight(context) * 0.48,
-                    width: DeviceDimensions.screenWidth(context),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.015),
-                        Container(
-                          width: DeviceDimensions.screenWidth(context) * 0.16,
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: DeviceDimensions.screenHeight(context) * 0.48,
+                  width: DeviceDimensions.screenWidth(context),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
                           height:
-                              DeviceDimensions.screenHeight(context) * 0.007,
-                          decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(12.0),
-                          ),
+                              DeviceDimensions.screenHeight(context) * 0.015),
+                      Container(
+                        width: DeviceDimensions.screenWidth(context) * 0.16,
+                        height: DeviceDimensions.screenHeight(context) * 0.007,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(12.0),
                         ),
-                        SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.030),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 21),
-                            child: Text(
-                              "Forgot password",
-                              style: TextStyle(
-                                  fontSize:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.068,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'Barlow-Bold'),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.015),
-                        Padding(
+                      ),
+                      SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.030),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 21),
                           child: Text(
-                            "In order to reset password ,please provide us your email. We will send you an verification code momentarily.",
+                            "Forgot password",
                             style: TextStyle(
                                 fontSize:
                                     DeviceDimensions.responsiveSize(context) *
-                                        0.033,
-                                fontFamily: 'Barlow-Regular',
-                                color: AppColors.appBlueColor),
+                                        0.068,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Barlow-Bold'),
                           ),
                         ),
-                        SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.050),
-                        Form(
-                          key: authProvider.forgetPasswordFormKey,
-                          child: MyTextfield(
-                              controller:
-                                  authProvider.forgetPasswordEmailController,
-                              hintText: 'Email',
-                              iconPath: 'assets/icons/email.svg',
-                              errorText: userProvider.emailError,
-                              onChanged: (value) {
-                                userProvider.validateEmail(value);
-                              },
-                              validator: (value) {
-                                if (value?.isEmpty ?? true) {
-                                  return 'Please enter an email address';
-                                }
-                                return userProvider.emailError;
-                              }),
+                      ),
+                      SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.015),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 21),
+                        child: Text(
+                          "In order to reset password ,please provide us your email. We will send you an verification code momentarily.",
+                          style: TextStyle(
+                              fontSize:
+                                  DeviceDimensions.responsiveSize(context) *
+                                      0.033,
+                              fontFamily: 'Barlow-Regular',
+                              color: AppColors.appBlueColor),
                         ),
-                        SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.065),
-                        MyButton(
-                          text: "Forget Password",
-                          onPressed: () {
-                            authProvider.resetPassword(context);
-                          },
-                          width: DeviceDimensions.screenWidth(context) * 0.82,
-                        ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.050),
+                      Form(
+                        key: authProvider.forgetPasswordFormKey,
+                        child: MyTextfield(
+                            controller:
+                                authProvider.forgetPasswordEmailController,
+                            hintText: 'Email',
+                            iconPath: 'assets/icons/email.svg',
+                            errorText: userProvider.emailError,
+                            onChanged: (value) {
+                              userProvider.validateEmail(value);
+                            },
+                            validator: (value) {
+                              if (value?.isEmpty ?? true) {
+                                return 'Please enter an email address';
+                              }
+                              return userProvider.emailError;
+                            }),
+                      ),
+                      SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.065),
+                      MyButton(
+                        text: "Forget Password",
+                        onPressed: () {
+                          authProvider.resetPassword(context);
+                        },
+                        width: DeviceDimensions.screenWidth(context) * 0.82,
+                      ),
+                    ],
                   ),
                 ),
-                if (authProvider.isLoading)
-                  Container(
-                    color: Colors.white54,
-                    child: Center(
-                      child: const DualRingLoader(),
-                    ),
+              ),
+              if (authProvider.isLoading)
+                Container(
+                  color: Colors.white54,
+                  child: Center(
+                    child: const DualRingLoader(),
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
         ),
       ),

@@ -13,50 +13,48 @@ class ConnectionsRequest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GlobalBackButtonHandler(
-        child: Scaffold(
-          backgroundColor: AppColors.screenBackground,
-          //appBar: const CustomAppBar(title: "Connection Requests"),
-          body: Column(
-            children: [
-              SizedBox(
-                height: DeviceDimensions.screenHeight(context) * 0.0001,
-              ),
-              AbsherAppBar(title: 'Connection Requests'),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-              Flexible(
-                child: SingleChildScrollView(
-                  child: Consumer<ConnectionProvider>(
-                    builder: (context, connectionProvider, child) {
-                      final connectionRequests =
-                          connectionProvider.recommendedConnections;
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: Column(
-                            children: [
-                              Container(
-                                width: DeviceDimensions.screenWidth(context) *
-                                    0.92,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: connectionRequests.isEmpty
-                                    ? _buildNoConnectionsPlaceholder()
-                                    : _buildConnectionList(
-                                        context, connectionRequests),
+      child: Scaffold(
+        backgroundColor: AppColors.screenBackground,
+        //appBar: const CustomAppBar(title: "Connection Requests"),
+        body: Column(
+          children: [
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.0001,
+            ),
+            AbsherAppBar(title: 'Connection Requests'),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            Flexible(
+              child: SingleChildScrollView(
+                child: Consumer<ConnectionProvider>(
+                  builder: (context, connectionProvider, child) {
+                    final connectionRequests =
+                        connectionProvider.recommendedConnections;
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 20),
+                        child: Column(
+                          children: [
+                            Container(
+                              width:
+                                  DeviceDimensions.screenWidth(context) * 0.92,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(30),
                               ),
-                            ],
-                          ),
+                              child: connectionRequests.isEmpty
+                                  ? _buildNoConnectionsPlaceholder()
+                                  : _buildConnectionList(
+                                      context, connectionRequests),
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

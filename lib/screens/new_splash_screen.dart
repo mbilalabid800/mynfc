@@ -59,23 +59,21 @@ class _NewSplashScreenState extends State<NewSplashScreen>
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GlobalBackButtonHandler(
-        child: Scaffold(
-          backgroundColor: AppColors.screenBackground,
-          body: Center(
-            child: AnimatedBuilder(
-              animation: _animation,
-              builder: (context, child) {
-                return Transform.scale(
-                  scale: _animation.value,
-                  child: child,
-                );
-              },
-              child: Image.asset(
-                'assets/splash/abshersplash.png',
-                width: 150,
-                height: 150,
-              ),
+      child: Scaffold(
+        backgroundColor: AppColors.screenBackground,
+        body: Center(
+          child: AnimatedBuilder(
+            animation: _animation,
+            builder: (context, child) {
+              return Transform.scale(
+                scale: _animation.value,
+                child: child,
+              );
+            },
+            child: Image.asset(
+              'assets/splash/abshersplash.png',
+              width: 150,
+              height: 150,
             ),
           ),
         ),

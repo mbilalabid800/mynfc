@@ -33,54 +33,52 @@ class _FaqScreenState extends State<FaqScreen> {
     final List<FaqModel> faqs =
         ModalRoute.of(context)!.settings.arguments as List<FaqModel>;
     return SafeArea(
-      child: GlobalBackButtonHandler(
-        child: Scaffold(
-          backgroundColor: AppColors.screenBackground,
-          body: Column(
-            children: [
-              SizedBox(
-                height: DeviceDimensions.screenHeight(context) * 0.0001,
+      child: Scaffold(
+        backgroundColor: AppColors.screenBackground,
+        body: Column(
+          children: [
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.0001,
+            ),
+            AbsherAppBar(
+              title: 'FAQs',
+              onLeftButtonTap: () {
+                Navigator.pop(context);
+              },
+              rightButton: Align(
+                alignment: Alignment.centerRight,
+                child: SizedBox(
+                    width: DeviceDimensions.screenWidth(context) * 0.035),
               ),
-              AbsherAppBar(
-                title: 'FAQs',
-                onLeftButtonTap: () {
-                  Navigator.pop(context);
-                },
-                rightButton: Align(
-                  alignment: Alignment.centerRight,
-                  child: SizedBox(
-                      width: DeviceDimensions.screenWidth(context) * 0.035),
+            ),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            // SizedBox(
+            Flexible(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                            child: Image.asset('assets/icons/faqimage.png'))
+                      ],
+                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: faqs.length,
+                      itemBuilder: (context, index) {
+                        return _buildFaqTile(faqs[index], index);
+                      },
+                    ),
+                    SizedBox(
+                        height: DeviceDimensions.screenHeight(context) * 0.03)
+                  ],
                 ),
               ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-              // SizedBox(
-              Flexible(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Flexible(
-                              child: Image.asset('assets/icons/faqimage.png'))
-                        ],
-                      ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: faqs.length,
-                        itemBuilder: (context, index) {
-                          return _buildFaqTile(faqs[index], index);
-                        },
-                      ),
-                      SizedBox(
-                          height: DeviceDimensions.screenHeight(context) * 0.03)
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

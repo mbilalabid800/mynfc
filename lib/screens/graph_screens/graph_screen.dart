@@ -72,210 +72,326 @@ class _GraphScreenState extends State<GraphScreen> {
     // Call loadChartsData() to start listening for real-time changes
     userProvider.loadChartsData();
     return SafeArea(
-      child: GlobalBackButtonHandler(
-        child: Scaffold(
-          backgroundColor: AppColors.screenBackground,
-          body: Column(
-            children: [
-              SizedBox(
-                height: DeviceDimensions.screenHeight(context) * 0.0001,
-              ),
-              AbsherAppBar(
-                title: 'Statistics',
-              ),
-              //SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-              // SizedBox(
-              //   height: DeviceDimensions.screenHeight(context) * 0.04,
-              // ),
-              Flexible(
-                child: SingleChildScrollView(
-                    child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 12,
-                        right: 12,
-                      ),
-                      child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 7.0, vertical: 9),
-                            decoration: const BoxDecoration(
-                                //color: Color(0xFFFFFFFF),
-                                //shape: BoxShape.circle,
-                                ),
-                            child: const CircleAvatar(
-                              backgroundColor: AppColors.appBlueColor,
-                              backgroundImage: AssetImage(
-                                'assets/icons/cardorder.png',
+      child: Scaffold(
+        backgroundColor: AppColors.screenBackground,
+        body: Column(
+          children: [
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.0001,
+            ),
+            AbsherAppBar(
+              title: 'Statistics',
+            ),
+            //SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            // SizedBox(
+            //   height: DeviceDimensions.screenHeight(context) * 0.04,
+            // ),
+            Flexible(
+              child: SingleChildScrollView(
+                  child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 12,
+                      right: 12,
+                    ),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 7.0, vertical: 9),
+                          decoration: const BoxDecoration(
+                              //color: Color(0xFFFFFFFF),
+                              //shape: BoxShape.circle,
                               ),
-                              radius: 25,
+                          child: const CircleAvatar(
+                            backgroundColor: AppColors.appBlueColor,
+                            backgroundImage: AssetImage(
+                              'assets/icons/cardorder.png',
                             ),
+                            radius: 25,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Business Card",
-                                style: TextStyle(
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.045,
-                                    fontWeight: FontWeight.bold,
-                                    color: AppColors.appBlueColor,
-                                    fontFamily: 'Barlow-Bold'),
-                              ),
-                              Text(
-                                "Activation Date: 19/02/2025",
-                                style: TextStyle(
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Business Card",
+                              style: TextStyle(
+                                  fontSize:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.045,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.appBlueColor,
+                                  fontFamily: 'Barlow-Bold'),
+                            ),
+                            Text(
+                              "Activation Date: 19/02/2025",
+                              style: TextStyle(
+                                  fontSize:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.035,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Barlow-Regular'),
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 5.0, bottom: 5),
+                          child: SizedBox(
+                            height: 30,
+                            width: 90,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: AppColors.appBlueColor,
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Center(
+                                child: Text(
+                                  userProvider.profileType,
+                                  style: TextStyle(
+                                    //fontFamily: 'Barlow-Bold',
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
                                         0.035,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'Barlow-Regular'),
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(right: 5.0, bottom: 5),
-                            child: SizedBox(
-                              height: 30,
-                              width: 90,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: AppColors.appBlueColor,
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Center(
-                                  child: Text(
-                                    userProvider.profileType,
-                                    style: TextStyle(
-                                      //fontFamily: 'Barlow-Bold',
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.035,
-                                      color: Colors.white,
-                                    ),
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: DeviceDimensions.screenHeight(context) * 0.02,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(35)),
-                      width: DeviceDimensions.screenWidth(context) * 0.9,
-                      child: Column(
-                        children: [
-                          Stack(children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 25),
-                              child: Image.asset(
-                                  'assets/images/cardimage_graphscreen.png',
-                                  width: DeviceDimensions.screenWidth(context) *
-                                      0.8),
-                            ),
-                            Positioned(
-                              top:
-                                  110, // Adjust this value to position the text vertically
-                              left: 0,
-                              right:
-                                  0, // This makes the text centered horizontally
-                              child: Text(
-                                "${userProvider.firstName} ${userProvider.lastName} ",
-                                softWrap: true,
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.047,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'Barlow-Regular',
-                                  //backgroundColor: Colors.black.withOpacity(
-                                  // 0.4), // Optional for readability
-                                ),
+                  ),
+                  SizedBox(
+                    height: DeviceDimensions.screenHeight(context) * 0.02,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(35)),
+                    width: DeviceDimensions.screenWidth(context) * 0.9,
+                    child: Column(
+                      children: [
+                        Stack(children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 25),
+                            child: Image.asset(
+                                'assets/images/cardimage_graphscreen.png',
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.8),
+                          ),
+                          Positioned(
+                            top:
+                                110, // Adjust this value to position the text vertically
+                            left: 0,
+                            right:
+                                0, // This makes the text centered horizontally
+                            child: Text(
+                              "${userProvider.firstName} ${userProvider.lastName} ",
+                              softWrap: true,
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.047,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Barlow-Regular',
+                                //backgroundColor: Colors.black.withOpacity(
+                                // 0.4), // Optional for readability
                               ),
                             ),
-                          ]),
-                        ],
-                      ),
+                          ),
+                        ]),
+                      ],
                     ),
-                    SizedBox(
-                      height: DeviceDimensions.screenHeight(context) * 0.02,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 10),
-                      child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text('Profile Analytics',
-                              style: TextStyle(
-                                  fontSize:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.045,
-                                  fontWeight: FontWeight.w600))),
-                    ),
-                    SizedBox(
-                      height: DeviceDimensions.screenHeight(context) * 0.02,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Material(
-                                color: Colors.transparent,
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      '/full-screen-graph',
-                                      arguments: _buildViewsGraph(),
-                                    );
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: Colors.white),
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.17,
-                                    width:
-                                        DeviceDimensions.screenWidth(context) *
-                                            0.45,
-                                    child: Column(
-                                      children: [
-                                        Padding(
+                  ),
+                  SizedBox(
+                    height: DeviceDimensions.screenHeight(context) * 0.02,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 10),
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('Profile Analytics',
+                            style: TextStyle(
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.045,
+                                fontWeight: FontWeight.w600))),
+                  ),
+                  SizedBox(
+                    height: DeviceDimensions.screenHeight(context) * 0.02,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    '/full-screen-graph',
+                                    arguments: _buildViewsGraph(),
+                                  );
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white),
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.17,
+                                  width: DeviceDimensions.screenWidth(context) *
+                                      0.45,
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          children: [
+                                            Consumer<UserInfoFormStateProvider>(
+                                                builder: (context, userProvider,
+                                                    child) {
+                                              return Text(
+                                                userProvider.totalViews
+                                                    .toString(),
+                                                style: TextStyle(
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    fontSize: DeviceDimensions
+                                                            .responsiveSize(
+                                                                context) *
+                                                        0.05,
+                                                    color:
+                                                        AppColors.appBlueColor,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                                softWrap: true,
+                                                maxLines: 2,
+                                              );
+                                            }),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height: DeviceDimensions.screenHeight(
+                                                  context) *
+                                              0.05,
+                                          width: DeviceDimensions.screenWidth(
+                                                  context) *
+                                              0.3,
+                                          child: ViewsChart(uid: widget.uid)),
+                                      Expanded(
+                                        child: Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: Row(
                                             children: [
-                                              Consumer<
-                                                      UserInfoFormStateProvider>(
-                                                  builder: (context,
-                                                      userProvider, child) {
-                                                return Text(
-                                                  userProvider.totalViews
-                                                      .toString(),
+                                              // SvgPicture.asset(
+                                              //     'assets/icons/views.svg'),
+                                              Icon(
+                                                Icons.visibility,
+                                                color: AppColors.appBlueColor
+                                                    .withOpacity(0.5),
+                                                size: DeviceDimensions
+                                                        .responsiveSize(
+                                                            context) *
+                                                    0.06,
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8.0),
+                                                child: Text(
+                                                  'Views',
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 2,
+                                                  style: TextStyle(
+                                                      color: AppColors
+                                                          .appBlueColor,
+                                                      fontSize: DeviceDimensions
+                                                              .responsiveSize(
+                                                                  context) *
+                                                          0.032),
+                                                ),
+                                              ),
+                                              const Spacer(),
+                                              GestureDetector(
+                                                  onTapDown:
+                                                      (TapDownDetails details) {
+                                                    _showPopupMenu(
+                                                        context,
+                                                        details.globalPosition,
+                                                        'The number of times your profile was  viewed through tapping your profile.');
+                                                  },
+                                                  child: Icon(
+                                                    Icons.info_outline,
+                                                    size: 20,
+                                                    color: AppColors
+                                                        .appBlueColor
+                                                        .withOpacity(0.5),
+                                                  )
+                                                  // SvgPicture.asset(
+                                                  //     'assets/icons/info.svg'),
+                                                  ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.025),
+                            FutureBuilder<Map<String, int>>(
+                                future: FirestoreService()
+                                    .fetchSocialAppTaps(widget.uid),
+                                builder: (context, snapshot) {
+                                  // if (snapshot.connectionState == ConnectionState.waiting) {
+                                  //   return const Center(child: BigThreeBounceLoader());
+                                  // }
+                                  if (snapshot.hasError ||
+                                      !snapshot.hasData ||
+                                      snapshot.data!.isEmpty) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: Colors.white),
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.17,
+                                      width: DeviceDimensions.screenWidth(
+                                              context) *
+                                          0.45,
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  '0',
                                                   style: TextStyle(
                                                       overflow:
                                                           TextOverflow.ellipsis,
@@ -289,62 +405,67 @@ class _GraphScreenState extends State<GraphScreen> {
                                                           FontWeight.w600),
                                                   softWrap: true,
                                                   maxLines: 2,
-                                                );
-                                              }),
-                                            ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                            height: DeviceDimensions
-                                                    .screenHeight(context) *
-                                                0.05,
+                                          SizedBox(
+                                            height:
+                                                DeviceDimensions.screenHeight(
+                                                        context) *
+                                                    0.05,
                                             width: DeviceDimensions.screenWidth(
                                                     context) *
                                                 0.3,
-                                            child: ViewsChart(uid: widget.uid)),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              children: [
-                                                // SvgPicture.asset(
-                                                //     'assets/icons/views.svg'),
-                                                Icon(
-                                                  Icons.visibility,
-                                                  color: AppColors.appBlueColor
-                                                      .withOpacity(0.5),
-                                                  size: DeviceDimensions
-                                                          .responsiveSize(
-                                                              context) *
-                                                      0.06,
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 8.0),
-                                                  child: Text(
-                                                    'Views',
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 2,
-                                                    style: TextStyle(
-                                                        color: AppColors
-                                                            .appBlueColor,
-                                                        fontSize: DeviceDimensions
-                                                                .responsiveSize(
-                                                                    context) *
-                                                            0.032),
+                                            child: Icon(Icons.trending_up,
+                                                color:
+                                                    AppColors.appOrangeColor),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.link,
+                                                    color: AppColors
+                                                        .appBlueColor
+                                                        .withOpacity(0.5),
+                                                    size: DeviceDimensions
+                                                            .responsiveSize(
+                                                                context) *
+                                                        0.06,
                                                   ),
-                                                ),
-                                                const Spacer(),
-                                                GestureDetector(
+                                                  // SvgPicture.asset(
+                                                  //     'assets/icons/taplink.svg'),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 8.0),
+                                                    child: Text(
+                                                      'Link Tap',
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 2,
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .appBlueColor,
+                                                          fontSize: DeviceDimensions
+                                                                  .responsiveSize(
+                                                                      context) *
+                                                              0.032),
+                                                    ),
+                                                  ),
+                                                  const Spacer(),
+                                                  GestureDetector(
                                                     onTapDown: (TapDownDetails
                                                         details) {
                                                       _showPopupMenu(
                                                           context,
                                                           details
                                                               .globalPosition,
-                                                          'The number of times your profile was  viewed through tapping your profile.');
+                                                          'The number of times your links were tapped.');
                                                     },
                                                     child: Icon(
                                                       Icons.info_outline,
@@ -352,33 +473,34 @@ class _GraphScreenState extends State<GraphScreen> {
                                                       color: AppColors
                                                           .appBlueColor
                                                           .withOpacity(0.5),
-                                                    )
-                                                    // SvgPicture.asset(
-                                                    //     'assets/icons/info.svg'),
                                                     ),
-                                              ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                  width: DeviceDimensions.screenWidth(context) *
-                                      0.025),
-                              FutureBuilder<Map<String, int>>(
-                                  future: FirestoreService()
-                                      .fetchSocialAppTaps(widget.uid),
-                                  builder: (context, snapshot) {
-                                    // if (snapshot.connectionState == ConnectionState.waiting) {
-                                    //   return const Center(child: BigThreeBounceLoader());
-                                    // }
-                                    if (snapshot.hasError ||
-                                        !snapshot.hasData ||
-                                        snapshot.data!.isEmpty) {
-                                      return Container(
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                  final tapCounts = snapshot.data!;
+                                  final int totalTaps = tapCounts.values
+                                      .fold<int>(
+                                          0, (sum, count) => sum + count);
+
+                                  return Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () {
+                                        Navigator.pushNamed(
+                                          context,
+                                          '/full-screen-graph',
+                                          arguments: _buildLinkTapsGraph(),
+                                        );
+                                      },
+                                      child: Container(
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(20),
@@ -396,22 +518,16 @@ class _GraphScreenState extends State<GraphScreen> {
                                                   const EdgeInsets.all(8.0),
                                               child: Row(
                                                 children: [
-                                                  Text(
-                                                    '0',
-                                                    style: TextStyle(
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        fontSize: DeviceDimensions
-                                                                .responsiveSize(
-                                                                    context) *
-                                                            0.05,
-                                                        color: AppColors
-                                                            .appBlueColor,
-                                                        fontWeight:
-                                                            FontWeight.w600),
-                                                    softWrap: true,
-                                                    maxLines: 2,
-                                                  ),
+                                                  Text(totalTaps.toString(),
+                                                      style: TextStyle(
+                                                          fontSize: DeviceDimensions
+                                                                  .responsiveSize(
+                                                                      context) *
+                                                              0.05,
+                                                          color: AppColors
+                                                              .appBlueColor,
+                                                          fontWeight:
+                                                              FontWeight.w600)),
                                                 ],
                                               ),
                                             ),
@@ -424,9 +540,8 @@ class _GraphScreenState extends State<GraphScreen> {
                                                   DeviceDimensions.screenWidth(
                                                           context) *
                                                       0.3,
-                                              child: Icon(Icons.trending_up,
-                                                  color:
-                                                      AppColors.appOrangeColor),
+                                              child:
+                                                  LinkTapChart(uid: widget.uid),
                                             ),
                                             Expanded(
                                               child: Padding(
@@ -488,254 +603,229 @@ class _GraphScreenState extends State<GraphScreen> {
                                             )
                                           ],
                                         ),
-                                      );
-                                    }
-                                    final tapCounts = snapshot.data!;
-                                    final int totalTaps = tapCounts.values
-                                        .fold<int>(
-                                            0, (sum, count) => sum + count);
-
-                                    return Material(
-                                      color: Colors.transparent,
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () {
-                                          Navigator.pushNamed(
-                                            context,
-                                            '/full-screen-graph',
-                                            arguments: _buildLinkTapsGraph(),
-                                          );
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              color: Colors.white),
-                                          height: DeviceDimensions.screenHeight(
-                                                  context) *
-                                              0.17,
-                                          width: DeviceDimensions.screenWidth(
-                                                  context) *
-                                              0.45,
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  children: [
-                                                    Text(totalTaps.toString(),
-                                                        style: TextStyle(
-                                                            fontSize: DeviceDimensions
-                                                                    .responsiveSize(
-                                                                        context) *
-                                                                0.05,
-                                                            color: AppColors
-                                                                .appBlueColor,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: DeviceDimensions
-                                                        .screenHeight(context) *
-                                                    0.05,
-                                                width: DeviceDimensions
-                                                        .screenWidth(context) *
-                                                    0.3,
-                                                child: LinkTapChart(
-                                                    uid: widget.uid),
-                                              ),
-                                              Expanded(
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.link,
-                                                        color: AppColors
-                                                            .appBlueColor
-                                                            .withOpacity(0.5),
-                                                        size: DeviceDimensions
-                                                                .responsiveSize(
-                                                                    context) *
-                                                            0.06,
-                                                      ),
-                                                      // SvgPicture.asset(
-                                                      //     'assets/icons/taplink.svg'),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .symmetric(
-                                                                horizontal:
-                                                                    8.0),
-                                                        child: Text(
-                                                          'Link Tap',
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          maxLines: 2,
-                                                          style: TextStyle(
-                                                              color: AppColors
-                                                                  .appBlueColor,
-                                                              fontSize: DeviceDimensions
-                                                                      .responsiveSize(
-                                                                          context) *
-                                                                  0.032),
-                                                        ),
-                                                      ),
-                                                      const Spacer(),
-                                                      GestureDetector(
-                                                        onTapDown:
-                                                            (TapDownDetails
-                                                                details) {
-                                                          _showPopupMenu(
-                                                              context,
-                                                              details
-                                                                  .globalPosition,
-                                                              'The number of times your links were tapped.');
-                                                        },
-                                                        child: Icon(
-                                                          Icons.info_outline,
-                                                          size: 20,
-                                                          color: AppColors
-                                                              .appBlueColor
-                                                              .withOpacity(0.5),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
                                       ),
-                                    );
-                                  }),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    '/full-screen-graph',
-                                    arguments: _buildCardTapsGraph(),
+                                    ),
                                   );
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.white),
-                                  height:
-                                      DeviceDimensions.screenHeight(context) *
-                                          0.17,
-                                  width: DeviceDimensions.screenWidth(context) *
-                                      0.45,
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                }),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  '/full-screen-graph',
+                                  arguments: _buildCardTapsGraph(),
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white),
+                                height: DeviceDimensions.screenHeight(context) *
+                                    0.17,
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.45,
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        children: [
+                                          Text('0',
+                                              style: TextStyle(
+                                                  fontSize: DeviceDimensions
+                                                          .responsiveSize(
+                                                              context) *
+                                                      0.05,
+                                                  color: AppColors.appBlueColor,
+                                                  fontWeight: FontWeight.w600)),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.05,
+                                      width: DeviceDimensions.screenWidth(
+                                              context) *
+                                          0.3,
+                                      child: Icon(
+                                        Icons.trending_up,
+                                        color: AppColors.appOrangeColor,
+                                      ),
+                                      //child: CardTapsChart(),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8),
                                         child: Row(
                                           children: [
-                                            Text('0',
+                                            Icon(Icons.credit_card,
+                                                size: DeviceDimensions
+                                                        .responsiveSize(
+                                                            context) *
+                                                    0.06,
+                                                color: AppColors.appBlueColor
+                                                    .withOpacity(0.5)),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
+                                              child: Text(
+                                                'Card Taps',
+                                                overflow: TextOverflow.ellipsis,
+                                                softWrap: true,
+                                                maxLines: 3,
                                                 style: TextStyle(
-                                                    fontSize: DeviceDimensions
-                                                            .responsiveSize(
-                                                                context) *
-                                                        0.05,
-                                                    color:
-                                                        AppColors.appBlueColor,
-                                                    fontWeight:
-                                                        FontWeight.w600)),
+                                                  color: AppColors.appBlueColor,
+                                                  fontSize: DeviceDimensions
+                                                          .responsiveSize(
+                                                              context) *
+                                                      0.030,
+                                                ),
+                                              ),
+                                            ),
+                                            const Spacer(),
+                                            GestureDetector(
+                                              onTapDown:
+                                                  (TapDownDetails details) {
+                                                _showPopupMenu(
+                                                    context,
+                                                    details.globalPosition,
+                                                    'The number of times you tapped your card on NFC enabled devices');
+                                              },
+                                              child: Icon(
+                                                Icons.info_outline,
+                                                size: 20,
+                                                color: AppColors.appBlueColor
+                                                    .withOpacity(0.5),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: DeviceDimensions.screenHeight(
-                                                context) *
-                                            0.05,
-                                        width: DeviceDimensions.screenWidth(
-                                                context) *
-                                            0.3,
-                                        child: Icon(
-                                          Icons.trending_up,
-                                          color: AppColors.appOrangeColor,
-                                        ),
-                                        //child: CardTapsChart(),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8),
-                                          child: Row(
-                                            children: [
-                                              Icon(Icons.credit_card,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.025),
+                            isEmpty
+                                ? Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Colors.white),
+                                    height:
+                                        DeviceDimensions.screenHeight(context) *
+                                            0.17,
+                                    width:
+                                        DeviceDimensions.screenWidth(context) *
+                                            0.45,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              children: [
+                                                AddedConnectionsCountWidget(
+                                                  totalConnections:
+                                                      totalConnections,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height:
+                                                DeviceDimensions.screenHeight(
+                                                        context) *
+                                                    0.05,
+                                            width: DeviceDimensions.screenWidth(
+                                                    context) *
+                                                0.3,
+                                            child: Icon(Icons.trending_up,
+                                                color:
+                                                    AppColors.appOrangeColor),
+                                          ),
+                                          Expanded(
+                                            child: Row(
+                                              children: [
+                                                // SvgPicture.asset(
+                                                //     'assets/icons/new_contact.svg'),
+                                                Icon(
+                                                  Icons.person_add,
+                                                  color: AppColors.appBlueColor
+                                                      .withOpacity(0.5),
                                                   size: DeviceDimensions
                                                           .responsiveSize(
                                                               context) *
                                                       0.06,
-                                                  color: AppColors.appBlueColor
-                                                      .withOpacity(0.5)),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 8.0),
-                                                child: Text(
-                                                  'Card Taps',
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  softWrap: true,
-                                                  maxLines: 3,
-                                                  style: TextStyle(
-                                                    color:
-                                                        AppColors.appBlueColor,
-                                                    fontSize: DeviceDimensions
-                                                            .responsiveSize(
-                                                                context) *
-                                                        0.030,
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      horizontal: 8.0),
+                                                  child: Text(
+                                                    'New Contact',
+                                                    overflow: TextOverflow.clip,
+                                                    maxLines: 2,
+                                                    style: TextStyle(
+                                                        color: AppColors
+                                                            .appBlueColor,
+                                                        fontSize: DeviceDimensions
+                                                                .responsiveSize(
+                                                                    context) *
+                                                            0.032),
                                                   ),
                                                 ),
-                                              ),
-                                              const Spacer(),
-                                              GestureDetector(
-                                                onTapDown:
-                                                    (TapDownDetails details) {
-                                                  _showPopupMenu(
-                                                      context,
-                                                      details.globalPosition,
-                                                      'The number of times you tapped your card on NFC enabled devices');
-                                                },
-                                                child: Icon(
-                                                  Icons.info_outline,
-                                                  size: 20,
-                                                  color: AppColors.appBlueColor
-                                                      .withOpacity(0.5),
+                                                const Spacer(),
+                                                GestureDetector(
+                                                  onTapDown:
+                                                      (TapDownDetails details) {
+                                                    _showPopupMenu(
+                                                        context,
+                                                        details.globalPosition,
+                                                        'The count of total connections that you are connected with');
+                                                  },
+                                                  child: Icon(
+                                                    Icons.info_outline,
+                                                    size: 20,
+                                                    color: AppColors
+                                                        .appBlueColor
+                                                        .withOpacity(0.5),
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                  width: DeviceDimensions.screenWidth(context) *
-                                      0.025),
-                              isEmpty
-                                  ? Container(
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                : GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        '/full-screen-graph',
+                                        arguments: _buildNewContactGraph(),
+                                      );
+                                    },
+                                    child: Container(
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(20),
@@ -775,9 +865,7 @@ class _GraphScreenState extends State<GraphScreen> {
                                                   DeviceDimensions.screenWidth(
                                                           context) *
                                                       0.3,
-                                              child: Icon(Icons.trending_up,
-                                                  color:
-                                                      AppColors.appOrangeColor),
+                                              child: const ConnectionChart(),
                                             ),
                                             Expanded(
                                               child: Row(
@@ -836,127 +924,20 @@ class _GraphScreenState extends State<GraphScreen> {
                                           ],
                                         ),
                                       ),
-                                    )
-                                  : GestureDetector(
-                                      onTap: () {
-                                        Navigator.pushNamed(
-                                          context,
-                                          '/full-screen-graph',
-                                          arguments: _buildNewContactGraph(),
-                                        );
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: Colors.white),
-                                        height: DeviceDimensions.screenHeight(
-                                                context) *
-                                            0.17,
-                                        width: DeviceDimensions.screenWidth(
-                                                context) *
-                                            0.45,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  children: [
-                                                    AddedConnectionsCountWidget(
-                                                      totalConnections:
-                                                          totalConnections,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: DeviceDimensions
-                                                        .screenHeight(context) *
-                                                    0.05,
-                                                width: DeviceDimensions
-                                                        .screenWidth(context) *
-                                                    0.3,
-                                                child: const ConnectionChart(),
-                                              ),
-                                              Expanded(
-                                                child: Row(
-                                                  children: [
-                                                    // SvgPicture.asset(
-                                                    //     'assets/icons/new_contact.svg'),
-                                                    Icon(
-                                                      Icons.person_add,
-                                                      color: AppColors
-                                                          .appBlueColor
-                                                          .withOpacity(0.5),
-                                                      size: DeviceDimensions
-                                                              .responsiveSize(
-                                                                  context) *
-                                                          0.06,
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 8.0),
-                                                      child: Text(
-                                                        'New Contact',
-                                                        overflow:
-                                                            TextOverflow.clip,
-                                                        maxLines: 2,
-                                                        style: TextStyle(
-                                                            color: AppColors
-                                                                .appBlueColor,
-                                                            fontSize: DeviceDimensions
-                                                                    .responsiveSize(
-                                                                        context) *
-                                                                0.032),
-                                                      ),
-                                                    ),
-                                                    const Spacer(),
-                                                    GestureDetector(
-                                                      onTapDown: (TapDownDetails
-                                                          details) {
-                                                        _showPopupMenu(
-                                                            context,
-                                                            details
-                                                                .globalPosition,
-                                                            'The count of total connections that you are connected with');
-                                                      },
-                                                      child: Icon(
-                                                        Icons.info_outline,
-                                                        size: 20,
-                                                        color: AppColors
-                                                            .appBlueColor
-                                                            .withOpacity(0.5),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
                                     ),
-                            ],
-                          ),
+                                  ),
+                          ],
                         ),
-                        SizedBox(
-                            height:
-                                DeviceDimensions.screenHeight(context) * 0.04),
-                      ],
-                    )
-                  ],
-                )),
-              )
-            ],
-          ),
+                      ),
+                      SizedBox(
+                          height:
+                              DeviceDimensions.screenHeight(context) * 0.04),
+                    ],
+                  )
+                ],
+              )),
+            )
+          ],
         ),
       ),
     );

@@ -82,534 +82,512 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GlobalBackButtonHandler(
-        child: Scaffold(
-          backgroundColor: AppColors.screenBackground,
-          body: Column(
-            children: [
-              SizedBox(
-                height: DeviceDimensions.screenHeight(context) * 0.0001,
+      child: Scaffold(
+        backgroundColor: AppColors.screenBackground,
+        body: Column(
+          children: [
+            SizedBox(
+              height: DeviceDimensions.screenHeight(context) * 0.0001,
+            ),
+            AbsherAppBar(
+              title: 'Contact Us',
+              onLeftButtonTap: () {
+                Navigator.pop(context);
+              },
+              rightButton: Align(
+                alignment: Alignment.centerRight,
+                child: SizedBox(
+                    width: DeviceDimensions.screenWidth(context) * 0.035),
               ),
-              AbsherAppBar(
-                title: 'Contact Us',
-                onLeftButtonTap: () {
-                  Navigator.pop(context);
-                },
-                rightButton: Align(
-                  alignment: Alignment.centerRight,
-                  child: SizedBox(
-                      width: DeviceDimensions.screenWidth(context) * 0.035),
-                ),
-              ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-              // SizedBox(
-              Flexible(
-                child: SingleChildScrollView(
-                  child: Stack(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 18.0),
-                            child: Text(
-                              "Get in touch",
-                              style: TextStyle(
-                                fontFamily: 'Barlow-Bold',
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.textColorBlue,
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.055,
-                              ),
+            ),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            // SizedBox(
+            Flexible(
+              child: SingleChildScrollView(
+                child: Stack(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 18.0),
+                          child: Text(
+                            "Get in touch",
+                            style: TextStyle(
+                              fontFamily: 'Barlow-Bold',
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.textColorBlue,
+                              fontSize:
+                                  DeviceDimensions.responsiveSize(context) *
+                                      0.055,
                             ),
                           ),
-                          SizedBox(
-                              height: DeviceDimensions.screenHeight(context) *
-                                  0.005),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 18.0),
-                            child: Text(
-                              "If you have any questions or need help, please fill out the form below. We do our best to respond within 1 business day.",
-                              style: TextStyle(
-                                fontFamily: 'Barlow-Regular',
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.textColorBlue,
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.033,
-                              ),
+                        ),
+                        SizedBox(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.005),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                          child: Text(
+                            "If you have any questions or need help, please fill out the form below. We do our best to respond within 1 business day.",
+                            style: TextStyle(
+                              fontFamily: 'Barlow-Regular',
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.textColorBlue,
+                              fontSize:
+                                  DeviceDimensions.responsiveSize(context) *
+                                      0.033,
                             ),
                           ),
-                          SizedBox(
-                              height: DeviceDimensions.screenHeight(context) *
-                                  0.025),
-                          Form(
-                            key: _formKey,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 18),
-                                  child: TextFormField(
-                                    style: TextStyle(
-                                        height: DeviceDimensions.screenHeight(
-                                                context) *
-                                            0.0024),
-                                    controller: nameController,
-                                    decoration: InputDecoration(
-                                      hintText: "Full Name",
-                                      hintStyle: TextStyle(
-                                        color: const Color(0xFFA9A9A9),
-                                        fontSize:
-                                            DeviceDimensions.responsiveSize(
-                                                    context) *
-                                                0.043,
-                                        fontFamily: 'Barlow-Regular',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      errorStyle: const TextStyle(
-                                        color: AppColors
-                                            .errorColor, // Color of the error text
-                                        fontSize:
-                                            14.0, // Size of the error text
-                                        fontWeight: FontWeight
-                                            .bold, // Weight of the error text
-                                      ),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              vertical: 11, horizontal: 10),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFFD9D9D9)),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          borderSide: const BorderSide(
-                                              color: AppColors
-                                                  .errorFieldBorderColor)),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          borderSide: const BorderSide(
-                                              color: AppColors
-                                                  .errorFieldBorderColor)),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                        borderSide: const BorderSide(
-                                            color: AppColors.appBlueColor),
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Please enter your Full Name';
-                                      }
-                                      if (RegExp(r'[0-9]').hasMatch(value)) {
-                                        return 'Full Name cannot contain numbers';
-                                      }
-                                      // Check for special characters
-                                      if (RegExp(r'[^a-zA-Z\s]')
-                                          .hasMatch(value)) {
-                                        return 'Full Name cannot contain special characters';
-                                      }
-                                      // Check max length
-                                      if (value.length > 25) {
-                                        return 'Full Name cannot be longer than 25 characters';
-                                      }
-
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.012),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 18),
-                                  child: TextFormField(
-                                    style: TextStyle(
-                                        height: DeviceDimensions.screenHeight(
-                                                context) *
-                                            0.0024),
-                                    controller: emailController,
-                                    decoration: InputDecoration(
-                                      hintText: "Email",
-                                      hintStyle: TextStyle(
-                                        fontSize:
-                                            DeviceDimensions.responsiveSize(
-                                                    context) *
-                                                0.043,
-                                        color: const Color(0xFFA9A9A9),
-                                        fontFamily: 'Barlow-Regular',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      errorStyle: const TextStyle(
-                                        color: AppColors
-                                            .errorColor, // Color of the error text
-                                        fontSize:
-                                            14.0, // Size of the error text
-                                        fontWeight: FontWeight
-                                            .bold, // Weight of the error text
-                                      ),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              vertical: 11, horizontal: 10),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFFD9D9D9)),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                        borderSide: const BorderSide(
-                                            color: AppColors.appBlueColor),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          borderSide: const BorderSide(
-                                              color: AppColors
-                                                  .errorFieldBorderColor)),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          borderSide: const BorderSide(
-                                              color: AppColors
-                                                  .errorFieldBorderColor)),
-                                    ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Please enter your email address';
-                                      }
-                                      final emailPattern = RegExp(
-                                          r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                                      if (!emailPattern.hasMatch(value)) {
-                                        return 'Please enter a valid email address';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.012),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 18),
-                                  child: DropdownButtonFormField<String>(
-                                    focusNode: subjectFocusNode,
-                                    borderRadius: BorderRadius.circular(25),
-                                    dropdownColor: Colors.white,
-                                    decoration: InputDecoration(
-                                      hintText: "Subject",
-                                      hintStyle: TextStyle(
-                                        color: const Color(0xFFA9A9A9),
-                                        fontSize:
-                                            DeviceDimensions.responsiveSize(
-                                                    context) *
-                                                0.043,
-                                        fontFamily: 'Barlow-Regular',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      errorStyle: const TextStyle(
-                                        color: AppColors.errorColor,
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              vertical: 14, horizontal: 10),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFFD9D9D9)),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                        borderSide: const BorderSide(
-                                            color: AppColors
-                                                .errorFieldBorderColor),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                        borderSide: const BorderSide(
-                                            color: AppColors
-                                                .errorFieldBorderColor),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                        borderSide: const BorderSide(
-                                            color: AppColors.appBlueColor),
-                                      ),
-                                    ),
-                                    value: selectedSubject,
-                                    items: [
-                                      customdropdown(
-                                          "No subject", 'No subject', context),
-                                      customdropdown("Book a demo",
-                                          'Book a demo', context),
-                                      customdropdown("Place a order",
-                                          'Place a order', context),
-                                      customdropdown("About my existing order",
-                                          'About my existing order', context),
-                                      customdropdown(
-                                          "I need a help for  a account or cards",
-                                          'I need a help for  a account or cards',
-                                          context),
-                                      customdropdown("Shipping & Billing",
-                                          'Shipping & Billing', context),
-                                      customdropdown("Troubleshooting",
-                                          'Troubleshooting', context),
-                                      customdropdown("Big Organization",
-                                          'Big Organization', context),
-                                      customdropdown("Other", 'Other', context),
-                                    ],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        selectedSubject = value;
-                                      });
-                                    },
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please select a subject';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.012),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 18),
-                                  child: TextFormField(
-                                    maxLines: 4,
-                                    style: TextStyle(
-                                        height: DeviceDimensions.screenHeight(
-                                                context) *
-                                            0.0026),
-                                    controller: massageController,
-                                    decoration: InputDecoration(
-                                      hintText: "Your Message",
-                                      hintStyle: TextStyle(
-                                        color: const Color(0xFFA9A9A9),
-                                        fontSize:
-                                            DeviceDimensions.responsiveSize(
-                                                    context) *
-                                                0.043,
-                                        fontFamily: 'Barlow-Regular',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      errorStyle: const TextStyle(
-                                        color: AppColors
-                                            .errorColor, // Color of the error text
-                                        fontSize:
-                                            14.0, // Size of the error text
-                                        fontWeight: FontWeight
-                                            .bold, // Weight of the error text
-                                      ),
-                                      filled: true,
-                                      fillColor: Colors.white,
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              vertical: 11, horizontal: 10),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                        borderSide: const BorderSide(
-                                            color: Color(0xFFD9D9D9)),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          borderSide: const BorderSide(
-                                              color: AppColors
-                                                  .errorFieldBorderColor)),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          borderSide: const BorderSide(
-                                              color: AppColors
-                                                  .errorFieldBorderColor)),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                        borderSide: const BorderSide(
-                                            color: AppColors.appBlueColor),
-                                      ),
-                                    ),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter a message';
-                                      }
-                                      if (value.length < 10) {
-                                        return 'Message must be at least 10 characters long';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.030),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    if (_formKey.currentState?.validate() ??
-                                        false) {
-                                      saveContactDetails();
-                                      // Proceed with form submission
-                                    }
-                                    //saveContactDetails();
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: DeviceDimensions.screenWidth(
+                        ),
+                        SizedBox(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.025),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 18),
+                                child: TextFormField(
+                                  style: TextStyle(
+                                      height: DeviceDimensions.screenHeight(
                                               context) *
-                                          0.24,
-                                      vertical: 10,
-                                    ),
-                                    backgroundColor: AppColors.appBlueColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "Send Message",
-                                    style: TextStyle(
+                                          0.0024),
+                                  controller: nameController,
+                                  decoration: InputDecoration(
+                                    hintText: "Full Name",
+                                    hintStyle: TextStyle(
+                                      color: const Color(0xFFA9A9A9),
                                       fontSize: DeviceDimensions.responsiveSize(
                                               context) *
-                                          0.045,
+                                          0.043,
                                       fontFamily: 'Barlow-Regular',
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white,
-                                      letterSpacing: 1,
+                                      fontWeight: FontWeight.w500,
                                     ),
+                                    errorStyle: const TextStyle(
+                                      color: AppColors
+                                          .errorColor, // Color of the error text
+                                      fontSize: 14.0, // Size of the error text
+                                      fontWeight: FontWeight
+                                          .bold, // Weight of the error text
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 11, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                          color: Color(0xFFD9D9D9)),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        borderSide: const BorderSide(
+                                            color: AppColors
+                                                .errorFieldBorderColor)),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        borderSide: const BorderSide(
+                                            color: AppColors
+                                                .errorFieldBorderColor)),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                          color: AppColors.appBlueColor),
+                                    ),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter your Full Name';
+                                    }
+                                    if (RegExp(r'[0-9]').hasMatch(value)) {
+                                      return 'Full Name cannot contain numbers';
+                                    }
+                                    // Check for special characters
+                                    if (RegExp(r'[^a-zA-Z\s]')
+                                        .hasMatch(value)) {
+                                      return 'Full Name cannot contain special characters';
+                                    }
+                                    // Check max length
+                                    if (value.length > 25) {
+                                      return 'Full Name cannot be longer than 25 characters';
+                                    }
+
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.012),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 18),
+                                child: TextFormField(
+                                  style: TextStyle(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.0024),
+                                  controller: emailController,
+                                  decoration: InputDecoration(
+                                    hintText: "Email",
+                                    hintStyle: TextStyle(
+                                      fontSize: DeviceDimensions.responsiveSize(
+                                              context) *
+                                          0.043,
+                                      color: const Color(0xFFA9A9A9),
+                                      fontFamily: 'Barlow-Regular',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    errorStyle: const TextStyle(
+                                      color: AppColors
+                                          .errorColor, // Color of the error text
+                                      fontSize: 14.0, // Size of the error text
+                                      fontWeight: FontWeight
+                                          .bold, // Weight of the error text
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 11, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: const BorderSide(
+                                          color: Color(0xFFD9D9D9)),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: const BorderSide(
+                                          color: AppColors.appBlueColor),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        borderSide: const BorderSide(
+                                            color: AppColors
+                                                .errorFieldBorderColor)),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        borderSide: const BorderSide(
+                                            color: AppColors
+                                                .errorFieldBorderColor)),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Please enter your email address';
+                                    }
+                                    final emailPattern = RegExp(
+                                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                                    if (!emailPattern.hasMatch(value)) {
+                                      return 'Please enter a valid email address';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.012),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 18),
+                                child: DropdownButtonFormField<String>(
+                                  focusNode: subjectFocusNode,
+                                  borderRadius: BorderRadius.circular(25),
+                                  dropdownColor: Colors.white,
+                                  decoration: InputDecoration(
+                                    hintText: "Subject",
+                                    hintStyle: TextStyle(
+                                      color: const Color(0xFFA9A9A9),
+                                      fontSize: DeviceDimensions.responsiveSize(
+                                              context) *
+                                          0.043,
+                                      fontFamily: 'Barlow-Regular',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    errorStyle: const TextStyle(
+                                      color: AppColors.errorColor,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 14, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                          color: Color(0xFFD9D9D9)),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: const BorderSide(
+                                          color:
+                                              AppColors.errorFieldBorderColor),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: const BorderSide(
+                                          color:
+                                              AppColors.errorFieldBorderColor),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                          color: AppColors.appBlueColor),
+                                    ),
+                                  ),
+                                  value: selectedSubject,
+                                  items: [
+                                    customdropdown(
+                                        "No subject", 'No subject', context),
+                                    customdropdown(
+                                        "Book a demo", 'Book a demo', context),
+                                    customdropdown("Place a order",
+                                        'Place a order', context),
+                                    customdropdown("About my existing order",
+                                        'About my existing order', context),
+                                    customdropdown(
+                                        "I need a help for  a account or cards",
+                                        'I need a help for  a account or cards',
+                                        context),
+                                    customdropdown("Shipping & Billing",
+                                        'Shipping & Billing', context),
+                                    customdropdown("Troubleshooting",
+                                        'Troubleshooting', context),
+                                    customdropdown("Big Organization",
+                                        'Big Organization', context),
+                                    customdropdown("Other", 'Other', context),
+                                  ],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      selectedSubject = value;
+                                    });
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please select a subject';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.012),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 18),
+                                child: TextFormField(
+                                  maxLines: 4,
+                                  style: TextStyle(
+                                      height: DeviceDimensions.screenHeight(
+                                              context) *
+                                          0.0026),
+                                  controller: massageController,
+                                  decoration: InputDecoration(
+                                    hintText: "Your Message",
+                                    hintStyle: TextStyle(
+                                      color: const Color(0xFFA9A9A9),
+                                      fontSize: DeviceDimensions.responsiveSize(
+                                              context) *
+                                          0.043,
+                                      fontFamily: 'Barlow-Regular',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    errorStyle: const TextStyle(
+                                      color: AppColors
+                                          .errorColor, // Color of the error text
+                                      fontSize: 14.0, // Size of the error text
+                                      fontWeight: FontWeight
+                                          .bold, // Weight of the error text
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 11, horizontal: 10),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                          color: Color(0xFFD9D9D9)),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        borderSide: const BorderSide(
+                                            color: AppColors
+                                                .errorFieldBorderColor)),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                        borderSide: const BorderSide(
+                                            color: AppColors
+                                                .errorFieldBorderColor)),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                      borderSide: const BorderSide(
+                                          color: AppColors.appBlueColor),
+                                    ),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter a message';
+                                    }
+                                    if (value.length < 10) {
+                                      return 'Message must be at least 10 characters long';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.030),
+                              ElevatedButton(
+                                onPressed: () {
+                                  if (_formKey.currentState?.validate() ??
+                                      false) {
+                                    saveContactDetails();
+                                    // Proceed with form submission
+                                  }
+                                  //saveContactDetails();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        DeviceDimensions.screenWidth(context) *
+                                            0.24,
+                                    vertical: 10,
+                                  ),
+                                  backgroundColor: AppColors.appBlueColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                ),
+                                child: Text(
+                                  "Send Message",
+                                  style: TextStyle(
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.045,
+                                    fontFamily: 'Barlow-Regular',
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                    letterSpacing: 1,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.020),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 22.0),
+                          child: Text(
+                            "Reach us at:",
+                            style: TextStyle(
+                              fontFamily: 'Barlow-Regular',
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textColorBlue,
+                              fontSize:
+                                  DeviceDimensions.responsiveSize(context) *
+                                      0.045,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.010),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(color: AppColors.appBlueColor),
+                            ),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: SvgPicture.asset(
+                                      "assets/icons/email.svg"), // Email icon
+                                ),
+                                Text(
+                                  "info@sahabit.com",
+                                  style: TextStyle(
+                                    color: AppColors.appBlueColor,
+                                    fontFamily: 'Barlow-Regular',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.046,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          SizedBox(
-                              height: DeviceDimensions.screenHeight(context) *
-                                  0.020),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 22.0),
-                            child: Text(
-                              "Reach us at:",
-                              style: TextStyle(
-                                fontFamily: 'Barlow-Regular',
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.textColorBlue,
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.045,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                              height: DeviceDimensions.screenHeight(context) *
-                                  0.010),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15),
-                                border:
-                                    Border.all(color: AppColors.appBlueColor),
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: SvgPicture.asset(
-                                        "assets/icons/email.svg"), // Email icon
-                                  ),
-                                  Text(
-                                    "info@sahabit.com",
-                                    style: TextStyle(
-                                      color: AppColors.appBlueColor,
-                                      fontFamily: 'Barlow-Regular',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.046,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                              height: DeviceDimensions.screenHeight(context) *
-                                  0.020),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15),
-                                border:
-                                    Border.all(color: AppColors.appBlueColor),
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(13.0),
-                                    child: SvgPicture.asset(
-                                        "assets/icons/phone2.svg"),
-                                  ),
-                                  Text(
-                                    "+968 91268766",
-                                    style: TextStyle(
-                                      color: AppColors.appBlueColor,
-                                      fontFamily: 'Barlow-Regular',
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.046,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                              height: DeviceDimensions.screenHeight(context) *
-                                  0.040),
-                        ],
-                      ),
-                      if (isLoading)
-                        Positioned(
-                          bottom: DeviceDimensions.screenHeight(context) * 0.50,
-                          left: 0,
-                          right: 0,
+                        ),
+                        SizedBox(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.020),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Container(
-                            color: Colors.white54,
-                            child: Center(
-                              child: DualRingLoader(),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(color: AppColors.appBlueColor),
+                            ),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(13.0),
+                                  child: SvgPicture.asset(
+                                      "assets/icons/phone2.svg"),
+                                ),
+                                Text(
+                                  "+968 91268766",
+                                  style: TextStyle(
+                                    color: AppColors.appBlueColor,
+                                    fontFamily: 'Barlow-Regular',
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.046,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                    ],
-                  ),
+                        SizedBox(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.040),
+                      ],
+                    ),
+                    if (isLoading)
+                      Positioned(
+                        bottom: DeviceDimensions.screenHeight(context) * 0.50,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          color: Colors.white54,
+                          child: Center(
+                            child: DualRingLoader(),
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

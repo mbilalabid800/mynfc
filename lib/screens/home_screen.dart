@@ -104,8 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Consumer2<UserInfoFormStateProvider, ConnectionProvider>(
       builder: (context, userProvider, connectionProvider, child) {
         return SafeArea(
-          child: GlobalBackButtonHandler(
-              child: Scaffold(
+          child: Scaffold(
             backgroundColor: Colors.transparent,
             extendBody: true,
             body: Stack(
@@ -846,7 +845,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-          )),
+          ),
         );
       },
     );
