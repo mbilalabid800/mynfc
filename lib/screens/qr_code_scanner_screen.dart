@@ -1,13 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
-import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class QRScannerScreen extends StatefulWidget {
   const QRScannerScreen({super.key});
@@ -173,6 +173,8 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
 }
 
 class QRScannerOverlay extends StatelessWidget {
+  const QRScannerOverlay({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(

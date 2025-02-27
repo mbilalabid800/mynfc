@@ -93,8 +93,8 @@ void main() async {
     debugPrint('Firebase initialization error: $e');
   }
 
-  final permissionHandler = PermissionHandler();
-  await permissionHandler.requestPermission();
+  // final permissionHandler = PermissionHandler();
+  // await permissionHandler.requestPermission();
 
   SystemChrome.setPreferredOrientations(
     [

@@ -1,6 +1,8 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +15,7 @@ import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/widgets/download_app_widget.dart';
 import 'package:provider/provider.dart';
 
 class ConnectionProfilePreview extends StatefulWidget {
@@ -65,8 +68,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
               return Column(
                 children: [
                   SizedBox(
-                    height: DeviceDimensions.screenHeight(context) * 0.0001,
-                  ),
+                      height: DeviceDimensions.screenHeight(context) * 0.0001),
                   AbsherAppBar(
                     title: 'Profile',
                     onLeftButtonTap: () {
@@ -357,37 +359,45 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                     onPressed: connectionDetails.isPrivate
                                         ? null
                                         : () async {
-                                            try {
-                                              final Contact newContact =
-                                                  Contact(
-                                                name: Name(
-                                                  first: connectionDetails
-                                                      .firstName,
-                                                  last: connectionDetails
-                                                      .lastName,
-                                                ),
-                                                phones: [
-                                                  Phone(
-                                                    connectionDetails
-                                                        .contactNumber,
+                                            if (kIsWeb) {
+                                              // 🔹 Web: Show Alert Dialog Instead of Saving Contact
+                                              DownloadAppWidget
+                                                  .showDownloadAlertDialog(
+                                                      context);
+                                            } else {
+                                              // 🔹 Mobile: Save Contact Normally
+                                              try {
+                                                final Contact newContact =
+                                                    Contact(
+                                                  name: Name(
+                                                    first: connectionDetails
+                                                        .firstName,
+                                                    last: connectionDetails
+                                                        .lastName,
                                                   ),
-                                                ],
-                                                emails: [
-                                                  Email(
-                                                    connectionDetails.email,
-                                                  ),
-                                                ],
-                                              );
-                                              await FlutterContacts
-                                                  .insertContact(newContact);
+                                                  phones: [
+                                                    Phone(connectionDetails
+                                                        .contactNumber)
+                                                  ],
+                                                  emails: [
+                                                    Email(
+                                                        connectionDetails.email)
+                                                  ],
+                                                );
 
-                                              CustomSnackbar().snakBarMessage(
+                                                await FlutterContacts
+                                                    .insertContact(newContact);
+
+                                                CustomSnackbar().snakBarMessage(
                                                   context,
-                                                  'Contact saved successfully!\nPlease Check your Contacts');
-                                            } catch (e) {
-                                              CustomSnackbar().snakBarError(
+                                                  'Contact saved successfully!\nPlease check your contacts',
+                                                );
+                                              } catch (e) {
+                                                CustomSnackbar().snakBarError(
                                                   context,
-                                                  'Failed to save contact: $e');
+                                                  'Failed to save contact: $e',
+                                                );
+                                              }
                                             }
                                           },
                                     style: ElevatedButton.styleFrom(
@@ -401,14 +411,15 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                     child: Text(
                                       'Save Contact',
                                       style: TextStyle(
-                                          fontSize:
-                                              DeviceDimensions.responsiveSize(
-                                                      context) *
-                                                  0.028,
-                                          fontFamily: 'Barlow-Regular',
-                                          fontWeight: FontWeight.w600,
-                                          letterSpacing: 1,
-                                          color: Colors.white),
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.028,
+                                        fontFamily: 'Barlow-Regular',
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: 1,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
