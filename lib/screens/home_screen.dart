@@ -556,7 +556,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         InkWell(
                                           onTap: () {
                                             Navigator.pushNamed(
-                                                context, '/card-details');
+                                                context, '/pricing-plan');
                                           },
                                           child: Container(
                                             height:
