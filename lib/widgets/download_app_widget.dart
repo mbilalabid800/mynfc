@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/services/auth_service/auth_service.dart';
+import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
 
-class LogoutAlertWidget {
-  static void showLogoutAlertDialog(BuildContext context) {
+class DownloadAppWidget {
+  static void showDownloadAlertDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -24,24 +24,15 @@ class LogoutAlertWidget {
                       child: Icon(Icons.cancel, color: AppColors.appBlueColor)),
                 ),
                 Lottie.asset(
-                  'assets/animations/logout_lottie.json',
-                  height: DeviceDimensions.screenHeight(context) * 0.08,
-
-                  //height: 120,
+                  "assets/animations/getapp.json",
+                  height: 200,
                 ),
-                Center(
-                    child: Text('Confirm Logout',
-                        style: TextStyle(
-                            color: AppColors.appBlueColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.05))),
               ],
             ),
             content: SizedBox(
               width: DeviceDimensions.screenWidth(context) * 0.95,
               child: Text(
-                'Do you want to Logout Absher?',
+                'Saving contacts is only available in our app. Download now to use this feature.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: AppColors.appBlueColor,
@@ -57,24 +48,27 @@ class LogoutAlertWidget {
                 children: [
                   SizedBox(
                       height: DeviceDimensions.screenWidth(context) * 0.03),
-                  Container(
-                    height: DeviceDimensions.screenHeight(context) * 0.06,
-                    width: DeviceDimensions.screenWidth(context) * 0.8,
-                    decoration: BoxDecoration(
+                  Center(
+                    child: Container(
+                      height: DeviceDimensions.screenHeight(context) * 0.06,
+                      width: DeviceDimensions.screenWidth(context) * 0.75,
+                      decoration: BoxDecoration(
                         color: AppColors.appBlueColor,
-                        borderRadius: BorderRadius.circular(25)),
-                    child: TextButton(
-                      onPressed: () async {
-                        // Perform some action
-                        await AuthService()
-                            .signOut(context); // Close the dialog
-                      },
-                      child: Text(
-                        'Logout',
-                        style: TextStyle(
-                            color: AppColors.screenBackground,
-                            fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.04),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: TextButton(
+                        onPressed: () async {
+                          UrlLauncherHelper.launchSocialApps(context,
+                              "https://play.google.com/store/apps/details?id=com.sahabit.absher");
+                        },
+                        child: Text(
+                          'Download App',
+                          style: TextStyle(
+                              color: AppColors.screenBackground,
+                              fontSize:
+                                  DeviceDimensions.responsiveSize(context) *
+                                      0.04),
+                        ),
                       ),
                     ),
                   ),

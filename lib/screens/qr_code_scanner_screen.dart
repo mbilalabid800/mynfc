@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:nfc_app/constants/appColors.dart';
@@ -150,6 +152,8 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
 }
 
 class QRScannerOverlay extends StatelessWidget {
+  const QRScannerOverlay({super.key});
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
