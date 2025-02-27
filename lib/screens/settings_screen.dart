@@ -642,7 +642,7 @@ class _SettingsState extends State<Settings> {
                               children: [
                                 const SizedBox(height: 8),
                                 SettingListComponent(
-                                  icons: "assets/icons/settingicon14.svg",
+                                  icons: "assets/icons/switch_icon.svg",
                                   title: "Switch Profile",
                                   callBack: () {
                                     SwitchProfileTypeWidget
