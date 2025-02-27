@@ -3,11 +3,9 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
-import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class QRScannerScreen extends StatefulWidget {
   const QRScannerScreen({super.key});
@@ -27,32 +25,6 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
     super.initState();
     _requestCameraPermission();
   }
-
-  // void _onQRScanned(String? data) {
-  //   if (data == null || isProcessing) return;
-
-  //   setState(() {
-  //     isProcessing = true;
-  //   });
-
-  //   debugPrint('QR Code Found: $data');
-  //   // CustomSnackbar().snakBarMessage(context, 'Scanned: $data');
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       backgroundColor: AppColors.successColor,
-  //       elevation: 5,
-  //       content: Text("Scanned: $data"),
-  //       duration: Duration(seconds: 3), // Show for 3 seconds
-  //     ),
-  //   );
-
-  //   // Reset flag after 3 seconds so user can scan again
-  //   Future.delayed(Duration(seconds: 3), () {
-  //     setState(() {
-  //       isProcessing = false;
-  //     });
-  //   });
-  // }
 
   void _onQRScanned(String? data) {
     if (data == null || isProcessing) return;
@@ -91,14 +63,6 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
     });
   }
 
-  // Future<void> _launchURL(String url) async {
-  //   if (await canLaunchUrl(Uri.parse(url))) {
-  //     await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
-  //   } else {
-  //     debugPrint("Could not launch $url");
-  //   }
-  // }
-
   Future<void> _requestCameraPermission() async {
     var status = await Permission.camera.request();
     if (status != PermissionStatus.granted) {
@@ -111,61 +75,74 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GlobalBackButtonHandler(
-        child: Scaffold(
-          backgroundColor: AppColors.screenBackground,
-          body: Column(
-            children: [
-              AbsherAppBar(
-                title: 'Scan Your QR Code',
-                onLeftButtonTap: () {
-                  Navigator.pop(context);
-                },
-                rightButton: Align(
+      child: Scaffold(
+        backgroundColor: AppColors.screenBackground,
+        body: Column(
+          children: [
+            // AbsherAppBar(
+            //   title: 'Scan Your QR Code',
+            //   onLeftButtonTap: () {
+            //     Navigator.pop(context);
+            //   },
+            //   rightButton: Align(
+            //     alignment: Alignment.centerRight,
+            //     child: SizedBox(
+            //         width: DeviceDimensions.screenWidth(context) * 0.035),
+            //   ),
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    icon: Icon(Icons.cancel_sharp),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                Align(
                   alignment: Alignment.centerRight,
-                  child: SizedBox(
-                      width: DeviceDimensions.screenWidth(context) * 0.035),
+                  child: IconButton(
+                    icon: Icon(isTorchOn
+                        ? Icons.flash_on_outlined
+                        : Icons.flash_off_outlined),
+                    onPressed: () {
+                      setState(() {
+                        isTorchOn = !isTorchOn;
+                      });
+                      cameraController.toggleTorch();
+                    },
+                  ),
                 ),
+              ],
+            ),
+
+            Flexible(
+              child: Stack(
+                children: [
+                  MobileScanner(
+                    controller: cameraController,
+                    onDetect: (capture) {
+                      final List<Barcode> barcodes = capture.barcodes;
+                      for (final barcode in barcodes) {
+                        _onQRScanned(barcode.rawValue);
+                        // debugPrint('QR Code Found: ${barcode.rawValue}');
+                        // // CustomSnackbar().snakBarMessage(
+                        // //     context, 'Scanned ${barcode.rawValue}');
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //   SnackBar(
+                        //       content: Text("Scanned: ${barcode.rawValue}")),
+                        // );
+                      }
+                    },
+                  ),
+                  QRScannerOverlay(),
+                ],
               ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                  icon: Icon(isTorchOn
-                      ? Icons.flash_on_outlined
-                      : Icons.flash_off_outlined),
-                  onPressed: () {
-                    setState(() {
-                      isTorchOn = !isTorchOn;
-                    });
-                    cameraController.toggleTorch();
-                  },
-                ),
-              ),
-              Flexible(
-                child: Stack(
-                  children: [
-                    MobileScanner(
-                      controller: cameraController,
-                      onDetect: (capture) {
-                        final List<Barcode> barcodes = capture.barcodes;
-                        for (final barcode in barcodes) {
-                          _onQRScanned(barcode.rawValue);
-                          // debugPrint('QR Code Found: ${barcode.rawValue}');
-                          // // CustomSnackbar().snakBarMessage(
-                          // //     context, 'Scanned ${barcode.rawValue}');
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   SnackBar(
-                          //       content: Text("Scanned: ${barcode.rawValue}")),
-                          // );
-                        }
-                      },
-                    ),
-                    // QRScannerOverlay(),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -181,22 +158,55 @@ class QRScannerOverlay extends StatelessWidget {
         return Stack(
           children: [
             // Dark Overlay with a Transparent Hole
-            Container(
-              color: Colors.black.withOpacity(0.4),
+            ClipPath(
+              clipper: QRScannerClipper(scanBoxSize),
+              child: Container(
+                  decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.7),
+              )),
             ),
 
             // Clear Scan Area
             Center(
-              child: ClipPath(
-                clipper: QRScannerClipper(scanBoxSize),
-                child: Container(
-                  width: DeviceDimensions.responsiveSize(context) * 0.8,
-                  height: DeviceDimensions.responsiveSize(context) * 0.8,
-                  // width: scanBoxSize,
-                  // height: scanBoxSize,
-                  decoration: BoxDecoration(
+              child: Container(
+                width: DeviceDimensions.responsiveSize(context) * 0.7,
+                height: DeviceDimensions.responsiveSize(context) * 0.7,
+                // width: scanBoxSize,
+                // height: scanBoxSize,
+                decoration: BoxDecoration(
+                    //color: Colors.white.withOpacity(0.1),
                     border: Border.all(color: Colors.white, width: 2),
+                    borderRadius: BorderRadius.circular(25)),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 35.0),
+                child: Text(
+                  "Scan QR code",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: DeviceDimensions.responsiveSize(context) * 0.06,
+                    fontWeight: FontWeight.w400,
                   ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            const SizedBox(height: 16), // Spacing between the box and text
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
+                child: Text(
+                  "Powered by Absher",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
