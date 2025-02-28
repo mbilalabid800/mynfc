@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:nfc_app/widgets/showLinkDialog_widget.dart';
 import 'package:nfc_app/widgets/active_apps_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';

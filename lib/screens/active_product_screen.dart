@@ -6,8 +6,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/nfc_service/nfc_service.dart';
+import 'package:nfc_app/shared/common_widgets/animated_button.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ActiveProductScreen extends StatefulWidget {
@@ -276,7 +277,7 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                                 Positioned(
                                   bottom: 0,
                                   right: 0,
-                                  child: GestureDetector(
+                                  child: InkWell(
                                     onTap: () {
                                       Navigator.pushNamed(
                                           context, '/recent-connected');
@@ -348,7 +349,11 @@ class _ActiveProductScreenState extends State<ActiveProductScreen> {
                                 Positioned(
                                   bottom: 0,
                                   right: 0,
-                                  child: GestureDetector(
+                                  child: InkWell(
+                                    splashColor:
+                                        Colors.orangeAccent.withOpacity(0.3),
+                                    highlightColor:
+                                        Colors.pink.withOpacity(0.1),
                                     onTap: () {
                                       // Navigator.pushNamed(context, '/home-screen');
                                       _showBottomSheet(context);

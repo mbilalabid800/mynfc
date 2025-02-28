@@ -4,7 +4,6 @@ import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/faq_model.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 
 class FaqScreen extends StatefulWidget {
   const FaqScreen({super.key});

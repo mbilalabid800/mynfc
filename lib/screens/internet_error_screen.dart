@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 
 class InternetError extends StatelessWidget {
   const InternetError({super.key});

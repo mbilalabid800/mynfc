@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/loading_state_provider.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
+
 import 'package:provider/provider.dart';
 import 'package:nfc_app/chat/chat_screen.dart';
 import 'package:nfc_app/screens/active_product_screen.dart';

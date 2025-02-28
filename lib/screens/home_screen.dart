@@ -10,7 +10,6 @@ import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:nfc_app/services/firestore_service/firestore_service.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:nfc_app/widgets/blocked_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/widgets/horizontal_scroll_app_list_widget.dart';
@@ -475,7 +474,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               child: Row(
                                 children: [
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 25, vertical: 18),
                                     child: Column(

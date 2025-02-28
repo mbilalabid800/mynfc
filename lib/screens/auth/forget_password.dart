@@ -6,7 +6,6 @@ import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/my_button.dart';
 import 'package:nfc_app/shared/common_widgets/my_textfield.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 
 import 'package:provider/provider.dart';
 

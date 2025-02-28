@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 
 class EmailVerified extends StatefulWidget {
   const EmailVerified({super.key});

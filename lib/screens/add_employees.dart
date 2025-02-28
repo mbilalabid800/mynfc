@@ -7,7 +7,7 @@ import 'package:nfc_app/models/employee_model.dart';
 import 'package:nfc_app/provider/employee_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
+
 import 'package:nfc_app/widgets/add_employee_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';

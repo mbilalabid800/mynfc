@@ -5,7 +5,7 @@ import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/messages_model.dart';
 import 'package:nfc_app/provider/chat_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
+
 import 'package:provider/provider.dart';
 
 class Chatting extends StatefulWidget {

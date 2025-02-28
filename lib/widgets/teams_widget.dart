@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 
 class Teams extends StatefulWidget {
   const Teams({super.key});
