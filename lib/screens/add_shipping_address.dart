@@ -165,7 +165,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
       isValid = false;
     }
     if (_phoneController.text.isEmpty) {
-      phoneError = "Please enter phone";
+      phoneError = "Please enter phone no.";
       isValid = false;
     }
     if (_countryController.text.isEmpty) {
@@ -488,53 +488,58 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: isPhoneField
-                  ? IntlPhoneField(
-                      //disableLengthCheck: false,
+              child: SizedBox(
+                height: 50,
+                child: isPhoneField
+                    ? IntlPhoneField(
+                        //disableLengthCheck: false,
 
-                      controller: controller,
-                      keyboardType: TextInputType.phone,
-                      showDropdownIcon: true,
-                      decoration: InputDecoration(
-                        hintText: hintText,
-                        hintStyle: TextStyle(
-                          fontFamily: 'Barlow-Regular',
-                          fontSize:
-                              DeviceDimensions.responsiveSize(context) * 0.039,
+                        controller: controller,
+                        keyboardType: TextInputType.phone,
+                        showDropdownIcon: true,
+                        decoration: InputDecoration(
+                          hintText: hintText,
+                          hintStyle: TextStyle(
+                            fontFamily: 'Barlow-Regular',
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.039,
+                          ),
+                          border: InputBorder.none,
+                          counterText: '',
+                          errorStyle: const TextStyle(color: Colors.red),
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 14),
                         ),
-                        border: InputBorder.none,
-                        counterText: '',
-                        errorStyle: const TextStyle(color: Colors.red),
-                      ),
 
-                      initialCountryCode: 'OM',
+                        initialCountryCode: 'OM',
 
-                      onChanged: (phone) {
-                        if (onPhoneChanged != null) {
-                          onPhoneChanged(phone.number, phone.countryCode,
-                              phone.countryISOCode);
-                        }
-                      },
-                    )
-                  : TextFormField(
-                      controller: controller,
-                      decoration: InputDecoration(
-                        hintText: hintText,
-                        hintStyle: TextStyle(
-                          fontFamily: 'Barlow-Regular',
-                          fontSize:
-                              DeviceDimensions.responsiveSize(context) * 0.039,
+                        onChanged: (phone) {
+                          if (onPhoneChanged != null) {
+                            onPhoneChanged(phone.number, phone.countryCode,
+                                phone.countryISOCode);
+                          }
+                        },
+                      )
+                    : TextFormField(
+                        controller: controller,
+                        decoration: InputDecoration(
+                          hintText: hintText,
+                          hintStyle: TextStyle(
+                            fontFamily: 'Barlow-Regular',
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.039,
+                          ),
+                          border: InputBorder.none,
+                          errorStyle: const TextStyle(color: Colors.red),
                         ),
-                        border: InputBorder.none,
-                        errorStyle: const TextStyle(color: Colors.red),
+                        validator: (value) {
+                          if (!optional && (value == null || value.isEmpty)) {
+                            return errorText;
+                          }
+                          return null;
+                        },
                       ),
-                      validator: (value) {
-                        if (!optional && (value == null || value.isEmpty)) {
-                          return errorText;
-                        }
-                        return null;
-                      },
-                    ),
+              ),
             ),
           ),
           // Display error text outside the field
