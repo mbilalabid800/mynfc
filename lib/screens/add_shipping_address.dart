@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/models/shipping_address_model.dart';
 import 'package:nfc_app/provider/shipping_address_provider.dart';
@@ -164,7 +165,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
       isValid = false;
     }
     if (_phoneController.text.isEmpty) {
-      phoneError = "Please enter phone";
+      phoneError = "Please enter phone no.";
       isValid = false;
     }
     if (_countryController.text.isEmpty) {
@@ -302,11 +303,22 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                 null,
                                 optional: true,
                               ),
+                              // textfield(
+                              //   context,
+                              //   "*Phone",
+                              //   _phoneController,
+                              //   phoneError,
+                              // ),
+
                               textfield(
                                 context,
                                 "*Phone",
                                 _phoneController,
                                 phoneError,
+                                isPhoneField: true,
+                                onPhoneChanged: (number, countryCode, isoCode) {
+                                  //formState.updateContact(number, countryCode, isoCode);
+                                },
                               ),
                               textfield(
                                 context,
@@ -405,9 +417,65 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
     );
   }
 
-  Padding textfield(BuildContext context, String hintText,
-      TextEditingController controller, String? errorText,
-      {bool optional = false}) {
+  // Padding textfield(BuildContext context, String hintText,
+  //     TextEditingController controller, String? errorText,
+  //     {bool optional = false}) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 8),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Container(
+  //           decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(12),
+  //             border: Border.all(width: 1.5, color: const Color(0xFFD9D9D9)),
+  //           ),
+  //           child: Padding(
+  //             padding: const EdgeInsets.symmetric(horizontal: 12.0),
+  //             child: TextFormField(
+  //               controller: controller,
+  //               decoration: InputDecoration(
+  //                 hintText: hintText,
+  //                 hintStyle: TextStyle(
+  //                     fontFamily: 'Barlow-Regular',
+  //                     fontSize:
+  //                         DeviceDimensions.responsiveSize(context) * 0.039),
+  //                 border: InputBorder.none,
+  //                 errorStyle: const TextStyle(color: Colors.red),
+  //               ),
+  //               validator: (value) {
+  //                 if (!optional && (value == null || value.isEmpty)) {
+  //                   return errorText;
+  //                 }
+  //                 return null; // No error
+  //               },
+  //             ),
+  //           ),
+  //         ),
+  //         // Display error text outside the TextFormField
+  //         if (errorText != null && errorText.isNotEmpty)
+  //           Padding(
+  //             padding: const EdgeInsets.only(top: 4.0, left: 8),
+  //             child: Text(
+  //               errorText,
+  //               style: const TextStyle(color: Colors.red, fontSize: 12),
+  //             ),
+  //           ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  Padding textfield(
+    BuildContext context,
+    String hintText,
+    TextEditingController controller,
+    String? errorText, {
+    bool optional = false,
+    bool isPhoneField = false, // New parameter to check if it's a phone field
+    Function(String, String, String)?
+        onPhoneChanged, // Callback for phone updates
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 8),
       child: Column(
@@ -420,27 +488,61 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: TextFormField(
-                controller: controller,
-                decoration: InputDecoration(
-                  hintText: hintText,
-                  hintStyle: TextStyle(
-                      fontFamily: 'Barlow-Regular',
-                      fontSize:
-                          DeviceDimensions.responsiveSize(context) * 0.039),
-                  border: InputBorder.none,
-                  errorStyle: const TextStyle(color: Colors.red),
-                ),
-                validator: (value) {
-                  if (!optional && (value == null || value.isEmpty)) {
-                    return errorText;
-                  }
-                  return null; // No error
-                },
+              child: SizedBox(
+                height: 50,
+                child: isPhoneField
+                    ? IntlPhoneField(
+                        //disableLengthCheck: false,
+
+                        controller: controller,
+                        keyboardType: TextInputType.phone,
+                        showDropdownIcon: true,
+                        decoration: InputDecoration(
+                          hintText: hintText,
+                          hintStyle: TextStyle(
+                            fontFamily: 'Barlow-Regular',
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.039,
+                          ),
+                          border: InputBorder.none,
+                          counterText: '',
+                          errorStyle: const TextStyle(color: Colors.red),
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 14),
+                        ),
+
+                        initialCountryCode: 'OM',
+
+                        onChanged: (phone) {
+                          if (onPhoneChanged != null) {
+                            onPhoneChanged(phone.number, phone.countryCode,
+                                phone.countryISOCode);
+                          }
+                        },
+                      )
+                    : TextFormField(
+                        controller: controller,
+                        decoration: InputDecoration(
+                          hintText: hintText,
+                          hintStyle: TextStyle(
+                            fontFamily: 'Barlow-Regular',
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.039,
+                          ),
+                          border: InputBorder.none,
+                          errorStyle: const TextStyle(color: Colors.red),
+                        ),
+                        validator: (value) {
+                          if (!optional && (value == null || value.isEmpty)) {
+                            return errorText;
+                          }
+                          return null;
+                        },
+                      ),
               ),
             ),
           ),
-          // Display error text outside the TextFormField
+          // Display error text outside the field
           if (errorText != null && errorText.isNotEmpty)
             Padding(
               padding: const EdgeInsets.only(top: 4.0, left: 8),
