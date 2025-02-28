@@ -25,7 +25,10 @@ class PlaceOrderScreen extends StatefulWidget {
 
 class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
   bool _showDetails = false;
-  String? planNameDb; // Holds the fetched plan
+  String? planNameDb;
+  String userId = FirebaseAuth.instance.currentUser?.uid ?? "";
+
+  //String? get userId => null; // Holds the fetched plan
 
   @override
   void initState() {
@@ -72,7 +75,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     String orderDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
     String deliveryDate = DateFormat('yyyy-MM-dd')
         .format(DateTime.now().add(const Duration(days: 7)));
-    String selectedPlan = 'Freee';
+    String selectedPlan = '';
     final employeeProvider = Provider.of<EmployeeProvider>(context);
     int employeeCount = employeeProvider.employeesLocal.length;
     return SafeArea(
@@ -102,72 +105,109 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   return Center(
                     child: Column(
                       children: [
-                        Container(
-                          width: DeviceDimensions.screenWidth(context) * 0.90,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 17),
-                            child: Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    "Select Plan",
-                                    style: TextStyle(
-                                        fontFamily: 'Barlow-Bold',
-                                        fontWeight: FontWeight.bold,
-                                        fontSize:
-                                            DeviceDimensions.responsiveSize(
-                                                    context) *
-                                                0.055,
-                                        color: AppColors.textColorBlue),
-                                  ),
-                                ),
-                                SizedBox(
-                                    height:
-                                        DeviceDimensions.screenHeight(context) *
-                                            0.005),
-                                Text(
-                                  "Select the perfect plan for your needs. Choose from Free, Monthly, or Yearly and place your order!",
-                                  style: TextStyle(
-                                    fontFamily: 'Barlow-Regular',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.033,
-                                    color: const Color(0xFF727272),
-                                  ),
-                                ),
-                                SizedBox(height: 3),
-                                Divider(),
-                                SizedBox(height: 2),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, "/pricing-plan");
-                                    fetchSelectedPlan();
-                                  },
-                                  child: Text(
-                                    planNameDb ?? "Fetching Plan",
-                                    style: TextStyle(
-                                      fontFamily: 'Barlow-Regular',
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.040,
-                                      color: AppColors.textColorBlue,
-                                      decoration: TextDecoration.underline,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                        // Container(
+                        //   width: DeviceDimensions.screenWidth(context) * 0.90,
+                        //   decoration: BoxDecoration(
+                        //     color: Colors.white,
+                        //     borderRadius: BorderRadius.circular(30),
+                        //   ),
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.symmetric(
+                        //         vertical: 15, horizontal: 17),
+                        //     child: Column(
+                        //       children: [
+                        //         Align(
+                        //           alignment: Alignment.topLeft,
+                        //           child: Text(
+                        //             "Select Plan",
+                        //             style: TextStyle(
+                        //                 fontFamily: 'Barlow-Bold',
+                        //                 fontWeight: FontWeight.bold,
+                        //                 fontSize:
+                        //                     DeviceDimensions.responsiveSize(
+                        //                             context) *
+                        //                         0.055,
+                        //                 color: AppColors.textColorBlue),
+                        //           ),
+                        //         ),
+                        //         SizedBox(
+                        //             height:
+                        //                 DeviceDimensions.screenHeight(context) *
+                        //                     0.005),
+                        //         Text(
+                        //           "Select the perfect plan for your needs. Choose from Free, Monthly, or Yearly and place your order!",
+                        //           style: TextStyle(
+                        //             fontFamily: 'Barlow-Regular',
+                        //             fontWeight: FontWeight.w600,
+                        //             fontSize: DeviceDimensions.responsiveSize(
+                        //                     context) *
+                        //                 0.033,
+                        //             color: const Color(0xFF727272),
+                        //           ),
+                        //         ),
+                        //         SizedBox(height: 3),
+                        //         Divider(),
+                        //         SizedBox(height: 2),
+                        //         GestureDetector(
+                        //           onTap: () {
+                        //             Navigator.pushNamed(
+                        //                 context, "/pricing-plan");
+                        //             fetchSelectedPlan();
+                        //           },
+                        //           child: Text(
+                        //             planNameDb ?? "Fetching Plan",
+                        //             style: TextStyle(
+                        //               fontFamily: 'Barlow-Regular',
+                        //               fontWeight: FontWeight.w600,
+                        //               fontSize: DeviceDimensions.responsiveSize(
+                        //                       context) *
+                        //                   0.040,
+                        //               color: AppColors.textColorBlue,
+                        //               decoration: TextDecoration.underline,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+
+                        // StreamBuilder<DocumentSnapshot>(
+                        //   stream: FirebaseFirestore.instance
+                        //       .collection('users')
+                        //       .doc(userId) // Replace with actual user ID
+                        //       .snapshots(),
+                        //   builder: (context, snapshot) {
+                        //     String planNameDb = snapshot.data?['planName'] ??
+                        //         "No Plan Selected";
+                        //     return _buildNoPlanSelectedContainer(planNameDb);
+                        //   },
+                        // ),
+
+                        StreamBuilder<DocumentSnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(FirebaseAuth.instance.currentUser?.uid ??
+                                  "") // Get logged-in user ID
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData ||
+                                snapshot.data == null ||
+                                !snapshot.data!.exists) {
+                              return _buildNoPlanContainer();
+                            }
+
+                            String planNameDb = snapshot.data?['planName'] ??
+                                "No Plan Selected";
+
+                            if (planNameDb == "No Plan Selected") {
+                              return _buildNoPlanContainer();
+                            } else {
+                              return _buildSelectedPlanContainer(planNameDb);
+                            }
+                          },
                         ),
+
                         userProvider.profileType == "Business"
                             ? SizedBox(
                                 height: DeviceDimensions.screenHeight(context) *
@@ -1031,6 +1071,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
       },
     );
   }
+
 //comment out if the pick up from machine is required
   // chooseMachineContainer(BuildContext context) {
   //   return Container(
@@ -1074,4 +1115,128 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
   //     ),
   //   );
   // }
+  Widget _buildNoPlanContainer() {
+    return Container(
+      width: DeviceDimensions.screenWidth(context) * 0.90,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 17),
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                "Select Plan",
+                style: TextStyle(
+                    fontFamily: 'Barlow-Bold',
+                    fontWeight: FontWeight.bold,
+                    fontSize: DeviceDimensions.responsiveSize(context) * 0.050,
+                    color: AppColors.textColorBlue),
+              ),
+            ),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.005),
+            Text(
+              "Select the perfect plan for your needs. Choose from Free, Monthly, or Yearly and place your order!",
+              style: TextStyle(
+                fontFamily: 'Barlow-Regular',
+                fontWeight: FontWeight.w600,
+                fontSize: DeviceDimensions.responsiveSize(context) * 0.033,
+                color: const Color(0xFF727272),
+              ),
+            ),
+            SizedBox(height: 3),
+            Divider(),
+            SizedBox(height: 2),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, "/pricing-plan");
+              },
+              child: Text(
+                "No Plan Selected",
+                style: TextStyle(
+                  fontFamily: 'Barlow-Regular',
+                  fontWeight: FontWeight.w600,
+                  fontSize: DeviceDimensions.responsiveSize(context) * 0.040,
+                  color: AppColors.textColorBlue,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSelectedPlanContainer(String planNameDb) {
+    return Container(
+      width: DeviceDimensions.screenWidth(context) * 0.90,
+      decoration: BoxDecoration(
+        color: Colors.white, // Change color for selected plan
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Your Plan",
+                    style: TextStyle(
+                        // fontFamily: 'Barlow-Bold',
+                        fontWeight: FontWeight.bold,
+                        fontSize:
+                            DeviceDimensions.responsiveSize(context) * 0.055,
+                        color: AppColors.appBlueColor),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "$planNameDb Plan",
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        fontFamily: 'Barlow-Regular',
+                        fontWeight: FontWeight.w400,
+                        fontSize:
+                            DeviceDimensions.responsiveSize(context) * 0.045,
+                        color: AppColors.appBlueColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            //SizedBox(height: DeviceDimensions.screenHeight(context) * 0.005),
+
+            SizedBox(height: 10),
+            Divider(),
+            SizedBox(height: 5),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, "/pricing-plan");
+              },
+              child: Text(
+                "Change Plan",
+                style: TextStyle(
+                  fontFamily: 'Barlow-Regular',
+                  fontWeight: FontWeight.w600,
+                  fontSize: DeviceDimensions.responsiveSize(context) * 0.040,
+                  color: AppColors.appBlueColor,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

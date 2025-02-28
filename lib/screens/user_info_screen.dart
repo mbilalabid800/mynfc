@@ -232,51 +232,52 @@ class _NameStepState extends State<NameStep> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
-                  width: DeviceDimensions.screenWidth(context) * 0.95,
-                  child: IntlPhoneField(
-                    keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: AppColors.textFieldBorder,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
+                width: DeviceDimensions.screenWidth(context) * 0.95,
+                child: IntlPhoneField(
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: AppColors.textFieldBorder,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: AppColors.appBlueColor,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                              color: AppColors.errorFieldBorderColor)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                              color: AppColors.errorFieldBorderColor)),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      errorText: formState.contactError,
-                      //labelText: 'Enter Last Name',
-                      hintText: 'Phone Numbers',
-                      hintStyle: TextStyle(
-                          color: AppColors.greyText,
-                          fontFamily: 'Barlow-Regular',
-                          fontSize:
-                              DeviceDimensions.responsiveSize(context) * 0.03),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    dropdownTextStyle: TextStyle(
-                      color: AppColors.appBlueColor,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: AppColors.appBlueColor,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    initialCountryCode: 'OM',
-                    onChanged: (phone) {
-                      formState.updateContact(phone.number, phone.countryCode,
-                          phone.countryISOCode);
-                    },
-                  )),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    errorText: formState.contactError,
+                    //labelText: 'Enter Last Name',
+                    hintText: 'Phone Numbers',
+                    hintStyle: TextStyle(
+                        color: AppColors.greyText,
+                        fontFamily: 'Barlow-Regular',
+                        fontSize:
+                            DeviceDimensions.responsiveSize(context) * 0.03),
+                  ),
+                  dropdownTextStyle: TextStyle(
+                    color: AppColors.appBlueColor,
+                  ),
+                  initialCountryCode: 'OM',
+                  onChanged: (phone) {
+                    formState.updateContact(
+                        phone.number, phone.countryCode, phone.countryISOCode);
+                  },
+                ),
+              ),
             ),
 
             SizedBox(
