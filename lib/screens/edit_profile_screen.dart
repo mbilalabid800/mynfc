@@ -81,7 +81,7 @@ class _EditProfileState extends State<EditProfile> {
             Provider.of<UserInfoFormStateProvider>(context, listen: false);
         userProvider.updateImageUrl(imageUrl);
         await userProvider.updateUserData();
-        CustomSnackbar().snakBarMessage(context, "Profile image updated!");
+        CustomSnackbar().snakBarMessage2(context, "Profile image updated!");
       } catch (e) {
         CustomSnackbar().snakBarError(context, "Failed to upload image.");
       } finally {
@@ -149,7 +149,7 @@ class _EditProfileState extends State<EditProfile> {
 
     await userProvider.updateUserData();
     userProvider.clearEditingField();
-    CustomSnackbar().snakBarMessage(context, "Records updated!!");
+    CustomSnackbar().snakBarMessage2(context, "Records updated!");
   }
 
   @override

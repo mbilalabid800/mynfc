@@ -185,7 +185,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                                 fontFamily: 'Barlow-Regular',
                                                 color: const Color(0xFF909091),
                                               ),
-                                              maxLines: 2,
+                                              maxLines: 3,
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
@@ -196,7 +196,8 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                                       .responsiveSize(context) *
                                                   0.039,
                                               fontFamily: 'Barlow-Regular',
-                                              color: const Color(0xFF909091),
+                                              // color: const Color(0xFF909091),
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                           Row(
@@ -207,6 +208,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                                 child: SvgPicture.asset(
                                                   "assets/icons/dot.svg",
                                                   width: 5,
+                                                  color: Colors.black,
                                                 ),
                                               ),
                                               SizedBox(

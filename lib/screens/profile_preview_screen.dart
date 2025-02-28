@@ -133,19 +133,33 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                               color: AppColors.textColorBlue,
                             ),
                           ),
-                          SizedBox(
-                            child: Text(
-                              "${userProvider.designation} at ${userProvider.companyName}",
-                              style: TextStyle(
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
-                                        0.040,
-                                fontFamily: 'Barlow-Regular',
-                                color: const Color(0xFF909091),
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            children: [
+                              Text(
+                                userProvider.designation,
+                                style: TextStyle(
+                                  fontSize:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.040,
+                                  fontFamily: 'Barlow-Regular',
+                                  color: const Color(0xFF909091),
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                              Text(
+                                " at ${userProvider.companyName}",
+                                style: TextStyle(
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.040,
+                                    fontFamily: 'Barlow-Regular',
+                                    fontWeight: FontWeight.bold),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
                           SizedBox(
                               width: DeviceDimensions.screenWidth(context) *

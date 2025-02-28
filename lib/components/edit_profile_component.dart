@@ -178,7 +178,7 @@ class _EditProfileComponentState extends State<EditProfileComponent> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right: 5),
+                  padding: const EdgeInsets.only(right: 5, left: 10),
                   child: SvgPicture.asset(
                     widget.icons,
                     height: 18,

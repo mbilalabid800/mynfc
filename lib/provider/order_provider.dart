@@ -8,6 +8,8 @@ import 'package:nfc_app/models/order_model.dart';
 class OrderProvider with ChangeNotifier {
   OrderModel? _currentOrder;
   OrderModel? get currentOrder => _currentOrder;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   bool isLoading = false;
   // bool _isNfcCardOrdered = false;
 
@@ -22,6 +24,11 @@ class OrderProvider with ChangeNotifier {
   //   notifyListeners();
   // }
 // Setter to update selectedPlan
+
+  void setLoading(bool value) {
+    isLoading = value;
+    notifyListeners(); // ✅ Notify UI about the state change
+  }
 
   Future<void> placeOrder(OrderModel order) async {
     isLoading = true;
@@ -142,5 +149,38 @@ class OrderProvider with ChangeNotifier {
     }
     isLoading = false;
     notifyListeners();
+  }
+
+  Future<String> generateOrderId() async {
+    setLoading(true); // ✅ Ensure loader starts
+    final DocumentReference counterRef =
+        _firestore.collection('metadata').doc('orderCounter');
+
+    try {
+      return await _firestore.runTransaction((transaction) async {
+        DocumentSnapshot counterSnapshot = await transaction.get(counterRef);
+
+        int newOrderNumber = 1;
+
+        if (counterSnapshot.exists && counterSnapshot.data() != null) {
+          var lastOrderNumber = counterSnapshot.get('lastOrderNumber');
+
+          if (lastOrderNumber is int) {
+            newOrderNumber = lastOrderNumber + 1;
+          } else if (lastOrderNumber is String) {
+            newOrderNumber = int.tryParse(lastOrderNumber) ?? 1;
+          }
+        }
+
+        String newOrderId = "ABS#${newOrderNumber.toString().padLeft(6, '0')}";
+        transaction.set(counterRef, {'lastOrderNumber': newOrderNumber});
+
+        return newOrderId;
+      });
+    } catch (error) {
+      throw Exception("Failed to generate order ID: $error");
+    } finally {
+      setLoading(false); // ✅ Stop loader
+    }
   }
 }

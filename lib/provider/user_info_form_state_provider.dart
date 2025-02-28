@@ -38,7 +38,6 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   bool _isBlocked = false;
   final _subscriptionPlan = '';
   bool _isCardOrdered = false;
-  String? _planName;
 
   // Getters
   String get firstName => _firstName;
@@ -497,7 +496,6 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           .snapshots()
           .listen((snapshot) {
         if (snapshot.exists && snapshot.data() != null) {
-          _planName = snapshot.data()?['planName'] ?? "No Plan Selected";
           notifyListeners(); // Notify UI to update immediately
         }
       });

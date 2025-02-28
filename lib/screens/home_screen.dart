@@ -359,17 +359,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     )
                                   else
-                                    Text(
-                                      "${userProvider.designation} at ${userProvider.companyName.isNotEmpty ? userProvider.companyName : 'Company not set'}",
-                                      style: TextStyle(
-                                        fontFamily: 'Barlow-Regular',
-                                        fontSize:
-                                            DeviceDimensions.responsiveSize(
-                                                    context) *
-                                                0.038,
-                                        color: AppColors.textColorBlue,
-                                        letterSpacing: 1.5,
-                                      ),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          userProvider.designation,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize:
+                                                DeviceDimensions.responsiveSize(
+                                                        context) *
+                                                    0.036,
+                                            letterSpacing: 1.5,
+                                            color: AppColors.textColorBlue,
+                                          ),
+                                        ),
+                                        // SizedBox(height: 1),
+                                        Text(
+                                          "at ${userProvider.companyName}",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize:
+                                                DeviceDimensions.responsiveSize(
+                                                        context) *
+                                                    0.038,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 1.5,
+                                            color: AppColors.textColorBlue,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   const SizedBox(height: 15),
                                   const Divider(),

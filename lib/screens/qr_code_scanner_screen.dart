@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
-import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
 import 'package:permission_handler/permission_handler.dart';
 

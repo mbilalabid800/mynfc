@@ -693,12 +693,15 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                         "Expected Delivery Date:",
                                         deliveryDate),
                                     Divider(),
-                                    orderInfo(context, "Subtotal:",
-                                        "${selectedCard.cardPrice * employeeCount}0  OMR"),
+                                    orderInfo(
+                                      context,
+                                      "Subtotal:",
+                                      "${selectedCard.cardPrice * (employeeCount == 0 ? 1 : employeeCount)}0 OMR",
+                                    ),
                                     orderInfo(context, "Shipping Charges",
                                         "2.00  OMR"),
                                     orderInfo(context, "Total:",
-                                        "${selectedCard.cardPrice * employeeCount + 2}0  OMR"),
+                                        "${selectedCard.cardPrice * (employeeCount == 0 ? 1 : employeeCount) + 2}0  OMR"),
                                   ]
                                 ],
                               ),

@@ -118,9 +118,12 @@ class _SettingsState extends State<Settings> {
                   SizedBox(
                     height: DeviceDimensions.screenHeight(context) * 0.0001,
                   ),
-                  AbsherAppBar(
+                  AbsherAppBar2(
                     title: 'Settings',
-                    onLeftButtonTap: null,
+                    onLeftButtonTap: () {
+                      print("Back tapped!");
+                      Navigator.of(context).pop();
+                    },
                     rightButton: GestureDetector(
                       onTap: () {
                         //Navigator.pushNamed(context, '/add-employees');
@@ -152,7 +155,7 @@ class _SettingsState extends State<Settings> {
                               ClipPath(
                                 clipper: CustomContainer(),
                                 child: Container(
-                                  height: 238,
+                                  height: 245,
                                   width: DeviceDimensions.screenWidth(context) *
                                       0.90,
                                   decoration: BoxDecoration(
@@ -276,16 +279,33 @@ class _SettingsState extends State<Settings> {
                                           ),
                                         ),
                                       ),
-                                      Text(
-                                        "${userProvider.designation} at ${userProvider.companyName}",
-                                        style: TextStyle(
-                                          fontSize:
-                                              DeviceDimensions.responsiveSize(
-                                                      context) *
+                                      Column(
+                                        children: [
+                                          Text(
+                                            userProvider.designation,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
                                                   0.035,
-                                          letterSpacing: 1.5,
-                                          color: AppColors.textColorBlue,
-                                        ),
+                                              letterSpacing: 1.5,
+                                              color: AppColors.textColorBlue,
+                                            ),
+                                          ),
+                                          // SizedBox(height: 1),
+                                          Text(
+                                            "at ${userProvider.companyName}",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: DeviceDimensions
+                                                      .responsiveSize(context) *
+                                                  0.037,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: 1.5,
+                                              color: AppColors.textColorBlue,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       const Spacer(),
                                       const Divider(color: Color(0xFFE0E0E0)),
