@@ -13,7 +13,7 @@ import 'package:nfc_app/provider/user_info_progress_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
+
 import 'package:provider/provider.dart';
 
 class UserScreen extends StatefulWidget {
@@ -28,48 +28,46 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return GlobalBackButtonHandler(
-      child: Scaffold(
-        //backgroundColor: Colors.white,
-        backgroundColor: AppColors.screenBackground,
-        body: Column(
-          children: [
-            const SizedBox(height: 50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      //backgroundColor: Colors.white,
+      backgroundColor: AppColors.screenBackground,
+      body: Column(
+        children: [
+          const SizedBox(height: 50),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ProgressRectangle(index: 1),
+              SizedBox(width: DeviceDimensions.screenWidth(context) * 0.015),
+              ProgressRectangle(index: 2),
+              SizedBox(width: DeviceDimensions.screenWidth(context) * 0.015),
+              ProgressRectangle(index: 3),
+            ],
+          ),
+          SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text('Lastly, tell us more about yourself ',
+                style: TextStyle(
+                    fontFamily: 'Barlow-Bold',
+                    fontSize: 30,
+                    color: AppColors.textColorBlue)),
+          ),
+          Expanded(
+            child: PageView(
+              controller: pageController,
+              physics: NeverScrollableScrollPhysics(),
               children: [
-                ProgressRectangle(index: 1),
-                SizedBox(width: DeviceDimensions.screenWidth(context) * 0.015),
-                ProgressRectangle(index: 2),
-                SizedBox(width: DeviceDimensions.screenWidth(context) * 0.015),
-                ProgressRectangle(index: 3),
+                NameStep(pageController: pageController),
+                CompanyInfoStep(pageController: pageController),
+                ImageStep(),
               ],
             ),
-            SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text('Lastly, tell us more about yourself ',
-                  style: TextStyle(
-                      fontFamily: 'Barlow-Bold',
-                      fontSize: 30,
-                      color: AppColors.textColorBlue)),
-            ),
-            Expanded(
-              child: PageView(
-                controller: pageController,
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  NameStep(pageController: pageController),
-                  CompanyInfoStep(pageController: pageController),
-                  ImageStep(),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: DeviceDimensions.screenHeight(context) * 0.02,
-            )
-          ],
-        ),
+          ),
+          SizedBox(
+            height: DeviceDimensions.screenHeight(context) * 0.02,
+          )
+        ],
       ),
     );
   }
@@ -234,51 +232,52 @@ class _NameStepState extends State<NameStep> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
-                  width: DeviceDimensions.screenWidth(context) * 0.95,
-                  child: IntlPhoneField(
-                    keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: AppColors.textFieldBorder,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
+                width: DeviceDimensions.screenWidth(context) * 0.95,
+                child: IntlPhoneField(
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: AppColors.textFieldBorder,
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: AppColors.appBlueColor,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                              color: AppColors.errorFieldBorderColor)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                              color: AppColors.errorFieldBorderColor)),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      errorText: formState.contactError,
-                      //labelText: 'Enter Last Name',
-                      hintText: 'Phone Numbers',
-                      hintStyle: TextStyle(
-                          color: AppColors.greyText,
-                          fontFamily: 'Barlow-Regular',
-                          fontSize:
-                              DeviceDimensions.responsiveSize(context) * 0.03),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    dropdownTextStyle: TextStyle(
-                      color: AppColors.appBlueColor,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: AppColors.appBlueColor,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    initialCountryCode: 'OM',
-                    onChanged: (phone) {
-                      formState.updateContact(phone.number, phone.countryCode,
-                          phone.countryISOCode);
-                    },
-                  )),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    errorText: formState.contactError,
+                    //labelText: 'Enter Last Name',
+                    hintText: 'Phone Numbers',
+                    hintStyle: TextStyle(
+                        color: AppColors.greyText,
+                        fontFamily: 'Barlow-Regular',
+                        fontSize:
+                            DeviceDimensions.responsiveSize(context) * 0.03),
+                  ),
+                  dropdownTextStyle: TextStyle(
+                    color: AppColors.appBlueColor,
+                  ),
+                  initialCountryCode: 'OM',
+                  onChanged: (phone) {
+                    formState.updateContact(
+                        phone.number, phone.countryCode, phone.countryISOCode);
+                  },
+                ),
+              ),
             ),
 
             SizedBox(

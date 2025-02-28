@@ -38,6 +38,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   bool _isBlocked = false;
   final _subscriptionPlan = '';
   bool _isCardOrdered = false;
+  // String? _planName;
 
   // Getters
   String get firstName => _firstName;
@@ -67,7 +68,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? get designationError => _designationError;
   String? get cityNameError => _cityNameError;
   int get totalViews => _totalViews;
-  String? get planName => planName;
+  // String? get planName => planName;
 
   String? get subscriptionPlan => _subscriptionPlan;
 
@@ -236,7 +237,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   void updateDesignation(String designation) {
     final trimmedDesignation = designation.trim();
     //Validation: Ensure the first name is between 2-20 chars and only contains letters
-    final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
+    //final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
     if (designation.startsWith(' ')) {
       _designationError = 'Spaces are not allowed, Enter your designation';
     } else if (trimmedDesignation.isEmpty) {
@@ -245,9 +246,11 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _designationError = 'Designation must be at least 2 characters';
     } else if (trimmedDesignation.length > 50) {
       _designationError = 'Designation must not exceed 50 characters';
-    } else if (!regex.hasMatch(trimmedDesignation)) {
-      _designationError = 'Only letters are allowed';
-    } else {
+    }
+    // else if (!regex.hasMatch(trimmedDesignation)) {
+    //   _designationError = 'Only letters are allowed';
+    // }
+    else {
       // Input is valid
       _designationError = null;
       _designation = trimmedDesignation;
@@ -371,7 +374,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'connectionTypeAll': _connectionTypeAll,
           'isBlocked': _isBlocked,
           'isCardOrdered': _isCardOrdered,
-          'planName': 'Free',
+          'planName': 'No Plan Selected',
         });
 
         // Second action: Save user's email in the main 'users' collection
@@ -487,20 +490,21 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     }
   }
 
-  void _listenToPlanChanges() {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .snapshots()
-          .listen((snapshot) {
-        if (snapshot.exists && snapshot.data() != null) {
-          notifyListeners(); // Notify UI to update immediately
-        }
-      });
-    }
-  }
+  // void _listenToPlanChanges() {
+  //   final user = FirebaseAuth.instance.currentUser;
+  //   if (user != null) {
+  //     FirebaseFirestore.instance
+  //         .collection('users')
+  //         .doc(user.uid)
+  //         .snapshots()
+  //         .listen((snapshot) {
+  //       if (snapshot.exists && snapshot.data() != null) {
+  //         _planName = snapshot.data()?['planName'] ?? "No Plan Selected";
+  //         notifyListeners(); // Notify UI to update immediately
+  //       }
+  //     });
+  //   }
+  // }
 
   Future<void> loadChartsData() async {
     final user = FirebaseAuth.instance.currentUser;
