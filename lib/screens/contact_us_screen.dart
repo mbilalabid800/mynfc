@@ -88,7 +88,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(
+            AbsherAppBar3(
               title: 'Contact Us',
               onLeftButtonTap: () {
                 Navigator.pop(context);

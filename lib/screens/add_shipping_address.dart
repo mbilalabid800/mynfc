@@ -247,7 +247,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(
+            AbsherAppBar3(
               title: 'Add Shipping Address',
               onLeftButtonTap: () {
                 Navigator.pop(context);

@@ -39,7 +39,7 @@ class _FaqScreenState extends State<FaqScreen> {
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(
+            AbsherAppBar3(
               title: 'FAQs',
               onLeftButtonTap: () {
                 Navigator.pop(context);

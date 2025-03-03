@@ -19,7 +19,7 @@ class FullScreenGraph extends StatelessWidget {
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(
+            AbsherAppBar3(
               title: 'Statistics',
               onLeftButtonTap: () {
                 Navigator.pop(context);

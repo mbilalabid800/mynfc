@@ -38,7 +38,7 @@ class _TermsConditionsState extends State<TermsConditions> {
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(
+            AbsherAppBar3(
               title: 'Terms & Conditions',
               onLeftButtonTap: () {
                 Navigator.pop(context);

@@ -59,7 +59,7 @@ class _CardDetailsState extends State<CardDetails> {
           builder: (context, cardDetailsProvider, child) {
             return Column(
               children: [
-                AbsherAppBar(
+                AbsherAppBar3(
                   title: screenType == "NFC Cards"
                       ? "NFC Cards"
                       : "Select Your Card",

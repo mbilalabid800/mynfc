@@ -60,7 +60,7 @@ class _OrderDetailsState extends State<OrderDetails> {
               SizedBox(
                 height: DeviceDimensions.screenHeight(context) * 0.0001,
               ),
-              AbsherAppBar(
+              AbsherAppBar3(
                 title: 'Order Details',
                 onLeftButtonTap: () {
                   // Navigator.pushNamed(context, '/order-history-screen');

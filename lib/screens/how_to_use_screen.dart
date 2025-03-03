@@ -23,7 +23,7 @@ class _HowToUseScreenState extends State<HowToUseScreen> {
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(
+            AbsherAppBar3(
               title: 'How To Use Absher',
               onLeftButtonTap: () {
                 Navigator.pop(context);

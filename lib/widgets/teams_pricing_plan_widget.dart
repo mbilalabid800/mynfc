@@ -533,7 +533,7 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                   ),
                 ),
               ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.010),
+              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.095),
             ],
           ),
         ),

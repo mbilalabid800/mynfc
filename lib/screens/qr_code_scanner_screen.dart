@@ -5,13 +5,11 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class QRScannerScreen extends StatefulWidget {
   const QRScannerScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _QRScannerScreenState createState() => _QRScannerScreenState();
 }
 
@@ -19,15 +17,26 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
   MobileScannerController cameraController = MobileScannerController();
   bool isTorchOn = false;
   bool isProcessing = false;
+  String? lastScannedQR;
+  int scannedCount = 0;
 
   @override
   void initState() {
     super.initState();
-    _requestCameraPermission();
   }
 
   void _onQRScanned(String? data) {
     if (data == null || isProcessing) return;
+
+    // Ensure the QR code remains stable in the clear box
+    if (lastScannedQR == data) {
+      scannedCount++;
+    } else {
+      scannedCount = 1;
+    }
+    lastScannedQR = data;
+
+    if (scannedCount < 3) return; // Ensures stability before processing
 
     setState(() {
       isProcessing = true;
@@ -43,10 +52,11 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
               content: Text("Scanned: $data"),
               duration: Duration(seconds: 3),
               action: SnackBarAction(
-                  label: "Open",
-                  textColor: Colors.green,
-                  onPressed: () =>
-                      UrlLauncherHelper.launchSocialApps(context, data)),
+                label: "Open",
+                textColor: Colors.green,
+                onPressed: () =>
+                    UrlLauncherHelper.launchSocialApps(context, data),
+              ),
             ),
           );
         }
@@ -61,15 +71,10 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
         });
       }
     });
-  }
 
-  Future<void> _requestCameraPermission() async {
-    var status = await Permission.camera.request();
-    if (status != PermissionStatus.granted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Camera permission denied")),
-      );
-    }
+    // Reset last scanned QR after processing
+    lastScannedQR = null;
+    scannedCount = 0;
   }
 
   @override
@@ -79,62 +84,53 @@ class _QRScannerScreenState extends State<QRScannerScreen> {
         backgroundColor: AppColors.screenBackground,
         body: Column(
           children: [
-            // AbsherAppBar(
-            //   title: 'Scan Your QR Code',
-            //   onLeftButtonTap: () {
-            //     Navigator.pop(context);
-            //   },
-            //   rightButton: Align(
-            //     alignment: Alignment.centerRight,
-            //     child: SizedBox(
-            //         width: DeviceDimensions.screenWidth(context) * 0.035),
-            //   ),
-            // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    icon: Icon(Icons.cancel_sharp),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+            Container(
+              color: Colors.black.withOpacity(0.7),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      icon: Icon(Icons.cancel_sharp, color: Colors.white),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    icon: Icon(isTorchOn
-                        ? Icons.flash_on_outlined
-                        : Icons.flash_off_outlined),
-                    onPressed: () {
-                      setState(() {
-                        isTorchOn = !isTorchOn;
-                      });
-                      cameraController.toggleTorch();
-                    },
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: Icon(
+                        isTorchOn
+                            ? Icons.flash_on_outlined
+                            : Icons.flash_off_outlined,
+                        color: Colors.white,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isTorchOn = !isTorchOn;
+                        });
+                        cameraController.toggleTorch();
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-
             Flexible(
               child: Stack(
                 children: [
+                  Container(
+                    width: DeviceDimensions.screenHeight(context),
+                    color: Colors.black,
+                  ),
                   MobileScanner(
                     controller: cameraController,
                     onDetect: (capture) {
                       final List<Barcode> barcodes = capture.barcodes;
                       for (final barcode in barcodes) {
                         _onQRScanned(barcode.rawValue);
-                        // debugPrint('QR Code Found: ${barcode.rawValue}');
-                        // // CustomSnackbar().snakBarMessage(
-                        // //     context, 'Scanned ${barcode.rawValue}');
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(
-                        //       content: Text("Scanned: ${barcode.rawValue}")),
-                        // );
                       }
                     },
                   ),
@@ -159,26 +155,22 @@ class QRScannerOverlay extends StatelessWidget {
         double scanBoxSize = constraints.maxWidth * 0.7; // 70% of screen width
         return Stack(
           children: [
-            // Dark Overlay with a Transparent Hole
             ClipPath(
               clipper: QRScannerClipper(scanBoxSize),
               child: Container(
-                  decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.7),
-              )),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.7),
+                ),
+              ),
             ),
-
-            // Clear Scan Area
             Center(
               child: Container(
                 width: DeviceDimensions.responsiveSize(context) * 0.7,
                 height: DeviceDimensions.responsiveSize(context) * 0.7,
-                // width: scanBoxSize,
-                // height: scanBoxSize,
                 decoration: BoxDecoration(
-                    //color: Colors.white.withOpacity(0.1),
-                    border: Border.all(color: Colors.white, width: 2),
-                    borderRadius: BorderRadius.circular(25)),
+                  border: Border.all(color: Colors.white, width: 2),
+                  borderRadius: BorderRadius.circular(25),
+                ),
               ),
             ),
             Align(
@@ -196,7 +188,7 @@ class QRScannerOverlay extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 16), // Spacing between the box and text
+            const SizedBox(height: 16),
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
@@ -219,22 +211,26 @@ class QRScannerOverlay extends StatelessWidget {
   }
 }
 
-// Clipper to Cut Out the Scan Box
 class QRScannerClipper extends CustomClipper<Path> {
   final double boxSize;
+  final double cornerRadius;
 
-  QRScannerClipper(this.boxSize);
+  QRScannerClipper(this.boxSize, {this.cornerRadius = 25.0});
 
   @override
   Path getClip(Size size) {
     Path path = Path();
-    path.addRect(Rect.fromLTWH(0, 0, size.width, size.height)); // Full Screen
-    path.addRect(Rect.fromCenter(
-      center: Offset(size.width / 2, size.height / 2),
-      width: boxSize,
-      height: boxSize,
+    path.addRect(Rect.fromLTWH(0, 0, size.width, size.height));
+
+    path.addRRect(RRect.fromRectAndRadius(
+      Rect.fromCenter(
+        center: Offset(size.width / 2, size.height / 2),
+        width: boxSize,
+        height: boxSize,
+      ),
+      Radius.circular(cornerRadius),
     ));
-    return path..fillType = PathFillType.evenOdd; // Cut-out effect
+    return path..fillType = PathFillType.evenOdd;
   }
 
   @override

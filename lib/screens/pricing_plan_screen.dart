@@ -54,7 +54,7 @@ class _PricingPlanState extends State<PricingPlan>
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(
+            AbsherAppBar3(
               title: 'Pricing Plan',
               onLeftButtonTap: () {
                 Navigator.pop(context);
