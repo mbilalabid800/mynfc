@@ -49,7 +49,7 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
 
       try {
         await Provider.of<EmployeeProvider>(context, listen: false)
-            .addEmployeeToLocal(employee);
+            .addEmployeeToLocal(context, employee);
         setState(() {});
         CustomSnackbar().snakBarMessage(context, 'Employee added locally!');
 
