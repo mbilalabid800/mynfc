@@ -150,4 +150,24 @@ class FirestoreService {
       return {};
     }
   }
+
+  static Future<String?> fetchSelectedPlan() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .get();
+
+        return userDoc.exists
+            ? userDoc['planName'] ?? "No Plan Selected"
+            : null;
+      } catch (e) {
+        debugPrint("Error fetching plan: $e");
+        return null;
+      }
+    }
+    return null;
+  }
 }
