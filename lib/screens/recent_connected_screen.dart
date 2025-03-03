@@ -49,7 +49,7 @@ class _RecentConnectedState extends State<RecentConnected> {
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(
+            AbsherAppBar3(
               title: 'Connections',
               onLeftButtonTap: () {
                 Navigator.pop(context);

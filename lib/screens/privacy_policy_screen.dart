@@ -37,7 +37,7 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(
+            AbsherAppBar3(
               title: 'Privacy Policy',
               onLeftButtonTap: () {
                 Navigator.pop(context);

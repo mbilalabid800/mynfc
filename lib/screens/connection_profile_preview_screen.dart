@@ -67,7 +67,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
               children: [
                 SizedBox(
                     height: DeviceDimensions.screenHeight(context) * 0.0001),
-                AbsherAppBar(
+                AbsherAppBar3(
                   title: 'Profile',
                   onLeftButtonTap: () {
                     Navigator.pop(context);

@@ -177,7 +177,7 @@ class _EditProfileState extends State<EditProfile> {
                   SizedBox(
                     height: DeviceDimensions.screenHeight(context) * 0.0001,
                   ),
-                  AbsherAppBar(
+                  AbsherAppBar3(
                     title: 'Edit Profile',
                     onLeftButtonTap: () {
                       // Reset unsaved changes on back press

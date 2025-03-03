@@ -41,7 +41,7 @@ class AddEmployeeScreenState extends State<EmployeeListScreen> {
                 SizedBox(
                   height: DeviceDimensions.screenHeight(context) * 0.0001,
                 ),
-                AbsherAppBar(
+                AbsherAppBar3(
                   title: 'Employees List',
                   onLeftButtonTap: () {
                     Navigator.pop(context);

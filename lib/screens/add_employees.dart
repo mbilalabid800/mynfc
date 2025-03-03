@@ -81,7 +81,7 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(
+            AbsherAppBar3(
               title: 'Add Your Company Employee',
               onLeftButtonTap: () {
                 Navigator.pop(context);

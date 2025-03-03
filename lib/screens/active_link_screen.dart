@@ -22,7 +22,7 @@ class ActiveLink extends StatelessWidget {
             SizedBox(
               height: DeviceDimensions.screenHeight(context) * 0.0001,
             ),
-            AbsherAppBar(
+            AbsherAppBar3(
               title: 'Active Social Links',
               onLeftButtonTap: () {
                 Navigator.pop(context);
