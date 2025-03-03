@@ -29,7 +29,7 @@ class _ShareProfileScreenState extends State<ShareProfileScreen> {
           SizedBox(
             height: DeviceDimensions.screenHeight(context) * 0.0001,
           ),
-          AbsherAppBar(
+          AbsherAppBar3(
             title: 'Share Profile',
             onLeftButtonTap: () {
               Navigator.pop(context);

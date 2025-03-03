@@ -93,6 +93,27 @@ class CustomSnackbar {
     ));
   }
 
+  void snakBarError2(BuildContext context, String message) {
+    final messenger = ScaffoldMessenger.of(context);
+    messenger.hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(
+        message,
+        style: TextStyle(
+          fontFamily: 'Barlow-Regular',
+          fontWeight: FontWeight.w600,
+          fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
+        ),
+      ),
+      duration: const Duration(seconds: 3),
+      backgroundColor: AppColors.errorColor,
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ));
+  }
+
   // void snakBarMessageShort(BuildContext context, String message) {
   //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
   //     content: Text(

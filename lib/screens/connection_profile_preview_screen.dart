@@ -11,7 +11,6 @@ import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
-
 import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
@@ -197,33 +196,33 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 1.5),
-                                              child: SvgPicture.asset(
-                                                "assets/icons/dot.svg",
-                                                width: 5,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                                width: DeviceDimensions
-                                                        .screenWidth(context) *
-                                                    0.015),
-                                            Text(
-                                              connectionDetails.businessType,
-                                              style: TextStyle(
-                                                  fontSize: DeviceDimensions
-                                                          .responsiveSize(
-                                                              context) *
-                                                      0.045,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontFamily: 'Barlow-Regular'),
-                                            ),
-                                          ],
-                                        )
+                                        // Row(
+                                        //   children: [
+                                        //     Padding(
+                                        //       padding: const EdgeInsets.only(
+                                        //           left: 1.5),
+                                        //       child: SvgPicture.asset(
+                                        //         "assets/icons/dot.svg",
+                                        //         width: 5,
+                                        //         color: Colors.black,
+                                        //       ),
+                                        //     ),
+                                        //     SizedBox(
+                                        //         width: DeviceDimensions
+                                        //                 .screenWidth(context) *
+                                        //             0.015),
+                                        //     Text(
+                                        //       connectionDetails.businessType,
+                                        //       style: TextStyle(
+                                        //           fontSize: DeviceDimensions
+                                        //                   .responsiveSize(
+                                        //                       context) *
+                                        //               0.045,
+                                        //           fontWeight: FontWeight.w600,
+                                        //           fontFamily: 'Barlow-Regular'),
+                                        //     ),
+                                        //   ],
+                                        // )
                                       ],
                                     ),
                                   )

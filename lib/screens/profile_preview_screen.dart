@@ -38,7 +38,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
         backgroundColor: AppColors.screenBackground,
         body: Column(
           children: [
-            AbsherAppBar(
+            AbsherAppBar3(
               title: 'Profile',
               onLeftButtonTap: () {
                 Navigator.pop(context);

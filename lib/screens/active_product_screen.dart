@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/nfc_service/nfc_service.dart';
-import 'package:nfc_app/shared/common_widgets/animated_button.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';

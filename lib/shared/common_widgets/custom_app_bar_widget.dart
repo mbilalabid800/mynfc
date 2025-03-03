@@ -209,3 +209,63 @@ class AbsherAppBar2 extends StatelessWidget {
     );
   }
 }
+
+class AbsherAppBar3 extends StatelessWidget {
+  final String title;
+  //final Widget? leftButton;
+  final VoidCallback? onLeftButtonTap;
+  final Widget? rightButton;
+
+  const AbsherAppBar3(
+      {super.key,
+      required this.title,
+      //this.leftButton,
+      this.onLeftButtonTap,
+      this.rightButton});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 8,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          onLeftButtonTap != null
+              ? GestureDetector(
+                  onTap: onLeftButtonTap,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 9),
+                    child:
+                        Icon(Icons.arrow_back, color: AppColors.appBlueColor),
+                  ),
+                )
+              : SizedBox.shrink(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontFamily: 'Barlow-Regular',
+                fontSize: DeviceDimensions.responsiveSize(context) * 0.055,
+                fontWeight: FontWeight.w600,
+                //color: Colors.white
+                color: AppColors.appBlueColor,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 9),
+                child: Text("")),
+          ),
+        ],
+      ),
+    );
+  }
+}
