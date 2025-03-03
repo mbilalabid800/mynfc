@@ -43,9 +43,9 @@ class _IndividualPricingPlanWidgetState
             SetOptions(
                 merge: true)); // Merge to prevent overwriting other fields
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("$selectedPlanName plan saved!")),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text("$selectedPlanName plan saved!")),
+        // );
       } catch (e) {
         debugPrint("Error saving plan: $e");
         ScaffoldMessenger.of(context).showSnackBar(

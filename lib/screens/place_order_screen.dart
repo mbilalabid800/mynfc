@@ -35,6 +35,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
       final orderProvider =
           Provider.of<ShippingAddressProvider>(context, listen: false);
       orderProvider.loadShippingAddress();
+      Provider.of<EmployeeProvider>(context, listen: false).employeesLocal;
     });
   }
 

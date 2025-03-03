@@ -128,7 +128,8 @@ void main() async {
       ChangeNotifierProvider(create: (_) => CardDetailsProvider()),
       ChangeNotifierProvider(create: (_) => ShippingAddressProvider()),
       ChangeNotifierProvider(create: (_) => OrderProvider()),
-      ChangeNotifierProvider(create: (_) => EmployeeProvider()),
+      ChangeNotifierProvider(
+          create: (_) => EmployeeProvider()..getLocalEmployees()),
       //ChangeNotifierProvider(create: (_) => BiometricHandlerProvider()),
       ChangeNotifierProvider(create: (_) => FormValidationProvider()),
       ChangeNotifierProvider(create: (_) => AppDataProvider()),
