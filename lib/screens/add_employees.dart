@@ -31,7 +31,9 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<EmployeeProvider>(context, listen: false).getLocalEmployees();
+    Future.delayed(Duration.zero, () {
+      Provider.of<EmployeeProvider>(context, listen: false).getLocalEmployees();
+    });
   }
 
   List<EmployeeModel> get addedEmployees =>

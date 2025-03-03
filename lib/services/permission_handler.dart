@@ -6,6 +6,7 @@ class PermissionHandler {
     await _requestPermission(Permission.storage);
     await _requestPermission(Permission.location);
     await _requestPermission(Permission.phone);
+    await _requestPermission(Permission.camera);
   }
 
   Future<bool> _requestPermission(Permission permission) async {

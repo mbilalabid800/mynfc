@@ -100,9 +100,10 @@ class CustomSnackbar {
       content: Text(
         message,
         style: TextStyle(
-            fontFamily: 'Barlow-Regular',
-            fontWeight: FontWeight.w600,
-            fontSize: DeviceDimensions.responsiveSize(context) * 0.045),
+          fontFamily: 'Barlow-Regular',
+          fontWeight: FontWeight.w600,
+          fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
+        ),
       ),
       duration: const Duration(seconds: 3),
       backgroundColor: AppColors.errorColor,
