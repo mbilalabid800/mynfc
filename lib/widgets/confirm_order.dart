@@ -12,6 +12,7 @@ import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:nfc_app/widgets/payment_successful.dart';
 import 'package:provider/provider.dart';
 
