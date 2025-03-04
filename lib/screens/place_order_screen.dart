@@ -666,7 +666,8 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                               DeviceDimensions.screenHeight(context) * 0.058,
                           width: DeviceDimensions.screenWidth(context) * 0.85,
                           child: ElevatedButton(
-                            onPressed: provider.selectedMethod.isEmpty
+                            onPressed: provider.selectedMethod.isEmpty ||
+                                    employeeCount == 0
                                 ? null
                                 : () {
                                     ConfirmOrder confirmOrder =
