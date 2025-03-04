@@ -87,8 +87,18 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
   // Helper function to build the list of orders based on status
   Widget _buildOrderList(List<OrderModel> orders, String orderHistory) {
     final filteredOrders = orders.where((order) {
-      return order.orderHistory ==
-          orderHistory; // Compare with the passed orderHistory
+      // return order.orderHistory ==
+      //     orderHistory; // Compare with the passed orderHistory
+      // return order.orderHistory == orderHistory ||
+      //     (orderHistory == 'completed' &&
+      //         order.orderStatus.last['status'] == 'Delivered');
+      // Update orderHistory when status is Delivered
+      if (order.orderStatus.last['status'] == 'Delivered') {
+        order.orderHistory = 'completed';
+      }
+
+// Now filter orders
+      return order.orderHistory == orderHistory;
     }).toList();
 
     filteredOrders.sort((a, b) => b.orderStatus[0]['updatedAt'].compareTo(

@@ -80,11 +80,14 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                                     Navigator.pushNamed(
                                         context, '/share-profile');
                                   },
-                                  child: SvgPicture.asset(
-                                      "assets/icons/share.svg",
-                                      height: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.10),
+                                  child: Opacity(
+                                    opacity: 0.8,
+                                    child: SvgPicture.asset(
+                                        "assets/icons/share.svg",
+                                        height: DeviceDimensions.responsiveSize(
+                                                context) *
+                                            0.10),
+                                  ),
                                 ),
                               ),
                               Positioned(

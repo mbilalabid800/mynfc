@@ -11,7 +11,6 @@ import 'package:nfc_app/provider/shipping_address_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/firestore_service/firestore_service.dart';
-import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:nfc_app/widgets/confirm_order.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
@@ -48,27 +47,6 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
       });
     }
   }
-
-  /// Function to fetch the selected plan from Firestore
-  // Future<void> fetchSelectedPlan() async {
-  //   final user = FirebaseAuth.instance.currentUser;
-  //   if (user != null) {
-  //     try {
-  //       DocumentSnapshot userDoc = await FirebaseFirestore.instance
-  //           .collection('users')
-  //           .doc(user.uid)
-  //           .get();
-
-  //       if (userDoc.exists) {
-  //         setState(() {
-  //           planNameDb = userDoc['planName'] ?? "No Plan Selected";
-  //         });
-  //       }
-  //     } catch (e) {
-  //       debugPrint("Error fetching plan: $e");
-  //     }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -1070,7 +1048,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                         fontWeight: FontWeight.bold,
                         fontSize:
                             DeviceDimensions.responsiveSize(context) * 0.055,
-                        color: Colors.black),
+                        color: AppColors.appBlueColor),
                   ),
                 ),
                 Text(
@@ -1079,7 +1057,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                     fontFamily: 'Barlow-Regular',
                     fontWeight: FontWeight.w600,
                     fontSize: DeviceDimensions.responsiveSize(context) * 0.038,
-                    color: Colors.black,
+                    color: AppColors.appBlueColor,
                   ),
                 ),
               ],
@@ -1097,7 +1075,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   fontFamily: 'Barlow-Regular',
                   fontWeight: FontWeight.w600,
                   fontSize: DeviceDimensions.responsiveSize(context) * 0.040,
-                  color: Colors.black,
+                  color: AppColors.appBlueColor,
                   decoration: TextDecoration.underline,
                 ),
               ),

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 
 import 'package:nfc_app/widgets/monthly_subscription_plan_widget.dart';
 import 'package:nfc_app/widgets/three_month_subscription_plan_widget.dart';
@@ -25,6 +27,7 @@ class _IndividualPricingPlanWidgetState
     extends State<IndividualPricingPlanWidget> {
   int? selectedContainer;
   String? selectedPlanName;
+  bool isLoading = false;
   // Default selected plan
 
   void _selectContainer(int index, String planName) {
@@ -38,13 +41,22 @@ class _IndividualPricingPlanWidgetState
     final user = FirebaseAuth.instance.currentUser;
     if (user != null && selectedPlanName != null) {
       try {
+        setState(() {
+          isLoading = true;
+        });
         await FirebaseFirestore.instance.collection('users').doc(user.uid).set(
             {
               'planName': selectedPlanName, // Only updating the plan name
             },
             SetOptions(
                 merge: true)); // Merge to prevent overwriting other fields
-
+        if (mounted) {
+          setState(() {
+            isLoading = false; // Hide loader
+          });
+          CustomSnackbar().snakBarMessage(
+              context, "$selectedPlanName plan updated successfully!");
+        }
         // ScaffoldMessenger.of(context).showSnackBar(
         //   SnackBar(content: Text("$selectedPlanName plan saved!")),
         // );
@@ -69,33 +81,54 @@ class _IndividualPricingPlanWidgetState
             width: DeviceDimensions.screenWidth(context) * 0.8,
             height: 49,
             child: ElevatedButton(
-              onPressed: () async {
-                //dummy link
-                //Navigator.pop(context);
-                if (selectedPlanName != null) {
-                  await savePlanToFirebase();
-                  Navigator.pop(context);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Please select a plan first!")),
-                  );
-                }
-              },
+              onPressed: isLoading
+                  ? null
+                  : () async {
+                      if (selectedPlanName != null) {
+                        await savePlanToFirebase();
+                      } else {
+                        CustomSnackbar().snakBarError(
+                            context, "Please select a plan first");
+                      }
+                    },
+              // onPressed: () async {
+              //   //dummy link
+              //   if (selectedPlanName != null) {
+              //     await savePlanToFirebase();
+              //     Navigator.pop(context);
+              //   } else {
+              //     ScaffoldMessenger.of(context).showSnackBar(
+              //       SnackBar(content: Text("Please select a plan first!")),
+              //     );
+              //   }
+              // },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.appBlueColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30.0),
                 ),
               ),
-              child: Text(
-                'Upgrade Now',
-                style: TextStyle(
-                    fontSize: DeviceDimensions.responsiveSize(context) * 0.042,
-                    color: Colors.white,
-                    fontFamily: 'Barlow-Regular',
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.w600),
-              ),
+              child: isLoading
+                  ? SmallThreeBounceLoader()
+                  : Text(
+                      'Upgrade Now',
+                      style: TextStyle(
+                          fontSize:
+                              DeviceDimensions.responsiveSize(context) * 0.042,
+                          color: Colors.white,
+                          fontFamily: 'Barlow-Regular',
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.w600),
+                    ),
+              // child: Text(
+              //   'Upgrade Now',
+              //   style: TextStyle(
+              //       fontSize: DeviceDimensions.responsiveSize(context) * 0.042,
+              //       color: Colors.white,
+              //       fontFamily: 'Barlow-Regular',
+              //       letterSpacing: 1,
+              //       fontWeight: FontWeight.w600),
+              // ),
             ),
           ),
         ),
