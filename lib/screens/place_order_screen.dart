@@ -10,6 +10,7 @@ import 'package:nfc_app/provider/employee_provider.dart';
 import 'package:nfc_app/provider/shipping_address_provider.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:nfc_app/widgets/confirm_order.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
@@ -30,7 +31,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
   @override
   void initState() {
     super.initState();
-    fetchSelectedPlan();
+    loadPlan();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final orderProvider =
           Provider.of<ShippingAddressProvider>(context, listen: false);
@@ -39,26 +40,35 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     });
   }
 
-  /// Function to fetch the selected plan from Firestore
-  Future<void> fetchSelectedPlan() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      try {
-        DocumentSnapshot userDoc = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .get();
-
-        if (userDoc.exists) {
-          setState(() {
-            planNameDb = userDoc['planName'] ?? "No Plan Selected";
-          });
-        }
-      } catch (e) {
-        debugPrint("Error fetching plan: $e");
-      }
+  Future<void> loadPlan() async {
+    String? plan = await FirestoreService.fetchSelectedPlan();
+    if (mounted) {
+      setState(() {
+        planNameDb = plan;
+      });
     }
   }
+
+  /// Function to fetch the selected plan from Firestore
+  // Future<void> fetchSelectedPlan() async {
+  //   final user = FirebaseAuth.instance.currentUser;
+  //   if (user != null) {
+  //     try {
+  //       DocumentSnapshot userDoc = await FirebaseFirestore.instance
+  //           .collection('users')
+  //           .doc(user.uid)
+  //           .get();
+
+  //       if (userDoc.exists) {
+  //         setState(() {
+  //           planNameDb = userDoc['planName'] ?? "No Plan Selected";
+  //         });
+  //       }
+  //     } catch (e) {
+  //       debugPrint("Error fetching plan: $e");
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -104,74 +114,6 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                     return Center(
                       child: Column(
                         children: [
-                          // Container(
-                          //   width: DeviceDimensions.screenWidth(context) * 0.90,
-                          //   decoration: BoxDecoration(
-                          //     color: Colors.white,
-                          //     borderRadius: BorderRadius.circular(30),
-                          //   ),
-                          //   child: Padding(
-                          //     padding: const EdgeInsets.symmetric(
-                          //         vertical: 15, horizontal: 17),
-                          //     child: Column(
-                          //       children: [
-                          //         Align(
-                          //           alignment: Alignment.topLeft,
-                          //           child: Text(
-                          //             "Select Plan",
-                          //             style: TextStyle(
-                          //                 fontFamily: 'Barlow-Bold',
-                          //                 fontWeight: FontWeight.bold,
-                          //                 fontSize:
-                          //                     DeviceDimensions.responsiveSize(
-                          //                             context) *
-                          //                         0.055,
-                          //                 color: AppColors.textColorBlue),
-                          //           ),
-                          //         ),
-                          //         SizedBox(
-                          //             height: DeviceDimensions.screenHeight(
-                          //                     context) *
-                          //                 0.005),
-                          //         Text(
-                          //           "Select the perfect plan for your needs. Choose from Free, Monthly, or Yearly and place your order!",
-                          //           style: TextStyle(
-                          //             fontFamily: 'Barlow-Regular',
-                          //             fontWeight: FontWeight.w600,
-                          //             fontSize: DeviceDimensions.responsiveSize(
-                          //                     context) *
-                          //                 0.033,
-                          //             color: const Color(0xFF727272),
-                          //           ),
-                          //         ),
-                          //         SizedBox(height: 3),
-                          //         Divider(),
-                          //         SizedBox(height: 2),
-                          //         GestureDetector(
-                          //           onTap: () {
-                          //             Navigator.pushNamed(
-                          //                 context, "/pricing-plan");
-                          //             fetchSelectedPlan();
-                          //           },
-                          //           child: Text(
-                          //             planNameDb ?? "Fetching Plan",
-                          //             style: TextStyle(
-                          //               fontFamily: 'Barlow-Regular',
-                          //               fontWeight: FontWeight.w600,
-                          //               fontSize:
-                          //                   DeviceDimensions.responsiveSize(
-                          //                           context) *
-                          //                       0.040,
-                          //               color: AppColors.textColorBlue,
-                          //               decoration: TextDecoration.underline,
-                          //             ),
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //   ),
-                          // ),
-
                           StreamBuilder<DocumentSnapshot>(
                             stream: FirebaseFirestore.instance
                                 .collection('users')
