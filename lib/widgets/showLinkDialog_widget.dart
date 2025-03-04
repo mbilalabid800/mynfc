@@ -24,8 +24,21 @@ class _ShowLinkDialogState extends State<ShowLinkDialog> {
   @override
   void initState() {
     super.initState();
-    _userNameController.text =
-        widget.appItem.userName; // Pre-fill with existing link if available
+    // Delay state update until after the first frame
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final socialAppProvider =
+          Provider.of<SocialAppProvider>(context, listen: false);
+      socialAppProvider.setOriginalUserName(widget.appItem.userName);
+    });
+
+    _userNameController.text = widget.appItem.userName;
+
+    // Listen for text changes
+    _userNameController.addListener(() {
+      final socialAppProvider =
+          Provider.of<SocialAppProvider>(context, listen: false);
+      socialAppProvider.updateCurrentUserName(_userNameController.text.trim());
+    });
   }
 
   void _saveLink() {
@@ -165,19 +178,28 @@ class _ShowLinkDialogState extends State<ShowLinkDialog> {
                   SizedBox(
                     height: DeviceDimensions.screenHeight(context) * 0.06,
                     width: DeviceDimensions.screenWidth(context) * 0.35,
-                    child: ElevatedButton(
-                      onPressed: _saveLink,
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.appBlueColor,
-                          foregroundColor: Colors.white),
-                      child: Text(
-                        'Update',
-                        style: TextStyle(
-                            fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.040,
-                            fontFamily: 'Barlow-Regular',
-                            fontWeight: FontWeight.w600),
-                      ),
+                    child: Consumer<SocialAppProvider>(
+                      builder: (context, socialAppProvider, child) {
+                        return ElevatedButton(
+                          onPressed: socialAppProvider.isUpdateEnabled
+                              ? _saveLink
+                              : null,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.appBlueColor,
+                            foregroundColor: Colors.white,
+                          ),
+                          child: Text(
+                            'Update',
+                            style: TextStyle(
+                              fontSize:
+                                  DeviceDimensions.responsiveSize(context) *
+                                      0.040,
+                              fontFamily: 'Barlow-Regular',
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],

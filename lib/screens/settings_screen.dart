@@ -212,7 +212,7 @@ class _SettingsState extends State<Settings> {
                                                       fontSize: DeviceDimensions
                                                               .responsiveSize(
                                                                   context) *
-                                                          0.04,
+                                                          0.043,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: AppColors
@@ -247,7 +247,7 @@ class _SettingsState extends State<Settings> {
                                                 fontSize: DeviceDimensions
                                                         .responsiveSize(
                                                             context) *
-                                                    0.035,
+                                                    0.038,
                                                 fontFamily: 'Barlow-Regular',
                                                 color: AppColors.textColorBlue,
                                               ),

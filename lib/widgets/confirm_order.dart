@@ -80,46 +80,46 @@ class ConfirmOrder {
                               DeviceDimensions.screenHeight(context) * 0.048,
                           width: DeviceDimensions.screenWidth(context) * 0.62,
                           child: ElevatedButton(
-                            onPressed: orderProvider.isLoading
-                                ? null // Disable button when loading
-                                : () async {
-                                    orderProvider.setLoading(
-                                        true); // ✅ Start loader & disable button
+                            onPressed: () async {
+                              orderProvider.setLoading(
+                                  true); // ✅ Start loader & disable button
 
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible:
-                                          false, // ✅ Prevent closing on tap outside
-                                      builder: (BuildContext context) {
-                                        return Center(child: OrderLoader());
-                                      },
-                                    );
+                              showDialog(
+                                context: context,
+                                barrierDismissible:
+                                    false, // ✅ Prevent closing on tap outside
+                                builder: (BuildContext context) {
+                                  return PopScope(
+                                    canPop: false,
+                                    child: Center(child: OrderLoader()),
+                                  );
+                                },
+                              );
 
-                                    try {
-                                      String orderId =
-                                          await orderProvider.generateOrderId();
+                              try {
+                                String orderId =
+                                    await orderProvider.generateOrderId();
 
-                                      await orderPlaced(
-                                        context,
-                                        employeeCount,
-                                        orderId,
-                                        selectedCard,
-                                        selectedColorOption,
-                                        colorIndex,
-                                        shippingMethod,
-                                        shippingDetails,
-                                        selectedPlan,
-                                      );
-                                    } catch (e) {
-                                      Navigator.pop(
-                                          context); // Close loader on error
-                                      CustomSnackbar().snakBarError(context,
-                                          'Failed to place order. Please try again.');
-                                    } finally {
-                                      orderProvider.setLoading(
-                                          false); // ✅ Re-enable button
-                                    }
-                                  },
+                                await orderPlaced(
+                                  context,
+                                  employeeCount,
+                                  orderId,
+                                  selectedCard,
+                                  selectedColorOption,
+                                  colorIndex,
+                                  shippingMethod,
+                                  shippingDetails,
+                                  selectedPlan,
+                                );
+                              } catch (e) {
+                                Navigator.pop(context); // Close loader on error
+                                CustomSnackbar().snakBarError(context,
+                                    'Failed to place order. Please try again.');
+                              } finally {
+                                orderProvider
+                                    .setLoading(false); // ✅ Re-enable button
+                              }
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.appBlueColor,
                               shape: RoundedRectangleBorder(
