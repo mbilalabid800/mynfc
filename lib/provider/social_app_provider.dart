@@ -17,6 +17,22 @@ class SocialAppProvider with ChangeNotifier {
   bool _isViewAllActive = false;
   bool get isViewAllActive => _isViewAllActive;
 
+  String _originalUserName = '';
+  String _currentUserName = '';
+
+  bool get isUpdateEnabled => _originalUserName != _currentUserName;
+
+  void setOriginalUserName(String userName) {
+    _originalUserName = userName;
+    _currentUserName = userName;
+    notifyListeners();
+  }
+
+  void updateCurrentUserName(String userName) {
+    _currentUserName = userName;
+    notifyListeners();
+  }
+
   Future<void> loadSocialApps() async {
     try {
       // Load all available social apps
