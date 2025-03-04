@@ -422,7 +422,7 @@ class _SettingsState extends State<Settings> {
                                   },
                                 ),
                                 SettingListComponent(
-                                  icons: "assets/icons/settingicon3.svg",
+                                  icons: "assets/icons/card_grey.svg",
                                   title: "NFC Cards",
                                   showDivider: true,
                                   callBack: () {
@@ -662,7 +662,7 @@ class _SettingsState extends State<Settings> {
                               children: [
                                 const SizedBox(height: 8),
                                 SettingListComponent(
-                                  icons: "assets/icons/settingicon14.svg",
+                                  icons: "assets/icons/switch_icon.svg",
                                   title: "Switch Profile",
                                   callBack: () {
                                     SwitchProfileTypeWidget
