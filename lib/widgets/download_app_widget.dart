@@ -25,7 +25,7 @@ class DownloadAppWidget {
                 ),
                 Lottie.asset(
                   "assets/animations/getapp.json",
-                  height: 200,
+                  height: 120,
                 ),
               ],
             ),
@@ -36,7 +36,7 @@ class DownloadAppWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: AppColors.appBlueColor,
-                  fontSize: DeviceDimensions.responsiveSize(context) * 0.045,
+                  fontSize: DeviceDimensions.responsiveSize(context) * 0.035,
                   //fontWeight: FontWeight.w600
                 ),
               ),
@@ -50,7 +50,7 @@ class DownloadAppWidget {
                       height: DeviceDimensions.screenWidth(context) * 0.03),
                   Center(
                     child: Container(
-                      height: DeviceDimensions.screenHeight(context) * 0.06,
+                      height: DeviceDimensions.screenHeight(context) * 0.04,
                       width: DeviceDimensions.screenWidth(context) * 0.75,
                       decoration: BoxDecoration(
                         color: AppColors.appBlueColor,
