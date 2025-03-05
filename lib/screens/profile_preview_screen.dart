@@ -73,20 +73,30 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                                 ),
                               ),
                               Positioned(
-                                right: 30,
-                                top: 18,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, '/share-profile');
-                                  },
-                                  child: Opacity(
-                                    opacity: 0.8,
-                                    child: SvgPicture.asset(
-                                        "assets/icons/share.svg",
-                                        height: DeviceDimensions.responsiveSize(
-                                                context) *
-                                            0.10),
+                                right: 20,
+                                top: 4,
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(
+                                        50), // Circular ripple
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, '/share-profile');
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Opacity(
+                                        opacity: 0.8,
+                                        child: SvgPicture.asset(
+                                          "assets/icons/share.svg",
+                                          height:
+                                              DeviceDimensions.responsiveSize(
+                                                      context) *
+                                                  0.10,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
