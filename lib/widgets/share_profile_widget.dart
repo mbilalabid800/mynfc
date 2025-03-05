@@ -19,6 +19,9 @@ class ShareProfile {
         borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
       ),
       builder: (BuildContext context) {
+        bool isPressedQr = false;
+        bool isPressedLink = false;
+
         return StatefulBuilder(
           builder: (BuildContext context, setState) {
             return SizedBox(
@@ -41,26 +44,36 @@ class ShareProfile {
                   Padding(
                     padding: const EdgeInsets.only(left: 25.0),
                     child: GestureDetector(
+                      onTapDown: (_) => setState(
+                          () => isPressedQr = true), // Start press effect
+                      onTapUp: (_) => setState(
+                          () => isPressedQr = false), // Reset on release
+                      onTapCancel: () => setState(
+                          () => isPressedQr = false), // Reset if canceled
                       onTap: () {
                         _shareQrCode(context, profileLink);
                       },
-                      child: Row(
-                        children: [
-                          Image.asset("assets/icons/shareqr.png", height: 26),
-                          SizedBox(
-                              width: DeviceDimensions.screenWidth(context) *
-                                  0.030),
-                          Text(
-                            "Share with QR Code",
-                            style: TextStyle(
-                              fontSize:
-                                  DeviceDimensions.responsiveSize(context) *
-                                      0.052,
-                              fontFamily: 'Barlow-Regular',
-                              fontWeight: FontWeight.w600,
-                            ),
-                          )
-                        ],
+                      child: AnimatedScale(
+                        scale: isPressedQr ? 0.9 : 1.0, // Shrink effect
+                        duration: const Duration(milliseconds: 100),
+                        child: Row(
+                          children: [
+                            Image.asset("assets/icons/shareqr.png", height: 26),
+                            SizedBox(
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.030),
+                            Text(
+                              "Share with QR Code",
+                              style: TextStyle(
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.052,
+                                fontFamily: 'Barlow-Regular',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -72,26 +85,36 @@ class ShareProfile {
                   Padding(
                     padding: const EdgeInsets.only(left: 25.0),
                     child: GestureDetector(
+                      onTapDown: (_) => setState(
+                          () => isPressedLink = true), // Start press effect
+                      onTapUp: (_) => setState(
+                          () => isPressedLink = false), // Reset on release
+                      onTapCancel: () => setState(() => isPressedLink = false),
                       onTap: () {
                         Share.share(profileLink);
                       },
-                      child: Row(
-                        children: [
-                          Image.asset("assets/icons/sharelink.png", height: 28),
-                          SizedBox(
-                              width: DeviceDimensions.screenWidth(context) *
-                                  0.030),
-                          Text(
-                            "Share Profile Link",
-                            style: TextStyle(
-                              fontSize:
-                                  DeviceDimensions.responsiveSize(context) *
-                                      0.052,
-                              fontFamily: 'Barlow-Regular',
-                              fontWeight: FontWeight.w600,
-                            ),
-                          )
-                        ],
+                      child: AnimatedScale(
+                        scale: isPressedLink ? 0.9 : 1.0,
+                        duration: Duration(milliseconds: 100),
+                        child: Row(
+                          children: [
+                            Image.asset("assets/icons/sharelink.png",
+                                height: 28),
+                            SizedBox(
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.030),
+                            Text(
+                              "Share Profile Link",
+                              style: TextStyle(
+                                fontSize:
+                                    DeviceDimensions.responsiveSize(context) *
+                                        0.052,
+                                fontFamily: 'Barlow-Regular',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   )

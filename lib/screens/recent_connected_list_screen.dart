@@ -52,6 +52,8 @@ class _RecentConnectedListState extends State<RecentConnectedList> {
                 AbsherAppBar3(
                   title: 'Recent Connected',
                   onLeftButtonTap: () {
+                    Provider.of<ConnectionProvider>(context, listen: false)
+                        .resetSearch();
                     Navigator.pop(context);
                   },
                   rightButton: Align(

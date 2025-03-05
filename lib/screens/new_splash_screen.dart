@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NewSplashScreen extends StatefulWidget {
   const NewSplashScreen({super.key});
@@ -46,12 +47,20 @@ class _NewSplashScreenState extends State<NewSplashScreen>
   void _checkAuthStatus() async {
     await Future.delayed(const Duration(seconds: 3));
 
-    final user = FirebaseAuth.instance.currentUser;
+    final prefs = await SharedPreferences.getInstance();
+    final bool isFirstInstall = prefs.getBool('isFirstInstall') ?? true;
 
-    if (user == null) {
+    if (isFirstInstall) {
+      await prefs.setBool('isFirstInstall', false);
+      await FirebaseAuth.instance.signOut(); // Ensure logout
       Navigator.pushReplacementNamed(context, '/splash');
     } else {
-      Navigator.pushReplacementNamed(context, '/mainNav-screen');
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        Navigator.pushReplacementNamed(context, '/splash');
+      } else {
+        Navigator.pushReplacementNamed(context, '/mainNav-screen');
+      }
     }
   }
 
