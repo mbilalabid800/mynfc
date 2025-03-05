@@ -10,15 +10,30 @@ class ValidationService {
     return null;
   }
 
-  static String? validateName(String name, String fieldName) {
-    final trimmedName = name.trim();
+  static String? validateFirstName(String firstName, String fieldName) {
+    final trimmedName = firstName.trim();
     final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
     if (trimmedName.isEmpty) {
       return '$fieldName cannot be empty';
     } else if (trimmedName.length < 2) {
-      return '$fieldName must be at least 2 characters';
+      return 'Must be at least 2 characters';
     } else if (trimmedName.length > 20) {
-      return '$fieldName must not exceed 20 characters';
+      return 'Must not exceed 20 characters';
+    } else if (!regex.hasMatch(trimmedName)) {
+      return 'Only letters are allowed in $fieldName';
+    }
+    return null;
+  }
+
+  static String? validateLastName(String lastName, String fieldName) {
+    final trimmedName = lastName.trim();
+    final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
+    if (trimmedName.isEmpty) {
+      return '$fieldName cannot be empty';
+    } else if (trimmedName.length < 2) {
+      return 'Must be at least 2 characters';
+    } else if (trimmedName.length > 20) {
+      return 'Must not exceed 20 characters';
     } else if (!regex.hasMatch(trimmedName)) {
       return 'Only letters are allowed in $fieldName';
     }
@@ -26,13 +41,12 @@ class ValidationService {
   }
 
   static String? validateContact(String contact) {
-    final regex = RegExp(r'^[0-9]+$');
     if (contact.startsWith(' ')) {
       return 'Contact cannot start with a space';
     } else if (contact.isEmpty) {
       return 'Contact cannot be empty';
-    } else if (!regex.hasMatch(contact)) {
-      return 'Contact must be numbers only';
+    } else if (!RegExp(r'^[0-9]+$').hasMatch(contact)) {
+      return 'Contact must contain only numbers';
     }
     return null;
   }
@@ -52,10 +66,25 @@ class ValidationService {
     if (trimmedCity.isEmpty) {
       return 'City name cannot be empty';
     } else if (trimmedCity.length < 2) {
-      return 'City name must be at least 2 characters';
+      return 'Must be at least 2 characters';
     } else if (trimmedCity.length > 20) {
-      return 'City name must not exceed 20 characters';
+      return 'Must not exceed 20 characters';
     } else if (!regex.hasMatch(trimmedCity)) {
+      return 'Only letters are allowed';
+    }
+    return null;
+  }
+
+  static String? validateDesignation(String designation) {
+    final trimmedDesignation = designation.trim();
+    final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
+    if (trimmedDesignation.isEmpty) {
+      return 'Designation cannot be empty';
+    } else if (trimmedDesignation.length < 2) {
+      return 'Must be at least 2 characters';
+    } else if (trimmedDesignation.length > 20) {
+      return 'Must not exceed 20 characters';
+    } else if (!regex.hasMatch(trimmedDesignation)) {
       return 'Only letters are allowed';
     }
     return null;
