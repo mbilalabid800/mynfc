@@ -129,10 +129,10 @@ class _OrderDetailsState extends State<OrderDetails> {
                                                 BorderRadius.circular(10)),
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                              left: 6.0,
-                                              right: 7,
-                                              top: 13,
-                                              bottom: 10),
+                                              left: 7.0,
+                                              right: 8,
+                                              top: 2,
+                                              bottom: 2),
                                           child: SizedBox(
                                             height: 70,
                                             width: 80,
@@ -264,6 +264,11 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   ),
                                   orderInfo(context, "Expected Delivery Date:",
                                       provider.currentOrder!.deliveryDate),
+                                  orderInfo(
+                                      context,
+                                      "Total Employee:",
+                                      provider.currentOrder!.cardQuantity
+                                          .toString()),
                                   orderInfo(context, "Order Price:",
                                       provider.currentOrder!.orderPrice),
                                   SizedBox(

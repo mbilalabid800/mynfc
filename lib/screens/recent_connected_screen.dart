@@ -23,13 +23,15 @@ class _RecentConnectedState extends State<RecentConnected> {
   TextEditingController searchController = TextEditingController();
 
   @override
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       searchController.clear();
-      Provider.of<ConnectionProvider>(context, listen: false).resetSearch();
-      Provider.of<ConnectionProvider>(context, listen: false)
-          .loadRecommendedConnections();
+      final connectionProvider =
+          Provider.of<ConnectionProvider>(context, listen: false);
+      connectionProvider.resetSearch(); // Reset search state
+      connectionProvider.loadRecommendedConnections(); // Reload connections
     });
   }
 
