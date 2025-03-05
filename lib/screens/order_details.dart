@@ -264,11 +264,13 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   ),
                                   orderInfo(context, "Expected Delivery Date:",
                                       provider.currentOrder!.deliveryDate),
-                                  orderInfo(
-                                      context,
-                                      "Total Employee:",
-                                      provider.currentOrder!.cardQuantity
-                                          .toString()),
+                                  userProvider.profileType == "Business"
+                                      ? orderInfo(
+                                          context,
+                                          "Total Employee:",
+                                          provider.currentOrder!.cardQuantity
+                                              .toString())
+                                      : SizedBox.shrink(),
                                   orderInfo(context, "Order Price:",
                                       provider.currentOrder!.orderPrice),
                                   SizedBox(

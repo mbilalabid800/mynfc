@@ -222,32 +222,32 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                                   ],
                                 ),
                               ),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: 'Color: ',
-                                      style: TextStyle(
-                                        fontSize:
-                                            DeviceDimensions.responsiveSize(
-                                                    context) *
-                                                0.032,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: order.cardColor.toString(),
-                                      style: TextStyle(
-                                        fontWeight: FontWeight
-                                            .bold, // Make "Status:" bold
-                                        fontSize:
-                                            DeviceDimensions.responsiveSize(
-                                                    context) *
-                                                0.032,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              // Text.rich(
+                              //   TextSpan(
+                              //     children: [
+                              //       TextSpan(
+                              //         text: 'Color: ',
+                              //         style: TextStyle(
+                              //           fontSize:
+                              //               DeviceDimensions.responsiveSize(
+                              //                       context) *
+                              //                   0.032,
+                              //         ),
+                              //       ),
+                              //       TextSpan(
+                              //         text: order.cardColor.toString(),
+                              //         style: TextStyle(
+                              //           fontWeight: FontWeight
+                              //               .bold, // Make "Status:" bold
+                              //           fontSize:
+                              //               DeviceDimensions.responsiveSize(
+                              //                       context) *
+                              //                   0.032,
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                               Text.rich(
                                 TextSpan(
                                   children: [
@@ -274,34 +274,35 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen>
                                   ],
                                 ),
                               ),
+                              SizedBox(height: 2),
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Status: ',
+                                      style: TextStyle(
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.03,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: order.orderStatus.last['status'],
+                                      style: TextStyle(
+                                        fontWeight: FontWeight
+                                            .bold, // Make "Status:" bold
+                                        fontSize:
+                                            DeviceDimensions.responsiveSize(
+                                                    context) *
+                                                0.03,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.right,
+                              ),
                             ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Text.rich(
-                            TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Status: ',
-                                  style: TextStyle(
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.03,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: order.orderStatus.last['status'],
-                                  style: TextStyle(
-                                    fontWeight:
-                                        FontWeight.bold, // Make "Status:" bold
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.03,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            textAlign: TextAlign.right,
                           ),
                         ),
                       ],
