@@ -431,7 +431,7 @@ class _IndividualPricingPlanWidgetState
                   },
                 ),
               ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.095),
+              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.10),
             ],
           ),
         ),
