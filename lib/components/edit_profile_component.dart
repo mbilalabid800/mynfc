@@ -34,6 +34,7 @@ class EditProfileComponent extends StatefulWidget {
 
 class _EditProfileComponentState extends State<EditProfileComponent> {
   late FocusNode _focusNode;
+  String? _errorMessage;
 
   @override
   void initState() {
@@ -52,6 +53,76 @@ class _EditProfileComponentState extends State<EditProfileComponent> {
   void _closeKeyboard() {
     FocusScope.of(context).unfocus(); // Unfocus any active focus node
     _focusNode.unfocus(); // Explicitly unfocus this focus node
+  }
+
+  String? _validateInput(String value) {
+    if (value.trim().isEmpty) {
+      return "This field cannot be empty.";
+    }
+    if (widget.fieldKey == "first_name") {
+      if (value.startsWith(' ')) {
+        return "Spaces are not allowed.";
+      }
+      if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(value)) {
+        return "Only alphabets are allowed.";
+      }
+      if (value.trim().length < 2) {
+        return "Must be at least 2 characters.";
+      }
+      if (value.trim().length > 25) {
+        return "Must not exceed 25 characters.";
+      }
+    }
+    if (widget.fieldKey == "last_name") {
+      if (value.startsWith(' ')) {
+        return "Spaces are not allowed.";
+      }
+      if (!RegExp(r"^[a-zA-Z\s]+$").hasMatch(value)) {
+        return "Only alphabets are allowed.";
+      }
+      if (value.trim().length < 2) {
+        return "Must be at least 2 characters.";
+      }
+      if (value.trim().length > 25) {
+        return "Must not exceed 25 characters.";
+      }
+    }
+    if (widget.fieldKey == "company") {
+      if (value.startsWith(' ')) {
+        return "Spaces are not allowed.";
+      }
+      if (value.trim().length < 2) {
+        return "Must be at least 2 characters.";
+      }
+      if (value.trim().length > 25) {
+        return "Must not exceed 25 characters.";
+      }
+      if (!RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$').hasMatch(value)) {
+        return "Only letters are allowed.";
+      }
+    }
+    if (widget.fieldKey == "designation") {
+      if (value.startsWith(' ')) {
+        return "Spaces are not allowed.";
+      }
+      if (value.trim().length < 2) {
+        return "Must be at least 2 characters.";
+      }
+      if (value.trim().length > 50) {
+        return "Must not exceed 50 characters.";
+      }
+    }
+    if (widget.fieldKey == "bio") {
+      if (value.trim().length > 300) {
+        return "Must not exceed 300 characters.";
+      }
+    }
+    if (widget.fieldKey == "website") {
+      if (!Uri.parse(value).isAbsolute) {
+        return "Enter a valid website URL.";
+      }
+    }
+    return null;
   }
 
   @override
@@ -97,69 +168,83 @@ class _EditProfileComponentState extends State<EditProfileComponent> {
                           height:
                               DeviceDimensions.screenHeight(context) * 0.004),
                       isEditing
-                          ? TextField(
-                              controller: widget.controller,
-                              focusNode: _focusNode,
-                              style: TextStyle(
-                                fontSize:
-                                    DeviceDimensions.responsiveSize(context) *
+                          ? Column(
+                              children: [
+                                TextField(
+                                  controller: widget.controller,
+                                  focusNode: _focusNode,
+                                  style: TextStyle(
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
                                         0.037,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.textColorBlue,
-                              ),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                              ),
-                              autofocus: true,
-                              onChanged: (newValue) {
-                                if (widget.fieldKey == "first_name") {
-                                  Provider.of<UserInfoFormStateProvider>(
-                                          context,
-                                          listen: false)
-                                      .updateFirstName(newValue);
-                                  //_focusNode.unfocus();
-                                } else if (widget.fieldKey == "last_name") {
-                                  Provider.of<UserInfoFormStateProvider>(
-                                          context,
-                                          listen: false)
-                                      .updateLastName(newValue);
-                                  //_focusNode.unfocus();
-                                } else if (widget.fieldKey == "company") {
-                                  Provider.of<UserInfoFormStateProvider>(
-                                          context,
-                                          listen: false)
-                                      .updateCompanyName(newValue);
-                                  //_focusNode.unfocus();
-                                } else if (widget.fieldKey == "designation") {
-                                  Provider.of<UserInfoFormStateProvider>(
-                                          context,
-                                          listen: false)
-                                      .updateDesignation(newValue);
-                                  //_focusNode.unfocus();
-                                } else if (widget.fieldKey == "bio") {
-                                  Provider.of<UserInfoFormStateProvider>(
-                                          context,
-                                          listen: false)
-                                      .updateBio(newValue);
-                                  //_focusNode.unfocus();
-                                } else if (widget.fieldKey == "website") {
-                                  Provider.of<UserInfoFormStateProvider>(
-                                          context,
-                                          listen: false)
-                                      .updateWebsiteLink(newValue);
-                                  //_focusNode.unfocus();
-                                }
-                              },
-                              textInputAction:
-                                  TextInputAction.done, // Arrow button behavior
-                              onSubmitted: (value) {
-                                _focusNode.unfocus();
-                                _closeKeyboard(); // Close keyboard on arrow press
-                              },
-                              onEditingComplete: () {
-                                _focusNode
-                                    .unfocus(); // Optionally unfocus when editing is complete
-                              },
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.textColorBlue,
+                                  ),
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    errorText: _errorMessage,
+                                  ),
+                                  autofocus: true,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _errorMessage = _validateInput(newValue);
+                                    });
+
+                                    if (_errorMessage == null) {
+                                      if (widget.fieldKey == "first_name") {
+                                        Provider.of<UserInfoFormStateProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateFirstName(newValue);
+                                        //_focusNode.unfocus();
+                                      } else if (widget.fieldKey ==
+                                          "last_name") {
+                                        Provider.of<UserInfoFormStateProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateLastName(newValue);
+                                        //_focusNode.unfocus();
+                                      } else if (widget.fieldKey == "company") {
+                                        Provider.of<UserInfoFormStateProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateCompanyName(newValue);
+                                        //_focusNode.unfocus();
+                                      } else if (widget.fieldKey ==
+                                          "designation") {
+                                        Provider.of<UserInfoFormStateProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateDesignation(newValue);
+                                        //_focusNode.unfocus();
+                                      } else if (widget.fieldKey == "bio") {
+                                        Provider.of<UserInfoFormStateProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateBio(newValue);
+                                        //_focusNode.unfocus();
+                                      } else if (widget.fieldKey == "website") {
+                                        Provider.of<UserInfoFormStateProvider>(
+                                                context,
+                                                listen: false)
+                                            .updateWebsiteLink(newValue);
+                                        //_focusNode.unfocus();
+                                      }
+                                    }
+                                  },
+
+                                  textInputAction: TextInputAction
+                                      .done, // Arrow button behavior
+                                  onSubmitted: (value) {
+                                    _focusNode.unfocus();
+                                    _closeKeyboard(); // Close keyboard on arrow press
+                                  },
+                                  onEditingComplete: () {
+                                    _focusNode
+                                        .unfocus(); // Optionally unfocus when editing is complete
+                                  },
+                                ),
+                              ],
                             )
                           : Text(
                               widget.title2,

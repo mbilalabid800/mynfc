@@ -48,27 +48,6 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     }
   }
 
-  /// Function to fetch the selected plan from Firestore
-  // Future<void> fetchSelectedPlan() async {
-  //   final user = FirebaseAuth.instance.currentUser;
-  //   if (user != null) {
-  //     try {
-  //       DocumentSnapshot userDoc = await FirebaseFirestore.instance
-  //           .collection('users')
-  //           .doc(user.uid)
-  //           .get();
-
-  //       if (userDoc.exists) {
-  //         setState(() {
-  //           planNameDb = userDoc['planName'] ?? "No Plan Selected";
-  //         });
-  //       }
-  //     } catch (e) {
-  //       debugPrint("Error fetching plan: $e");
-  //     }
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> args =
@@ -1070,7 +1049,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                         fontWeight: FontWeight.bold,
                         fontSize:
                             DeviceDimensions.responsiveSize(context) * 0.055,
-                        color: Colors.black),
+                        color: AppColors.appBlueColor),
                   ),
                 ),
                 Text(
@@ -1079,7 +1058,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                     fontFamily: 'Barlow-Regular',
                     fontWeight: FontWeight.w600,
                     fontSize: DeviceDimensions.responsiveSize(context) * 0.038,
-                    color: Colors.black,
+                    color: AppColors.appBlueColor,
                   ),
                 ),
               ],
@@ -1097,7 +1076,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                   fontFamily: 'Barlow-Regular',
                   fontWeight: FontWeight.w600,
                   fontSize: DeviceDimensions.responsiveSize(context) * 0.040,
-                  color: Colors.black,
+                  color: AppColors.appBlueColor,
                   decoration: TextDecoration.underline,
                 ),
               ),

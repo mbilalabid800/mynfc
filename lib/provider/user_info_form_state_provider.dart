@@ -108,7 +108,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _firstNameError = 'Enter your first name';
     } else if (trimmedFirstName.length < 2) {
       _firstNameError = 'First name must be at least 2 characters';
-    } else if (trimmedFirstName.length > 20) {
+    } else if (trimmedFirstName.length > 25) {
       _firstNameError = 'First name must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedFirstName)) {
       _firstNameError = 'Only letters are allowed';
@@ -132,7 +132,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _lastNameError = 'Enter your last name';
     } else if (trimmedLastName.length < 2) {
       _lastNameError = 'Last name must be at least 2 characters';
-    } else if (trimmedLastName.length > 20) {
+    } else if (trimmedLastName.length > 25) {
       _lastNameError = 'Last name must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedLastName)) {
       _lastNameError = 'Only letters are allowed';
@@ -194,7 +194,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _cityNameError = 'Enter your city name';
     } else if (trimmedCityName.length < 2) {
       _cityNameError = 'City name must be at least 2 characters';
-    } else if (trimmedCityName.length > 20) {
+    } else if (trimmedCityName.length > 25) {
       _cityNameError = 'City name must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedCityName)) {
       _cityNameError = 'Only letters are allowed';
@@ -219,7 +219,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _companyNameError = 'Enter your company name';
     } else if (trimmedCompanyName.length < 2) {
       _companyNameError = 'Company name must be at least 2 characters';
-    } else if (trimmedCompanyName.length > 20) {
+    } else if (trimmedCompanyName.length > 25) {
       _companyNameError = 'Company name must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedCompanyName)) {
       _companyNameError = 'Only letters are allowed';

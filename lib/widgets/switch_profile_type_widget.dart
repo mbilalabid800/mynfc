@@ -279,6 +279,7 @@ class SwitchProfileTypeWidget {
                                       style: TextStyle(
                                           color: AppColors.appBlueColor))),
                               content: Text(
+                                  textAlign: TextAlign.center,
                                   "Your profile has been switched from $currentProfileType to $newProfileType",
                                   style:
                                       TextStyle(color: AppColors.appBlueColor)),

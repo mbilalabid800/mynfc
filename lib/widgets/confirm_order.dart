@@ -213,7 +213,7 @@ class ConfirmOrder {
         }
       ],
       shippingMethod: shippingMethod,
-      orderHistory: "active",
+      orderHistory: "",
       selectedPlan: selectedPlan,
       address:
           "${shippingDetails.streetAddress} ${shippingDetails.city} ${shippingDetails.state} ${shippingDetails.country}",

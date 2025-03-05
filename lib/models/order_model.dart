@@ -5,7 +5,7 @@ class OrderModel {
   final String orderPrice;
   final List<Map<String, dynamic>> orderStatus;
   final String selectedPlan;
-  final String orderHistory;
+  String orderHistory;
   final String shippingMethod;
   final String address;
   final String deliveryDate;
