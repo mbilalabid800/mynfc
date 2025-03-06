@@ -40,7 +40,7 @@ class ValidationService {
     return null;
   }
 
-  static String? validateContact(String contact) {
+  static String? validateContact(String contact, String fieldName) {
     if (contact.startsWith(' ')) {
       return 'Contact cannot start with a space';
     } else if (contact.isEmpty) {
@@ -60,7 +60,7 @@ class ValidationService {
     return null;
   }
 
-  static String? validateCity(String city) {
+  static String? validateCity(String city, String fieldName) {
     final trimmedCity = city.trim();
     final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
     if (trimmedCity.isEmpty) {
@@ -75,7 +75,67 @@ class ValidationService {
     return null;
   }
 
-  static String? validateDesignation(String designation) {
+  static String? validateCountryName(String country, String fieldName) {
+    final trimmedCountry = country.trim();
+    final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
+    if (trimmedCountry.isEmpty) {
+      return 'Country name cannot be empty';
+    } else if (trimmedCountry.length < 2) {
+      return 'Must be at least 2 characters';
+    } else if (trimmedCountry.length > 20) {
+      return 'Must not exceed 20 characters';
+    } else if (!regex.hasMatch(trimmedCountry)) {
+      return 'Only letters are allowed';
+    }
+    return null;
+  }
+
+  static String? validateState(String state, String fieldName) {
+    final trimmedState = state.trim();
+    final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
+    if (trimmedState.isEmpty) {
+      return 'State name cannot be empty';
+    } else if (trimmedState.length < 2) {
+      return 'Must be at least 2 characters';
+    } else if (trimmedState.length > 20) {
+      return 'Must not exceed 20 characters';
+    } else if (!regex.hasMatch(trimmedState)) {
+      return 'Only letters are allowed';
+    }
+    return null;
+  }
+
+  static String? validateZipCode(String zipCode, String fieldName) {
+    final trimmedZipcode = zipCode.trim();
+    final regex = RegExp(r'^[0-9]+$');
+    if (trimmedZipcode.isEmpty) {
+      return 'Zip Code cannot be empty';
+    } else if (trimmedZipcode.length < 2) {
+      return 'Must be at least 2 characters';
+    } else if (trimmedZipcode.length > 20) {
+      return 'Must not exceed 20 characters';
+    } else if (!regex.hasMatch(trimmedZipcode)) {
+      return 'Only numbers are allowed';
+    }
+    return null;
+  }
+
+  static String? validateLocationTag(String location, String fieldName) {
+    final trimmedLocation = location.trim();
+    final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
+    if (trimmedLocation.isEmpty) {
+      return 'Location name cannot be empty';
+    } else if (trimmedLocation.length < 2) {
+      return 'Must be at least 2 characters';
+    } else if (trimmedLocation.length > 20) {
+      return 'Must not exceed 20 characters';
+    } else if (!regex.hasMatch(trimmedLocation)) {
+      return 'Only letters are allowed';
+    }
+    return null;
+  }
+
+  static String? validateDesignation(String designation, String fieldName) {
     final trimmedDesignation = designation.trim();
     final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
     if (trimmedDesignation.isEmpty) {
@@ -85,6 +145,21 @@ class ValidationService {
     } else if (trimmedDesignation.length > 20) {
       return 'Must not exceed 20 characters';
     } else if (!regex.hasMatch(trimmedDesignation)) {
+      return 'Only letters are allowed';
+    }
+    return null;
+  }
+
+  static String? validateCompanyName(String company, String fieldName) {
+    final trimmedCompany = company.trim();
+    final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
+    if (trimmedCompany.isEmpty) {
+      return 'Company Name cannot be empty';
+    } else if (trimmedCompany.length < 2) {
+      return 'Must be at least 2 characters';
+    } else if (trimmedCompany.length > 20) {
+      return 'Must not exceed 20 characters';
+    } else if (!regex.hasMatch(trimmedCompany)) {
       return 'Only letters are allowed';
     }
     return null;
