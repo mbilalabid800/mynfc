@@ -1,10 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nfc_app/models/connections_model.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
@@ -14,8 +12,9 @@ import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
-import 'package:nfc_app/widgets/download_app_widget.dart';
 import 'package:provider/provider.dart';
+
+import '../shared/utils/contact_saver.dart';
 
 class ConnectionProfilePreview extends StatefulWidget {
   final String userId;
@@ -349,45 +348,20 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                   onPressed: connectionDetails.isPrivate
                                       ? null
                                       : () async {
-                                          if (kIsWeb) {
-                                            // 🔹 Web: Show Alert Dialog Instead of Saving Contact
-                                            DownloadAppWidget
-                                                .showDownloadAlertDialog(
-                                                    context);
-                                          } else {
-                                            // 🔹 Mobile: Save Contact Normally
-                                            try {
-                                              final Contact newContact =
-                                                  Contact(
-                                                name: Name(
-                                                  first: connectionDetails
-                                                      .firstName,
-                                                  last: connectionDetails
-                                                      .lastName,
-                                                ),
-                                                phones: [
-                                                  Phone(connectionDetails
-                                                      .contactNumber)
-                                                ],
-                                                emails: [
-                                                  Email(connectionDetails.email)
-                                                ],
-                                              );
+                                          saveContact(
+                                            fullName:
+                                                "${connectionDetails.firstName} ${connectionDetails.lastName}",
+                                            phoneNumber:
+                                                connectionDetails.contactNumber,
+                                            email: connectionDetails.email,
+                                          );
 
-                                              await FlutterContacts
-                                                  .insertContact(newContact);
-
-                                              CustomSnackbar().snakBarMessage(
-                                                context,
-                                                'Contact saved successfully!\nPlease check your contacts',
-                                              );
-                                            } catch (e) {
-                                              CustomSnackbar().snakBarError(
-                                                context,
-                                                'Failed to save contact: $e',
-                                              );
-                                            }
-                                          }
+                                          CustomSnackbar().snakBarMessage(
+                                            context,
+                                            kIsWeb
+                                                ? 'Contact downloaded! Open the .vcf file to import.'
+                                                : 'Contact saved successfully! Check your contacts.',
+                                          );
                                         },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.black,

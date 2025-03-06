@@ -246,6 +246,138 @@ class _CardDetailsState extends State<CardDetails> {
                                 ),
                               ],
                             ),
+                            // Row(
+                            //   children: [
+                            //     Padding(
+                            //       padding: const EdgeInsets.only(left: 22.0),
+                            //       child: GestureDetector(
+                            //         onVerticalDragUpdate: (details) {
+                            //           if (details.delta.dy > 0) {
+                            //             cardDetailsProvider.scrollColorUp();
+                            //           } else if (details.delta.dy < 0) {
+                            //             cardDetailsProvider.scrollColorDown();
+                            //           }
+                            //         },
+                            //         child: SingleChildScrollView(
+                            //           controller: _scrollController,
+                            //           child: Column(
+                            //             children: cardDetailsProvider
+                            //                 .visibleColorOptions
+                            //                 .map(
+                            //                   (colorOption) => Padding(
+                            //                     padding: const EdgeInsets.only(
+                            //                         bottom: 14.0),
+                            //                     child: GestureDetector(
+                            //                       onTap: () {
+                            //                         cardDetailsProvider
+                            //                             .setSelectedColor(
+                            //                                 colorOption);
+                            //                       },
+                            //                       child: AnimatedContainer(
+                            //                         duration: const Duration(
+                            //                             milliseconds: 300),
+                            //                         curve: Curves.easeInOut,
+                            //                         width: DeviceDimensions
+                            //                                 .screenWidth(
+                            //                                     context) *
+                            //                             0.13,
+                            //                         decoration: BoxDecoration(
+                            //                           color: cardDetailsProvider
+                            //                                       .selectedColorOption ==
+                            //                                   colorOption
+                            //                               ? const Color
+                            //                                       .fromARGB(255,
+                            //                                       100, 100, 100)
+                            //                                   .withOpacity(0.2)
+                            //                               : Colors.transparent,
+                            //                           borderRadius:
+                            //                               BorderRadius.circular(
+                            //                                   10.0),
+                            //                         ),
+                            //                         padding:
+                            //                             const EdgeInsets.all(
+                            //                                 9.0),
+                            //                         child: Container(
+                            //                           decoration: BoxDecoration(
+                            //                             shape: BoxShape.circle,
+                            //                             border: Border.all(
+                            //                               color: AppColors
+                            //                                   .appBlueColor,
+                            //                               width: 1.0,
+                            //                             ),
+                            //                           ),
+                            //                           child: Image.network(
+                            //                             colorOption.url,
+                            //                             height: 25,
+                            //                           ),
+                            //                         ),
+                            //                       ),
+                            //                     ),
+                            //                   ),
+                            //                 )
+                            //                 .toList(),
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //     Expanded(
+                            //       child: Stack(
+                            //         children: [
+                            //           Align(
+                            //             alignment: Alignment.topRight,
+                            //             child: SvgPicture.asset(
+                            //               "assets/icons/cardplaceholder.svg",
+                            //               height: DeviceDimensions.screenHeight(
+                            //                       context) *
+                            //                   0.33,
+                            //             ),
+                            //           ),
+                            //           Positioned(
+                            //             right: -50,
+                            //             bottom: 39,
+                            //             child: AnimatedSwitcher(
+                            //               duration:
+                            //                   const Duration(milliseconds: 500),
+                            //               transitionBuilder: (Widget child,
+                            //                   Animation<double> animation) {
+                            //                 final slideAnimation =
+                            //                     Tween<Offset>(
+                            //                   begin: const Offset(
+                            //                       1.0, 0), // Start from right
+                            //                   end: Offset
+                            //                       .zero, // End at original position
+                            //                 ).animate(animation);
+
+                            //                 return SlideTransition(
+                            //                   position: slideAnimation,
+                            //                   child: FadeTransition(
+                            //                     opacity: animation,
+                            //                     child: child,
+                            //                   ),
+                            //                 );
+                            //               },
+                            //               child: Image.network(
+                            //                 cardDetailsProvider
+                            //                     .filteredCardImages,
+                            //                 key: ValueKey<String>(
+                            //                     cardDetailsProvider
+                            //                         .filteredCardImages),
+                            //                 errorBuilder:
+                            //                     (context, error, stackTrace) =>
+                            //                         const Icon(Icons.error),
+                            //                 height:
+                            //                     DeviceDimensions.screenHeight(
+                            //                             context) *
+                            //                         0.23,
+                            //                 fit: BoxFit.cover,
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                             Padding(
                               padding: const EdgeInsets.only(left: 32.0),
                               child: InkWell(
