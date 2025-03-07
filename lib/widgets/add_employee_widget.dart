@@ -76,8 +76,7 @@ class AddEmployeeWidget extends StatelessWidget {
                   case 'email':
                     return ValidationService.validateEmail(value);
                   case 'designation':
-                    return ValidationService.validateDesignation(
-                        value ?? '', '');
+                    return ValidationService.validateDesignation(value, '');
                   case 'first name':
                     return ValidationService.validateFirstName(
                         value, "First Name");
@@ -85,14 +84,14 @@ class AddEmployeeWidget extends StatelessWidget {
                     return ValidationService.validateLastName(
                         value, "Last Name");
                   case 'contact':
-                    return ValidationService.validateContact(value ?? '', '');
+                    return ValidationService.validateContact(value, '');
                   default:
                     return null;
                 }
               },
               onChanged: (value) {
                 // Trigger form validation whenever the user types
-                Form.of(context)?.validate();
+                Form.of(context).validate();
               }),
         ),
       ],
