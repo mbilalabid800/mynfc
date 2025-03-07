@@ -8,13 +8,12 @@ import 'package:nfc_app/models/connections_model.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/services/contact_service.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
-
-import '../shared/utils/contact_saver.dart';
 
 class ConnectionProfilePreview extends StatefulWidget {
   final String userId;
@@ -349,7 +348,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                       ? null
                                       : () async {
                                           try {
-                                            saveContact(
+                                            await ContactService.saveContact(
                                               fullName:
                                                   "${connectionDetails.firstName} ${connectionDetails.lastName}",
                                               phoneNumber: connectionDetails
@@ -360,13 +359,13 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                             CustomSnackbar().snakBarMessage(
                                               context,
                                               kIsWeb
-                                                  ? 'Contact file downloaded! Check your downloads folder'
-                                                  : 'Contact saved successfully! Check your contacts app',
+                                                  ? 'Contact downloaded! Open the .vcf file to import!'
+                                                  : 'Contact saved successfully! Check your contacts!',
                                             );
                                           } catch (e) {
                                             CustomSnackbar().snakBarError(
                                               context,
-                                              'Failed to save contact: ${e.toString().replaceAll('Exception: ', '')}',
+                                              'Contact save failed: ${e.toString().replaceFirst('Exception: ', '')}',
                                             );
                                           }
                                         },
