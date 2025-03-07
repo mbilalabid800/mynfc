@@ -1,13 +1,14 @@
+// contact_saver_web.dart
 import 'dart:convert';
 import 'dart:html' as html;
 
-void saveContactWeb({
+Future<void> saveContact({
   required String fullName,
   required String phoneNumber,
   required String email,
-}) {
-  // 🔹 Create vCard format
-  final String vCardData = '''
+}) async {
+  try {
+    final vCardData = '''
 BEGIN:VCARD
 VERSION:3.0
 FN:$fullName
@@ -16,20 +17,21 @@ EMAIL:$email
 END:VCARD
 ''';
 
-  // 🔹 Convert to bytes
-  final List<int> bytes = utf8.encode(vCardData);
-  final html.Blob blob = html.Blob([bytes]);
+    final bytes = utf8.encode(vCardData);
+    final blob = html.Blob([bytes], 'text/vcard');
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    final anchor = html.AnchorElement()
+      ..href = url
+      ..download = '${fullName.replaceAll(' ', '_')}.vcf'
+      ..style.display = 'none';
 
-  // 🔹 Create a download link
-  final String url = html.Url.createObjectUrlFromBlob(blob);
-  final html.AnchorElement anchor = html.AnchorElement(href: url)
-    ..setAttribute("download", "$fullName.vcf") // 🔹 File name
-    ..style.display = "none"; // 🔹 Hide the element
+    html.document.body?.append(anchor);
+    anchor.click();
 
-  html.document.body?.append(anchor); // 🔹 Add to the page
-  anchor.click(); // 🔹 Trigger download
-
-  // 🔹 Cleanup
-  anchor.remove(); // ✅ Properly remove the element
-  html.Url.revokeObjectUrl(url);
+    await Future.delayed(const Duration(milliseconds: 500));
+    anchor.remove();
+    html.Url.revokeObjectUrl(url);
+  } catch (e) {
+    throw Exception('Web contact save failed: $e');
+  }
 }

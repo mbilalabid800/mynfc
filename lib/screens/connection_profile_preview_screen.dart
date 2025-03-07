@@ -348,20 +348,27 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                   onPressed: connectionDetails.isPrivate
                                       ? null
                                       : () async {
-                                          saveContact(
-                                            fullName:
-                                                "${connectionDetails.firstName} ${connectionDetails.lastName}",
-                                            phoneNumber:
-                                                connectionDetails.contactNumber,
-                                            email: connectionDetails.email,
-                                          );
+                                          try {
+                                            saveContact(
+                                              fullName:
+                                                  "${connectionDetails.firstName} ${connectionDetails.lastName}",
+                                              phoneNumber: connectionDetails
+                                                  .contactNumber,
+                                              email: connectionDetails.email,
+                                            );
 
-                                          CustomSnackbar().snakBarMessage(
-                                            context,
-                                            kIsWeb
-                                                ? 'Contact downloaded! Open the .vcf file to import.'
-                                                : 'Contact saved successfully! Check your contacts.',
-                                          );
+                                            CustomSnackbar().snakBarMessage(
+                                              context,
+                                              kIsWeb
+                                                  ? 'Contact file downloaded! Check your downloads folder'
+                                                  : 'Contact saved successfully! Check your contacts app',
+                                            );
+                                          } catch (e) {
+                                            CustomSnackbar().snakBarError(
+                                              context,
+                                              'Failed to save contact: ${e.toString().replaceAll('Exception: ', '')}',
+                                            );
+                                          }
                                         },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.black,
