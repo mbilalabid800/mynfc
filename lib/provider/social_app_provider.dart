@@ -50,6 +50,9 @@ class SocialAppProvider with ChangeNotifier {
         _socialApps = snapshot.docs
             .map((doc) => SocialAppModel.fromFirestore(doc.data()))
             .toList();
+
+        _removeInvalidAddedApps();
+
         removeFromSocialApps(_addedSocialApps);
         notifyListeners();
       });
@@ -68,6 +71,9 @@ class SocialAppProvider with ChangeNotifier {
             isVisible: doc['isVisible'] ?? true,
           );
         }).toList();
+
+        await _removeInvalidAddedApps();
+
         _updateFilteredSocialApps();
         removeFromSocialApps(_addedSocialApps);
       }
@@ -78,6 +84,34 @@ class SocialAppProvider with ChangeNotifier {
       notifyListeners();
     } catch (e) {
       debugPrint("Error loading social apps data: $e");
+    }
+  }
+
+  Future<void> _removeInvalidAddedApps() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final uid = user.uid;
+
+      List<SocialAppModel> toRemove = _addedSocialApps
+          .where((app) => !_socialApps.any((item) => item.name == app.name))
+          .toList();
+
+      if (toRemove.isNotEmpty) {
+        _addedSocialApps.removeWhere((app) => toRemove.contains(app));
+        _filteredSocialApps.removeWhere((app) => toRemove.contains(app));
+
+        // Remove from Firestore
+        for (var app in toRemove) {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(uid)
+              .collection('socialLinks')
+              .doc(app.name)
+              .delete();
+        }
+
+        notifyListeners();
+      }
     }
   }
 
