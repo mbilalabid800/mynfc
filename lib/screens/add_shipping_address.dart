@@ -102,7 +102,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
     _firstNameController.text = userProvider.firstName;
     _lastNameController.text = userProvider.lastName;
     _companyController.text = userProvider.companyName;
-    _phoneController.text = userProvider.contact;
+    //_phoneController.text = userProvider.contact;
     _countryController.text = userProvider.countryName;
     _cityController.text = userProvider.city;
 
@@ -279,85 +279,6 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                   height:
                                       DeviceDimensions.screenHeight(context) *
                                           0.010),
-                              // textfield(
-                              //   context,
-                              //   "*First name",
-                              //   _firstNameController,
-                              //   firstNameError,
-                              // ),
-                              // textfield(
-                              //   context,
-                              //   "*Last name",
-                              //   _lastNameController,
-                              //   lastNameError,
-                              // ),
-                              // textfield(
-                              //   context,
-                              //   "*Location e.g. Home, Office",
-                              //   _locationNameController,
-                              //   locationNameError,
-                              // ),
-                              // textfield(
-                              //   context,
-                              //   "Company (optional)",
-                              //   _companyController,
-                              //   null,
-                              //   optional: true,
-                              // ),
-                              // // textfield(
-                              // //   context,
-                              // //   "*Phone",
-                              // //   _phoneController,
-                              // //   phoneError,
-                              // // ),
-
-                              // textfield(
-                              //   context,
-                              //   "*Phone",
-                              //   _phoneController,
-                              //   phoneError,
-                              //   isPhoneField: true,
-                              //   onPhoneChanged: (number, countryCode, isoCode) {
-                              //     //formState.updateContact(number, countryCode, isoCode);
-                              //   },
-                              // ),
-                              // textfield(
-                              //   context,
-                              //   "*Country",
-                              //   _countryController,
-                              //   countryError,
-                              // ),
-                              // textfield(
-                              //   context,
-                              //   "*Street address",
-                              //   _streetAddressController,
-                              //   streetAddressError,
-                              // ),
-                              // textfield(
-                              //   context,
-                              //   "Apartment, suite, unit, etc (optional)",
-                              //   _apartmentController,
-                              //   null,
-                              //   optional: true,
-                              // ),
-                              // textfield(
-                              //   context,
-                              //   "*City / Town",
-                              //   _cityController,
-                              //   cityError,
-                              // ),
-                              // textfield(
-                              //   context,
-                              //   "*State",
-                              //   _stateController,
-                              //   stateError,
-                              // ),
-                              // textfield(
-                              //   context,
-                              //   "*Zip code",
-                              //   _zipCodeController,
-                              //   zipCodeError,
-                              // ),
                               textfield(
                                 context,
                                 "*First name",
@@ -365,7 +286,6 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                 firstNameError,
                                 fieldType: FieldType.firstName,
                               ),
-
                               textfield(
                                 context,
                                 "*Last name",
@@ -373,7 +293,6 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                 lastNameError,
                                 fieldType: FieldType.lastName,
                               ),
-
                               textfield(
                                 context,
                                 "*Location e.g. Home, Office",
@@ -381,7 +300,6 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                 locationNameError,
                                 fieldType: FieldType.location,
                               ),
-
                               textfield(
                                 context,
                                 "Company (optional)",
@@ -390,7 +308,6 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                 optional: true,
                                 fieldType: FieldType.company,
                               ),
-
                               textfield(
                                 context,
                                 "*Phone",
@@ -402,7 +319,6 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                   //formState.updateContact(number, countryCode, isoCode);
                                 },
                               ),
-
                               textfield(
                                 context,
                                 "*Country",
@@ -410,7 +326,6 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                 countryError,
                                 fieldType: FieldType.country,
                               ),
-
                               textfield(
                                 context,
                                 "*State",
@@ -418,7 +333,6 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                 stateError,
                                 fieldType: FieldType.state,
                               ),
-
                               textfield(
                                 context,
                                 "*Zip code",
@@ -426,7 +340,6 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                 zipCodeError,
                                 fieldType: FieldType.zipCode,
                               ),
-
                               SizedBox(
                                   height:
                                       DeviceDimensions.screenHeight(context) *
@@ -492,55 +405,6 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
     );
   }
 
-  // Padding textfield(BuildContext context, String hintText,
-  //     TextEditingController controller, String? errorText,
-  //     {bool optional = false}) {
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 8),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Container(
-  //           decoration: BoxDecoration(
-  //             borderRadius: BorderRadius.circular(12),
-  //             border: Border.all(width: 1.5, color: const Color(0xFFD9D9D9)),
-  //           ),
-  //           child: Padding(
-  //             padding: const EdgeInsets.symmetric(horizontal: 12.0),
-  //             child: TextFormField(
-  //               controller: controller,
-  //               decoration: InputDecoration(
-  //                 hintText: hintText,
-  //                 hintStyle: TextStyle(
-  //                     fontFamily: 'Barlow-Regular',
-  //                     fontSize:
-  //                         DeviceDimensions.responsiveSize(context) * 0.039),
-  //                 border: InputBorder.none,
-  //                 errorStyle: const TextStyle(color: Colors.red),
-  //               ),
-  //               validator: (value) {
-  //                 if (!optional && (value == null || value.isEmpty)) {
-  //                   return errorText;
-  //                 }
-  //                 return null; // No error
-  //               },
-  //             ),
-  //           ),
-  //         ),
-  //         // Display error text outside the TextFormField
-  //         if (errorText != null && errorText.isNotEmpty)
-  //           Padding(
-  //             padding: const EdgeInsets.only(top: 4.0, left: 8),
-  //             child: Text(
-  //               errorText,
-  //               style: const TextStyle(color: Colors.red, fontSize: 12),
-  //             ),
-  //           ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Padding textfield(BuildContext context, String hintText,
       TextEditingController controller, String? errorText,
       {bool optional = false,
@@ -561,7 +425,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: SizedBox(
-                height: 50,
+                //height: 50,
                 child: isPhoneField
                     ? IntlPhoneField(
                         //disableLengthCheck: false,
@@ -578,7 +442,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                           ),
                           border: InputBorder.none,
                           counterText: '',
-                          errorStyle: const TextStyle(color: Colors.red),
+                          //errorStyle: const TextStyle(color: Colors.red),
                           contentPadding:
                               const EdgeInsets.symmetric(vertical: 14),
                         ),
@@ -603,7 +467,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                 0.039,
                           ),
                           border: InputBorder.none,
-                          errorStyle: const TextStyle(color: Colors.red),
+                          // errorStyle: const TextStyle(color: Colors.red),
                         ),
                         // validator: (value) {
                         //   if (!optional && (value == null || value.isEmpty)) {
@@ -612,6 +476,10 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                         //   return null;
                         // },
                         validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return '$hintText is required'; // Don't show an error if the field is empty
+                          }
+
                           if (!optional) {
                             switch (fieldType) {
                               case FieldType.firstName:
