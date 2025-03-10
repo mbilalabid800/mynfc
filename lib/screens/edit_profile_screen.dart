@@ -31,6 +31,7 @@ class _EditProfileState extends State<EditProfile> {
   final TextEditingController bioController = TextEditingController();
   final TextEditingController websiteController = TextEditingController();
   bool isLoading = false;
+  bool isButtonEnabled = false;
   // final FocusNode _focusNode = FocusNode();
 
   late String _tempFirstName;
@@ -62,6 +63,25 @@ class _EditProfileState extends State<EditProfile> {
       designationController.text = _tempDesignation;
       bioController.text = _tempBio;
       websiteController.text = _tempWebsite;
+
+      // Add listeners
+      firstNameController.addListener(_checkChanges);
+      lastNameController.addListener(_checkChanges);
+      companyNameController.addListener(_checkChanges);
+      designationController.addListener(_checkChanges);
+      bioController.addListener(_checkChanges);
+      websiteController.addListener(_checkChanges);
+    });
+  }
+
+  void _checkChanges() {
+    setState(() {
+      isButtonEnabled = firstNameController.text != _tempFirstName ||
+          lastNameController.text != _tempLastName ||
+          companyNameController.text != _tempCompanyName ||
+          designationController.text != _tempDesignation ||
+          bioController.text != _tempBio ||
+          websiteController.text != _tempWebsite;
     });
   }
 
@@ -400,7 +420,7 @@ class _EditProfileState extends State<EditProfile> {
                                 height: DeviceDimensions.screenHeight(context) *
                                     0.040),
                             ElevatedButton(
-                              onPressed: _saveProfile,
+                              onPressed: isButtonEnabled ? _saveProfile : null,
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(
                                   horizontal:
@@ -417,7 +437,7 @@ class _EditProfileState extends State<EditProfile> {
                                 "Update",
                                 style: TextStyle(
                                   fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                                  //fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
                               ),

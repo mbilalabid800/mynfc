@@ -85,23 +85,22 @@ class _IndividualPricingPlanWidgetState
                   ? null
                   : () async {
                       if (selectedPlanName != null) {
+                        setState(() {
+                          isLoading = true;
+                        });
+
                         await savePlanToFirebase();
+                        if (context.mounted) {
+                          Navigator.pop(context);
+                        }
+                        setState(() {
+                          isLoading = false; // Hide loader
+                        });
                       } else {
                         CustomSnackbar().snakBarError(
                             context, "Please select a plan first");
                       }
                     },
-              // onPressed: () async {
-              //   //dummy link
-              //   if (selectedPlanName != null) {
-              //     await savePlanToFirebase();
-              //     Navigator.pop(context);
-              //   } else {
-              //     ScaffoldMessenger.of(context).showSnackBar(
-              //       SnackBar(content: Text("Please select a plan first!")),
-              //     );
-              //   }
-              // },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.appBlueColor,
                 shape: RoundedRectangleBorder(
@@ -120,15 +119,6 @@ class _IndividualPricingPlanWidgetState
                           letterSpacing: 1,
                           fontWeight: FontWeight.w600),
                     ),
-              // child: Text(
-              //   'Upgrade Now',
-              //   style: TextStyle(
-              //       fontSize: DeviceDimensions.responsiveSize(context) * 0.042,
-              //       color: Colors.white,
-              //       fontFamily: 'Barlow-Regular',
-              //       letterSpacing: 1,
-              //       fontWeight: FontWeight.w600),
-              // ),
             ),
           ),
         ),
@@ -231,13 +221,9 @@ class _IndividualPricingPlanWidgetState
                   PriceFeatureModel(
                       iconPath: 'assets/icons/nfc_card_scans.svg',
                       description: 'Unlimited NFC Card Read/Scans'),
-                  // PriceFeatureModel(
-                  //     iconPath: 'assets/icons/credit_card.svg',
-                  //     description: 'No Credit/Debit Card needed'),
                   PriceFeatureModel(
                       iconPath: 'assets/icons/contact_sharing.svg',
                       description: 'Contact Sharing'),
-
                   PriceFeatureModel(
                       iconPath: 'assets/icons/connection_allowed.svg',
                       description: 'Unlimited Connections Allowed'),
@@ -260,14 +246,9 @@ class _IndividualPricingPlanWidgetState
                   PriceFeatureModel(
                       iconPath: 'assets/icons/analytics.svg',
                       description: 'Analytics and Insights'),
-
                   PriceFeatureModel(
                       iconPath: 'assets/icons/private_profile.svg',
                       description: 'Private Profile'),
-
-                  // PriceFeatureModel(
-                  // iconPath: 'assets/icons/private_profile.svg',
-                  // description: 'Admin Profile'),
                 ],
                 selected: selectedContainer == 1,
                 onTap: () => _selectContainer(1, "Monthly"),
