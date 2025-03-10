@@ -10,6 +10,7 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/validation_service.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 
 import 'package:provider/provider.dart';
 
@@ -139,7 +140,6 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
   String? zipCodeError;
 
   Future<void> _saveShippingAddress() async {
-    // Reset error messages
     firstNameError = null;
     lastNameError = null;
     locationNameError = null;
@@ -149,6 +149,8 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
     cityError = null;
     stateError = null;
     zipCodeError = null;
+
+    // Reset error messages
 
     bool isValid = true;
 
@@ -352,8 +354,13 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                 child: ElevatedButton(
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      await _saveShippingAddress(); // Call your save method only if valid
+                                      await _saveShippingAddress();
+                                      // Call your save method only if valid
+                                      CustomSnackbar().snakBarMessage(context,
+                                          'Address updated successfully!');
                                     } else {
+                                      CustomSnackbar().snakBarError(context,
+                                          'Please fill out all required fields');
                                       print("Validation failed!");
                                     }
                                     // await _saveShippingAddress(); // Call your save method
