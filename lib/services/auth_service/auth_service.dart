@@ -133,7 +133,7 @@ class AuthService {
         await user.sendEmailVerification();
         CustomSnackbar().snakBarMessage(
             context, 'Verification email sent to ${user.email}');
-        Navigator.pushNamed(context, '/email-verify');
+        // Navigator.pushNamed(context, '/email-verify');
 
         // } else {
         //   ScaffoldMessenger.of(context).showSnackBar(

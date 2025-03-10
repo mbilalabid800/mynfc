@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, use_build_context_synchronously
 
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,7 +30,6 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.white,
       backgroundColor: AppColors.screenBackground,
       body: Column(
         children: [
