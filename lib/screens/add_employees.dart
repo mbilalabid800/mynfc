@@ -27,42 +27,103 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
   TextEditingController phoneController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final int maxEmployees = 20;
+  bool isButtonEnabled = false;
 
   @override
   void initState() {
     super.initState();
     Provider.of<EmployeeProvider>(context, listen: false).getLocalEmployees();
+    firstNameController.addListener(checkFields);
+    lastNameController.addListener(checkFields);
+    designationController.addListener(checkFields);
+    emailController.addListener(checkFields);
+    phoneController.addListener(checkFields);
+  }
+
+  void checkFields() {
+    bool allFieldsFilled = firstNameController.text.trim().isNotEmpty &&
+        lastNameController.text.trim().isNotEmpty &&
+        designationController.text.trim().isNotEmpty &&
+        emailController.text.trim().isNotEmpty &&
+        phoneController.text.trim().isNotEmpty;
+
+    if (isButtonEnabled != allFieldsFilled) {
+      // Only update if there's a change
+      setState(() {
+        isButtonEnabled = allFieldsFilled;
+      });
+    }
   }
 
   List<EmployeeModel> get addedEmployees =>
       context.watch<EmployeeProvider>().employeesLocal;
 
   void submitForm() async {
-    if (formKey.currentState!.validate()) {
-      final employee = EmployeeModel(
-        firstName: firstNameController.text.trim(),
-        lastName: lastNameController.text.trim(),
-        designation: designationController.text.trim(),
-        email: emailController.text.trim(),
-        phone: phoneController.text.trim(),
-      );
-
-      try {
-        await Provider.of<EmployeeProvider>(context, listen: false)
-            .addEmployeeToLocal(context, employee);
-        setState(() {});
-        CustomSnackbar().snakBarMessage(context, 'Employee added locally!');
-
-        // Clear form fields
-        firstNameController.clear();
-        lastNameController.clear();
-        designationController.clear();
-        emailController.clear();
-        phoneController.clear();
-      } catch (e) {
-        CustomSnackbar().snakBarError(context, 'Failed to add employee: $e');
-      }
+    if (!formKey.currentState!.validate()) {
+      return; // Stop execution if validation fails
     }
+
+    final employee = EmployeeModel(
+      firstName: firstNameController.text.trim(),
+      lastName: lastNameController.text.trim(),
+      designation: designationController.text.trim(),
+      email: emailController.text.trim(),
+      phone: phoneController.text.trim(),
+    );
+
+    try {
+      await Provider.of<EmployeeProvider>(context, listen: false)
+          .addEmployeeToLocal(context, employee);
+      setState(() {});
+      CustomSnackbar().snakBarMessage(context, 'Employee added locally!');
+
+      // Clear form fields
+      firstNameController.clear();
+      lastNameController.clear();
+      designationController.clear();
+      emailController.clear();
+      phoneController.clear();
+    } catch (e) {
+      CustomSnackbar().snakBarError(context, 'Failed to add employee: $e');
+    }
+  }
+
+  // void submitForm() async {
+  //   if (formKey.currentState!.validate()) {
+  //     final employee = EmployeeModel(
+  //       firstName: firstNameController.text.trim(),
+  //       lastName: lastNameController.text.trim(),
+  //       designation: designationController.text.trim(),
+  //       email: emailController.text.trim(),
+  //       phone: phoneController.text.trim(),
+  //     );
+
+  //     try {
+  //       await Provider.of<EmployeeProvider>(context, listen: false)
+  //           .addEmployeeToLocal(context, employee);
+  //       setState(() {});
+  //       CustomSnackbar().snakBarMessage(context, 'Employee added locally!');
+
+  //       // Clear form fields
+  //       firstNameController.clear();
+  //       lastNameController.clear();
+  //       designationController.clear();
+  //       emailController.clear();
+  //       phoneController.clear();
+  //     } catch (e) {
+  //       CustomSnackbar().snakBarError(context, 'Failed to add employee: $e');
+  //     }
+  //   }
+  // }
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    designationController.dispose();
+    emailController.dispose();
+    phoneController.dispose();
+    super.dispose();
   }
 
   @override
@@ -342,9 +403,13 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: TextButton(
-                                    onPressed: submitForm,
+                                    //onPressed: submitForm,
+                                    onPressed:
+                                        isButtonEnabled ? submitForm : null,
                                     style: TextButton.styleFrom(
-                                      backgroundColor: AppColors.buttonColor,
+                                      backgroundColor: isButtonEnabled
+                                          ? AppColors.appBlueColor
+                                          : Colors.grey,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10),
                                       ),

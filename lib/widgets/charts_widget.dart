@@ -65,7 +65,8 @@ class ViewsChart extends StatelessWidget {
         if (snapshot.hasError) {
           return Center(child: Text("Error: ${snapshot.error}"));
         } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(child: Icon(Icons.trending_up));
+          return Center(
+              child: Icon(Icons.trending_up, color: AppColors.appOrangeColor));
         } else {
           final barGroups = snapshot.data!;
 
@@ -150,7 +151,7 @@ class FullViewsChart extends StatelessWidget {
 
   const FullViewsChart({super.key, required this.uid});
 
-  Stream<List<BarChartGroupData>> fetchGroupedChartData(String uid) {
+  Stream<ChartData> fetchGroupedChartData(String uid) {
     return FirebaseFirestore.instance
         .collection("users")
         .doc(uid)
@@ -167,45 +168,71 @@ class FullViewsChart extends StatelessWidget {
         final viewCount = data['viewCount'] ?? 0;
 
         // Format date as "YYYY-MM-DD"
-        final day = "${timestamp.year}-${timestamp.month}-${timestamp.day}";
+        //final day = "${timestamp.year}-${timestamp.month}-${timestamp.day}";
+        // final day = DateFormat("MMM-d").format(timestamp);
+        final day = DateFormat("MMM dd").format(timestamp);
         groupedData[day] = (groupedData[day] ?? 0) + (viewCount as int);
       }
 
       // Convert grouped data to BarChartGroupData
-      int index = 0;
-      return groupedData.entries.map((entry) {
-        final totalViews = entry.value;
+      // int index = 0;
+      // return groupedData.entries.map((entry) {
+      //   final totalViews = entry.value;
 
+      //   return BarChartGroupData(
+      //     x: index++, // Increment index for each day
+      //     barRods: [
+      //       BarChartRodData(
+      //         toY: totalViews.toDouble(), // Bar height
+      //         color: AppColors.appOrangeColor,
+      //         width: 14, // Bar width
+      //         borderRadius: BorderRadius.circular(1), // Rounded corners
+      //       ),
+      //     ],
+      //   );
+      // }).toList();
+
+      int index = 0;
+      final barGroups = groupedData.entries.map((entry) {
         return BarChartGroupData(
-          x: index++, // Increment index for each day
+          x: index++,
           barRods: [
             BarChartRodData(
-              toY: totalViews.toDouble(), // Bar height
+              toY: entry.value.toDouble(),
               color: AppColors.appOrangeColor,
-              width: 14, // Bar width
-              borderRadius: BorderRadius.circular(1), // Rounded corners
+              width: 14,
+              borderRadius: BorderRadius.circular(1),
             ),
           ],
         );
       }).toList();
+
+      // Return chart data with barGroups and corresponding dates
+      return ChartData(
+        barGroups: barGroups,
+        dates: groupedData.keys.toList(),
+      );
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<BarChartGroupData>>(
+    return StreamBuilder<ChartData>(
       stream: fetchGroupedChartData(uid),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(child: Text("Error: ${snapshot.error}"));
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+        } else if (!snapshot.hasData || snapshot.data!.barGroups.isEmpty) {
           return const Center(child: Text("No data available"));
         } else {
+          final chartData = snapshot.data!;
           final barGroups = snapshot.data!;
+          // Extract actual dates for X-axis labels
+          final dates = chartData.dates;
 
           return BarChart(
             BarChartData(
-              barGroups: barGroups,
+              barGroups: chartData.barGroups,
               gridData: const FlGridData(
                 show: false,
                 drawVerticalLine: true,
@@ -216,17 +243,20 @@ class FullViewsChart extends StatelessWidget {
                   sideTitles: SideTitles(
                     showTitles: true,
                     getTitlesWidget: (value, meta) {
-                      // Show day as "Day X"
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Transform.rotate(
-                          angle: -0.5,
-                          child: Text(
-                            "Day ${value.toInt() + 1}", // Customize label as needed
-                            style: const TextStyle(fontSize: 10),
+                      int index = value.toInt();
+                      if (index >= 0 && index < dates.length) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Transform.rotate(
+                            angle: -0.5,
+                            child: Text(
+                              dates[index], // Customize label as needed
+                              style: const TextStyle(fontSize: 10),
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      }
+                      return const SizedBox.shrink();
                     },
                     reservedSize: 30,
                   ),
@@ -980,4 +1010,11 @@ class ConnectionChart extends StatelessWidget {
       ),
     );
   }
+}
+
+class ChartData {
+  final List<BarChartGroupData> barGroups;
+  final List<String> dates;
+
+  ChartData({required this.barGroups, required this.dates});
 }

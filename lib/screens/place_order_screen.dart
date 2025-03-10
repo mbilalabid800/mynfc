@@ -791,7 +791,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
     return Container(
       width: DeviceDimensions.screenWidth(context) * 0.80,
       decoration: BoxDecoration(
-          color: const Color(0xFFFDFAFA),
+          color: AppColors.screenBackground,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: const Color(0xFFD7D9DD))),
       child: Padding(
