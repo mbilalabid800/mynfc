@@ -274,10 +274,11 @@ class SwitchProfileTypeWidget {
                           builder: (context) {
                             return AlertDialog(
                               backgroundColor: AppColors.screenBackground,
-                              title: Center(
-                                  child: Text("Profile Type Switched",
-                                      style: TextStyle(
-                                          color: AppColors.appBlueColor))),
+                              title: Text(
+                                textAlign: TextAlign.center,
+                                "Profile Type Switched",
+                                style: TextStyle(color: AppColors.appBlueColor),
+                              ),
                               content: Text(
                                   textAlign: TextAlign.center,
                                   "Your profile has been switched from $currentProfileType to $newProfileType",

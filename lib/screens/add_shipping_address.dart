@@ -491,41 +491,39 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                             switch (fieldType) {
                               case FieldType.firstName:
                                 return ValidationService.validateFirstName(
-                                    value ?? '', "First Name");
+                                    value, "First Name");
                               case FieldType.lastName:
                                 return ValidationService.validateLastName(
-                                    value ?? '', "Last Name");
+                                    value, "Last Name");
                               case FieldType.location:
                                 return ValidationService.validateLocationTag(
-                                    value ?? '', "Location");
+                                    value, "Location");
                               case FieldType.company:
                                 return ValidationService.validateCompanyName(
-                                    value ?? '', "Company");
+                                    value, "Company");
                               case FieldType.contact:
                                 return ValidationService.validateContact(
-                                    value ?? '', '');
+                                    value, '');
                               case FieldType.country:
                                 return ValidationService.validateCountryName(
-                                    value ?? '', "Country");
+                                    value, "Country");
                               case FieldType.city:
                                 return ValidationService.validateCity(
-                                    value ?? '', "City");
+                                    value, "City");
                               case FieldType.state:
                                 return ValidationService.validateState(
-                                    value ?? '', "State");
+                                    value, "State");
                               case FieldType.zipCode:
                                 return ValidationService.validateZipCode(
-                                    value ?? '', "Zip Code");
-                              default:
-                                return null;
+                                    value, "Zip Code");
                             }
                           }
                           // return null;
-                          onChanged:
                           (value) {
                             // Trigger form validation whenever the user types
-                            Form.of(context)?.validate();
+                            Form.of(context).validate();
                           };
+                          return null;
                         }),
               ),
             ),
