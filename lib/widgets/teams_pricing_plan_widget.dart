@@ -83,23 +83,23 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                   ? null
                   : () async {
                       if (selectedPlanName != null) {
+                        setState(() {
+                          isLoading = true;
+                        });
+
                         await savePlanToFirebase();
+                        if (context.mounted) {
+                          Navigator.pop(context);
+                        }
+                        setState(() {
+                          isLoading = false; // Hide loader
+                        });
                       } else {
                         CustomSnackbar().snakBarError(
                             context, "Please select a plan first");
                       }
                     },
-              // onPressed: () async {
-              //   //dummy link
-              //   if (selectedPlanName != null) {
-              //     await savePlanToFirebase();
-              //     Navigator.pop(context);
-              //   } else {
-              //     ScaffoldMessenger.of(context).showSnackBar(
-              //       SnackBar(content: Text("Please select a plan first!")),
-              //     );
-              //   }
-              // },
+
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.appBlueColor,
                 shape: RoundedRectangleBorder(

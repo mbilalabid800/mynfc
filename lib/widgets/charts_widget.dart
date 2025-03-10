@@ -800,103 +800,103 @@ class AddedConnectionChart extends StatelessWidget {
   }
 }
 
-class SocialApp_BarChart extends StatelessWidget {
-  final String uid;
+// class SocialApp_BarChart extends StatelessWidget {
+//   final String uid;
 
-  const SocialApp_BarChart({super.key, required this.uid});
+//   const SocialApp_BarChart({super.key, required this.uid});
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<Map<String, int>>(
-      future: FirestoreService().fetchSocialAppTaps(uid),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: BigThreeBounceLoader());
-        }
-        if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
-          return const Center(child: Text('No data available'));
-        }
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder<Map<String, int>>(
+//       future: FirestoreService().fetchSocialAppTaps(uid),
+//       builder: (context, snapshot) {
+//         if (snapshot.connectionState == ConnectionState.waiting) {
+//           return const Center(child: BigThreeBounceLoader());
+//         }
+//         if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+//           return const Center(child: Text('No data available'));
+//         }
 
-        final appCounts = snapshot.data!;
-        final appNames = appCounts.keys.toList();
-        final counts = appCounts.values.toList();
+//         final appCounts = snapshot.data!;
+//         final appNames = appCounts.keys.toList();
+//         final counts = appCounts.values.toList();
 
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: BarChart(
-            BarChartData(
-              barGroups: List.generate(appNames.length, (index) {
-                return BarChartGroupData(
-                  x: index,
-                  barRods: [
-                    BarChartRodData(
-                      toY: counts[index].toDouble(),
-                      width: 14,
-                      color: AppColors.appOrangeColor,
-                      borderRadius: BorderRadius.circular(1),
-                    ),
-                  ],
-                );
-              }),
-              gridData: const FlGridData(
-                show: false,
-                drawVerticalLine: true,
-                drawHorizontalLine: true,
-              ),
-              titlesData: FlTitlesData(
-                leftTitles: AxisTitles(
-                  sideTitles: SideTitles(showTitles: true, interval: 1),
-                ),
-                topTitles: const AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: false,
-                  ),
-                ),
-                rightTitles: const AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: false,
-                  ),
-                ),
-                bottomTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    getTitlesWidget: (value, meta) {
-                      final appIndex = value.toInt();
-                      if (appIndex >= 0 && appIndex < appNames.length) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: Transform.rotate(
-                            angle: -0.5,
-                            child: Text(
-                              appNames[appIndex],
-                              style: TextStyle(
-                                  fontSize:
-                                      DeviceDimensions.responsiveSize(context) *
-                                          0.02),
-                            ),
-                          ),
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    },
-                    reservedSize: 30,
-                  ),
-                ),
-              ),
-              borderData: FlBorderData(
-                show: true,
-                border: const Border(
-                  left: BorderSide(color: AppColors.appBlueColor, width: 1),
-                  bottom: BorderSide(color: AppColors.appBlueColor, width: 1),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
+//         return Padding(
+//           padding: const EdgeInsets.all(16.0),
+//           child: BarChart(
+//             BarChartData(
+//               barGroups: List.generate(appNames.length, (index) {
+//                 return BarChartGroupData(
+//                   x: index,
+//                   barRods: [
+//                     BarChartRodData(
+//                       toY: counts[index].toDouble(),
+//                       width: 14,
+//                       color: AppColors.appOrangeColor,
+//                       borderRadius: BorderRadius.circular(1),
+//                     ),
+//                   ],
+//                 );
+//               }),
+//               gridData: const FlGridData(
+//                 show: false,
+//                 drawVerticalLine: true,
+//                 drawHorizontalLine: true,
+//               ),
+//               titlesData: FlTitlesData(
+//                 leftTitles: AxisTitles(
+//                   sideTitles: SideTitles(showTitles: true, interval: 1),
+//                 ),
+//                 topTitles: const AxisTitles(
+//                   sideTitles: SideTitles(
+//                     showTitles: false,
+//                   ),
+//                 ),
+//                 rightTitles: const AxisTitles(
+//                   sideTitles: SideTitles(
+//                     showTitles: false,
+//                   ),
+//                 ),
+//                 bottomTitles: AxisTitles(
+//                   sideTitles: SideTitles(
+//                     showTitles: true,
+//                     getTitlesWidget: (value, meta) {
+//                       final appIndex = value.toInt();
+//                       if (appIndex >= 0 && appIndex < appNames.length) {
+//                         return Padding(
+//                           padding: const EdgeInsets.only(top: 8.0),
+//                           child: Transform.rotate(
+//                             angle: -0.5,
+//                             child: Text(
+//                               appNames[appIndex],
+//                               style: TextStyle(
+//                                   fontSize:
+//                                       DeviceDimensions.responsiveSize(context) *
+//                                           0.02),
+//                             ),
+//                           ),
+//                         );
+//                       }
+//                       return const SizedBox.shrink();
+//                     },
+//                     reservedSize: 30,
+//                   ),
+//                 ),
+//               ),
+//               borderData: FlBorderData(
+//                 show: true,
+//                 border: const Border(
+//                   left: BorderSide(color: AppColors.appBlueColor, width: 1),
+//                   bottom: BorderSide(color: AppColors.appBlueColor, width: 1),
+//                 ),
+//               ),
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }
 
 class ConnectionChart extends StatelessWidget {
   const ConnectionChart({
@@ -1016,4 +1016,102 @@ class ChartData {
   final List<String> dates;
 
   ChartData({required this.barGroups, required this.dates});
+}
+
+class SocialApp_BarChart extends StatelessWidget {
+  final String uid;
+
+  const SocialApp_BarChart({super.key, required this.uid});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<Map<String, int>>(
+      future: FirestoreService().fetchSocialAppTaps(uid),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: BigThreeBounceLoader());
+        }
+        if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+          return const Center(child: Text('No data available'));
+        }
+
+        final appCounts = snapshot.data!;
+        final appNames = appCounts.keys.toList();
+        final counts = appCounts.values.toList();
+
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: BarChart(
+            BarChartData(
+              barGroups: List.generate(appNames.length, (index) {
+                return BarChartGroupData(
+                  x: index,
+                  barRods: [
+                    BarChartRodData(
+                      toY: counts[index].toDouble(),
+                      width: 14,
+                      color: AppColors.appOrangeColor,
+                      borderRadius: BorderRadius.circular(1),
+                    ),
+                  ],
+                );
+              }),
+              gridData: const FlGridData(
+                show: false,
+                drawVerticalLine: true,
+                drawHorizontalLine: true,
+              ),
+              titlesData: FlTitlesData(
+                leftTitles: AxisTitles(
+                  sideTitles: SideTitles(showTitles: true, interval: 1),
+                ),
+                topTitles: const AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: false,
+                  ),
+                ),
+                rightTitles: const AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: false,
+                  ),
+                ),
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    getTitlesWidget: (value, meta) {
+                      final appIndex = value.toInt();
+                      if (appIndex >= 0 && appIndex < appNames.length) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Transform.rotate(
+                            angle: -0.5,
+                            child: Text(
+                              appNames[appIndex],
+                              style: TextStyle(
+                                  fontSize:
+                                      DeviceDimensions.responsiveSize(context) *
+                                          0.02),
+                            ),
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                    reservedSize: 30,
+                  ),
+                ),
+              ),
+              borderData: FlBorderData(
+                show: true,
+                border: const Border(
+                  left: BorderSide(color: AppColors.appBlueColor, width: 1),
+                  bottom: BorderSide(color: AppColors.appBlueColor, width: 1),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

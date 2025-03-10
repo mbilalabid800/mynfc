@@ -10,6 +10,7 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/validation_service.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 
 import 'package:provider/provider.dart';
 
@@ -140,64 +141,49 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
 
   Future<void> _saveShippingAddress() async {
     // Reset error messages
-    firstNameError = null;
-    lastNameError = null;
-    locationNameError = null;
-    phoneError = null;
-    countryError = null;
-    streetAddressError = null;
-    cityError = null;
-    stateError = null;
-    zipCodeError = null;
-
-    bool isValid = true;
-
-    // Validate each field
-    if (_firstNameController.text.isEmpty) {
-      firstNameError = "Please enter first name";
-      isValid = false;
-    }
-    if (_lastNameController.text.isEmpty) {
-      lastNameError = "Please enter last name";
-      isValid = false;
-    }
-    if (_locationNameController.text.isEmpty) {
-      locationNameError = "Please enter location name";
-      isValid = false;
-    }
-    if (_phoneController.text.isEmpty) {
-      phoneError = "Please enter phone no.";
-      isValid = false;
-    }
-    if (_countryController.text.isEmpty) {
-      countryError = "Please select country";
-      isValid = false;
-    }
-    if (_streetAddressController.text.isEmpty) {
-      streetAddressError = "Please enter street address";
-      isValid = false;
-    }
-    if (_cityController.text.isEmpty) {
-      cityError = "Please enter city";
-      isValid = false;
-    }
-    if (_stateController.text.isEmpty) {
-      stateError = "Please enter state";
-      isValid = false;
-    }
-    if (_zipCodeController.text.isEmpty) {
-      zipCodeError = "Please enter zip code";
-      isValid = false;
-    }
-
-    // If any field is invalid, show the error messages
-    if (!isValid) {
-      setState(() {}); // Trigger UI update to show errors
-      return; // Stop execution if validation fails
-    }
-
     setState(() {
-      isLoading = true; // Show the loader when saving starts
+      firstNameError =
+          _firstNameController.text.isEmpty ? "Please enter first name" : null;
+      lastNameError =
+          _lastNameController.text.isEmpty ? "Please enter last name" : null;
+      locationNameError = _locationNameController.text.isEmpty
+          ? "Please enter location name"
+          : null;
+      phoneError =
+          _phoneController.text.isEmpty ? "Please enter phone no." : null;
+      countryError =
+          _countryController.text.isEmpty ? "Please select country" : null;
+      streetAddressError = _streetAddressController.text.isEmpty
+          ? "Please enter street address"
+          : null;
+      cityError = _cityController.text.isEmpty ? "Please enter city" : null;
+      stateError = _stateController.text.isEmpty ? "Please enter state" : null;
+      zipCodeError =
+          _zipCodeController.text.isEmpty ? "Please enter zip code" : null;
+    });
+
+    // Check if any required field is empty
+    bool hasEmptyFields = firstNameError != null ||
+        lastNameError != null ||
+        locationNameError != null ||
+        phoneError != null ||
+        countryError != null ||
+        streetAddressError != null ||
+        cityError != null ||
+        stateError != null ||
+        zipCodeError != null;
+
+    // Trigger form validation to get validation errors
+    bool isFormValid = _formKey.currentState!.validate();
+
+    // If there are empty fields or validation errors, stop execution
+    if (hasEmptyFields || !isFormValid) {
+      return;
+    }
+
+    // Proceed with saving the address
+    setState(() {
+      isLoading = true;
     });
 
     final shippingAddress = ShippingAddressModel(
@@ -220,23 +206,122 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
           Provider.of<ShippingAddressProvider>(context, listen: false);
       await shippingAddressProvider.saveShippingAddress(shippingAddress);
     } catch (e) {
-      // Optionally, handle save errors here.
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error saving shipping address: $e')),
       );
+      print('not working');
     } finally {
       if (mounted) {
         setState(() {
-          isLoading = false; // Hide the loader after saving
+          isLoading = false;
         });
       }
     }
 
-    // Ensure the widget is mounted before popping context
     if (mounted) {
-      Navigator.pop(context); // Close the form after saving
+      Navigator.pop(context);
     }
   }
+  // Future<void> _saveShippingAddress() async {
+  //   firstNameError = null;
+  //   lastNameError = null;
+  //   locationNameError = null;
+  //   phoneError = null;
+  //   countryError = null;
+  //   streetAddressError = null;
+  //   cityError = null;
+  //   stateError = null;
+  //   zipCodeError = null;
+
+  //   // Reset error messages
+
+  //   bool isValid = true;
+
+  //   // Validate each field
+  //   if (_firstNameController.text.isEmpty) {
+  //     firstNameError = "Please enter first name";
+  //     isValid = false;
+  //   }
+  //   if (_lastNameController.text.isEmpty) {
+  //     lastNameError = "Please enter last name";
+  //     isValid = false;
+  //   }
+  //   if (_locationNameController.text.isEmpty) {
+  //     locationNameError = "Please enter location name";
+  //     isValid = false;
+  //   }
+  //   if (_phoneController.text.isEmpty) {
+  //     phoneError = "Please enter phone no.";
+  //     isValid = false;
+  //   }
+  //   if (_countryController.text.isEmpty) {
+  //     countryError = "Please select country";
+  //     isValid = false;
+  //   }
+  //   if (_streetAddressController.text.isEmpty) {
+  //     streetAddressError = "Please enter street address";
+  //     isValid = false;
+  //   }
+  //   if (_cityController.text.isEmpty) {
+  //     cityError = "Please enter city";
+  //     isValid = false;
+  //   }
+  //   if (_stateController.text.isEmpty) {
+  //     stateError = "Please enter state";
+  //     isValid = false;
+  //   }
+  //   if (_zipCodeController.text.isEmpty) {
+  //     zipCodeError = "Please enter zip code";
+  //     isValid = false;
+  //   }
+
+  //   // If any field is invalid, show the error messages
+  //   if (!isValid) {
+  //     setState(() {}); // Trigger UI update to show errors
+  //     return; // Stop execution if validation fails
+  //   }
+
+  //   setState(() {
+  //     isLoading = true; // Show the loader when saving starts
+  //   });
+
+  //   final shippingAddress = ShippingAddressModel(
+  //     firstName: _firstNameController.text,
+  //     lastName: _lastNameController.text,
+  //     locationName: _locationNameController.text,
+  //     company: _companyController.text.isEmpty ? null : _companyController.text,
+  //     phone: _phoneController.text,
+  //     country: _countryController.text,
+  //     streetAddress: _streetAddressController.text,
+  //     apartment:
+  //         _apartmentController.text.isEmpty ? null : _apartmentController.text,
+  //     city: _cityController.text,
+  //     state: _stateController.text,
+  //     zipCode: _zipCodeController.text,
+  //   );
+
+  //   try {
+  //     final shippingAddressProvider =
+  //         Provider.of<ShippingAddressProvider>(context, listen: false);
+  //     await shippingAddressProvider.saveShippingAddress(shippingAddress);
+  //   } catch (e) {
+  //     // Optionally, handle save errors here.
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(content: Text('Error saving shipping address: $e')),
+  //     );
+  //   } finally {
+  //     if (mounted) {
+  //       setState(() {
+  //         isLoading = false; // Hide the loader after saving
+  //       });
+  //     }
+  //   }
+
+  //   // Ensure the widget is mounted before popping context
+  //   if (mounted) {
+  //     Navigator.pop(context); // Close the form after saving
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -352,8 +437,13 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                 child: ElevatedButton(
                                   onPressed: () async {
                                     if (_formKey.currentState!.validate()) {
-                                      await _saveShippingAddress(); // Call your save method only if valid
+                                      await _saveShippingAddress();
+                                      // Call your save method only if valid
+                                      CustomSnackbar().snakBarMessage(context,
+                                          'Address updated successfully!');
                                     } else {
+                                      CustomSnackbar().snakBarError(context,
+                                          'Please fill out all required fields');
                                       print("Validation failed!");
                                     }
                                     // await _saveShippingAddress(); // Call your save method
@@ -477,7 +567,8 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                         // },
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return '$hintText is required'; // Don't show an error if the field is empty
+                            //return '$hintText is required'; // Don't show an error if the field is empty
+                            return null;
                           }
 
                           if (!optional) {
@@ -512,12 +603,13 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                             }
                           }
                           // return null;
-                          (value) {
-                            // Trigger form validation whenever the user types
-                            Form.of(context).validate();
-                          };
-                          return null;
-                        }),
+                          // (value) {
+                          //   // Trigger form validation whenever the user types
+                          //   Form.of(context).validate();
+                          // }; 10-3
+                          //return null;
+                        },
+                      ),
               ),
             ),
           ),
