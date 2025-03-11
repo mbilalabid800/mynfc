@@ -18,9 +18,8 @@ class UserDataModel {
   final Timestamp timeStamp;
   bool connectionTypeAll;
   bool isCardOrdered;
-
-  // int profileViews;
   bool isBlocked;
+  // bool isEmailVerified;
   int viewCount;
 
   UserDataModel({
@@ -41,8 +40,8 @@ class UserDataModel {
     required this.timeStamp,
     required this.connectionTypeAll,
     this.isCardOrdered = false,
-    // this.profileViews = 0,
     this.isBlocked = false,
+    // this.isEmailVerified = false,
     this.viewCount = 0,
   });
 
@@ -65,8 +64,8 @@ class UserDataModel {
       isPrivate: data['isPrivate'],
       timeStamp: data['timeStamp'] ?? '',
       connectionTypeAll: data['connectionTypeAll'],
-      // profileViews: data['profileViews'] ?? 0,
       isBlocked: data['isBlocked'] ?? false,
+      // isEmailVerified: data['isEmailVerified'] ?? false,
       viewCount: data['viewCount'] ?? 0,
       isCardOrdered: data['isCardOrdered'] ?? false,
     );
@@ -89,8 +88,8 @@ class UserDataModel {
       'isPrivate': isPrivate,
       'timeStamp': timeStamp,
       'connectionTypeAll': connectionTypeAll,
-      // 'profileViews': profileViews,
       'isBlocked': isBlocked,
+      // 'isEmailVerified': isEmailVerified,
       'viewCount': viewCount,
       'isCardOrdered': isCardOrdered,
     };

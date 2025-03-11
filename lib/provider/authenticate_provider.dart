@@ -136,7 +136,7 @@ class AuthenticateProvider with ChangeNotifier {
             await _authService.signInWithEmailPassword(email, password);
 
         if (user != null) {
-          // await _saveUserData();
+          await _saveUserData();
           await _navigateBasedOnUserStatus(context, user);
         } else {
           CustomSnackbar().snakBarError(
@@ -193,14 +193,14 @@ class AuthenticateProvider with ChangeNotifier {
     }
   }
 
-  // Future<void> _saveUserData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   prefs.setBool('rememberMe', isRememberMe);
-  //   if (isRememberMe) {
-  //     prefs.setString('email', signinEmailController.text);
-  //     prefs.setString('password', signinPasswordController.text);
-  //   }
-  // }
+  Future<void> _saveUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('rememberMe', isRememberMe);
+    if (isRememberMe) {
+      prefs.setString('email', signinEmailController.text);
+      prefs.setString('password', signinPasswordController.text);
+    }
+  }
 
 //Register new account
   Future<void> registerWithEmailPassword(
