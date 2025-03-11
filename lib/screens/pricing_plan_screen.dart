@@ -139,8 +139,9 @@ class _PricingPlanState extends State<PricingPlan>
                 child: isIndividual
                     ? const IndividualPricingPlanWidget(key: ValueKey<int>(0))
                     : const TeamsPricingPlanWidget(key: ValueKey<int>(1)),
+                //: PlansScreen()),
               ),
-            ),
+            )
           ],
         ),
       ),
