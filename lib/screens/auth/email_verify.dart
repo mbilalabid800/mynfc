@@ -53,8 +53,6 @@ class _EmailVerifyState extends State<EmailVerify> {
       await user?.reload();
       if (user != null && user.emailVerified) {
         _timer?.cancel();
-        // Provider.of<UserInfoFormStateProvider>(context, listen: false)
-        //     .updateIsEmailVerified(true);
         Navigator.pushNamed(context, "/email-verified");
       }
     });
