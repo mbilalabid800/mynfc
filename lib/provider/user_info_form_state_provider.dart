@@ -302,6 +302,18 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Future<void> updateIsEmailVerified(bool isEmailVerified) async {
+  //   notifyListeners();
+  //   final uid = FirebaseAuth.instance.currentUser?.uid;
+  //   if (uid != null) {
+  //     await FirebaseFirestore.instance.collection("users").doc(uid).update({
+  //       'isEmailVerified': isEmailVerified ? true : false,
+  //     });
+  //   }
+  //   _isEmailVerified = isEmailVerified;
+  //   notifyListeners();
+  // }
+
   Future<void> updateProfileType(String profileType) async {
     notifyListeners();
     final uid = FirebaseAuth.instance.currentUser?.uid;
@@ -373,6 +385,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'timeStamp': Timestamp.now(),
           'connectionTypeAll': _connectionTypeAll,
           'isBlocked': _isBlocked,
+          // 'isEmailVerified': _isEmailVerified,
           'isCardOrdered': _isCardOrdered,
           'planName': 'No Plan Selected',
         });
@@ -478,6 +491,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           _bio =
               userData.bio.isEmpty ? 'Write about yourself ...' : userData.bio;
           _isPrivate = userData.isPrivate;
+          // _isEmailVerified = userData.isEmailVerified;
           _isCardOrdered = userData.isCardOrdered;
           // _profileViews = userData.profileViews;
           _isBlocked = userData.isBlocked;

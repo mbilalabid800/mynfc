@@ -29,7 +29,6 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.white,
       backgroundColor: AppColors.screenBackground,
       body: Column(
         children: [

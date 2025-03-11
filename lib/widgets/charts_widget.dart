@@ -226,7 +226,6 @@ class FullViewsChart extends StatelessWidget {
           return const Center(child: Text("No data available"));
         } else {
           final chartData = snapshot.data!;
-          final barGroups = snapshot.data!;
           // Extract actual dates for X-axis labels
           final dates = chartData.dates;
 

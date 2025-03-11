@@ -7,6 +7,7 @@ import 'package:nfc_app/models/social_app_model.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:provider/provider.dart';
 
 class ShowLinkDialog extends StatefulWidget {
@@ -256,12 +257,24 @@ void showLinkBottomSheet(BuildContext context, SocialAppModel appItem) async {
       Provider.of<SocialAppProvider>(context, listen: false);
 
   if (result != null) {
+    FocusScope.of(context).unfocus();
+    await Future.delayed(Duration(milliseconds: 300));
+
     if (result == 'delete') {
       final updatedItem = appItem.copyWith(userName: '', isVisible: false);
       socialAppProvider.removeFromaddedSocialApps([updatedItem]);
+
+      CustomSnackbar().snakBarMessage2(
+          context, "${appItem.name} has been removed successfully.");
     } else if (result.isNotEmpty) {
+      final isUpdate = appItem.userName.isNotEmpty;
       final updatedItem = appItem.copyWith(userName: result, isVisible: true);
       socialAppProvider.addOrUpdateAppItem(updatedItem);
+
+      String massage = isUpdate
+          ? "${appItem.name} has been updated successfully."
+          : "${appItem.name} has been added successfully.";
+      CustomSnackbar().snakBarMessage2(context, massage);
     }
   }
 }

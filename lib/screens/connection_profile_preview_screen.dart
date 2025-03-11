@@ -65,17 +65,22 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
               children: [
                 SizedBox(
                     height: DeviceDimensions.screenHeight(context) * 0.0001),
-                AbsherAppBar3(
-                  title: 'Profile',
-                  onLeftButtonTap: () {
-                    Navigator.pop(context);
-                  },
-                  rightButton: Align(
-                    alignment: Alignment.centerRight,
-                    child: SizedBox(
-                        width: DeviceDimensions.screenWidth(context) * 0.035),
-                  ),
-                ),
+                kIsWeb
+                    ? AbsherAppBar(
+                        title: 'Profile',
+                      )
+                    : AbsherAppBar3(
+                        title: 'Profile',
+                        onLeftButtonTap: () {
+                          Navigator.pop(context);
+                        },
+                        rightButton: Align(
+                          alignment: Alignment.centerRight,
+                          child: SizedBox(
+                              width: DeviceDimensions.screenWidth(context) *
+                                  0.035),
+                        ),
+                      ),
                 SizedBox(
                     height: DeviceDimensions.screenHeight(context) * 0.020),
                 Flexible(
@@ -417,28 +422,33 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                       );
                                       final isAdded = provider
                                           .isInAddedConnections(connection);
+                                      final bool isWeb = kIsWeb;
                                       return ElevatedButton(
-                                        onPressed: () {
-                                          final provider =
-                                              Provider.of<ConnectionProvider>(
-                                                  context,
-                                                  listen: false);
+                                        onPressed: isWeb
+                                            ? null
+                                            : () {
+                                                final provider = Provider.of<
+                                                        ConnectionProvider>(
+                                                    context,
+                                                    listen: false);
 
-                                          if (isAdded) {
-                                            provider
-                                                .removeConnection(connection);
-                                            CustomSnackbar().snakBarError(
-                                              context,
-                                              '${connection.firstName} disconnected successfully!',
-                                            );
-                                          } else {
-                                            provider.addConnection(connection);
-                                            CustomSnackbar().snakBarMessage(
-                                              context,
-                                              '${connection.firstName} connected successfully!',
-                                            );
-                                          }
-                                        },
+                                                if (isAdded) {
+                                                  provider.removeConnection(
+                                                      connection);
+                                                  CustomSnackbar().snakBarError(
+                                                    context,
+                                                    '${connection.firstName} disconnected successfully!',
+                                                  );
+                                                } else {
+                                                  provider.addConnection(
+                                                      connection);
+                                                  CustomSnackbar()
+                                                      .snakBarMessage(
+                                                    context,
+                                                    '${connection.firstName} connected successfully!',
+                                                  );
+                                                }
+                                              },
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: isAdded
                                               ? Colors.black
@@ -446,8 +456,11 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(30.0),
-                                              side: const BorderSide(
-                                                color: Colors.black,
+                                              side: BorderSide(
+                                                color: isWeb
+                                                    ? const Color.fromARGB(
+                                                        215, 220, 217, 217)
+                                                    : Colors.black,
                                                 width: 1.2,
                                               )),
                                           padding: EdgeInsets.zero,
@@ -464,7 +477,9 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                             letterSpacing: 1,
                                             color: isAdded
                                                 ? Colors.white
-                                                : Colors.black,
+                                                : isWeb
+                                                    ? Colors.white
+                                                    : Colors.black,
                                           ),
                                         ),
                                       );

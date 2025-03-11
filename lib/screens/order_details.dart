@@ -264,7 +264,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                                   ),
                                   orderInfo(context, "Expected Delivery Date:",
                                       provider.currentOrder!.deliveryDate),
-                                  userProvider.profileType == "Business"
+                                  provider.currentOrder!.cardQuantity >= 1
                                       ? orderInfo(
                                           context,
                                           "Total Employee:",

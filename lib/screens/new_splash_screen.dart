@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/constants/appColors.dart';
@@ -53,14 +54,30 @@ class _NewSplashScreenState extends State<NewSplashScreen>
     if (isFirstInstall) {
       await prefs.setBool('isFirstInstall', false);
       await FirebaseAuth.instance.signOut(); // Ensure logout
-      Navigator.pushReplacementNamed(context, '/splash');
-    } else {
-      final user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        Navigator.pushReplacementNamed(context, '/splash');
-      } else {
-        Navigator.pushReplacementNamed(context, '/mainNav-screen');
+      _navigateTo('/splash');
+      return;
+    }
+
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null && user.emailVerified) {
+      final userDoc = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(user.uid)
+          .get();
+
+      if (userDoc.exists) {
+        _navigateTo('/mainNav-screen');
+        return;
       }
+    }
+
+    _navigateTo('/splash');
+  }
+
+  void _navigateTo(String route) {
+    if (mounted) {
+      Navigator.pushReplacementNamed(context, route);
     }
   }
 
