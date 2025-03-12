@@ -37,6 +37,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
 
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
+  final ValueNotifier<bool> isButtonEnabled = ValueNotifier(false);
 
   @override
   void initState() {
@@ -53,7 +54,24 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
           .isEmpty) {
         _loadUserData();
       }
+      _firstNameController.addListener(_validateForm);
+      _lastNameController.addListener(_validateForm);
+      _locationNameController.addListener(_validateForm);
+      _phoneController.addListener(_validateForm);
+      _countryController.addListener(_validateForm);
+      _stateController.addListener(_validateForm);
+      _zipCodeController.addListener(_validateForm);
     });
+  }
+
+  void _validateForm() {
+    isButtonEnabled.value = _firstNameController.text.isNotEmpty &&
+        _lastNameController.text.isNotEmpty &&
+        _locationNameController.text.isNotEmpty &&
+        _phoneController.text.isNotEmpty &&
+        _countryController.text.isNotEmpty &&
+        _stateController.text.isNotEmpty &&
+        _zipCodeController.text.isNotEmpty;
   }
 
   Future<void> _loadShippingAddress(
@@ -128,63 +146,12 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
     super.dispose();
   }
 
-  // Error messages for each field
-  String? firstNameError;
-  String? lastNameError;
-  String? locationNameError;
-  String? phoneError;
-  String? countryError;
-  String? streetAddressError;
-  String? cityError;
-  String? stateError;
-  String? zipCodeError;
-
   Future<void> _saveShippingAddress() async {
-    // Reset error messages
-    setState(() {
-      firstNameError =
-          _firstNameController.text.isEmpty ? "Please enter first name" : null;
-      lastNameError =
-          _lastNameController.text.isEmpty ? "Please enter last name" : null;
-      locationNameError = _locationNameController.text.isEmpty
-          ? "Please enter location name"
-          : null;
-      phoneError =
-          _phoneController.text.isEmpty ? "Please enter phone no." : null;
-      countryError =
-          _countryController.text.isEmpty ? "Please select country" : null;
-      streetAddressError = _streetAddressController.text.isEmpty
-          ? "Please enter street address"
-          : null;
-      cityError = _cityController.text.isEmpty ? "Please enter city" : null;
-      stateError = _stateController.text.isEmpty ? "Please enter state" : null;
-      zipCodeError =
-          _zipCodeController.text.isEmpty ? "Please enter zip code" : null;
-    });
-
-    // Check if any required field is empty
-    bool hasEmptyFields = firstNameError != null ||
-        lastNameError != null ||
-        locationNameError != null ||
-        phoneError != null ||
-        countryError != null ||
-        streetAddressError != null ||
-        cityError != null ||
-        stateError != null ||
-        zipCodeError != null;
-
-    // Trigger form validation to get validation errors
-    bool isFormValid = _formKey.currentState!.validate();
-
-    // If there are empty fields or validation errors, stop execution
-    if (hasEmptyFields || !isFormValid) {
+    if (!_formKey.currentState!.validate()) {
       return;
     }
 
-    // Proceed with saving the address
-    setState(() {
-      isLoading = true;
-    });
+    setState(() => isLoading = true);
 
     final shippingAddress = ShippingAddressModel(
       firstName: _firstNameController.text,
@@ -205,123 +172,14 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
       final shippingAddressProvider =
           Provider.of<ShippingAddressProvider>(context, listen: false);
       await shippingAddressProvider.saveShippingAddress(shippingAddress);
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error saving shipping address: $e')),
-      );
-      print('not working');
-    } finally {
-      if (mounted) {
-        setState(() {
-          isLoading = false;
-        });
-      }
-    }
-
-    if (mounted) {
+      CustomSnackbar().snakBarMessage(context, 'Address updated successfully!');
       Navigator.pop(context);
+    } catch (e) {
+      CustomSnackbar().snakBarError(context, 'Error saving address: $e');
+    } finally {
+      if (mounted) setState(() => isLoading = false);
     }
   }
-  // Future<void> _saveShippingAddress() async {
-  //   firstNameError = null;
-  //   lastNameError = null;
-  //   locationNameError = null;
-  //   phoneError = null;
-  //   countryError = null;
-  //   streetAddressError = null;
-  //   cityError = null;
-  //   stateError = null;
-  //   zipCodeError = null;
-
-  //   // Reset error messages
-
-  //   bool isValid = true;
-
-  //   // Validate each field
-  //   if (_firstNameController.text.isEmpty) {
-  //     firstNameError = "Please enter first name";
-  //     isValid = false;
-  //   }
-  //   if (_lastNameController.text.isEmpty) {
-  //     lastNameError = "Please enter last name";
-  //     isValid = false;
-  //   }
-  //   if (_locationNameController.text.isEmpty) {
-  //     locationNameError = "Please enter location name";
-  //     isValid = false;
-  //   }
-  //   if (_phoneController.text.isEmpty) {
-  //     phoneError = "Please enter phone no.";
-  //     isValid = false;
-  //   }
-  //   if (_countryController.text.isEmpty) {
-  //     countryError = "Please select country";
-  //     isValid = false;
-  //   }
-  //   if (_streetAddressController.text.isEmpty) {
-  //     streetAddressError = "Please enter street address";
-  //     isValid = false;
-  //   }
-  //   if (_cityController.text.isEmpty) {
-  //     cityError = "Please enter city";
-  //     isValid = false;
-  //   }
-  //   if (_stateController.text.isEmpty) {
-  //     stateError = "Please enter state";
-  //     isValid = false;
-  //   }
-  //   if (_zipCodeController.text.isEmpty) {
-  //     zipCodeError = "Please enter zip code";
-  //     isValid = false;
-  //   }
-
-  //   // If any field is invalid, show the error messages
-  //   if (!isValid) {
-  //     setState(() {}); // Trigger UI update to show errors
-  //     return; // Stop execution if validation fails
-  //   }
-
-  //   setState(() {
-  //     isLoading = true; // Show the loader when saving starts
-  //   });
-
-  //   final shippingAddress = ShippingAddressModel(
-  //     firstName: _firstNameController.text,
-  //     lastName: _lastNameController.text,
-  //     locationName: _locationNameController.text,
-  //     company: _companyController.text.isEmpty ? null : _companyController.text,
-  //     phone: _phoneController.text,
-  //     country: _countryController.text,
-  //     streetAddress: _streetAddressController.text,
-  //     apartment:
-  //         _apartmentController.text.isEmpty ? null : _apartmentController.text,
-  //     city: _cityController.text,
-  //     state: _stateController.text,
-  //     zipCode: _zipCodeController.text,
-  //   );
-
-  //   try {
-  //     final shippingAddressProvider =
-  //         Provider.of<ShippingAddressProvider>(context, listen: false);
-  //     await shippingAddressProvider.saveShippingAddress(shippingAddress);
-  //   } catch (e) {
-  //     // Optionally, handle save errors here.
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Error saving shipping address: $e')),
-  //     );
-  //   } finally {
-  //     if (mounted) {
-  //       setState(() {
-  //         isLoading = false; // Hide the loader after saving
-  //       });
-  //     }
-  //   }
-
-  //   // Ensure the widget is mounted before popping context
-  //   if (mounted) {
-  //     Navigator.pop(context); // Close the form after saving
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -368,28 +226,24 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                 context,
                                 "*First name",
                                 _firstNameController,
-                                firstNameError,
                                 fieldType: FieldType.firstName,
                               ),
                               textfield(
                                 context,
                                 "*Last name",
                                 _lastNameController,
-                                lastNameError,
                                 fieldType: FieldType.lastName,
                               ),
                               textfield(
                                 context,
                                 "*Location e.g. Home, Office",
                                 _locationNameController,
-                                locationNameError,
                                 fieldType: FieldType.location,
                               ),
                               textfield(
                                 context,
                                 "Company (optional)",
                                 _companyController,
-                                null,
                                 optional: true,
                                 fieldType: FieldType.company,
                               ),
@@ -397,76 +251,88 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
                                 context,
                                 "*Phone",
                                 _phoneController,
-                                phoneError,
                                 isPhoneField: true,
                                 fieldType: FieldType.contact,
-                                onPhoneChanged: (number, countryCode, isoCode) {
-                                  //formState.updateContact(number, countryCode, isoCode);
-                                },
                               ),
                               textfield(
                                 context,
                                 "*Country",
                                 _countryController,
-                                countryError,
                                 fieldType: FieldType.country,
                               ),
                               textfield(
                                 context,
-                                "*State",
+                                "Street address*",
+                                _streetAddressController,
+                                fieldType: FieldType.street,
+                              ),
+                              textfield(
+                                context,
+                                "Apartment, suite, unit, etc (optional)",
+                                _apartmentController,
+                                fieldType: FieldType.apartment,
+                              ),
+                              textfield(
+                                context,
+                                "City / Town*",
+                                _cityController,
+                                fieldType: FieldType.city,
+                              ),
+                              textfield(
+                                context,
+                                "State*",
                                 _stateController,
-                                stateError,
                                 fieldType: FieldType.state,
                               ),
                               textfield(
                                 context,
-                                "*Zip code",
+                                "Zip code*",
                                 _zipCodeController,
-                                zipCodeError,
                                 fieldType: FieldType.zipCode,
                               ),
                               SizedBox(
                                   height:
                                       DeviceDimensions.screenHeight(context) *
                                           0.040),
-                              SizedBox(
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.058,
-                                width: DeviceDimensions.screenWidth(context) *
-                                    0.85,
-                                child: ElevatedButton(
-                                  onPressed: () async {
-                                    if (_formKey.currentState!.validate()) {
-                                      await _saveShippingAddress();
-                                      // Call your save method only if valid
-                                      CustomSnackbar().snakBarMessage(context,
-                                          'Address updated successfully!');
-                                    } else {
-                                      CustomSnackbar().snakBarError(context,
-                                          'Please fill out all required fields');
-                                      print("Validation failed!");
-                                    }
-                                    // await _saveShippingAddress(); // Call your save method
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.appBlueColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
+                              ValueListenableBuilder<bool>(
+                                valueListenable: isButtonEnabled,
+                                builder: (context, isEnabled, child) {
+                                  return SizedBox(
+                                    height:
+                                        DeviceDimensions.screenHeight(context) *
+                                            0.058,
+                                    width:
+                                        DeviceDimensions.screenWidth(context) *
+                                            0.85,
+                                    child: ElevatedButton(
+                                      onPressed: isEnabled
+                                          ? _saveShippingAddress
+                                          : null,
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: isEnabled
+                                            ? AppColors.appBlueColor
+                                            : Colors.grey,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        "Save shipping address",
+                                        style: TextStyle(
+                                          fontSize:
+                                              DeviceDimensions.responsiveSize(
+                                                      context) *
+                                                  0.048,
+                                          fontFamily: 'Barlow-Regular',
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 1,
+                                          color: Colors.white,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  child: Text(
-                                    "Save shipping address",
-                                    style: TextStyle(
-                                      fontSize: DeviceDimensions.responsiveSize(
-                                              context) *
-                                          0.048,
-                                      fontFamily: 'Barlow-Regular',
-                                      fontWeight: FontWeight.w600,
-                                      letterSpacing: 1,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
+                                  );
+                                },
                               ),
                               SizedBox(
                                   height:
@@ -495,13 +361,15 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
     );
   }
 
-  Padding textfield(BuildContext context, String hintText,
-      TextEditingController controller, String? errorText,
-      {bool optional = false,
-      bool isPhoneField = false, // New parameter to check if it's a phone field
-      Function(String, String, String)? onPhoneChanged,
-      required FieldType fieldType // Callback for phone updates
-      }) {
+  Widget textfield(
+    BuildContext context,
+    String hintText,
+    TextEditingController controller, {
+    bool optional = false,
+    bool isPhoneField = false,
+    required FieldType fieldType,
+    void Function(String, String, String)? onPhoneChanged,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 8),
       child: Column(
@@ -514,118 +382,102 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: SizedBox(
-                //height: 50,
-                child: isPhoneField
-                    ? IntlPhoneField(
-                        //disableLengthCheck: false,
-
-                        controller: controller,
-                        keyboardType: TextInputType.phone,
-                        showDropdownIcon: true,
-                        decoration: InputDecoration(
-                          hintText: hintText,
-                          hintStyle: TextStyle(
-                            fontFamily: 'Barlow-Regular',
-                            fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.039,
-                          ),
-                          border: InputBorder.none,
-                          counterText: '',
-                          //errorStyle: const TextStyle(color: Colors.red),
-                          contentPadding:
-                              const EdgeInsets.symmetric(vertical: 14),
+              child: isPhoneField
+                  ? IntlPhoneField(
+                      controller: controller,
+                      showDropdownIcon: true,
+                      decoration: InputDecoration(
+                        hintText: hintText,
+                        hintStyle: TextStyle(
+                          fontFamily: 'Barlow-Regular',
+                          fontSize:
+                              DeviceDimensions.responsiveSize(context) * 0.040,
+                          fontWeight: FontWeight.w500,
                         ),
-
-                        initialCountryCode: 'OM',
-
-                        onChanged: (phone) {
-                          if (onPhoneChanged != null) {
-                            onPhoneChanged(phone.number, phone.countryCode,
-                                phone.countryISOCode);
-                          }
-                        },
-                      )
-                    : TextFormField(
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: controller,
-                        decoration: InputDecoration(
-                          hintText: hintText,
-                          hintStyle: TextStyle(
-                            fontFamily: 'Barlow-Regular',
-                            fontSize: DeviceDimensions.responsiveSize(context) *
-                                0.039,
-                          ),
-                          border: InputBorder.none,
-                          // errorStyle: const TextStyle(color: Colors.red),
-                        ),
-                        // validator: (value) {
-                        //   if (!optional && (value == null || value.isEmpty)) {
-                        //     return errorText;
-                        //   }
-                        //   return null;
-                        // },
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            //return '$hintText is required'; // Don't show an error if the field is empty
-                            return null;
-                          }
-
-                          if (!optional) {
-                            switch (fieldType) {
-                              case FieldType.firstName:
-                                return ValidationService.validateFirstName(
-                                    value, "First Name");
-                              case FieldType.lastName:
-                                return ValidationService.validateLastName(
-                                    value, "Last Name");
-                              case FieldType.location:
-                                return ValidationService.validateLocationTag(
-                                    value, "Location");
-                              case FieldType.company:
-                                return ValidationService.validateCompanyName(
-                                    value, "Company");
-                              case FieldType.contact:
-                                return ValidationService.validateContact(
-                                    value, '');
-                              case FieldType.country:
-                                return ValidationService.validateCountryName(
-                                    value, "Country");
-                              case FieldType.city:
-                                return ValidationService.validateCity(
-                                    value, "City");
-                              case FieldType.state:
-                                return ValidationService.validateState(
-                                    value, "State");
-                              case FieldType.zipCode:
-                                return ValidationService.validateZipCode(
-                                    value, "Zip Code");
-                            }
-                          }
-                          return null;
-                          // return null;
-                          // (value) {
-                          //   // Trigger form validation whenever the user types
-                          //   Form.of(context).validate();
-                          // }; 10-3
-                          //return null;
-                        },
+                        errorStyle: const TextStyle(fontSize: 0, height: 0),
+                        border: InputBorder.none,
+                        counterText: '',
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 14),
                       ),
-              ),
+                      initialCountryCode: 'OM',
+                      validator: (value) =>
+                          _validateField(value?.number ?? '', fieldType),
+                      onChanged: (phone) {
+                        if (onPhoneChanged != null) {
+                          onPhoneChanged(phone.completeNumber,
+                              phone.countryCode, phone.countryISOCode);
+                        }
+                      },
+                    )
+                  : TextFormField(
+                      controller: controller,
+                      decoration: InputDecoration(
+                        hintText: hintText,
+                        hintStyle: TextStyle(
+                          fontFamily: 'Barlow-Regular',
+                          fontSize:
+                              DeviceDimensions.responsiveSize(context) * 0.040,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        border: InputBorder.none,
+                        errorStyle: const TextStyle(fontSize: 0, height: 0),
+                      ),
+                      validator: (value) =>
+                          _validateField(value ?? '', fieldType),
+                    ),
             ),
           ),
-          // Display error text outside the field
-          if (errorText != null && errorText.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.only(top: 4.0, left: 8),
-              child: Text(
-                errorText,
-                style: const TextStyle(color: Colors.red, fontSize: 12),
-              ),
-            ),
+          // Error message container
+          ValueListenableBuilder<TextEditingValue>(
+            valueListenable: controller,
+            builder: (context, value, child) {
+              final error = _validateField(value.text, fieldType);
+              return AnimatedSwitcher(
+                duration: const Duration(milliseconds: 200),
+                child: error != null
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 4.0, left: 8),
+                        child: Text(
+                          error,
+                          style:
+                              const TextStyle(color: Colors.red, fontSize: 12),
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+              );
+            },
+          ),
         ],
       ),
     );
+  }
+
+  String? _validateField(String value, FieldType fieldType) {
+    if (value.isEmpty) {
+      return null; // Let required fields be handled by the '*' in the hint
+    }
+
+    switch (fieldType) {
+      case FieldType.firstName:
+        return ValidationService.validateFirstName(value, "First Name");
+      case FieldType.lastName:
+        return ValidationService.validateLastName(value, "Last Name");
+      case FieldType.location:
+        return ValidationService.validateLocationTag(value, "Location");
+      case FieldType.contact:
+        return ValidationService.validateContact(value, 'Phone');
+      case FieldType.country:
+        return ValidationService.validateCountryName(value, "Country");
+      case FieldType.city:
+        return ValidationService.validateCity(value, "City");
+      case FieldType.state:
+        return ValidationService.validateState(value, "State");
+      case FieldType.zipCode:
+        return ValidationService.validateZipCode(value, "Zip Code");
+      default:
+        return null;
+    }
   }
 }
 
@@ -636,6 +488,8 @@ enum FieldType {
   company,
   contact,
   country,
+  street,
+  apartment,
   city,
   state,
   zipCode,
