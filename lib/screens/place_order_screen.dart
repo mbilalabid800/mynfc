@@ -137,7 +137,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                                             Align(
                                               alignment: Alignment.topLeft,
                                               child: Text(
-                                                "oyees",
+                                                "Employees",
                                                 style: TextStyle(
                                                     fontFamily: 'Barlow-Bold',
                                                     fontWeight: FontWeight.bold,

@@ -1,5 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +7,7 @@ import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
-
 import 'package:nfc_app/widgets/monthly_subscription_plan_widget.dart';
-import 'package:nfc_app/widgets/three_month_subscription_plan_widget.dart';
-import 'package:nfc_app/widgets/yearly_subscription_plan_widget.dart';
-
 import '../models/price_feature_model.dart';
 
 class TeamsPricingPlanWidget extends StatefulWidget {
@@ -26,7 +21,44 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
   int? selectedContainer;
   String? selectedPlanName;
   bool isLoading = false;
+  List<Map<String, dynamic>> plans = [];
 
+  @override
+  void initState() {
+    super.initState();
+    fetchPlansFromFireStore();
+  }
+
+  Future<void> fetchPlansFromFireStore() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('monthlyPlans')
+          .doc('Teams')
+          .collection('plans')
+          .get();
+
+      debugPrint("Fetched ${snapshot.docs.length} plans from subcollection");
+      final fetchedPlans = snapshot.docs.map((doc) {
+        debugPrint("Plan data ${doc.data()}");
+        return doc.data();
+      }).toList();
+
+      setState(() {
+        plans = fetchedPlans;
+        isLoading = false;
+      });
+    } catch (e) {
+      debugPrint("Error fetching Teams plan: $e");
+      setState(() {
+        isLoading = false;
+      });
+      CustomSnackbar().snakBarError(context, "Failed to Fetch");
+    }
+  }
   // Default selected plan
 
   void _selectContainer(int index, String planName) {
@@ -99,7 +131,6 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                             context, "Please select a plan first");
                       }
                     },
-
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.appBlueColor,
                 shape: RoundedRectangleBorder(
@@ -118,15 +149,6 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                           letterSpacing: 1,
                           fontWeight: FontWeight.w600),
                     ),
-              // child: Text(
-              //   'Upgrade Now',
-              //   style: TextStyle(
-              //       fontSize: DeviceDimensions.responsiveSize(context) * 0.042,
-              //       color: Colors.white,
-              //       fontFamily: 'Barlow-Regular',
-              //       letterSpacing: 1,
-              //       fontWeight: FontWeight.w600),
-              // ),
             ),
           ),
         ),
@@ -153,290 +175,46 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                 ),
               ),
               SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-              _buildPricingContainer(
-                index: 0,
-                title: "Free",
-                oldPrice: '550.00 OMR',
-                newPrice: "0.00  OMR",
-                features: [
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/nfc_card_scans.svg',
-                      description: '20 NFC Card Read/Scans'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/credit_card.svg',
-                      description: 'No Credit/Debit Card needed'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/contact_sharing.svg',
-                      description: 'Contact Sharing'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/admin_panel.svg',
-                      description: 'Admin Panel'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/connection_allowed.svg',
-                      description: '5 Connections Allowed per User'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/social_link_allowed.svg',
-                      description: '10 Social Links Allowed per User'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/nfc_card_template.svg',
-                      description: '3 NFC Card Templates For Each Type'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/nfc_card_scans.svg',
-                      description: '5 NFC Card Writes'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/virtual_profile.svg',
-                      description: 'Virtual Profile'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/no_switch_profile_type.svg',
-                      description: 'No Switch Profile Type'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/no_analytics.svg',
-                      description: 'No Analytics and Insights for Teams'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/no_private_profile.svg',
-                      description: 'No Private Profile'),
-                ],
-                selected: selectedContainer == 0,
-                onTap: () => _selectContainer(0, "Free"),
-                onLearnMore: () => showModalBottomSheet(
-                  context: context,
-                  backgroundColor: Colors.white,
-                  isScrollControlled: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(25)),
-                  ),
-                  builder: (context) {
-                    return DraggableScrollableSheet(
-                      expand: false,
-                      initialChildSize: 0.9,
-                      minChildSize: 0.5,
-                      maxChildSize: 0.9,
-                      builder: (context, scrollController) {
-                        return Container(
-                          padding: const EdgeInsets.all(15),
-                          child: const MonthlySubscriptionPlanWidget(),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-              _buildPricingContainer(
-                index: 1,
-                title: "Monthly",
-                oldPrice: "1632.00 OMR",
-                newPrice: "1032.00 OMR",
-                features: [
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/nfc_card_scans.svg',
-                      description: 'Unlimited NFC Card Read/Scans'),
-                  // PriceFeatureModel(
-                  //     iconPath: 'assets/icons/credit_card.svg',
-                  //     description: 'No Credit/Debit Card needed'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/contact_sharing.svg',
-                      description: 'Contact Sharing'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/admin_panel.svg',
-                      description: 'Admin Panel'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/connection_allowed.svg',
-                      description: 'Unlimited Connections Allowed'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/social_link_allowed.svg',
-                      description: 'Unlimited Social Links Allowed'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/nfc_card_template.svg',
-                      description:
-                          'Unlimited NFC Card Templates For Each Type'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/nfc_card_scans.svg',
-                      description: 'Unlimited NFC Card Writes'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/virtual_profile.svg',
-                      description: 'Virtual Profile'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/switch_profile_type.svg',
-                      description: 'Switch Profile Type'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/analytics.svg',
-                      description: 'Analytics and Insights for Teams'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/private_profile.svg',
-                      description: 'Private Profile'),
-                ],
-                selected: selectedContainer == 1,
-                onTap: () => _selectContainer(1, "Monthly"),
-                onLearnMore: () => showModalBottomSheet(
-                  context: context,
-                  backgroundColor: Colors.white,
-                  isScrollControlled: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(25)),
-                  ),
-                  builder: (context) {
-                    return DraggableScrollableSheet(
-                      expand: false,
-                      initialChildSize: 0.9,
-                      minChildSize: 0.5,
-                      maxChildSize: 0.9,
-                      builder: (context, scrollController) {
-                        return Container(
-                          padding: const EdgeInsets.all(15),
-                          child: const MonthlySubscriptionPlanWidget(),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-              _buildPricingContainer(
-                index: 2,
-                title: "3 Months",
-                oldPrice: "6025.00 OMR",
-                newPrice: "5503.00 OMR",
-                features: [
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/nfc_card_scans.svg',
-                      description: 'Unlimited NFC Card Read/Scans'),
-                  // PriceFeatureModel(
-                  //     iconPath: 'assets/icons/credit_card.svg',
-                  //     description: 'No Credit/Debit Card needed'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/contact_sharing.svg',
-                      description: 'Contact Sharing'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/admin_panel.svg',
-                      description: 'Admin Panel'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/connection_allowed.svg',
-                      description: 'Unlimited Connections Allowed'),
-
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/social_link_allowed.svg',
-                      description: 'Unlimited Social Links Allowed'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/nfc_card_template.svg',
-                      description:
-                          'Unlimited NFC Card Templates For Each Type'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/nfc_card_scans.svg',
-                      description: 'Unlimited NFC Card Writes'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/virtual_profile.svg',
-                      description: 'Virtual Profile'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/switch_profile_type.svg',
-                      description: 'Switch Profile Type'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/analytics.svg',
-                      description: 'Analytics and Insights for Teams'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/private_profile.svg',
-                      description: 'Private Profile'),
-                ],
-                selected: selectedContainer == 2,
-                onTap: () => _selectContainer(2, "3 Monthly"),
-                onLearnMore: () => showModalBottomSheet(
-                  context: context,
-                  backgroundColor: Colors.white,
-                  isScrollControlled: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(25)),
-                  ),
-                  builder: (context) {
-                    return DraggableScrollableSheet(
-                      expand: false,
-                      initialChildSize: 0.9,
-                      minChildSize: 0.5,
-                      maxChildSize: 0.9,
-                      builder: (context, scrollController) {
-                        return Container(
-                          padding: const EdgeInsets.all(15),
-                          child: const ThreeMonthSubscriptionPlanWidget(),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-              _buildPricingContainer(
-                index: 3,
-                title: "Yearly",
-                oldPrice: "14025.00 OMR",
-                newPrice: "12025.00 OMR",
-                features: [
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/nfc_card_scans.svg',
-                      description: 'Unlimited NFC Card Read/Scans'),
-                  // PriceFeatureModel(
-                  //     iconPath: 'assets/icons/credit_card.svg',
-                  //     description: 'No Credit/Debit Card needed'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/contact_sharing.svg',
-                      description: 'Contact Sharing'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/admin_panel.svg',
-                      description: 'Admin Panel'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/connection_allowed.svg',
-                      description: 'Unlimited Connections Allowed'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/social_link_allowed.svg',
-                      description: 'Unlimited Social Links Allowed'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/nfc_card_template.svg',
-                      description:
-                          'Unlimited NFC Card Templates For Each Type'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/nfc_card_scans.svg',
-                      description: 'Unlimited NFC Card Writes'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/virtual_profile.svg',
-                      description: 'Virtual Profile'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/switch_profile_type.svg',
-                      description: 'Switch Profile Type'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/analytics.svg',
-                      description: 'Analytics and Insights for Teams'),
-                  PriceFeatureModel(
-                      iconPath: 'assets/icons/private_profile.svg',
-                      description: 'Private Profile'),
-                ],
-                selected: selectedContainer == 3,
-                onTap: () => _selectContainer(3, "Yearly"),
-                onLearnMore: () => showModalBottomSheet(
-                  context: context,
-                  backgroundColor: Colors.white,
-                  isScrollControlled: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(25)),
-                  ),
-                  builder: (context) {
-                    return DraggableScrollableSheet(
-                      expand: false,
-                      initialChildSize: 0.9,
-                      minChildSize: 0.5,
-                      maxChildSize: 0.9,
-                      builder: (context, scrollController) {
-                        return Container(
-                          padding: const EdgeInsets.all(15),
-                          child: const YearlySubscriptionPlanWidget(),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.10),
+              if (isLoading)
+                SmallThreeBounceLoader()
+              else if (plans.isEmpty)
+                Text('No Plans available')
+              else
+                ...plans.map((plan) {
+                  return _buildPricingContainer(
+                      index: plans.indexOf(plan),
+                      title: plan['title'],
+                      newPrice: plan['newPrice'],
+                      features: (plan['features'] as List)
+                          .map((feature) => PriceFeatureModel(
+                              iconPath: feature['iconPath'],
+                              description: feature['description']))
+                          .toList(),
+                      selected: selectedContainer == plans.indexOf(plan),
+                      onTap: () =>
+                          _selectContainer(plans.indexOf(plan), plan['title']),
+                      onLearnMore: () => showModalBottomSheet(
+                            context: context,
+                            backgroundColor: Colors.white,
+                            isScrollControlled: true,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(25))),
+                            builder: (context) {
+                              return DraggableScrollableSheet(
+                                  expand: false,
+                                  initialChildSize: 0.9,
+                                  minChildSize: 0.5,
+                                  maxChildSize: 0.9,
+                                  builder: (context, scrollController) {
+                                    return Container(
+                                        padding: const EdgeInsets.all(15),
+                                        child: MonthlySubscriptionPlanWidget());
+                                  });
+                            },
+                          ));
+                  // SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+                })
             ],
           ),
         ),
@@ -523,6 +301,16 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
               ...features.map(
                 (feature) => Row(
                   children: [
+                    if (feature.iconPath.startsWith('http'))
+                      CachedNetworkImage(
+                        imageUrl: feature.iconPath,
+                        width: 22,
+                        height: 22,
+                        placeholder: (context, url) => SmallThreeBounceLoader(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      )
+                    else
+                      SvgPicture.asset(feature.iconPath, width: 22, height: 22),
                     SvgPicture.asset(
                       feature.iconPath,
                       width: 22,
