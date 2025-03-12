@@ -111,9 +111,9 @@ class ValidationService {
     if (trimmedZipcode.isEmpty) {
       return 'Zip Code cannot be empty';
     } else if (trimmedZipcode.length < 2) {
-      return 'Must be at least 2 characters';
+      return 'Must be at least 2 numbers';
     } else if (trimmedZipcode.length > 20) {
-      return 'Must not exceed 20 characters';
+      return 'Must not exceed 20 numbers';
     } else if (!regex.hasMatch(trimmedZipcode)) {
       return 'Only numbers are allowed';
     }
