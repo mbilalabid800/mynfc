@@ -159,15 +159,6 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // const Text(
-                      //   ' Add Your Company Employee',
-                      //   style: TextStyle(
-                      //       fontSize: 20,
-                      //       fontWeight: FontWeight.bold,
-                      //       color: AppColors.textColorBlue,
-                      //       fontFamily: 'Barlow-Bold'),
-                      // ),
-                      //const SizedBox(height: 20),
                       Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
