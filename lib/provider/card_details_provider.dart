@@ -97,23 +97,77 @@ class CardDetailsProvider extends ChangeNotifier {
   }
 
   /// Scroll up through the visible color options
+  // void scrollColorUp() {
+  //   if (_visibleStartIndex > 0) {
+  //     _visibleStartIndex -= 1;
+  //     notifyListeners();
+  //   }
+  // }
+
+  // /// Scroll down through the visible color options
+  // void scrollColorDown() {
+  //   if (_selectedCard != null &&
+  //       _visibleStartIndex + 4 < _selectedCard!.cardColorOptions.length) {
+  //     _visibleStartIndex += 1;
+  //     notifyListeners();
+  //   }
+  // }
+
+  // /// Get visible color options for pagination
+  // List<CardColorOption> get visibleColorOptions {
+  //   if (_selectedCard == null) return [];
+  //   int endIndex = _visibleStartIndex + 4;
+  //   endIndex = endIndex > _selectedCard!.cardColorOptions.length
+  //       ? _selectedCard!.cardColorOptions.length
+  //       : endIndex;
+  //   return _selectedCard!.cardColorOptions
+  //       .sublist(_visibleStartIndex, endIndex);
+  // }
+
+  late ScrollController _scrollController;
+
+  CardDetailsProvider() {
+    _scrollController = ScrollController();
+    _scrollController.addListener(_onUserScroll);
+  }
+
+  ScrollController get scrollController => _scrollController;
+
+  void _onUserScroll() {
+    // Prevent immediate jumps when the user is manually scrolling
+    notifyListeners();
+  }
+
   void scrollColorUp() {
     if (_visibleStartIndex > 0) {
       _visibleStartIndex -= 1;
-      notifyListeners();
+      _smoothScroll(-50); // Scroll upwards smoothly
     }
   }
 
-  /// Scroll down through the visible color options
   void scrollColorDown() {
     if (_selectedCard != null &&
         _visibleStartIndex + 4 < _selectedCard!.cardColorOptions.length) {
       _visibleStartIndex += 1;
-      notifyListeners();
+      _smoothScroll(50); // Scroll downwards smoothly
     }
   }
 
-  /// Get visible color options for pagination
+  void _smoothScroll(double offset) {
+    _scrollController.animateTo(
+      _scrollController.offset + offset, // Adjust scroll distance
+      duration: const Duration(milliseconds: 800), // Slow animation
+      curve: Curves.easeInOut, // Smooth transition
+    );
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   List<CardColorOption> get visibleColorOptions {
     if (_selectedCard == null) return [];
     int endIndex = _visibleStartIndex + 4;

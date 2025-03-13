@@ -105,7 +105,7 @@ class _OrderDetailsState extends State<OrderDetails> {
                         children: [
                           Container(
                             height:
-                                DeviceDimensions.screenHeight(context) * 1.25,
+                                DeviceDimensions.screenHeight(context) * 1.27,
                             width: DeviceDimensions.screenWidth(context) * 0.90,
                             decoration: BoxDecoration(
                               color: Colors.white,

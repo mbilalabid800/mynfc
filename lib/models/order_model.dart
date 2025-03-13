@@ -9,7 +9,7 @@ class OrderModel {
   final String shippingMethod;
   final String address;
   final String deliveryDate;
-  // final String orderDateTime;
+  final String orderDateTime;
   final String cardName;
   final String cardColor;
   final String cardImage;
@@ -27,7 +27,7 @@ class OrderModel {
     required this.shippingMethod,
     required this.address,
     required this.deliveryDate,
-    // required this.orderDateTime,
+    required this.orderDateTime,
     required this.cardName,
     required this.cardColor,
     required this.cardImage,
@@ -47,7 +47,7 @@ class OrderModel {
       'shippingMethod': shippingMethod,
       'address': address,
       'deliveryDate': deliveryDate,
-      // 'orderDateTime': orderDateTime,
+      'orderDateTime': orderDateTime,
       'cardName': cardName,
       'cardColor': cardColor,
       'cardImage': cardImage,
@@ -75,7 +75,7 @@ class OrderModel {
         address: data['address'] ?? 'Unknown',
         orderHistory: data['orderHistory'] ?? 'Unknown',
         deliveryDate: data['deliveryDate'] ?? 'Unknown',
-        // orderDateTime: data['orderDateTime'] ?? 'Unknown',
+        orderDateTime: data['orderDateTime'] ?? 'Unknown',
         cardName: data['cardName'] ?? 'Unknown',
         cardColor: data['cardColor'] ?? 'Unknown',
         cardImage: data['cardImage'] ?? 'Unknown',
