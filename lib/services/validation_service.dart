@@ -17,8 +17,8 @@ class ValidationService {
       return '$fieldName cannot be empty';
     } else if (trimmedName.length < 2) {
       return 'Must be at least 2 characters';
-    } else if (trimmedName.length > 20) {
-      return 'Must not exceed 20 characters';
+    } else if (trimmedName.length > 25) {
+      return 'Must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedName)) {
       return 'Only letters are allowed in $fieldName';
     }

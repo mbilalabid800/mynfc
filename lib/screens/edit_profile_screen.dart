@@ -14,6 +14,7 @@ import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
+import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
 import 'package:provider/provider.dart';
 
 class EditProfile extends StatefulWidget {
@@ -171,6 +172,76 @@ class _EditProfileState extends State<EditProfile> {
     CustomSnackbar().snakBarMessage2(context, "Records updated!");
   }
 
+  Future<bool?> _showExitConfirmationDialog() async {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: AlertDialog(
+            backgroundColor: Colors.white,
+            title: Center(
+                child: Text("Unsaved Changes",
+                    style: TextStyle(
+                        color: AppColors.appBlueColor,
+                        fontSize:
+                            DeviceDimensions.responsiveSize(context) * 0.05))),
+            content: const Text(
+                textAlign: TextAlign.center,
+                "You have unsaved changes. Do you want to save them before exiting?",
+                style: TextStyle(color: AppColors.appBlueColor)),
+            actions: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.pop(context, false),
+                    child: Container(
+                      height: DeviceDimensions.screenHeight(context) * 0.06,
+                      width: DeviceDimensions.screenWidth(context) * 0.7,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.grey.shade300),
+                      child: Center(
+                        child: Text(
+                          "Discard",
+                          style: TextStyle(
+                            color: AppColors.appBlueColor,
+                            fontSize:
+                                DeviceDimensions.responsiveSize(context) * 0.04,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: DeviceDimensions.screenHeight(context) * 0.02,
+                  ),
+                  InkWell(
+                      onTap: () => Navigator.pop(context, true),
+                      child: Container(
+                          height: DeviceDimensions.screenHeight(context) * 0.06,
+                          width: DeviceDimensions.screenWidth(context) * 0.7,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: AppColors.appBlueColor),
+                          child: Center(
+                              child: Text("Update",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: DeviceDimensions.responsiveSize(
+                                            context) *
+                                        0.04,
+                                  ))))),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   void dispose() {
     firstNameController.dispose();
@@ -188,278 +259,301 @@ class _EditProfileState extends State<EditProfile> {
     return Consumer<UserInfoFormStateProvider>(
         builder: (context, userProvider, child) {
       return SafeArea(
-        child: Scaffold(
-          backgroundColor: AppColors.screenBackground,
-          body: Stack(
-            children: [
-              Column(
-                children: [
-                  SizedBox(
-                    height: DeviceDimensions.screenHeight(context) * 0.0001,
-                  ),
-                  AbsherAppBar3(
-                    title: 'Edit Profile',
-                    onLeftButtonTap: () {
-                      // Reset unsaved changes on back press
-                      firstNameController.text = _tempFirstName;
-                      lastNameController.text = _tempLastName;
-                      companyNameController.text = _tempCompanyName;
-                      designationController.text = _tempDesignation;
-                      bioController.text = _tempBio;
-                      websiteController.text = _tempWebsite;
-                      Navigator.pop(context);
-                    },
-                    rightButton: Align(
-                      alignment: Alignment.centerRight,
-                      child: SizedBox(
-                          width: DeviceDimensions.screenWidth(context) * 0.035),
+        child: GlobalBackButtonHandler(
+          child: Scaffold(
+            backgroundColor: AppColors.screenBackground,
+            body: Stack(
+              children: [
+                Column(
+                  children: [
+                    SizedBox(
+                      height: DeviceDimensions.screenHeight(context) * 0.0001,
                     ),
-                  ),
-                  SizedBox(
-                      height: DeviceDimensions.screenHeight(context) * 0.020),
-                  // SizedBox(
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Center(
-                        child: Column(
-                          children: [
-                            Container(
-                              height:
-                                  DeviceDimensions.screenHeight(context) * 0.13,
-                              width:
-                                  DeviceDimensions.screenWidth(context) * 0.90,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                            height:
-                                                DeviceDimensions.screenHeight(
-                                                        context) *
-                                                    0.028),
-                                        Text(
-                                          "Account Information",
-                                          style: TextStyle(
-                                              fontFamily: "Barlow-Bold",
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.textColorBlue,
-                                              fontSize: DeviceDimensions
-                                                      .responsiveSize(context) *
-                                                  0.050),
-                                        ),
-                                        Text(
-                                          "Personal account",
-                                          style: TextStyle(
-                                              color: const Color(0xFF909091),
-                                              fontFamily: "Barlow-Regular",
-                                              fontSize: DeviceDimensions
-                                                      .responsiveSize(context) *
-                                                  0.039),
-                                        ),
-                                        SizedBox(
-                                            height:
-                                                DeviceDimensions.screenHeight(
-                                                        context) *
-                                                    0.028),
-                                      ],
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 15.0),
-                                    child: Stack(
-                                      children: [
-                                        GestureDetector(
-                                          onTap: _pickImage,
-                                          child: CircleAvatar(
-                                            radius: 32,
-                                            backgroundColor:
-                                                AppColors.appBlueColor,
-                                            child: CachedNetworkImage(
-                                              imageUrl: userProvider.imageUrl,
-                                              imageBuilder:
-                                                  (context, imageProvider) =>
-                                                      CircleAvatar(
-                                                radius: 32,
-                                                backgroundImage: imageProvider,
-                                              ),
-                                              placeholder: (context, url) =>
-                                                  const Center(
-                                                child: SmallThreeBounceLoader(),
-                                              ),
-                                              errorWidget: (context, url,
-                                                      error) =>
-                                                  Image.asset(
-                                                      'assets/images/default_profile.jpg'),
-                                            ),
-                                          ),
-                                        ),
-                                        Positioned(
-                                          bottom: 0,
-                                          right: 0,
-                                          child: GestureDetector(
-                                            onTap: _pickImage,
-                                            child: SvgPicture.asset(
-                                              "assets/icons/uploadprofile.svg",
-                                              width: 20,
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.020),
-                            Container(
-                              width:
-                                  DeviceDimensions.screenWidth(context) * 0.90,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                      height: DeviceDimensions.screenHeight(
-                                              context) *
-                                          0.010),
-                                  EditProfileComponent(
-                                    title1: "First Name",
-                                    title2: userProvider.firstName,
-                                    callBack: () => _onFieldTap("first_name"),
-                                    currentEditingField:
-                                        userProvider.currentEditingField,
-                                    fieldKey: "first_name",
-                                    controller: firstNameController,
-                                    isEditing:
-                                        userProvider.currentEditingField ==
-                                            "first_name",
-                                  ),
-                                  EditProfileComponent(
-                                    title1: "Last Name",
-                                    title2: userProvider.lastName,
-                                    callBack: () => _onFieldTap("last_name"),
-                                    currentEditingField:
-                                        userProvider.currentEditingField,
-                                    fieldKey: "last_name",
-                                    controller: lastNameController,
-                                    isEditing:
-                                        userProvider.currentEditingField ==
-                                            "last_name",
-                                  ),
-                                  EditProfileComponent(
-                                    title1: "Company",
-                                    title2: userProvider.companyName,
-                                    callBack: () => _onFieldTap("company"),
-                                    currentEditingField:
-                                        userProvider.currentEditingField,
-                                    fieldKey: "company",
-                                    controller: companyNameController,
-                                    isEditing:
-                                        userProvider.currentEditingField ==
-                                            "company",
-                                  ),
-                                  EditProfileComponent(
-                                    title1: "Designation",
-                                    title2: userProvider.designation,
-                                    callBack: () => _onFieldTap("designation"),
-                                    currentEditingField:
-                                        userProvider.currentEditingField,
-                                    fieldKey: "designation",
-                                    controller: designationController,
-                                    isEditing:
-                                        userProvider.currentEditingField ==
-                                            "designation",
-                                  ),
-                                  EditProfileComponent(
-                                    title1: "Bio",
-                                    title2: userProvider.bio,
-                                    callBack: () => _onFieldTap("bio"),
-                                    currentEditingField:
-                                        userProvider.currentEditingField,
-                                    fieldKey: "bio",
-                                    controller: bioController,
-                                    isEditing:
-                                        userProvider.currentEditingField ==
-                                            "bio",
-                                  ),
-                                  EditProfileComponent(
-                                    title1: "Website",
-                                    title2: userProvider.websiteLink,
-                                    callBack: () => _onFieldTap("website"),
-                                    currentEditingField:
-                                        userProvider.currentEditingField,
-                                    fieldKey: "website",
-                                    controller: websiteController,
-                                    isEditing:
-                                        userProvider.currentEditingField ==
-                                            "website",
-                                  ),
-                                  SizedBox(
-                                      height: DeviceDimensions.screenHeight(
-                                              context) *
-                                          0.010),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.040),
-                            ElevatedButton(
-                              onPressed: isButtonEnabled ? _saveProfile : null,
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal:
-                                      DeviceDimensions.screenWidth(context) *
-                                          0.35,
-                                  vertical: 12,
-                                ),
-                                backgroundColor: AppColors.appBlueColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                              ),
-                              child: const Text(
-                                "Update",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  //fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                                height: DeviceDimensions.screenHeight(context) *
-                                    0.040),
-                          ],
-                        ),
+                    AbsherAppBar3(
+                      title: 'Edit Profile',
+                      onLeftButtonTap: () async {
+                        if (isButtonEnabled) {
+                          bool? shouldLeave =
+                              await _showExitConfirmationDialog();
+                          if (shouldLeave == null)
+                            return; // User canceled, do nothing
+                          if (shouldLeave) {
+                            _saveProfile(); // Save changes
+                          } else {
+                            // Reset unsaved changes
+                            firstNameController.text = _tempFirstName;
+                            lastNameController.text = _tempLastName;
+                            companyNameController.text = _tempCompanyName;
+                            designationController.text = _tempDesignation;
+                            bioController.text = _tempBio;
+                            websiteController.text = _tempWebsite;
+                          }
+                        }
+                        Navigator.pop(context);
+                      },
+                      rightButton: Align(
+                        alignment: Alignment.centerRight,
+                        child: SizedBox(
+                            width:
+                                DeviceDimensions.screenWidth(context) * 0.035),
                       ),
                     ),
-                  )
-                ],
-              ),
-              if (isLoading)
-                Container(
-                  color: Colors.white54,
-                  child: Center(
-                    child: DualRingLoader(),
-                  ),
+                    SizedBox(
+                        height: DeviceDimensions.screenHeight(context) * 0.020),
+                    // SizedBox(
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Center(
+                          child: Column(
+                            children: [
+                              Container(
+                                height: DeviceDimensions.screenHeight(context) *
+                                    0.13,
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.90,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 15),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                              height:
+                                                  DeviceDimensions.screenHeight(
+                                                          context) *
+                                                      0.028),
+                                          Text(
+                                            "Account Information",
+                                            style: TextStyle(
+                                                fontFamily: "Barlow-Bold",
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.textColorBlue,
+                                                fontSize: DeviceDimensions
+                                                        .responsiveSize(
+                                                            context) *
+                                                    0.050),
+                                          ),
+                                          Text(
+                                            "Personal account",
+                                            style: TextStyle(
+                                                color: const Color(0xFF909091),
+                                                fontFamily: "Barlow-Regular",
+                                                fontSize: DeviceDimensions
+                                                        .responsiveSize(
+                                                            context) *
+                                                    0.039),
+                                          ),
+                                          SizedBox(
+                                              height:
+                                                  DeviceDimensions.screenHeight(
+                                                          context) *
+                                                      0.028),
+                                        ],
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(right: 15.0),
+                                      child: Stack(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: _pickImage,
+                                            child: CircleAvatar(
+                                              radius: 32,
+                                              backgroundColor:
+                                                  AppColors.appBlueColor,
+                                              child: CachedNetworkImage(
+                                                imageUrl: userProvider.imageUrl,
+                                                imageBuilder:
+                                                    (context, imageProvider) =>
+                                                        CircleAvatar(
+                                                  radius: 32,
+                                                  backgroundImage:
+                                                      imageProvider,
+                                                ),
+                                                placeholder: (context, url) =>
+                                                    const Center(
+                                                  child:
+                                                      SmallThreeBounceLoader(),
+                                                ),
+                                                errorWidget: (context, url,
+                                                        error) =>
+                                                    Image.asset(
+                                                        'assets/images/default_profile.jpg'),
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            bottom: 0,
+                                            right: 0,
+                                            child: GestureDetector(
+                                              onTap: _pickImage,
+                                              child: SvgPicture.asset(
+                                                "assets/icons/uploadprofile.svg",
+                                                width: 20,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.020),
+                              Container(
+                                width: DeviceDimensions.screenWidth(context) *
+                                    0.90,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                        height: DeviceDimensions.screenHeight(
+                                                context) *
+                                            0.010),
+                                    EditProfileComponent(
+                                      title1: "First Name",
+                                      title2: userProvider.firstName,
+                                      callBack: () => _onFieldTap("first_name"),
+                                      currentEditingField:
+                                          userProvider.currentEditingField,
+                                      fieldKey: "first_name",
+                                      controller: firstNameController,
+                                      isEditing:
+                                          userProvider.currentEditingField ==
+                                              "first_name",
+                                    ),
+                                    EditProfileComponent(
+                                      title1: "Last Name",
+                                      title2: userProvider.lastName,
+                                      callBack: () => _onFieldTap("last_name"),
+                                      currentEditingField:
+                                          userProvider.currentEditingField,
+                                      fieldKey: "last_name",
+                                      controller: lastNameController,
+                                      isEditing:
+                                          userProvider.currentEditingField ==
+                                              "last_name",
+                                    ),
+                                    EditProfileComponent(
+                                      title1: "Company",
+                                      title2: userProvider.companyName,
+                                      callBack: () => _onFieldTap("company"),
+                                      currentEditingField:
+                                          userProvider.currentEditingField,
+                                      fieldKey: "company",
+                                      controller: companyNameController,
+                                      isEditing:
+                                          userProvider.currentEditingField ==
+                                              "company",
+                                    ),
+                                    EditProfileComponent(
+                                      title1: "Designation",
+                                      title2: userProvider.designation,
+                                      callBack: () =>
+                                          _onFieldTap("designation"),
+                                      currentEditingField:
+                                          userProvider.currentEditingField,
+                                      fieldKey: "designation",
+                                      controller: designationController,
+                                      isEditing:
+                                          userProvider.currentEditingField ==
+                                              "designation",
+                                    ),
+                                    EditProfileComponent(
+                                      title1: "Bio",
+                                      title2: userProvider.bio,
+                                      callBack: () => _onFieldTap("bio"),
+                                      currentEditingField:
+                                          userProvider.currentEditingField,
+                                      fieldKey: "bio",
+                                      controller: bioController,
+                                      isEditing:
+                                          userProvider.currentEditingField ==
+                                              "bio",
+                                    ),
+                                    EditProfileComponent(
+                                      title1: "Website",
+                                      title2: userProvider.websiteLink,
+                                      callBack: () => _onFieldTap("website"),
+                                      currentEditingField:
+                                          userProvider.currentEditingField,
+                                      fieldKey: "website",
+                                      controller: websiteController,
+                                      isEditing:
+                                          userProvider.currentEditingField ==
+                                              "website",
+                                    ),
+                                    SizedBox(
+                                        height: DeviceDimensions.screenHeight(
+                                                context) *
+                                            0.010),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.040),
+                              ElevatedButton(
+                                onPressed:
+                                    isButtonEnabled ? _saveProfile : null,
+                                style: ElevatedButton.styleFrom(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        DeviceDimensions.screenWidth(context) *
+                                            0.35,
+                                    vertical: 12,
+                                  ),
+                                  backgroundColor: AppColors.appBlueColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                ),
+                                child: const Text(
+                                  "Update",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    //fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                  height:
+                                      DeviceDimensions.screenHeight(context) *
+                                          0.040),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-            ],
+                if (isLoading)
+                  Container(
+                    color: Colors.white54,
+                    child: Center(
+                      child: DualRingLoader(),
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       );

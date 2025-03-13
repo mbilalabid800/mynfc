@@ -22,7 +22,9 @@ class TeamsPricingPlanWidget extends StatefulWidget {
 class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
   int? selectedContainer;
   String? selectedPlanName;
-  bool isLoading = false;
+  //bool isLoading = false;
+  bool isFetchingPlans = false;
+  bool isSavingPlan = false;
   List<Map<String, dynamic>> plans = [];
 
   @override
@@ -33,7 +35,7 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
 
   Future<void> fetchPlansFromFireStore() async {
     setState(() {
-      isLoading = true;
+      isFetchingPlans = true;
     });
 
     try {
@@ -41,6 +43,7 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
           .collection('monthlyPlans')
           .doc('Teams')
           .collection('plans')
+          .orderBy('order')
           .get();
 
       debugPrint("Fetched ${snapshot.docs.length} plans from subcollection");
@@ -49,14 +52,16 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
         return doc.data();
       }).toList();
 
-      setState(() {
-        plans = fetchedPlans;
-        isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          plans = fetchedPlans;
+          isFetchingPlans = false;
+        });
+      }
     } catch (e) {
       debugPrint("Error fetching Teams plan: $e");
       setState(() {
-        isLoading = false;
+        isFetchingPlans = false;
       });
       CustomSnackbar().snakBarError(context, "Failed to Fetch");
     }
@@ -75,7 +80,7 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
     if (user != null && selectedPlanName != null) {
       try {
         setState(() {
-          isLoading = true;
+          isSavingPlan = true;
         });
         await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
           'planName': selectedPlanName, // Only updating the plan name
@@ -84,7 +89,7 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
         // Merge to prevent overwriting other fields
         if (mounted) {
           setState(() {
-            isLoading = false; // Hide loader
+            isSavingPlan = false; // Hide loader
           });
           // ScaffoldMessenger.of(context).showSnackBar(
           //   SnackBar(content: Text("$selectedPlanName plan saved!")),
@@ -113,12 +118,12 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
             width: DeviceDimensions.screenWidth(context) * 0.8,
             height: 49,
             child: ElevatedButton(
-              onPressed: isLoading
+              onPressed: isSavingPlan
                   ? null
                   : () async {
                       if (selectedPlanName != null) {
                         setState(() {
-                          isLoading = true;
+                          isSavingPlan = true;
                         });
 
                         await savePlanToFirebase();
@@ -126,7 +131,7 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                           Navigator.pop(context);
                         }
                         setState(() {
-                          isLoading = false; // Hide loader
+                          isSavingPlan = false; // Hide loader
                         });
                       } else {
                         CustomSnackbar().snakBarError(
@@ -139,7 +144,7 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
               ),
-              child: isLoading
+              child: isSavingPlan
                   ? SmallThreeBounceLoader()
                   : Text(
                       'Upgrade Now',
@@ -156,54 +161,57 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
         ),
       ),
       body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                width: DeviceDimensions.screenWidth(context) * 0.90,
-                height: DeviceDimensions.screenHeight(context) * 0.065,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30)),
-                child: Center(
-                  child: Text(
-                    'Teams Pricing Plan',
-                    style: TextStyle(
-                        color: AppColors.appBlueColor,
-                        fontWeight: FontWeight.w500,
-                        fontSize:
-                            DeviceDimensions.responsiveSize(context) * 0.05),
-                  ),
+        child: Column(
+          children: [
+            Container(
+              width: DeviceDimensions.screenWidth(context) * 0.90,
+              height: DeviceDimensions.screenHeight(context) * 0.065,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(30)),
+              child: Center(
+                child: Text(
+                  'Teams Pricing Plan',
+                  style: TextStyle(
+                      color: AppColors.appBlueColor,
+                      fontWeight: FontWeight.w500,
+                      fontSize:
+                          DeviceDimensions.responsiveSize(context) * 0.05),
                 ),
               ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-              if (isLoading)
-                SmallThreeBounceLoader()
-              else if (plans.isEmpty)
-                Text('No Plans available')
-              else
-                ...plans.map((plan) {
-                  return _buildPricingContainer(
-                      index: plans.indexOf(plan),
-                      title: plan['title'],
-                      newPrice: plan['newPrice'],
-                      features: (plan['features'] as List)
-                          .map((feature) => PriceFeatureModel(
-                              iconPath: feature['iconPath'],
-                              description: feature['description']))
-                          .toList(),
-                      selected: selectedContainer == plans.indexOf(plan),
-                      onTap: () =>
-                          _selectContainer(plans.indexOf(plan), plan['title']),
-                      onLearnMore: () => showModalBottomSheet(
-                            context: context,
-                            backgroundColor: Colors.white,
-                            isScrollControlled: true,
-                            shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(25))),
-                            builder: (context) {
-                              return DraggableScrollableSheet(
+            ),
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    if (isFetchingPlans)
+                      SmallThreeBounceLoader()
+                    else if (plans.isEmpty)
+                      Text('No Plans available')
+                    else
+                      ...plans.map(
+                        (plan) {
+                          return _buildPricingContainer(
+                            index: plans.indexOf(plan),
+                            title: plan['title'],
+                            newPrice: plan['newPrice'],
+                            features: (plan['features'] as List)
+                                .map((feature) => PriceFeatureModel(
+                                    iconPath: feature['iconPath'],
+                                    description: feature['description']))
+                                .toList(),
+                            selected: selectedContainer == plans.indexOf(plan),
+                            onTap: () => _selectContainer(
+                                plans.indexOf(plan), plan['title']),
+                            onLearnMore: () => showModalBottomSheet(
+                              context: context,
+                              backgroundColor: Colors.white,
+                              isScrollControlled: true,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(25))),
+                              builder: (context) {
+                                return DraggableScrollableSheet(
                                   expand: false,
                                   initialChildSize: 0.9,
                                   minChildSize: 0.5,
@@ -212,13 +220,19 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                                     return Container(
                                         padding: const EdgeInsets.all(15),
                                         child: MonthlySubscriptionPlanWidget());
-                                  });
-                            },
-                          ));
-                  // SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-                })
-            ],
-          ),
+                                  },
+                                );
+                              },
+                            ),
+                          );
+                          // SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+                        },
+                      ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -236,129 +250,152 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
   }) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        width: DeviceDimensions.screenWidth(context) * 0.90,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: Colors.white,
-          border: Border.all(
-            width: 2,
-            color: selected ? AppColors.appBlueColor : const Color(0xFFD9D9D9),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        children: [
+          Container(
+            width: DeviceDimensions.screenWidth(context) * 0.90,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: Colors.white,
+              border: Border.all(
+                width: 2,
+                color:
+                    selected ? AppColors.appBlueColor : const Color(0xFFD9D9D9),
+              ),
+            ),
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                            fontFamily: 'Barlow-Bold',
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.060,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      Container(
+                        width: 18,
+                        height: 18,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: selected
+                              ? AppColors.appBlueColor
+                              : Colors.transparent,
+                          border: Border.all(
+                            color: const Color(0xFF000000),
+                            width: 2.0,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                      height: DeviceDimensions.screenHeight(context) * 0.0030),
                   Text(
-                    title,
+                    oldPrice ?? '',
+                    style: TextStyle(
+                      fontFamily: 'Barlow-Regular',
+                      fontSize:
+                          DeviceDimensions.responsiveSize(context) * 0.035,
+                      fontWeight: FontWeight.w500,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
+                  SizedBox(
+                      height: DeviceDimensions.screenHeight(context) * 0.0030),
+                  Text(
+                    newPrice,
                     style: TextStyle(
                         fontFamily: 'Barlow-Bold',
                         fontSize:
-                            DeviceDimensions.responsiveSize(context) * 0.060,
-                        fontWeight: FontWeight.w600),
+                            DeviceDimensions.responsiveSize(context) * 0.055,
+                        fontWeight: FontWeight.w500),
                   ),
-                  Container(
-                    width: 18,
-                    height: 18,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: selected
-                          ? AppColors.appBlueColor
-                          : Colors.transparent,
-                      border: Border.all(
-                        color: const Color(0xFF000000),
-                        width: 2.0,
+                  const Divider(
+                    color: Color(0xFFD9D9D9),
+                  ),
+                  SizedBox(
+                      height: DeviceDimensions.screenHeight(context) * 0.007),
+                  ...features.map(
+                    (feature) => Row(
+                      children: [
+                        if (feature.iconPath.startsWith('http'))
+                          CachedNetworkImage(
+                            imageUrl: feature.iconPath,
+                            width: 22,
+                            height: 22,
+                            placeholder: (context, url) =>
+                                SmallThreeBounceLoader(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          )
+                        else
+                          SvgPicture.asset(feature.iconPath,
+                              width: 22, height: 22),
+                        SvgPicture.asset(
+                          feature.iconPath,
+                          width: 22,
+                          height: 22,
+                        ),
+                        SizedBox(
+                          width: DeviceDimensions.screenWidth(context) * 0.030,
+                        ),
+                        Expanded(
+                          child: Text(
+                            feature.description,
+                            style: TextStyle(
+                              fontFamily: 'Barlow-Regular',
+                              fontSize:
+                                  DeviceDimensions.responsiveSize(context) *
+                                      0.038,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.035),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                      height: DeviceDimensions.screenHeight(context) * 0.015),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: GestureDetector(
+                      onTap: onLearnMore,
+                      child: Text(
+                        "Learn more",
+                        style: TextStyle(
+                            fontFamily: 'Barlow-Regular',
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.045,
+                            fontWeight: FontWeight.w600,
+                            wordSpacing: 4,
+                            decoration: TextDecoration.underline,
+                            decorationThickness: 2),
                       ),
                     ),
-                  )
+                  ),
+                  SizedBox(
+                      height: DeviceDimensions.screenHeight(context) * 0.010),
                 ],
               ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.0030),
-              Text(
-                oldPrice ?? '',
-                style: TextStyle(
-                  fontFamily: 'Barlow-Regular',
-                  fontSize: DeviceDimensions.responsiveSize(context) * 0.035,
-                  fontWeight: FontWeight.w500,
-                  decoration: TextDecoration.lineThrough,
-                ),
-              ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.0030),
-              Text(
-                newPrice,
-                style: TextStyle(
-                    fontFamily: 'Barlow-Bold',
-                    fontSize: DeviceDimensions.responsiveSize(context) * 0.055,
-                    fontWeight: FontWeight.w500),
-              ),
-              const Divider(
-                color: Color(0xFFD9D9D9),
-              ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.007),
-              ...features.map(
-                (feature) => Row(
-                  children: [
-                    if (feature.iconPath.startsWith('http'))
-                      CachedNetworkImage(
-                        imageUrl: feature.iconPath,
-                        width: 22,
-                        height: 22,
-                        placeholder: (context, url) => SmallThreeBounceLoader(),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                      )
-                    else
-                      SvgPicture.asset(feature.iconPath, width: 22, height: 22),
-                    SvgPicture.asset(
-                      feature.iconPath,
-                      width: 22,
-                      height: 22,
-                    ),
-                    SizedBox(
-                      width: DeviceDimensions.screenWidth(context) * 0.030,
-                    ),
-                    Expanded(
-                      child: Text(
-                        feature.description,
-                        style: TextStyle(
-                          fontFamily: 'Barlow-Regular',
-                          fontSize:
-                              DeviceDimensions.responsiveSize(context) * 0.038,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                        height: DeviceDimensions.screenHeight(context) * 0.035),
-                  ],
-                ),
-              ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.015),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: GestureDetector(
-                  onTap: onLearnMore,
-                  child: Text(
-                    "Learn more",
-                    style: TextStyle(
-                        fontFamily: 'Barlow-Regular',
-                        fontSize:
-                            DeviceDimensions.responsiveSize(context) * 0.045,
-                        fontWeight: FontWeight.w600,
-                        wordSpacing: 4,
-                        decoration: TextDecoration.underline,
-                        decorationThickness: 2),
-                  ),
-                ),
-              ),
-              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.010),
-            ],
+            ),
           ),
-        ),
+          SizedBox(
+            height: DeviceDimensions.screenHeight(context) * 0.02,
+          ),
+          if (index == plans.length - 1)
+            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.08),
+        ],
       ),
     );
   }
