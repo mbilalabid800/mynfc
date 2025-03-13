@@ -57,7 +57,7 @@ class _EditProfileComponentState extends State<EditProfileComponent> {
 
   String? _validateInput(String value) {
     if (value.trim().isEmpty) {
-      return "This field cannot be empty.";
+      return null;
     }
     if (widget.fieldKey == "first_name") {
       if (value.startsWith(' ')) {
@@ -117,8 +117,17 @@ class _EditProfileComponentState extends State<EditProfileComponent> {
         return "Must not exceed 300 characters.";
       }
     }
+    // if (widget.fieldKey == "website") {
+    //   if (!Uri.parse(value).isAbsolute) {
+    //     return "Enter a valid website URL.";
+    //   }
+    // }
     if (widget.fieldKey == "website") {
-      if (!Uri.parse(value).isAbsolute) {
+      String pattern =
+          r'^(?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+      RegExp regex = RegExp(pattern);
+
+      if (!regex.hasMatch(value)) {
         return "Enter a valid website URL.";
       }
     }

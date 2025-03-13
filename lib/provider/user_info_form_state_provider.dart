@@ -32,6 +32,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String? _designationError;
   String? _cityNameError;
   int _totalViews = 0;
+  String _websiteError = "";
 
   bool _isPrivate = false;
   bool _connectionTypeAll = true;
@@ -44,6 +45,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   String get firstName => _firstName;
   String get lastName => _lastName;
   String get contact => _contact;
+  String get websiteError => _websiteError;
   String get countryCode => _countryCode;
   bool get connectionTypeAll => _connectionTypeAll;
   String get countryName => _countryName;
@@ -158,6 +160,16 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   void setEmail(String email) {
     _email = email;
     notifyListeners(); // Notify listeners to rebuild widgets that use this email
+  }
+
+  void setWebsiteError(String error) {
+    _websiteError = error;
+    notifyListeners();
+  }
+
+  void clearWebsiteError() {
+    _websiteError = "";
+    notifyListeners();
   }
 
   void updateContact(String contact, String countryCode, String countryName) {
