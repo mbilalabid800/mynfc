@@ -1,10 +1,10 @@
 class ValidationService {
   static String? validateEmail(String email) {
-    final trimmedEmail = email.trim();
+    if (email.isEmpty) {
+      return null;
+    }
     final emailPattern = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    if (trimmedEmail.isEmpty) {
-      return 'Email cannot be empty';
-    } else if (!emailPattern.hasMatch(trimmedEmail)) {
+    if (!emailPattern.hasMatch(email)) {
       return 'Please enter a valid email address';
     }
     return null;
@@ -51,6 +51,13 @@ class ValidationService {
       return 'Must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedName)) {
       return 'Only letters are allowed in $fieldName';
+    }
+    return null;
+  }
+
+  static String? validateStreetAddress(String address, String fieldName) {
+    if (address.trim().isEmpty) {
+      return '$fieldName cannot be empty';
     }
     return null;
   }

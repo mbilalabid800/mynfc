@@ -213,11 +213,12 @@ class ConfirmOrder {
         }
       ],
       shippingMethod: shippingMethod,
-      orderHistory: "",
+      orderHistory: "active",
       selectedPlan: selectedPlan,
       address:
           "${shippingDetails.streetAddress} ${shippingDetails.city} ${shippingDetails.state} ${shippingDetails.country}",
       deliveryDate: deliveryDate,
+      orderDateTime: orderDate,
       cardName: selectedCard.cardName,
       cardColor: selectedColorOption.type,
       cardImage: selectedCard.cardImages[colorIndex],

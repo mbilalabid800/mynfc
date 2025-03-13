@@ -20,7 +20,7 @@ class CardDetails extends StatefulWidget {
 class _CardDetailsState extends State<CardDetails> {
   bool _showDetails = false;
   int _currentPage = 0;
-  late ScrollController _scrollController;
+  // late ScrollController _scrollController;
   String screenType = "Order NFC Card";
 
   @override
@@ -32,7 +32,7 @@ class _CardDetailsState extends State<CardDetails> {
       cardProvider.clear();
       cardProvider.fetchCardsFromFirestore(context);
     });
-    _scrollController = ScrollController();
+    // _scrollController = ScrollController();
   }
 
   @override
@@ -47,7 +47,7 @@ class _CardDetailsState extends State<CardDetails> {
   @override
   void dispose() {
     super.dispose();
-    _scrollController.dispose();
+    // _scrollController.dispose();
   }
 
   @override
@@ -132,7 +132,9 @@ class _CardDetailsState extends State<CardDetails> {
                                       }
                                     },
                                     child: SingleChildScrollView(
-                                      controller: _scrollController,
+                                      controller:
+                                          cardDetailsProvider.scrollController,
+                                      physics: const ClampingScrollPhysics(),
                                       child: Column(
                                         children: cardDetailsProvider
                                             .visibleColorOptions

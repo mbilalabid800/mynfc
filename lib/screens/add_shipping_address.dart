@@ -469,6 +469,8 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
         return ValidationService.validateContact(value, 'Phone');
       case FieldType.country:
         return ValidationService.validateCountryName(value, "Country");
+      case FieldType.street:
+        return ValidationService.validateCountryName(value, "Street address");
       case FieldType.city:
         return ValidationService.validateCity(value, "City");
       case FieldType.state:
