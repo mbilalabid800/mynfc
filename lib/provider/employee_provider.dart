@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -31,19 +30,22 @@ class EmployeeProvider extends ChangeNotifier {
     });
 
     if (existsInLocal) {
-      Future.delayed(Duration.zero, () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Employee already added locally!"),
-            backgroundColor: AppColors.errorColor,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+      Future.delayed(
+        Duration.zero,
+        () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Employee already added locally!"),
+              backgroundColor: AppColors.errorColor,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              duration: Duration(seconds: 3),
             ),
-            duration: Duration(seconds: 3),
-          ),
-        );
-      });
+          );
+        },
+      );
       return;
     }
 
@@ -98,6 +100,44 @@ class EmployeeProvider extends ChangeNotifier {
         ),
       );
     });
+  }
+
+  Future<void> deleteEmployeeFromLocal(
+      BuildContext context, String email) async {
+    final prefs = await SharedPreferences.getInstance();
+    final employeesJson = prefs.getStringList('employees') ?? [];
+
+    // Remove the employee with the given email
+    employeesJson.removeWhere((e) {
+      final existingEmployee = EmployeeModel.fromFirestore(jsonDecode(e));
+      return existingEmployee.email == email;
+    });
+
+    // Save the updated list
+    await prefs.setStringList('employees', employeesJson);
+
+    // Update local list and notify UI
+    _employeesLocal = employeesJson
+        .map((e) => EmployeeModel.fromFirestore(jsonDecode(e)))
+        .toList();
+    notifyListeners();
+
+    // Show a success message
+    Future.delayed(Duration.zero, () {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Employee deleted successfully!"),
+          backgroundColor: AppColors.successColor,
+          duration: Duration(seconds: 3),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+    });
+
+    debugPrint("Employee removed: $email");
   }
 
   Future<void> getLocalEmployees() async {
