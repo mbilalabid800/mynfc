@@ -1,15 +1,15 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
+import 'package:nfc_app/provider/teams_pricing_plan_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 import 'package:nfc_app/widgets/monthly_subscription_plan_widget.dart';
+import 'package:provider/provider.dart';
 import '../models/price_feature_model.dart';
 
 class TeamsPricingPlanWidget extends StatefulWidget {
@@ -30,211 +30,145 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
   @override
   void initState() {
     super.initState();
-    fetchPlansFromFireStore();
-  }
-
-  Future<void> fetchPlansFromFireStore() async {
-    setState(() {
-      isFetchingPlans = true;
-    });
-
-    try {
-      final snapshot = await FirebaseFirestore.instance
-          .collection('monthlyPlans')
-          .doc('Teams')
-          .collection('plans')
-          .orderBy('order')
-          .get();
-
-      debugPrint("Fetched ${snapshot.docs.length} plans from subcollection");
-      final fetchedPlans = snapshot.docs.map((doc) {
-        debugPrint("Plan data ${doc.data()}");
-        return doc.data();
-      }).toList();
-
-      if (mounted) {
-        setState(() {
-          plans = fetchedPlans;
-          isFetchingPlans = false;
-        });
-      }
-    } catch (e) {
-      debugPrint("Error fetching Teams plan: $e");
-      setState(() {
-        isFetchingPlans = false;
-      });
-      CustomSnackbar().snakBarError(context, "Failed to Fetch");
-    }
-  }
-  // Default selected plan
-
-  void _selectContainer(int index, String planName) {
-    setState(() {
-      selectedContainer = index;
-      selectedPlanName = planName;
-    });
-  }
-
-  Future<void> savePlanToFirebase() async {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null && selectedPlanName != null) {
-      try {
-        setState(() {
-          isSavingPlan = true;
-        });
-        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-          'planName': selectedPlanName, // Only updating the plan name
-        }, SetOptions(merge: true));
-
-        // Merge to prevent overwriting other fields
-        if (mounted) {
-          setState(() {
-            isSavingPlan = false; // Hide loader
-          });
-          // ScaffoldMessenger.of(context).showSnackBar(
-          //   SnackBar(content: Text("$selectedPlanName plan saved!")),
-          // );
-          CustomSnackbar().snakBarMessage(
-              context, "$selectedPlanName plan updated successfully!");
-        }
-      } catch (e) {
-        debugPrint("Error saving plan: $e");
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Failed to save plan. Please try again.")),
-        );
-      }
-    }
+    // fetchPlansFromFireStore();
   }
 
   @override
   Widget build(BuildContext context) {
+    final teamsPricingPlanProvider = Provider.of<TeamsPricingProvider>(context);
     return Scaffold(
       backgroundColor: AppColors.screenBackground,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(left: 33.0),
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: SizedBox(
-            width: DeviceDimensions.screenWidth(context) * 0.8,
-            height: 49,
-            child: ElevatedButton(
-              onPressed: isSavingPlan
-                  ? null
-                  : () async {
-                      if (selectedPlanName != null) {
-                        setState(() {
-                          isSavingPlan = true;
-                        });
-
-                        await savePlanToFirebase();
-                        if (context.mounted) {
-                          Navigator.pop(context);
-                        }
-                        setState(() {
-                          isSavingPlan = false; // Hide loader
-                        });
-                      } else {
-                        CustomSnackbar().snakBarError(
-                            context, "Please select a plan first");
-                      }
-                    },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.appBlueColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
+      body: Stack(children: [
+        Center(
+          child: Column(
+            children: [
+              Container(
+                width: DeviceDimensions.screenWidth(context) * 0.90,
+                height: DeviceDimensions.screenHeight(context) * 0.065,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30)),
+                child: Center(
+                  child: Text(
+                    'Teams Pricing Plan',
+                    style: TextStyle(
+                        color: AppColors.appBlueColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize:
+                            DeviceDimensions.responsiveSize(context) * 0.05),
+                  ),
                 ),
               ),
-              child: isSavingPlan
-                  ? SmallThreeBounceLoader()
-                  : Text(
-                      'Upgrade Now',
-                      style: TextStyle(
-                          fontSize:
-                              DeviceDimensions.responsiveSize(context) * 0.042,
-                          color: Colors.white,
-                          fontFamily: 'Barlow-Regular',
-                          letterSpacing: 1,
-                          fontWeight: FontWeight.w600),
-                    ),
-            ),
+              SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
+              Expanded(
+                child: teamsPricingPlanProvider.isFetchingPlans
+                    ? SmallThreeBounceLoader()
+                    : teamsPricingPlanProvider.plans.isEmpty
+                        ? Text('No Plans available')
+                        : ListView.builder(
+                            padding: EdgeInsets.only(
+                                bottom: DeviceDimensions.screenHeight(context) *
+                                    0.08),
+                            itemCount: teamsPricingPlanProvider.plans.length,
+                            itemBuilder: (context, index) {
+                              final plan =
+                                  teamsPricingPlanProvider.plans[index];
+                              return _buildPricingContainer(
+                                //context,
+                                index: index,
+                                title: plan['title'],
+                                oldPrice: plan['oldPrice'],
+                                newPrice: plan['newPrice'],
+                                features: (plan['features'] as List)
+                                    .map((feature) => PriceFeatureModel(
+                                        iconPath: feature['iconPath'],
+                                        description: feature['description']))
+                                    .toList(),
+                                selected: teamsPricingPlanProvider
+                                        .selectedContainer ==
+                                    index,
+                                onTap: () => teamsPricingPlanProvider
+                                    .selectPlan(index, plan['title']),
+                                onLearnMore: () => showModalBottomSheet(
+                                  context: context,
+                                  backgroundColor: Colors.white,
+                                  isScrollControlled: true,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(25)),
+                                  ),
+                                  builder: (context) {
+                                    return DraggableScrollableSheet(
+                                      expand: false,
+                                      initialChildSize: 0.9,
+                                      minChildSize: 0.5,
+                                      maxChildSize: 0.9,
+                                      builder: (context, scrollController) {
+                                        return Container(
+                                          padding: const EdgeInsets.all(15),
+                                          child:
+                                              MonthlySubscriptionPlanWidget(),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              );
+                            },
+                          ),
+              ),
+            ],
           ),
         ),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Container(
-              width: DeviceDimensions.screenWidth(context) * 0.90,
-              height: DeviceDimensions.screenHeight(context) * 0.065,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(30)),
-              child: Center(
-                child: Text(
-                  'Teams Pricing Plan',
-                  style: TextStyle(
-                      color: AppColors.appBlueColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize:
-                          DeviceDimensions.responsiveSize(context) * 0.05),
+        Positioned(
+            bottom: 20,
+            left: 33,
+            child: SizedBox(
+              width: DeviceDimensions.screenWidth(context) * 0.8,
+              height: 49,
+              child: ElevatedButton(
+                onPressed: isSavingPlan
+                    ? null
+                    : () async {
+                        if (selectedPlanName != null) {
+                          setState(() {
+                            isSavingPlan = true;
+                          });
+
+                          await teamsPricingPlanProvider
+                              .savePlanToFirebase(context);
+                          if (context.mounted) {
+                            Navigator.pop(context);
+                          }
+                          setState(() {
+                            isSavingPlan = false; // Hide loader
+                          });
+                        } else {
+                          CustomSnackbar().snakBarError(
+                              context, "Please select a plan first");
+                        }
+                      },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.appBlueColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    if (isFetchingPlans)
-                      SmallThreeBounceLoader()
-                    else if (plans.isEmpty)
-                      Text('No Plans available')
-                    else
-                      ...plans.map(
-                        (plan) {
-                          return _buildPricingContainer(
-                            index: plans.indexOf(plan),
-                            title: plan['title'],
-                            newPrice: plan['newPrice'],
-                            features: (plan['features'] as List)
-                                .map((feature) => PriceFeatureModel(
-                                    iconPath: feature['iconPath'],
-                                    description: feature['description']))
-                                .toList(),
-                            selected: selectedContainer == plans.indexOf(plan),
-                            onTap: () => _selectContainer(
-                                plans.indexOf(plan), plan['title']),
-                            onLearnMore: () => showModalBottomSheet(
-                              context: context,
-                              backgroundColor: Colors.white,
-                              isScrollControlled: true,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(25))),
-                              builder: (context) {
-                                return DraggableScrollableSheet(
-                                  expand: false,
-                                  initialChildSize: 0.9,
-                                  minChildSize: 0.5,
-                                  maxChildSize: 0.9,
-                                  builder: (context, scrollController) {
-                                    return Container(
-                                        padding: const EdgeInsets.all(15),
-                                        child: MonthlySubscriptionPlanWidget());
-                                  },
-                                );
-                              },
-                            ),
-                          );
-                          // SizedBox(height: DeviceDimensions.screenHeight(context) * 0.020),
-                        },
+                child: isSavingPlan
+                    ? SmallThreeBounceLoader()
+                    : Text(
+                        'Upgrade Now',
+                        style: TextStyle(
+                            fontSize: DeviceDimensions.responsiveSize(context) *
+                                0.042,
+                            color: Colors.white,
+                            fontFamily: 'Barlow-Regular',
+                            letterSpacing: 1,
+                            fontWeight: FontWeight.w600),
                       ),
-                  ],
-                ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ))
+      ]),
     );
   }
 
@@ -331,14 +265,28 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                             imageUrl: feature.iconPath,
                             width: 22,
                             height: 22,
-                            placeholder: (context, url) =>
-                                SmallThreeBounceLoader(),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                            placeholder: (context, url) => SizedBox(
+                              width: 22,
+                              height: 22,
+                              child: SmallThreeBounceLoader(),
+                            ),
+                            //SmallThreeBounceLoader(),
+                            errorWidget: (context, url, error) => Icon(
+                                Icons.image_not_supported,
+                                color: Colors.grey),
+                            fadeInDuration: const Duration(milliseconds: 500),
+                            fadeOutDuration: const Duration(milliseconds: 500),
                           )
                         else
-                          SvgPicture.asset(feature.iconPath,
-                              width: 22, height: 22),
+                          SvgPicture.asset(
+                            feature.iconPath,
+                            width: 22,
+                            height: 22,
+                            placeholderBuilder: (context) => SizedBox(
+                                width: 22,
+                                height: 22,
+                                child: SmallThreeBounceLoader()),
+                          ),
                         SvgPicture.asset(
                           feature.iconPath,
                           width: 22,
@@ -393,8 +341,12 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
           SizedBox(
             height: DeviceDimensions.screenHeight(context) * 0.02,
           ),
-          if (index == plans.length - 1)
-            SizedBox(height: DeviceDimensions.screenHeight(context) * 0.08),
+          // if (index == plans.length - 1)
+          //   Padding(
+          //     padding: EdgeInsets.only(
+          //         bottom: DeviceDimensions.screenHeight(context) * 0.12),
+          //   )
+          //SizedBox(height: DeviceDimensions.screenHeight(context) * 0.1),
         ],
       ),
     );

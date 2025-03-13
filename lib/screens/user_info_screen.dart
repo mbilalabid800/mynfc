@@ -138,7 +138,11 @@ class _NameStepState extends State<NameStep> {
                   ],
                   //maxLength: 25,
                   onChanged: (value) => formState.updateFirstName(value),
+                  maxLength: 25,
+                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
+
                   decoration: InputDecoration(
+                    counterText: '',
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.textFieldBorder,
@@ -188,10 +192,12 @@ class _NameStepState extends State<NameStep> {
                         r'[a-zA-Z\s]')), // Allows only letters and spaces
                   ],
 
-                  //maxLength: 25,
+                  maxLength: 25,
+                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
                   //controller: lastNameController,
                   onChanged: (value) => formState.updateLastName(value),
                   decoration: InputDecoration(
+                    counterText: '',
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.textFieldBorder,
@@ -404,25 +410,44 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
               child: SizedBox(
                 width: DeviceDimensions.screenWidth(context) * 0.9,
                 child: TextField(
+                  maxLength: 25,
+                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
                   //controller: companyNameController,
                   onChanged: (value) => formState.updateCompanyName(value),
                   decoration: InputDecoration(
+                    counterText: '',
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.textFieldBorder,
+                        //width: 1,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    // errorBorder: OutlineInputBorder(
+                    //     borderSide: BorderSide(
+                    //   color: AppColors.appOrangeColor,
+                    //   width: 1,
+                    // )),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.appBlueColor,
+                        width: 1,
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     errorText: formState.companyNameError,
+
                     //labelText: 'Enter Last Name',
                     hintText: 'Company Name',
                     hintStyle: TextStyle(
@@ -439,10 +464,12 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
               child: SizedBox(
                 width: DeviceDimensions.screenWidth(context) * 0.9,
                 child: TextField(
-                  //maxLength: 25,
+                  maxLength: 25,
+                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
                   //controller: designationController,
                   onChanged: (value) => formState.updateDesignation(value),
                   decoration: InputDecoration(
+                    counterText: '',
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.textFieldBorder,
@@ -455,6 +482,14 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -490,6 +525,14 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                       ),
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -510,10 +553,12 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
               child: SizedBox(
                 width: DeviceDimensions.screenWidth(context) * 0.9,
                 child: TextField(
-                  //maxLength: 25,
+                  maxLength: 25,
+                  maxLengthEnforcement: MaxLengthEnforcement.enforced,
                   //controller: websiteController,
                   onChanged: (value) => formState.updateCity(value),
                   decoration: InputDecoration(
+                    counterText: '',
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.textFieldBorder,
@@ -529,6 +574,14 @@ class _CompanyInfoStepState extends State<CompanyInfoStep> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                            color: AppColors.errorFieldBorderColor)),
                     errorText: formState.cityNameError,
                     //labelText: 'Enter Last Name',
                     hintText: 'City',

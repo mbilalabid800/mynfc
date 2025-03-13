@@ -17,8 +17,10 @@ import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/employee_provider.dart';
 import 'package:nfc_app/provider/form_validation_provider.dart';
+import 'package:nfc_app/provider/individual_pricing_plan_provider.dart';
 import 'package:nfc_app/provider/order_provider.dart';
 import 'package:nfc_app/provider/password_validation_provider.dart';
+import 'package:nfc_app/provider/teams_pricing_plan_provider.dart';
 import 'package:nfc_app/provider/shipping_address_provider.dart';
 import 'package:nfc_app/provider/forget_password_email_provider.dart';
 import 'package:nfc_app/provider/internet_checker_provider.dart';
@@ -73,6 +75,7 @@ import 'package:nfc_app/screens/terms_conditions.dart';
 import 'package:nfc_app/services/internet_status_handler.dart';
 import 'package:nfc_app/services/permission_handler.dart';
 import 'package:nfc_app/shared/utils/no_back_button_observer.dart';
+import 'package:nfc_app/widgets/individual_pricing_plan_widget.dart';
 import 'package:provider/provider.dart';
 import 'screens/auth/email_verify_forget_password.dart';
 import 'screens/recent_connected_list_screen.dart';
@@ -134,7 +137,9 @@ void main() async {
       //ChangeNotifierProvider(create: (_) => BiometricHandlerProvider()),
       ChangeNotifierProvider(create: (_) => FormValidationProvider()),
       ChangeNotifierProvider(create: (_) => AppDataProvider()),
-      ChangeNotifierProvider(create: (_) => ChatProvider())
+      ChangeNotifierProvider(create: (_) => ChatProvider()),
+      ChangeNotifierProvider(create: (_) => TeamsPricingProvider()),
+      ChangeNotifierProvider(create: (_) => IndividualPricingProvider())
     ],
     child: InternetStatusHandler(
       child: const MyApp(),
