@@ -275,6 +275,24 @@ class AddEmployeeScreenState extends State<AddEmployeeScreen> {
                                                           .textColorBlue,
                                                       fontSize: 17),
                                                 ),
+                                                Spacer(),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 5.0),
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      Provider.of<EmployeeProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .deleteEmployeeFromLocal(
+                                                              context,
+                                                              employee.email);
+                                                    },
+                                                    child: Icon(Icons.delete,
+                                                        color: Colors.red),
+                                                  ),
+                                                ),
                                               ],
                                             ),
                                           ),
