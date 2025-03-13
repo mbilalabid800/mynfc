@@ -1,10 +1,10 @@
 class ValidationService {
   static String? validateEmail(String email) {
-    if (email.isEmpty) {
-      return null;
-    }
+    final trimmedEmail = email.trim();
     final emailPattern = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    if (!emailPattern.hasMatch(email)) {
+    if (trimmedEmail.isEmpty) {
+      return 'Email cannot be empty';
+    } else if (!emailPattern.hasMatch(trimmedEmail)) {
       return 'Please enter a valid email address';
     }
     return null;
@@ -25,6 +25,21 @@ class ValidationService {
     return null;
   }
 
+  static String? validateFullName(String fullName, String fieldName) {
+    final trimmedName = fullName.trim();
+    final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
+    if (trimmedName.isEmpty) {
+      return '$fieldName cannot be empty';
+    } else if (trimmedName.length < 2) {
+      return 'Must be at least 2 characters';
+    } else if (trimmedName.length > 50) {
+      return 'Must not exceed 50 characters';
+    } else if (!regex.hasMatch(trimmedName)) {
+      return 'Only letters are allowed in $fieldName';
+    }
+    return null;
+  }
+
   static String? validateLastName(String lastName, String fieldName) {
     final trimmedName = lastName.trim();
     final regex = RegExp(r'^[a-zA-Z]+(?: [a-zA-Z]+)*$');
@@ -32,8 +47,8 @@ class ValidationService {
       return '$fieldName cannot be empty';
     } else if (trimmedName.length < 2) {
       return 'Must be at least 2 characters';
-    } else if (trimmedName.length > 20) {
-      return 'Must not exceed 20 characters';
+    } else if (trimmedName.length > 25) {
+      return 'Must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedName)) {
       return 'Only letters are allowed in $fieldName';
     }
@@ -67,8 +82,8 @@ class ValidationService {
       return 'City name cannot be empty';
     } else if (trimmedCity.length < 2) {
       return 'Must be at least 2 characters';
-    } else if (trimmedCity.length > 20) {
-      return 'Must not exceed 20 characters';
+    } else if (trimmedCity.length > 25) {
+      return 'Must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedCity)) {
       return 'Only letters are allowed';
     }
@@ -82,8 +97,8 @@ class ValidationService {
       return 'Country name cannot be empty';
     } else if (trimmedCountry.length < 2) {
       return 'Must be at least 2 characters';
-    } else if (trimmedCountry.length > 20) {
-      return 'Must not exceed 20 characters';
+    } else if (trimmedCountry.length > 25) {
+      return 'Must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedCountry)) {
       return 'Only letters are allowed';
     }
@@ -111,9 +126,9 @@ class ValidationService {
     if (trimmedZipcode.isEmpty) {
       return 'Zip Code cannot be empty';
     } else if (trimmedZipcode.length < 2) {
-      return 'Must be at least 2 numbers';
-    } else if (trimmedZipcode.length > 20) {
-      return 'Must not exceed 20 numbers';
+      return 'Must be at least 2 characters';
+    } else if (trimmedZipcode.length > 10) {
+      return 'Must not exceed 10 characters';
     } else if (!regex.hasMatch(trimmedZipcode)) {
       return 'Only numbers are allowed';
     }
@@ -127,8 +142,8 @@ class ValidationService {
       return 'Location name cannot be empty';
     } else if (trimmedLocation.length < 2) {
       return 'Must be at least 2 characters';
-    } else if (trimmedLocation.length > 20) {
-      return 'Must not exceed 20 characters';
+    } else if (trimmedLocation.length > 25) {
+      return 'Must not exceed 25 characters';
     } else if (!regex.hasMatch(trimmedLocation)) {
       return 'Only letters are allowed';
     }
@@ -142,8 +157,8 @@ class ValidationService {
       return 'Designation cannot be empty';
     } else if (trimmedDesignation.length < 2) {
       return 'Must be at least 2 characters';
-    } else if (trimmedDesignation.length > 20) {
-      return 'Must not exceed 20 characters';
+    } else if (trimmedDesignation.length > 50) {
+      return 'Must not exceed 50 characters';
     } else if (!regex.hasMatch(trimmedDesignation)) {
       return 'Only letters are allowed';
     }

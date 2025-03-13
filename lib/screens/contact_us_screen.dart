@@ -2,9 +2,11 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/services/validation_service.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
@@ -155,6 +157,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                               context) *
                                           0.0024),
                                   controller: nameController,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
                                   decoration: InputDecoration(
                                     hintText: "Full Name",
                                     hintStyle: TextStyle(
@@ -169,9 +173,12 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                       color: AppColors
                                           .errorColor, // Color of the error text
                                       fontSize: 14.0, // Size of the error text
-                                      fontWeight: FontWeight
-                                          .bold, // Weight of the error text
+                                      // Weight of the error text
                                     ),
+                                    errorText: nameController.text.isEmpty
+                                        ? null
+                                        : ValidationService.validateFullName(
+                                            nameController.text, "Full Name"),
                                     filled: true,
                                     fillColor: Colors.white,
                                     contentPadding: const EdgeInsets.symmetric(
@@ -198,23 +205,25 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                     ),
                                   ),
                                   validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter your Full Name';
-                                    }
-                                    if (RegExp(r'[0-9]').hasMatch(value)) {
-                                      return 'Full Name cannot contain numbers';
-                                    }
-                                    // Check for special characters
-                                    if (RegExp(r'[^a-zA-Z\s]')
-                                        .hasMatch(value)) {
-                                      return 'Full Name cannot contain special characters';
-                                    }
-                                    // Check max length
-                                    if (value.length > 25) {
-                                      return 'Full Name cannot be longer than 25 characters';
-                                    }
+                                    // if (value!.isEmpty) {
+                                    //   return 'Please enter your Full Name';
+                                    // }
+                                    // if (RegExp(r'[0-9]').hasMatch(value)) {
+                                    //   return 'Full Name cannot contain numbers';
+                                    // }
+                                    // // Check for special characters
+                                    // if (RegExp(r'[^a-zA-Z\s]')
+                                    //     .hasMatch(value)) {
+                                    //   return 'Full Name cannot contain special characters';
+                                    // }
+                                    // // Check max length
+                                    // if (value.length > 25) {
+                                    //   return 'Full Name cannot be longer than 25 characters';
+                                    // }
 
-                                    return null;
+                                    // return null;
+                                    return ValidationService.validateFullName(
+                                        value ?? '', "Full Name");
                                   },
                                 ),
                               ),
@@ -231,6 +240,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                               context) *
                                           0.0024),
                                   controller: emailController,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
                                   decoration: InputDecoration(
                                     hintText: "Email",
                                     hintStyle: TextStyle(
@@ -245,8 +256,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                       color: AppColors
                                           .errorColor, // Color of the error text
                                       fontSize: 14.0, // Size of the error text
-                                      fontWeight: FontWeight
-                                          .bold, // Weight of the error text
+                                      // fontWeight: FontWeight
+                                      //     .bold, // Weight of the error text
                                     ),
                                     filled: true,
                                     fillColor: Colors.white,
@@ -274,15 +285,17 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                                 .errorFieldBorderColor)),
                                   ),
                                   validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter your email address';
-                                    }
-                                    final emailPattern = RegExp(
-                                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                                    if (!emailPattern.hasMatch(value)) {
-                                      return 'Please enter a valid email address';
-                                    }
-                                    return null;
+                                    // if (value!.isEmpty) {
+                                    //   return 'Please enter your email address';
+                                    // }
+                                    // final emailPattern = RegExp(
+                                    //     r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+                                    // if (!emailPattern.hasMatch(value)) {
+                                    //   return 'Please enter a valid email address';
+                                    // }
+                                    // return null;
+                                    return ValidationService.validateEmail(
+                                        value ?? '');
                                   },
                                 ),
                               ),
@@ -310,7 +323,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                     errorStyle: const TextStyle(
                                       color: AppColors.errorColor,
                                       fontSize: 14.0,
-                                      fontWeight: FontWeight.bold,
+                                      // fontWeight: FontWeight.bold,
                                     ),
                                     filled: true,
                                     fillColor: Colors.white,
@@ -402,8 +415,8 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                       color: AppColors
                                           .errorColor, // Color of the error text
                                       fontSize: 14.0, // Size of the error text
-                                      fontWeight: FontWeight
-                                          .bold, // Weight of the error text
+                                      // fontWeight: FontWeight
+                                      //     .bold, // Weight of the error text
                                     ),
                                     filled: true,
                                     fillColor: Colors.white,
@@ -528,6 +541,20 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                         0.046,
                                   ),
                                 ),
+                                Spacer(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: IconButton(
+                                    icon: Icon(Icons.copy,
+                                        color: AppColors.appBlueColor),
+                                    onPressed: () {
+                                      Clipboard.setData(ClipboardData(
+                                          text: "info@sahabit.com"));
+                                      CustomSnackbar().snakBarMessage2(
+                                          context, "Copied to clipboard");
+                                    },
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -559,6 +586,18 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                                     fontSize: DeviceDimensions.responsiveSize(
                                             context) *
                                         0.046,
+                                  ),
+                                ),
+                                Spacer(),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: IconButton(
+                                    icon: Icon(Icons.copy,
+                                        color: AppColors.appBlueColor),
+                                    onPressed: () {
+                                      Clipboard.setData(
+                                          ClipboardData(text: "+968 91268766"));
+                                    },
                                   ),
                                 ),
                               ],
