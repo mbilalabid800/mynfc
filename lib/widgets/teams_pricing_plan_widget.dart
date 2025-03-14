@@ -127,10 +127,12 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
               width: DeviceDimensions.screenWidth(context) * 0.8,
               height: 49,
               child: ElevatedButton(
-                onPressed: isSavingPlan
+                onPressed: teamsPricingPlanProvider.isSavingPlan
                     ? null
                     : () async {
-                        if (selectedPlanName != null) {
+                        if (teamsPricingPlanProvider.selectedPlanName != null &&
+                            teamsPricingPlanProvider
+                                .selectedPlanName!.isNotEmpty) {
                           setState(() {
                             isSavingPlan = true;
                           });

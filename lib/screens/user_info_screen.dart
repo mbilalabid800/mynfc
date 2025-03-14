@@ -55,7 +55,7 @@ class _UserScreenState extends State<UserScreen> {
           Expanded(
             child: PageView(
               controller: pageController,
-              physics: NeverScrollableScrollPhysics(),
+              //physics: NeverScrollableScrollPhysics(),
               children: [
                 NameStep(pageController: pageController),
                 CompanyInfoStep(pageController: pageController),

@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
 
 class TeamsPricingProvider extends ChangeNotifier {
   bool isFetchingPlans = false;
@@ -36,7 +37,13 @@ class TeamsPricingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // void selectPlan(int index, String planName) {
+  //   selectedContainer = index;
+  //   selectedPlanName = planName;
+  //   notifyListeners();
+  // }
   void selectPlan(int index, String planName) {
+    debugPrint("Selecting plan: index=$index, planName=$planName");
     selectedContainer = index;
     selectedPlanName = planName;
     notifyListeners();
@@ -52,15 +59,12 @@ class TeamsPricingProvider extends ChangeNotifier {
           'planName': selectedPlanName,
         }, SetOptions(merge: true));
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text("$selectedPlanName plan updated successfully!")),
-        );
+        CustomSnackbar().snakBarMessage(
+            context, "$selectedPlanName plan updated successfully!");
       } catch (e) {
         debugPrint("Error saving plan: $e");
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Failed to save plan. Please try again.")),
-        );
+        CustomSnackbar()
+            .snakBarError(context, "Failed to save plan. Please try again.");
       }
       isSavingPlan = false;
       notifyListeners();

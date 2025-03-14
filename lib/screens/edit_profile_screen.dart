@@ -172,76 +172,6 @@ class _EditProfileState extends State<EditProfile> {
     CustomSnackbar().snakBarMessage2(context, "Records updated!");
   }
 
-  Future<bool?> _showExitConfirmationDialog() async {
-    return showDialog<bool>(
-      context: context,
-      builder: (context) {
-        return Center(
-          child: AlertDialog(
-            backgroundColor: Colors.white,
-            title: Center(
-                child: Text("Unsaved Changes",
-                    style: TextStyle(
-                        color: AppColors.appBlueColor,
-                        fontSize:
-                            DeviceDimensions.responsiveSize(context) * 0.05))),
-            content: const Text(
-                textAlign: TextAlign.center,
-                "You have unsaved changes. Do you want to save them before exiting?",
-                style: TextStyle(color: AppColors.appBlueColor)),
-            actions: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: () => Navigator.pop(context, false),
-                    child: Container(
-                      height: DeviceDimensions.screenHeight(context) * 0.06,
-                      width: DeviceDimensions.screenWidth(context) * 0.7,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.grey.shade300),
-                      child: Center(
-                        child: Text(
-                          "Discard",
-                          style: TextStyle(
-                            color: AppColors.appBlueColor,
-                            fontSize:
-                                DeviceDimensions.responsiveSize(context) * 0.04,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: DeviceDimensions.screenHeight(context) * 0.02,
-                  ),
-                  InkWell(
-                      onTap: () => Navigator.pop(context, true),
-                      child: Container(
-                          height: DeviceDimensions.screenHeight(context) * 0.06,
-                          width: DeviceDimensions.screenWidth(context) * 0.7,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: AppColors.appBlueColor),
-                          child: Center(
-                              child: Text("Update",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: DeviceDimensions.responsiveSize(
-                                            context) *
-                                        0.04,
-                                  ))))),
-                ],
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
   @override
   void dispose() {
     firstNameController.dispose();
@@ -271,24 +201,7 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                     AbsherAppBar3(
                       title: 'Edit Profile',
-                      onLeftButtonTap: () async {
-                        if (isButtonEnabled) {
-                          bool? shouldLeave =
-                              await _showExitConfirmationDialog();
-                          if (shouldLeave == null)
-                            return; // User canceled, do nothing
-                          if (shouldLeave) {
-                            _saveProfile(); // Save changes
-                          } else {
-                            // Reset unsaved changes
-                            firstNameController.text = _tempFirstName;
-                            lastNameController.text = _tempLastName;
-                            companyNameController.text = _tempCompanyName;
-                            designationController.text = _tempDesignation;
-                            bioController.text = _tempBio;
-                            websiteController.text = _tempWebsite;
-                          }
-                        }
+                      onLeftButtonTap: () {
                         Navigator.pop(context);
                       },
                       rightButton: Align(

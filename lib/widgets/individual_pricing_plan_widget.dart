@@ -129,11 +129,13 @@ class _IndividualPricingPlanWidgetState
               width: DeviceDimensions.screenWidth(context) * 0.8,
               height: 49,
               child: ElevatedButton(
-                onPressed: isSavingPlan
+                onPressed: individualPricingPlanProvider.isSavingPlan
                     ? null
                     : () async {
-                        if (selectedPlanName != null &&
-                            selectedPlanName!.isNotEmpty) {
+                        if (individualPricingPlanProvider.selectedPlanName !=
+                                null &&
+                            individualPricingPlanProvider
+                                .selectedPlanName!.isNotEmpty) {
                           setState(() {
                             isSavingPlan = true;
                           });
@@ -263,33 +265,17 @@ class _IndividualPricingPlanWidgetState
                   ...features.map(
                     (feature) => Row(
                       children: [
-                        if (feature.iconPath.startsWith('http'))
-                          CachedNetworkImage(
-                            imageUrl: feature.iconPath,
-                            width: 22,
-                            height: 22,
-                            placeholder: (context, url) => SizedBox(
-                              width: 22,
-                              height: 22,
-                              child: SmallThreeBounceLoader(),
-                            ),
-                            //SmallThreeBounceLoader(),
-                            errorWidget: (context, url, error) => Icon(
-                                Icons.image_not_supported,
-                                color: Colors.grey),
-                            fadeInDuration: const Duration(milliseconds: 500),
-                            fadeOutDuration: const Duration(milliseconds: 500),
-                          )
-                        else
-                          SvgPicture.asset(
-                            feature.iconPath,
-                            width: 22,
-                            height: 22,
-                            placeholderBuilder: (context) => SizedBox(
-                                width: 22,
-                                height: 22,
-                                child: SmallThreeBounceLoader()),
-                          ),
+                        SvgPicture.network(
+                          feature.iconPath,
+                          width: 20,
+                          height: 20,
+                          placeholderBuilder: (context) => SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: SmallThreeBounceLoader()),
+                          semanticsLabel: 'SVG Image',
+                        ),
+
                         // SvgPicture.asset(
                         //   feature.iconPath,
                         //   width: 22,
