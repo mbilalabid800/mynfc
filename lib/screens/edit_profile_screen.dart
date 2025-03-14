@@ -275,8 +275,9 @@ class _EditProfileState extends State<EditProfile> {
                         if (isButtonEnabled) {
                           bool? shouldLeave =
                               await _showExitConfirmationDialog();
-                          if (shouldLeave == null)
+                          if (shouldLeave == null) {
                             return; // User canceled, do nothing
+                          }
                           if (shouldLeave) {
                             _saveProfile(); // Save changes
                           } else {
