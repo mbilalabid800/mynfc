@@ -260,37 +260,16 @@ class _TeamsPricingPlanWidgetState extends State<TeamsPricingPlanWidget> {
                   ...features.map(
                     (feature) => Row(
                       children: [
-                        if (feature.iconPath.startsWith('http'))
-                          CachedNetworkImage(
-                            imageUrl: feature.iconPath,
-                            width: 22,
-                            height: 22,
-                            placeholder: (context, url) => SizedBox(
-                              width: 22,
-                              height: 22,
-                              child: SmallThreeBounceLoader(),
-                            ),
-                            //SmallThreeBounceLoader(),
-                            errorWidget: (context, url, error) => Icon(
-                                Icons.image_not_supported,
-                                color: Colors.grey),
-                            fadeInDuration: const Duration(milliseconds: 500),
-                            fadeOutDuration: const Duration(milliseconds: 500),
-                          )
-                        else
-                          SvgPicture.asset(
-                            feature.iconPath,
-                            width: 22,
-                            height: 22,
-                            placeholderBuilder: (context) => SizedBox(
-                                width: 22,
-                                height: 22,
-                                child: SmallThreeBounceLoader()),
-                          ),
-                        SvgPicture.asset(
+                        SvgPicture.network(
                           feature.iconPath,
-                          width: 22,
-                          height: 22,
+                          width: 20,
+                          height: 20,
+                          placeholderBuilder: (context) => SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: SmallThreeBounceLoader(),
+                          ),
+                          semanticsLabel: 'SVG Image',
                         ),
                         SizedBox(
                           width: DeviceDimensions.screenWidth(context) * 0.030,
