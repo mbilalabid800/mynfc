@@ -26,16 +26,27 @@ class ViewsChart extends StatelessWidget {
         .snapshots()
         .map((snapshot) {
       // Group views by day
-      final groupedData = <String, int>{};
+      final Map<DateTime, int> groupedData = {};
+      final now = DateTime.now();
+      final cutoffDate = now.subtract(const Duration(days: 30));
+
       for (var doc in snapshot.docs) {
         final data = doc.data();
         final timestamp = (data['timestamp'] as Timestamp).toDate();
+        if (timestamp.isBefore(cutoffDate)) continue;
+        final normalizeDate =
+            DateTime(timestamp.year, timestamp.month, timestamp.day);
         final viewCount = data['viewCount'] ?? 0;
 
         // Format date as "YYYY-MM-DD"
-        final day = "${timestamp.year}-${timestamp.month}-${timestamp.day}";
-        groupedData[day] = (groupedData[day] ?? 0) + (viewCount as int);
+        // final day = "${timestamp.year}-${timestamp.month}-${timestamp.day}";
+        // groupedData[day] = (groupedData[day] ?? 0) + (viewCount as int);
+        groupedData[normalizeDate] =
+            (groupedData[normalizeDate] ?? 0) + (viewCount as int);
       }
+
+      final List<MapEntry<DateTime, int>> sortedEntries =
+          groupedData.entries.toList()..sort((a, b) => a.key.compareTo(b.key));
 
       // Convert grouped data to BarChartGroupData
       int index = 0;
@@ -161,19 +172,27 @@ class FullViewsChart extends StatelessWidget {
         .snapshots()
         .map((snapshot) {
       // Group views by day
-      final groupedData = <String, int>{};
+      final Map<DateTime, int> groupedData = {};
+      final now = DateTime.now();
+      final cutoffDate = now.subtract(const Duration(days: 30));
+
       for (var doc in snapshot.docs) {
         final data = doc.data();
         final timestamp = (data['timestamp'] as Timestamp).toDate();
+        if (timestamp.isBefore(cutoffDate)) continue;
+        final normalizeDate =
+            DateTime(timestamp.year, timestamp.month, timestamp.day);
         final viewCount = data['viewCount'] ?? 0;
 
-        // Format date as "YYYY-MM-DD"
-        //final day = "${timestamp.year}-${timestamp.month}-${timestamp.day}";
-        // final day = DateFormat("MMM-d").format(timestamp);
-        final day = DateFormat("MMM dd").format(timestamp);
-        groupedData[day] = (groupedData[day] ?? 0) + (viewCount as int);
+        //final day = DateFormat("MMM dd").format(timestamp);
+        //groupedData[day] = (groupedData[day] ?? 0) + (viewCount as int);
+        groupedData[normalizeDate] =
+            (groupedData[normalizeDate] ?? 0) + (viewCount as int);
       }
-
+      // final sortedEntries = groupedData.entries.toList()
+      //   ..sort((a, b) => a.key.compareTo(b.key));
+      final List<MapEntry<DateTime, int>> sortedEntries =
+          groupedData.entries.toList()..sort((a, b) => a.key.compareTo(b.key));
       // Convert grouped data to BarChartGroupData
       // int index = 0;
       // return groupedData.entries.map((entry) {
@@ -193,7 +212,8 @@ class FullViewsChart extends StatelessWidget {
       // }).toList();
 
       int index = 0;
-      final barGroups = groupedData.entries.map((entry) {
+      //final barGroups = groupedData.entries.map((entry) {
+      final barGroups = sortedEntries.map((entry) {
         return BarChartGroupData(
           x: index++,
           barRods: [
@@ -206,11 +226,17 @@ class FullViewsChart extends StatelessWidget {
           ],
         );
       }).toList();
+      // final sortedDates =
+      //     sortedEntries.map((e) => DateFormat("MMM dd").format(e.key)).toList();
+      final List<String> sortedDates = sortedEntries
+          .map((entry) => DateFormat("MMM dd").format(entry.key))
+          .toList();
 
       // Return chart data with barGroups and corresponding dates
       return ChartData(
         barGroups: barGroups,
-        dates: groupedData.keys.toList(),
+        //dates: groupedData.keys.toList(),
+        dates: sortedDates,
       );
     });
   }
