@@ -170,6 +170,26 @@ class _EditProfileState extends State<EditProfile> {
     await userProvider.updateUserData();
     userProvider.clearEditingField();
     CustomSnackbar().snakBarMessage2(context, "Records updated!");
+    // Also update the backup values to prevent unwanted rollbacks
+    _tempFirstName = firstNameController.text;
+    _tempLastName = lastNameController.text;
+    _tempCompanyName = companyNameController.text;
+    _tempDesignation = designationController.text;
+    _tempBio = bioController.text;
+    _tempWebsite = websiteController.text;
+
+    CustomSnackbar().snakBarMessage2(context, "Records updated!");
+  }
+
+  void _restoreOriginalData() {
+    setState(() {
+      firstNameController.text = _tempFirstName;
+      lastNameController.text = _tempLastName;
+      companyNameController.text = _tempCompanyName;
+      designationController.text = _tempDesignation;
+      bioController.text = _tempBio;
+      websiteController.text = _tempWebsite;
+    });
   }
 
   @override
@@ -202,6 +222,7 @@ class _EditProfileState extends State<EditProfile> {
                     AbsherAppBar3(
                       title: 'Edit Profile',
                       onLeftButtonTap: () {
+                        _restoreOriginalData();
                         Navigator.pop(context);
                       },
                       rightButton: Align(

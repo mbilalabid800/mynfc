@@ -3,11 +3,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/social_app_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
+import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
-
 import 'package:nfc_app/shared/utils/ui_mode_helper.dart';
 import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
@@ -31,6 +32,8 @@ class _ProfilePreviewState extends State<ProfilePreview> {
     userProvider.loadUserData();
   }
 
+  final FirestoreService _firestoreService =
+      FirestoreService(); // Create instance
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -462,6 +465,45 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                                           0.025),
                             ],
                           ),
+                        ),
+                        SizedBox(
+                            height:
+                                DeviceDimensions.screenHeight(context) * 0.030),
+                        GestureDetector(
+                          onTap: () {
+                            _firestoreService.pickAndUploadFile(context);
+                          },
+                          child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              width:
+                                  DeviceDimensions.screenWidth(context) * 0.9,
+                              height:
+                                  DeviceDimensions.screenHeight(context) * 0.1,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Lottie.asset(
+                                    'assets/animations/upload_file.json',
+                                    // height:
+                                    //     DeviceDimensions.screenHeight(context) *
+                                    //         0.08,
+
+                                    //height: 120,
+                                  ),
+                                  const Text(
+                                    "Upload your file",
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.textColorBlue,
+                                    ),
+                                  ),
+                                ],
+                              )),
                         ),
                         SizedBox(
                             height:

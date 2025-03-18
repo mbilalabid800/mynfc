@@ -104,10 +104,10 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                               return _buildNoPlanContainer();
                             }
 
-                            String planNameDb = snapshot.data?['planName'] ??
-                                "No Plan Selected";
+                            String planNameDb =
+                                snapshot.data?['planName'] ?? "Free";
 
-                            if (planNameDb == "No Plan Selected") {
+                            if (planNameDb == "Free") {
                               return _buildNoPlanContainer();
                             } else {
                               return _buildSelectedPlanContainer(planNameDb);
@@ -1128,7 +1128,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                 Navigator.pushNamed(context, "/pricing-plan");
               },
               child: Text(
-                "No Plan Selected",
+                "Free",
                 style: TextStyle(
                   fontFamily: 'Barlow-Regular',
                   fontWeight: FontWeight.w600,
