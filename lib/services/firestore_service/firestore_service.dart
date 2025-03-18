@@ -41,30 +41,54 @@ class FirestoreService {
     return 0; // Default tap count if not found
   }
 
-  Future<void> incrementTapCount() async {
-    User? user = FirebaseAuth.instance.currentUser;
+  // Future<void> incrementTapCount() async {
+  //   User? user = FirebaseAuth.instance.currentUser;
 
-    if (user != null) {
-      String userId = user.uid;
-      DocumentReference userRef =
-          FirebaseFirestore.instance.collection('users').doc(userId);
+  //   if (user != null) {
+  //     String userId = user.uid;
+  //     DocumentReference userRef =
+  //         FirebaseFirestore.instance.collection('users').doc(userId);
 
-      await FirebaseFirestore.instance.runTransaction((transaction) async {
-        DocumentSnapshot snapshot = await transaction.get(userRef);
+  //     await FirebaseFirestore.instance.runTransaction((transaction) async {
+  //       DocumentSnapshot snapshot = await transaction.get(userRef);
 
-        if (!snapshot.exists) {
-          // If the document doesn't exist, create it with an initial tapCount of 1
-          transaction.set(userRef, {'tapCount': 1});
-        } else {
-          // If it exists, increment the tapCount
-          int newTapCount =
-              (snapshot.data() as Map<String, dynamic>)['tapCount'] + 1;
-          transaction.update(userRef, {'tapCount': newTapCount});
-        }
-      });
-    } else {
-      debugPrint("User not authenticated");
-    }
+  //       if (!snapshot.exists) {
+  //         // If the document doesn't exist, create it with an initial tapCount of 1
+  //         transaction.set(userRef, {'tapCount': 1});
+  //       } else {
+  //         // If it exists, increment the tapCount
+  //         int newTapCount =
+  //             (snapshot.data() as Map<String, dynamic>)['tapCount'] + 1;
+  //         transaction.update(userRef, {'tapCount': newTapCount});
+  //       }
+  //     });
+  //   } else {
+  //     debugPrint("User not authenticated");
+  //   }
+  // }
+
+  static Future<void> incrementTapCount(String userId, String appName) async {
+    final docRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('chartsData')
+        .doc('socialAppTaps');
+
+    await FirebaseFirestore.instance.runTransaction((transaction) async {
+      final doc = await transaction.get(docRef);
+      if (doc.exists) {
+        transaction.update(docRef, {
+          appName: FieldValue.increment(1),
+          'timestamps':
+              FieldValue.arrayUnion([DateTime.now().toIso8601String()])
+        });
+      } else {
+        transaction.set(docRef, {
+          appName: 1,
+          'timestamps': [DateTime.now().toIso8601String()]
+        });
+      }
+    });
   }
 
   Future<void> subscribeUser(String email) async {
@@ -107,17 +131,45 @@ class FirestoreService {
           .collection('chartsData')
           .doc('socialAppTaps');
 
-      // Increment the count and add timestamp
-      await socialAppRef.set({
-        appName: FieldValue.increment(1),
-        'timestamps': FieldValue.arrayUnion([DateTime.now().toIso8601String()]),
-      }, SetOptions(merge: true));
+// Use Firestore transactions to ensure atomic updates
+      await firestore.runTransaction((transaction) async {
+        final snapshot = await transaction.get(socialAppRef);
+
+        if (!snapshot.exists) {
+          // If document doesn't exist, create it with the appName count
+          transaction.set(socialAppRef, {
+            appName: 1,
+            'timestamps': [DateTime.now().toIso8601String()],
+          });
+        } else {
+          final data = snapshot.data() as Map<String, dynamic>? ?? {};
+          final int currentCount = (data[appName] ?? 0) as int;
+
+          // Update the tap count and add timestamp
+          transaction.update(socialAppRef, {
+            appName: currentCount + 1,
+            'timestamps':
+                FieldValue.arrayUnion([DateTime.now().toIso8601String()]),
+          });
+        }
+      });
 
       debugPrint('$appName tap logged successfully!');
     } catch (e) {
       debugPrint('Error updating Firestore: $e');
     }
   }
+  // Increment the count and add timestamp
+  //     await socialAppRef.set({
+  //       appName: FieldValue.increment(1),
+  //       'timestamps': FieldValue.arrayUnion([DateTime.now().toIso8601String()]),
+  //     }, SetOptions(merge: true));
+
+  //     debugPrint('$appName tap logged successfully!');
+  //   } catch (e) {
+  //     debugPrint('Error updating Firestore: $e');
+  //   }
+  // }
 
   Future<Map<String, int>> fetchSocialAppTaps(String uid) async {
     final firestore = FirebaseFirestore.instance;

@@ -427,6 +427,20 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           .doc("profileViews")
           .set({'totalViews': totalViews});
 
+      // You can initialize with an empty list for timestamps and counts for specific social apps (if desired)
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection("chartsData")
+          .doc("socialAppTaps")
+          .set({
+        // Initialize an empty list for timestamps
+        'timestamps': [],
+        // Optionally, initialize counts for specific social apps with zero
+
+        // Add any other social app keys as needed
+      });
+
       // Third action: create chats collection in users > uid > chats
       DocumentReference chatRoomRef = await FirebaseFirestore.instance
           .collection('users')

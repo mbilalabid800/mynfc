@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +10,7 @@ import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/responsive/device_dimensions.dart';
 import 'package:nfc_app/services/contact_service.dart';
+import 'package:nfc_app/services/firestore_service/firestore_service.dart';
 import 'package:nfc_app/shared/common_widgets/custom_app_bar_widget.dart';
 import 'package:nfc_app/shared/utils/url_launcher_helper.dart';
 import 'package:nfc_app/shared/common_widgets/custom_loader_widget.dart';
@@ -98,22 +100,6 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Center(
-                              //   child: Padding(
-                              //     padding: const EdgeInsets.symmetric(
-                              //         vertical: 12.0),
-                              //     child: Text(
-                              //       "Profile",
-                              //       style: TextStyle(
-                              //           fontWeight: FontWeight.w600,
-                              //           fontSize:
-                              //               DeviceDimensions.responsiveSize(
-                              //                       context) *
-                              //                   0.041,
-                              //           fontFamily: 'Barlow-Regular'),
-                              //     ),
-                              //   ),
-                              // ),
                               SizedBox(
                                   height:
                                       DeviceDimensions.screenWidth(context) *
@@ -588,6 +574,11 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                                       0.050),
                                               GestureDetector(
                                                 onTap: () {
+                                                  FirestoreService
+                                                      .updateSocialAppTap(
+                                                          appName: platform
+                                                              .name, // Use the actual app name (e.g., "Instagram")
+                                                          uid: widget.userId);
                                                   UrlLauncherHelper
                                                       .launchSocialApps(
                                                           context,
@@ -596,6 +587,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                                                   .userName);
                                                 },
                                                 child: Container(
+                                                  //color: Colors.red,
                                                   width: 54,
                                                   height: 54,
                                                   decoration: BoxDecoration(
@@ -620,6 +612,11 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                                       0.020),
                                               GestureDetector(
                                                 onTap: () {
+                                                  FirestoreService
+                                                      .updateSocialAppTap(
+                                                          appName: platform
+                                                              .name, // Use the actual app name (e.g., "Instagram")
+                                                          uid: widget.userId);
                                                   UrlLauncherHelper
                                                       .launchSocialApps(
                                                           context,
