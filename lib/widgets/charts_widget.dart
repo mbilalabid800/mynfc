@@ -45,9 +45,6 @@ class ViewsChart extends StatelessWidget {
             (groupedData[normalizeDate] ?? 0) + (viewCount as int);
       }
 
-      final List<MapEntry<DateTime, int>> sortedEntries =
-          groupedData.entries.toList()..sort((a, b) => a.key.compareTo(b.key));
-
       // Convert grouped data to BarChartGroupData
       int index = 0;
       return groupedData.entries.map((entry) {

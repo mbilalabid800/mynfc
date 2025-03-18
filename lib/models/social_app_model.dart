@@ -54,7 +54,7 @@ class SocialAppModel {
         return 'Enter your number with country code e.g +92';
 
       default:
-        return 'Please enter your $name username.';
+        return 'Please enter your $name username or full Link';
     }
   }
 

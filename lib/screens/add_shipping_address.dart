@@ -59,6 +59,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
       _locationNameController.addListener(_validateForm);
       _phoneController.addListener(_validateForm);
       _countryController.addListener(_validateForm);
+      _streetAddressController.addListener(_validateForm);
       _stateController.addListener(_validateForm);
       _zipCodeController.addListener(_validateForm);
     });
@@ -70,6 +71,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
         _locationNameController.text.isNotEmpty &&
         _phoneController.text.isNotEmpty &&
         _countryController.text.isNotEmpty &&
+        _streetAddressController.text.isNotEmpty &&
         _stateController.text.isNotEmpty &&
         _zipCodeController.text.isNotEmpty;
   }
@@ -172,7 +174,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
       final shippingAddressProvider =
           Provider.of<ShippingAddressProvider>(context, listen: false);
       await shippingAddressProvider.saveShippingAddress(shippingAddress);
-      CustomSnackbar().snakBarMessage(context, 'Address updated successfully!');
+      CustomSnackbar().snakBarMessage(context, 'Address saved successfully!');
       Navigator.pop(context);
     } catch (e) {
       CustomSnackbar().snakBarError(context, 'Error saving address: $e');
@@ -470,7 +472,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
       case FieldType.country:
         return ValidationService.validateCountryName(value, "Country");
       case FieldType.street:
-        return ValidationService.validateCountryName(value, "Street address");
+        return ValidationService.validateStreetAddress(value, "Street address");
       case FieldType.city:
         return ValidationService.validateCity(value, "City");
       case FieldType.state:

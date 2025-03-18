@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
-import '../models/price_feature_model.dart';
 
 class IndividualPricingProvider extends ChangeNotifier {
   bool isFetchingPlans = false;

@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -564,6 +563,12 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                                           .length -
                                                       1 -
                                                       index];
+                                          String profileLink = platform!
+                                                  .userName
+                                                  .contains('http')
+                                              ? platform.userName
+                                              : platform.profileLink +
+                                                  platform.userName;
 
                                           return Row(
                                             children: [
@@ -581,10 +586,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                                           uid: widget.userId);
                                                   UrlLauncherHelper
                                                       .launchSocialApps(
-                                                          context,
-                                                          platform.profileLink +
-                                                              platform
-                                                                  .userName);
+                                                          context, profileLink);
                                                 },
                                                 child: Container(
                                                   //color: Colors.red,
@@ -598,7 +600,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                                     image: DecorationImage(
                                                       image:
                                                           CachedNetworkImageProvider(
-                                                        platform!.icon,
+                                                        platform.icon,
                                                       ),
                                                       fit: BoxFit.cover,
                                                     ),
@@ -619,10 +621,7 @@ class _ConnectionProfilePreviewState extends State<ConnectionProfilePreview> {
                                                           uid: widget.userId);
                                                   UrlLauncherHelper
                                                       .launchSocialApps(
-                                                          context,
-                                                          platform.profileLink +
-                                                              platform
-                                                                  .userName);
+                                                          context, profileLink);
                                                 },
                                                 child: Text(
                                                   platform.name,

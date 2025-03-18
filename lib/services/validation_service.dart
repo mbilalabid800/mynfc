@@ -56,8 +56,10 @@ class ValidationService {
   }
 
   static String? validateStreetAddress(String address, String fieldName) {
-    if (address.trim().isEmpty) {
-      return '$fieldName cannot be empty';
+    if (address.startsWith(' ')) {
+      return 'Street address cannot start with a space';
+    } else if (address.isEmpty) {
+      return 'Street address cannot be empty';
     }
     return null;
   }
