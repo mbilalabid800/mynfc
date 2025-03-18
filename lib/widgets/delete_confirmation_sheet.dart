@@ -59,7 +59,7 @@ class _DeleteConfirmationSheetState extends State<DeleteConfirmationSheet> {
           await FirebaseAuth.instance.signOut();
           if (mounted) {
             CustomSnackbar().snakBarMessage(
-                context, "Success, Account deleted. Best of Luck!");
+                context, "Your account has been successfully deleted");
             ClearAppData.clearAppData(context);
             Navigator.pushNamedAndRemoveUntil(
                 context, '/login-screen', (Route<dynamic> route) => false);

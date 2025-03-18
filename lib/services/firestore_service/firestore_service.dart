@@ -142,7 +142,7 @@ class FirestoreService {
             'timestamps': [DateTime.now().toIso8601String()],
           });
         } else {
-          final data = snapshot.data() as Map<String, dynamic>? ?? {};
+          final data = snapshot.data() ?? {};
           final int currentCount = (data[appName] ?? 0) as int;
 
           // Update the tap count and add timestamp
