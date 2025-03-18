@@ -212,9 +212,7 @@ class FirestoreService {
             .doc(user.uid)
             .get();
 
-        return userDoc.exists
-            ? userDoc['planName'] ?? "No Plan Selected"
-            : null;
+        return userDoc.exists ? userDoc['planName'] ?? "Free" : null;
       } catch (e) {
         debugPrint("Error fetching plan: $e");
         return null;
