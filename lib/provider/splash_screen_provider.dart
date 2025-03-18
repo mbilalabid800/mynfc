@@ -27,12 +27,19 @@ class SplashScreenProvider with ChangeNotifier {
       }
 
       // Animate to the next image
-      pageController.animateToPage(
-        nextPage,
-        duration: const Duration(milliseconds: 600),
-        curve: Curves.easeInOut,
-      );
-
+      // pageController.animateToPage(
+      //   nextPage,
+      //   duration: const Duration(milliseconds: 600),
+      //   curve: Curves.easeInOut,
+      // );
+// Check if the controller has clients before animating
+      if (pageController.hasClients) {
+        pageController.animateToPage(
+          nextPage,
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOut,
+        );
+      }
       //Update the current page index
       setPage(nextPage);
     });
