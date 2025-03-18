@@ -386,6 +386,11 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                                             .filteredSocialApps.length -
                                         1 -
                                         index];
+                                    String profileLink =
+                                        platform.userName.contains('http')
+                                            ? platform.userName
+                                            : platform.profileLink +
+                                                platform.userName;
 
                                     return Row(
                                       children: [
@@ -396,9 +401,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                                         GestureDetector(
                                           onTap: () {
                                             UrlLauncherHelper.launchSocialApps(
-                                                context,
-                                                platform.profileLink +
-                                                    platform.userName);
+                                                context, profileLink);
                                           },
                                           child: Container(
                                             width: 50,
@@ -423,9 +426,7 @@ class _ProfilePreviewState extends State<ProfilePreview> {
                                         GestureDetector(
                                           onTap: () {
                                             UrlLauncherHelper.launchSocialApps(
-                                                context,
-                                                platform.profileLink +
-                                                    platform.userName);
+                                                context, profileLink);
                                           },
                                           child: Text(
                                             platform.name,

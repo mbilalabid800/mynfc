@@ -85,6 +85,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
       _contactError == null;
 
   bool get isCompanyInfoFormValid =>
+      _profileType.isNotEmpty &&
       _companyName.isNotEmpty &&
       _designation.isNotEmpty &&
       _websiteLink.isNotEmpty &&
@@ -399,7 +400,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'isBlocked': _isBlocked,
           // 'isEmailVerified': _isEmailVerified,
           'isCardOrdered': _isCardOrdered,
-          'planName': 'No Plan Selected',
+          'planName': 'Free',
         });
 
         // Second action: Save user's email in the main 'users' collection

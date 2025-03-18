@@ -36,6 +36,8 @@ class _UserScreenState extends State<UserScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Icon(Icons.arrow_back),
+              // Spacer(),
               ProgressRectangle(index: 1),
               SizedBox(width: DeviceDimensions.screenWidth(context) * 0.015),
               ProgressRectangle(index: 2),

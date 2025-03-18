@@ -174,7 +174,7 @@ class _AddShippingAddressState extends State<AddShippingAddress> {
       final shippingAddressProvider =
           Provider.of<ShippingAddressProvider>(context, listen: false);
       await shippingAddressProvider.saveShippingAddress(shippingAddress);
-      CustomSnackbar().snakBarMessage(context, 'Address updated successfully!');
+      CustomSnackbar().snakBarMessage(context, 'Address saved successfully!');
       Navigator.pop(context);
     } catch (e) {
       CustomSnackbar().snakBarError(context, 'Error saving address: $e');
