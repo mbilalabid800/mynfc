@@ -39,6 +39,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   bool _isBlocked = false;
   final _subscriptionPlan = '';
   bool _isCardOrdered = false;
+  bool _isFileUploaded = false;
   // String? _planName;
 
   // Getters
@@ -61,6 +62,7 @@ class UserInfoFormStateProvider extends ChangeNotifier {
   bool get isPrivate => _isPrivate;
   bool get isBlocked => _isBlocked;
   bool get isCardOrdered => _isCardOrdered;
+  bool get isFileUploaded => _isFileUploaded;
   String get currentEditingField => _currentEditingField;
   String? get firstNameError => _firstNameError;
   String? get lastNameError => _lastNameError;
@@ -371,6 +373,45 @@ class UserInfoFormStateProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> fetchFileUploadStatus() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      final doc =
+          await FirebaseFirestore.instance.collection("users").doc(uid).get();
+
+      if (doc.exists) {
+        final data = doc.data();
+        _isFileUploaded = data != null && data.containsKey('isFileUploaded')
+            ? data['isFileUploaded']
+            : false;
+        notifyListeners();
+      }
+    }
+  }
+
+  Future<void> updateFileUploadStatus(bool status) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid != null) {
+      await FirebaseFirestore.instance.collection("users").doc(uid).update({
+        'isFileUploaded': status,
+      });
+
+      _isFileUploaded = status;
+      notifyListeners();
+    }
+  }
+  // Future<void> updateIsFileUploaded(bool isFileUploaded) async {
+  //   notifyListeners();
+  //   final uid = FirebaseAuth.instance.currentUser?.uid;
+  //   if (uid != null) {
+  //     await FirebaseFirestore.instance.collection("users").doc(uid).update({
+  //       'isCardOrdered': isCardOrdered ? true : false,
+  //     });
+  //   }
+  //   _isCardOrdered = isCardOrdered;
+  //   notifyListeners();
+  // }
+
   Future<void> saveUserData() async {
     final user = FirebaseAuth.instance.currentUser;
     SharedPreferencesServices prefsService = SharedPreferencesServices();
@@ -394,6 +435,8 @@ class UserInfoFormStateProvider extends ChangeNotifier {
           'image_url': _imageUrl,
           'profile_type': _profileType,
           'bio': _bio,
+          'isFileUploaded': 'false',
+          'fileUrl': '',
           'isPrivate': _isPrivate,
           'timeStamp': Timestamp.now(),
           'connectionTypeAll': _connectionTypeAll,

@@ -224,26 +224,26 @@ class FirestoreService {
   //     await uploadFileToFirebase(file);
   //   }
   // }
-  Future<void> pickAndUploadFile(BuildContext context) async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom, // Restrict file type
-      allowedExtensions: ['pdf'], // Only allow PDFs
-    );
+  // Future<void> pickAndUploadFile(BuildContext context) async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //     type: FileType.custom, // Restrict file type
+  //     allowedExtensions: ['pdf'], // Only allow PDFs
+  //   );
 
-    if (result != null) {
-      File file = File(result.files.single.path!);
+  //   if (result != null) {
+  //     File file = File(result.files.single.path!);
 
-      // Check if the file is really a PDF (Extra safety check)
-      if (!file.path.toLowerCase().endsWith('.pdf')) {
-        print("Invalid file format! Only PDFs are allowed.");
-        return;
-      }
+  //     // Check if the file is really a PDF (Extra safety check)
+  //     if (!file.path.toLowerCase().endsWith('.pdf')) {
+  //       print("Invalid file format! Only PDFs are allowed.");
+  //       return;
+  //     }
 
-      await uploadFileToFirebase(file, context);
-    } else {
-      print("File selection canceled.");
-    }
-  }
+  //     await uploadFileToFirebase(file, context);
+  //   } else {
+  //     print("File selection canceled.");
+  //   }
+  // }
 
   // Future<void> uploadFileToFirebase(File file) async {
   //   try {
@@ -260,37 +260,37 @@ class FirestoreService {
   //     print("Error uploading file: $e");
   //   }
   // }
-  Future<void> uploadFileToFirebase(File file, BuildContext context) async {
-    try {
-      User? user = _auth.currentUser;
-      if (user == null) {
-        print("No authenticated user found.");
-        return;
-      }
+  // Future<void> uploadFileToFirebase(File file, BuildContext context) async {
+  //   try {
+  //     User? user = _auth.currentUser;
+  //     if (user == null) {
+  //       print("No authenticated user found.");
+  //       return;
+  //     }
 
-      String userId = user.uid; // Get current user ID
-      String fileName = basename(file.path);
+  //     String userId = user.uid; // Get current user ID
+  //     String fileName = basename(file.path);
 
-      // Store file under user's folder in Firebase Storage
-      Reference storageRef = FirebaseStorage.instance
-          .ref()
-          .child('users/$userId/documents/$fileName');
+  //     // Store file under user's folder in Firebase Storage
+  //     Reference storageRef = FirebaseStorage.instance
+  //         .ref()
+  //         .child('users/$userId/documents/$fileName');
 
-      UploadTask uploadTask = storageRef.putFile(file);
-      TaskSnapshot taskSnapshot = await uploadTask;
+  //     UploadTask uploadTask = storageRef.putFile(file);
+  //     TaskSnapshot taskSnapshot = await uploadTask;
 
-      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+  //     String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
-      // Save file details to Firestore under user's document
-      await _db.collection('users').doc(userId).collection('files').add({
-        'fileName': fileName,
-        'downloadUrl': downloadUrl,
-        'uploadedAt': Timestamp.now(),
-      });
-      CustomSnackbar().snakBarMessage(context, 'File uploaded successfully!');
-      print("File uploaded successfully! Download URL: $downloadUrl");
-    } catch (e) {
-      print("Error uploading file: $e");
-    }
-  }
+  //     // Save file details to Firestore under user's document
+  //     await _db.collection('users').doc(userId).collection('files').add({
+  //       'fileName': fileName,
+  //       'downloadUrl': downloadUrl,
+  //       'uploadedAt': Timestamp.now(),
+  //     });
+  //     CustomSnackbar().snakBarMessage(context, 'File uploaded successfully!');
+  //     print("File uploaded successfully! Download URL: $downloadUrl");
+  //   } catch (e) {
+  //     print("Error uploading file: $e");
+  //   }
+  // }
 }
