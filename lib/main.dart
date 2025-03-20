@@ -15,6 +15,7 @@ import 'package:nfc_app/provider/chat_provider.dart';
 import 'package:nfc_app/provider/connection_details_provider.dart';
 import 'package:nfc_app/provider/connection_provider.dart';
 import 'package:nfc_app/provider/employee_provider.dart';
+import 'package:nfc_app/provider/file_upload_provider.dart';
 import 'package:nfc_app/provider/form_validation_provider.dart';
 import 'package:nfc_app/provider/individual_pricing_plan_provider.dart';
 import 'package:nfc_app/provider/order_provider.dart';
@@ -138,7 +139,8 @@ void main() async {
       ChangeNotifierProvider(create: (_) => AppDataProvider()),
       ChangeNotifierProvider(create: (_) => ChatProvider()),
       ChangeNotifierProvider(create: (_) => TeamsPricingProvider()),
-      ChangeNotifierProvider(create: (_) => IndividualPricingProvider())
+      ChangeNotifierProvider(create: (_) => IndividualPricingProvider()),
+      ChangeNotifierProvider(create: (_) => FileUploadProvider())
     ],
     child: InternetStatusHandler(
       child: const MyApp(),

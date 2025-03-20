@@ -35,12 +35,19 @@ class _EditProfileState extends State<EditProfile> {
   bool isButtonEnabled = false;
   // final FocusNode _focusNode = FocusNode();
 
-  late String _tempFirstName;
-  late String _tempLastName;
-  late String _tempCompanyName;
-  late String _tempDesignation;
-  late String _tempBio;
-  late String _tempWebsite;
+  late String _initialFirstName;
+  late String _initialLastName;
+  late String _initialCompanyName;
+  late String _initialDesignation;
+  late String _initialBio;
+  late String _initialWebsite;
+
+  // late String _tempFirstName;
+  // late String _tempLastName;
+  // late String _tempCompanyName;
+  // late String _tempDesignation;
+  // late String _tempBio;
+  // late String _tempWebsite;
 
   @override
   void initState() {
@@ -51,19 +58,19 @@ class _EditProfileState extends State<EditProfile> {
       userProvider.loadUserData();
 
       // Store initial values separately
-      _tempFirstName = userProvider.firstName;
-      _tempLastName = userProvider.lastName;
-      _tempCompanyName = userProvider.companyName;
-      _tempDesignation = userProvider.designation;
-      _tempBio = userProvider.bio;
-      _tempWebsite = userProvider.websiteLink;
+      _initialFirstName = userProvider.firstName;
+      _initialLastName = userProvider.lastName;
+      _initialCompanyName = userProvider.companyName;
+      _initialDesignation = userProvider.designation;
+      _initialBio = userProvider.bio;
+      _initialWebsite = userProvider.websiteLink;
 
-      firstNameController.text = _tempFirstName;
-      lastNameController.text = _tempLastName;
-      companyNameController.text = _tempCompanyName;
-      designationController.text = _tempDesignation;
-      bioController.text = _tempBio;
-      websiteController.text = _tempWebsite;
+      firstNameController.text = _initialFirstName;
+      lastNameController.text = _initialLastName;
+      companyNameController.text = _initialCompanyName;
+      designationController.text = _initialDesignation;
+      bioController.text = _initialBio;
+      websiteController.text = _initialWebsite;
 
       // Add listeners
       firstNameController.addListener(_checkChanges);
@@ -77,12 +84,12 @@ class _EditProfileState extends State<EditProfile> {
 
   void _checkChanges() {
     setState(() {
-      isButtonEnabled = firstNameController.text != _tempFirstName ||
-          lastNameController.text != _tempLastName ||
-          companyNameController.text != _tempCompanyName ||
-          designationController.text != _tempDesignation ||
-          bioController.text != _tempBio ||
-          websiteController.text != _tempWebsite;
+      isButtonEnabled = firstNameController.text != _initialFirstName ||
+          lastNameController.text != _initialLastName ||
+          companyNameController.text != _initialCompanyName ||
+          designationController.text != _initialDesignation ||
+          bioController.text != _initialBio ||
+          websiteController.text != _initialWebsite;
     });
   }
 
@@ -168,8 +175,129 @@ class _EditProfileState extends State<EditProfile> {
     userProvider.updateWebsiteLink(websiteController.text);
 
     await userProvider.updateUserData();
-    userProvider.clearEditingField();
+    // userProvider.clearEditingField();
     CustomSnackbar().snakBarMessage2(context, "Records updated!");
+    // Update initial values to reflect the new state
+    _initialFirstName = firstNameController.text;
+    _initialLastName = lastNameController.text;
+    _initialCompanyName = companyNameController.text;
+    _initialDesignation = designationController.text;
+    _initialBio = bioController.text;
+    _initialWebsite = websiteController.text;
+
+    setState(() {
+      isButtonEnabled = false;
+    });
+  }
+
+  void _revertChanges() {
+    final userProvider =
+        Provider.of<UserInfoFormStateProvider>(context, listen: false);
+
+    // Revert provider state to initial values
+    userProvider.updateFirstName(_initialFirstName);
+    userProvider.updateLastName(_initialLastName);
+    userProvider.updateCompanyName(_initialCompanyName);
+    userProvider.updateDesignation(_initialDesignation);
+    userProvider.updateBio(_initialBio);
+    userProvider.updateWebsiteLink(_initialWebsite);
+
+    // Revert text controllers to initial values
+    firstNameController.text = _initialFirstName;
+    lastNameController.text = _initialLastName;
+    companyNameController.text = _initialCompanyName;
+    designationController.text = _initialDesignation;
+    bioController.text = _initialBio;
+    websiteController.text = _initialWebsite;
+
+    setState(() {
+      isButtonEnabled = false;
+    });
+  }
+
+  void showConfirmationPopup(
+      BuildContext context, String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            backgroundColor: Colors.white,
+            title: Text(
+              title,
+              textAlign: TextAlign.center,
+            ),
+            content: Text(
+              message,
+              textAlign: TextAlign.center,
+            ),
+            actions: [
+              Column(children: [
+                GestureDetector(
+                  onTap: () {
+                    _revertChanges();
+                    Navigator.of(context).pop(); //
+                  },
+                  child: Container(
+                    width: DeviceDimensions.screenWidth(context) * 0.8,
+                    height: DeviceDimensions.screenHeight(context) * 0.055,
+                    decoration: BoxDecoration(
+                        color: AppColors.appBlueColor,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Center(
+                      child: Text("Discard",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize:
+                                  DeviceDimensions.responsiveSize(context) *
+                                      0.04)),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: DeviceDimensions.screenHeight(context) * 0.02,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                  child: Container(
+                    width: DeviceDimensions.screenWidth(context) * 0.8,
+                    height: DeviceDimensions.screenHeight(context) * 0.055,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all()),
+                    child: Center(
+                      child: Text("Keep editing",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: AppColors.appBlueColor,
+                              fontSize:
+                                  DeviceDimensions.responsiveSize(context) *
+                                      0.04)),
+                    ),
+                  ),
+                )
+              ])
+            ]
+            // actions: [
+            //   TextButton(
+            //     onPressed: () {
+            //       _revertChanges(); // Close the dialog
+            //     },
+            //     child: Text("Discard"),
+            //   ),
+            //   TextButton(
+            //     onPressed: () {
+            //       Navigator.of(context).pop(); // Close the dialog
+            //     },
+            //     child: Text("Keep Editing"),
+            //   ),
+            // ],
+            );
+      },
+    );
   }
 
   @override
@@ -202,7 +330,16 @@ class _EditProfileState extends State<EditProfile> {
                     AbsherAppBar3(
                       title: 'Edit Profile',
                       onLeftButtonTap: () {
-                        Navigator.pop(context);
+                        if (isButtonEnabled) {
+                          //_revertChanges();
+                          showConfirmationPopup(
+                              context,
+                              "Discard unsaved changes",
+                              "You have unsaved changes, are you sure you want to discard them?");
+                          //Navigator.pop(context);
+                        } else {
+                          Navigator.pop(context);
+                        }
                       },
                       rightButton: Align(
                         alignment: Alignment.centerRight,

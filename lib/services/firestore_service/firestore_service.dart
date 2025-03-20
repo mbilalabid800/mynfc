@@ -1,11 +1,17 @@
 // ignore_for_file: avoid_print
 
+import 'dart:io';
+import 'package:nfc_app/shared/common_widgets/custom_snackbar_widget.dart';
+import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // // Future<Map<String, String>?> getUserData(String userId) async {
   //   try {
@@ -159,17 +165,6 @@ class FirestoreService {
       debugPrint('Error updating Firestore: $e');
     }
   }
-  // Increment the count and add timestamp
-  //     await socialAppRef.set({
-  //       appName: FieldValue.increment(1),
-  //       'timestamps': FieldValue.arrayUnion([DateTime.now().toIso8601String()]),
-  //     }, SetOptions(merge: true));
-
-  //     debugPrint('$appName tap logged successfully!');
-  //   } catch (e) {
-  //     debugPrint('Error updating Firestore: $e');
-  //   }
-  // }
 
   Future<Map<String, int>> fetchSocialAppTaps(String uid) async {
     final firestore = FirebaseFirestore.instance;
@@ -220,4 +215,82 @@ class FirestoreService {
     }
     return null;
   }
+
+  // Future<void> pickAndUploadFile() async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+  //   if (result != null) {
+  //     File file = File(result.files.single.path!);
+  //     await uploadFileToFirebase(file);
+  //   }
+  // }
+  // Future<void> pickAndUploadFile(BuildContext context) async {
+  //   FilePickerResult? result = await FilePicker.platform.pickFiles(
+  //     type: FileType.custom, // Restrict file type
+  //     allowedExtensions: ['pdf'], // Only allow PDFs
+  //   );
+
+  //   if (result != null) {
+  //     File file = File(result.files.single.path!);
+
+  //     // Check if the file is really a PDF (Extra safety check)
+  //     if (!file.path.toLowerCase().endsWith('.pdf')) {
+  //       print("Invalid file format! Only PDFs are allowed.");
+  //       return;
+  //     }
+
+  //     await uploadFileToFirebase(file, context);
+  //   } else {
+  //     print("File selection canceled.");
+  //   }
+  // }
+
+  // Future<void> uploadFileToFirebase(File file) async {
+  //   try {
+  //     String fileName = basename(file.path);
+  //     Reference storageRef =
+  //         FirebaseStorage.instance.ref().child('documents/$fileName');
+
+  //     UploadTask uploadTask = storageRef.putFile(file);
+  //     TaskSnapshot taskSnapshot = await uploadTask;
+
+  //     String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+  //     print("File uploaded! Download URL: $downloadUrl");
+  //   } catch (e) {
+  //     print("Error uploading file: $e");
+  //   }
+  // }
+  // Future<void> uploadFileToFirebase(File file, BuildContext context) async {
+  //   try {
+  //     User? user = _auth.currentUser;
+  //     if (user == null) {
+  //       print("No authenticated user found.");
+  //       return;
+  //     }
+
+  //     String userId = user.uid; // Get current user ID
+  //     String fileName = basename(file.path);
+
+  //     // Store file under user's folder in Firebase Storage
+  //     Reference storageRef = FirebaseStorage.instance
+  //         .ref()
+  //         .child('users/$userId/documents/$fileName');
+
+  //     UploadTask uploadTask = storageRef.putFile(file);
+  //     TaskSnapshot taskSnapshot = await uploadTask;
+
+  //     String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+  //     // Save file details to Firestore under user's document
+  //     await _db.collection('users').doc(userId).collection('files').add({
+  //       'fileName': fileName,
+  //       'downloadUrl': downloadUrl,
+  //       'uploadedAt': Timestamp.now(),
+  //     });
+  //     CustomSnackbar().snakBarMessage(context, 'File uploaded successfully!');
+  //     print("File uploaded successfully! Download URL: $downloadUrl");
+  //   } catch (e) {
+  //     print("Error uploading file: $e");
+  //   }
+  // }
 }
