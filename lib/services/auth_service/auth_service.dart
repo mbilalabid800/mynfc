@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, use_build_context_synchronously, unused_element
+// ignore_for_file: avoid_print, use_build_context_synchronously, unused_element, invalid_return_type_for_catch_error
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -61,7 +61,7 @@ class AuthService {
     }
   }
 
-  Future<Map<String, dynamic>?> signInWithGoogle() async {
+  Future<Map<String, dynamic>?> signInWithGoogle(BuildContext context) async {
     try {
       final GoogleSignIn googleSignIn = GoogleSignIn();
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
@@ -69,6 +69,21 @@ class AuthService {
       if (googleUser == null) {
         return null; // User canceled the sign-in
       }
+
+// Check if email is registered with password sign-in
+      final email = googleUser.email;
+      final signInMethods =
+          await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+      print("hello is $signInMethods");
+      if (signInMethods.contains('password')) {
+        CustomSnackbar().snakBarError(
+          context,
+          'This email is already registered with an email & password. Please log in using your email and password instead.',
+        );
+        await googleSignIn.signOut();
+        return null;
+      }
+
       LoadingStateProvider().setLoading(true);
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;

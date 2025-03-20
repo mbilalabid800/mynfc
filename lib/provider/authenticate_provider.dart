@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nfc_app/constants/appColors.dart';
 import 'package:nfc_app/provider/user_info_form_state_provider.dart';
 import 'package:nfc_app/services/auth_service/auth_service.dart';
@@ -318,7 +319,7 @@ class AuthenticateProvider with ChangeNotifier {
   Future<void> signInWithGoogleAccount(BuildContext context) async {
     setIsLoading = true;
     try {
-      final result = await _authService.signInWithGoogle();
+      final result = await _authService.signInWithGoogle(context);
       if (result != null) {
         User? user = result['user'];
         bool isNew = result['isNew'];
@@ -328,6 +329,7 @@ class AuthenticateProvider with ChangeNotifier {
             context,
             'This email is already registered with an email/password account. Please use that method to log in.',
           );
+          await GoogleSignIn().signOut();
           return;
         }
 
